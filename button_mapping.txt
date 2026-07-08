@@ -1,0 +1,10 @@
+narrative: https://api.leadconnectorhq.com/widget/bookings/fundraising-narrative
+
+data room prep: https://api.leadconnectorhq.com/widget/bookings/dataroom-preparation
+
+Financial model prep: https://api.leadconnectorhq.com/widget/bookings/financial-model-preparation
+
+General consultation (home page and navbar on all pages): https://api.leadconnectorhq.com/widget/bookings/waya-consultation
+
+operations audit: https://api.leadconnectorhq.com/widget/bookings/ops-audit-intro-call
+

@@ -234,6 +234,18 @@ h2.section-title {
 .two-col .section-lead, .story-grid .section-lead { text-align: left; margin-left: 0; }
 .two-col .section-cta { text-align: left; }
 .bg-paper { background: var(--waya-paper); }
+.bg-mint { background: #D2EAE0; }
+.overview-card {
+  background: var(--waya-cream);
+  border-radius: 28px;
+  box-shadow: var(--shadow-1);
+  padding: 64px 56px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+@media (max-width: 640px) {
+  .overview-card { padding: 40px 24px; border-radius: 20px; }
+}
 
 /* ---------- Testimonial strip ---------- */
 .testimonial-strip {
@@ -293,6 +305,27 @@ h2.section-title {
   padding-top: 2px;
 }
 .steps strong { font-family: var(--font-display); font-weight: 600; color: var(--waya-charcoal); }
+
+/* ---------- Tick list (simple feature list, centered block) ---------- */
+.ongoing-subtitle {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 22px; letter-spacing: -0.015em; color: var(--waya-charcoal);
+  text-align: center; margin-top: 36px;
+}
+.tick-list {
+  list-style: none;
+  margin: 28px auto 0; max-width: 520px;
+}
+.tick-list li {
+  font-size: 16.5px; line-height: 1.6; color: var(--waya-ink);
+  padding: 13px 0 13px 28px; position: relative;
+  border-bottom: 1px solid var(--border-1);
+}
+.tick-list li:last-child { border-bottom: 0; }
+.tick-list li::before {
+  content: '▸'; position: absolute; left: 0; top: 13px;
+  color: var(--waya-rust); font-size: 14px;
+}
 
 /* ---------- Stage cards (service pages) ---------- */
 .stages { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }

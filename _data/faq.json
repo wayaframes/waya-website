@@ -140,12 +140,6 @@
   ],
   "operations-audit": [
     {
-      "q": "What is an Operations Audit?",
-      "a": [
-        "It is a one-hour deep dive session in which we discover the key constraint(s) holding back your business. At the end of the session, we send you an analysis and key action items to work on. We also provide 3 WayaFrames to help you start unblocking these constraints today."
-      ]
-    },
-    {
       "q": "What are WayaFrames?",
       "a": [
         "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Think of them as giving your leadership team access to a seasoned operator on demand. Each WayaFrame was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications."
@@ -158,19 +152,71 @@
       ]
     },
     {
+      "q": "How do WayaFrames differ from Claude's template Skills or just prompting an LLM?",
+      "a": [
+        "Prompting an LLM gives you a knowledgeable generalist — useful, but generic. Claude's built-in Skills are structured starting points, but they're designed for broad audiences and broad use cases.",
+        "WayaFrames are different in three ways.",
+        "They encode expert operator knowledge. Each WayaFrame was built by a founder or operations expert who has lived the problem — not just studied it. The methodology, sequencing, and decision logic reflect decades of hard-won experience in real companies, not textbook frameworks synthesized into generic AI answers. Moreover, you can connect with these experts directly for 1-1 consultation.",
+        "They are context-aware. WayaFrames connect to your company's actual documents, data, and business applications. Instead of giving you a generic answer, they give you your answer — grounded in your numbers, your team, your situation.",
+        "They work as a system. A standalone prompt solves one question in isolation. WayaFrames are designed to connect to each other, so outputs from one flow into the next. Over time, they function as a unified operating system for your business — not a collection of one-off answers.",
+        "The result is like sitting down with a seasoned operator who knows your business and knows exactly what to do next."
+      ]
+    },
+    {
       "q": "What is unique about the process?",
       "a": [
-        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute alongside you — and every audit ends with tools you can deploy the same day."
+        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute your transformation alongside you.",
+        "It starts with a 5-day intensive workshop — a high-intensity, high-alignment experience that creates strategic focus and execution clarity faster than you ever thought possible.",
+        "Then we embed with your team for 3-6 months, acting as fractional executives to bring the strategy to life through daily operating rhythms, SOPs, and culture work. During this time we connect you with experts from our Expert Network, who can help address specific business or industry needs.",
+        "Finally, we install our AI-enabled operating system — custom-built WayaFrames — to supercharge execution and decision-making at every level."
+      ]
+    },
+    {
+      "q": "Why is the integration period important?",
+      "a": [
+        "The integration period is where strategy becomes daily operations. We ensure that teams don't revert to old habits and plans turn to real actions that drive the strategic change you are looking for."
+      ]
+    },
+    {
+      "q": "What is an Operations Audit?",
+      "a": [
+        "It is a one-hour deep dive session in which we discover the key constraint(s) holding back your business. At the end of the session, we send you an analysis and key action items to work on. We also provide 3 WayaFrames to help you start unblocking these constraints today."
+      ]
+    },
+    {
+      "q": "What is a Fundraising Readiness Audit?",
+      "a": [
+        "It is a one-hour session in which we assess your fundraising readiness according to your current fundraising stage. We run a gap analysis across storytelling, financial documentation, data room structure, legal foundation, and cap table. At the end of the session, we send you a summary report and key action items to work on. We also provide 3 WayaFrames to help you close those gaps immediately and fundraise like a pro."
+      ]
+    },
+    {
+      "q": "What stage should I be at to book the Fundraising Readiness Audit?",
+      "a": [
+        "If you're planning to raise in the next 1–6 months — or if you just closed a round and want to maintain your data room so the next raise isn't another scramble — this audit is for you. We calibrate the checklist to your stage, from Seed through Series B+."
+      ]
+    },
+    {
+      "q": "What if I don't have a data room yet?",
+      "a": [
+        "That's exactly when you should get the Fundraising Readiness Audit. Starting to prepare your data room 3 months before a raise is dramatically better than scrambling from scratch when an investor sends a DD request list while you're still pitching."
+      ]
+    },
+    {
+      "q": "How is this different from the Operations Audit?",
+      "a": [
+        "The Operations Audit diagnoses the key constraint holding back your business operations. The Fundraising Readiness Audit targets what investors need to see — and what's missing, stale, or broken in your fundraising materials and corporate documentation. Most founders benefit from both."
       ]
     },
     {
       "q": "What stage companies can you help?",
       "a": [
-        "We work with companies from the early stage through growth. The Operations Audit can be tailored to companies of all stages."
+        "We work with companies from the early stage through growth.",
+        "Our Scale Up and Radical Change programs are better fit for companies who have product-market-fit and are at an important inflection point such as scaling or pivoting.",
+        "Our Operations and Fundraising Readiness Audits can be tailored to companies of all stages."
       ]
     },
     {
-      "q": "Do we have to be a US-based company to work with you?",
+      "q": "Do we have to be a US based company to work with you?",
       "a": [
         "No, our system works for companies in any region."
       ]
@@ -178,13 +224,13 @@
     {
       "q": "Does my company have to be a tech startup?",
       "a": [
-        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization or a physical-world business. We are particularly effective for organizations that have high level of complexity, like supply chain, healthcare and logistics."
       ]
     },
     {
       "q": "When should I schedule a call?",
       "a": [
-        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between."
+        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scaleup, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
       ]
     }
   ],
