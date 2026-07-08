@@ -1,0 +1,286 @@
+{
+  "home": [
+    {
+      "q": "What does Waya do for founders?",
+      "a": [
+        "Waya provides services, workshops, and AI-enabled products for mission-driven companies that are starting, growing, or pivoting. You stay focused on mission and product; we streamline operations, finance, people systems, and governance — from data room preparation and financial modeling to operations audits and the Scale Up Program."
+      ]
+    },
+    {
+      "q": "What is unique about the process?",
+      "a": [
+        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute alongside you.",
+        "It starts with an intensive workshop that creates strategic focus and execution clarity. Then we embed with your team for 3–6 months, acting as fractional executives to bring the strategy to life through daily operating rhythms, SOPs, and culture work — connecting you with experts from our network for specific business or industry needs. Finally, we install our AI-enabled operating system, custom-built WayaFrames, to supercharge execution and decision-making at every level."
+      ]
+    },
+    {
+      "q": "What are WayaFrames?",
+      "a": [
+        "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Each one was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications. They work together as an operating system — the more you use them, the better they get at helping your business run as a single, coherent system."
+      ]
+    },
+    {
+      "q": "What stage companies can you help?",
+      "a": [
+        "We work with companies from the early stage through growth. Our Scale Up Program is a better fit for companies that have product-market fit and are at an important inflection point such as scaling or pivoting. Our Data Room, Financial Model, and Fundraising Narrative sessions are tailored to companies of all stages, from Seed through Series B+."
+      ]
+    },
+    {
+      "q": "What should be in my data room?",
+      "a": [
+        "It depends on your stage. At Seed / pre-Series A, it's about the story and the problem you're solving — a compelling narrative with everything legally in place. At Series A, investors validate product-market fit: full financial history, unit economics, customer concentration, and corporate governance. At Series B, the question is how quickly you become the market leader: market dynamics, cohort economics, audited financials, compliance, and full IP and contract portfolios."
+      ]
+    },
+    {
+      "q": "What if I don't have a data room yet?",
+      "a": [
+        "That's exactly when you should book a Data Room Preparation session. Starting a few months before a raise is dramatically better than scrambling from scratch when an investor sends a DD request list while you're still pitching."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    },
+    {
+      "q": "When should I schedule a call?",
+      "a": [
+        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
+      ]
+    }
+  ],
+  "data-room-preparation": [
+    {
+      "q": "What is Data Room Preparation?",
+      "a": [
+        "It's a one-hour working session where we review your data room against what investors expect at your current stage — across storytelling, financial documentation, data room structure, legal foundation, and cap table. After the call, we fill in the gaps and deliver the final data room for your raise."
+      ]
+    },
+    {
+      "q": "What stage should I be at to book a Data Room Preparation session?",
+      "a": [
+        "If you're planning to raise in the next 1–6 months — or if you just closed a round and want to maintain your data room so the next raise isn't another scramble — this is for you. We calibrate to your stage, from Seed through Series B+."
+      ]
+    },
+    {
+      "q": "How is it different from Financial Model Preparation?",
+      "a": [
+        "Data Room Preparation gets your full set of investor materials organized and complete. Financial Model Preparation goes deep on the piece investors scrutinize most — your model. The model we build drops straight into your data room."
+      ]
+    },
+    {
+      "q": "What if I don't have a data room yet?",
+      "a": [
+        "That's exactly when you should book a session. Starting to prepare your data room a few months before a raise is dramatically better than scrambling from scratch when an investor sends a DD request list while you're still pitching."
+      ]
+    },
+    {
+      "q": "What stage companies can you help?",
+      "a": [
+        "We work with companies from the early stage through growth. Our Data Room, Financial Model, and Fundraising Narrative sessions are tailored to companies of all stages."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    }
+  ],
+  "financial-model-prep": [
+    {
+      "q": "What is Financial Model Preparation?",
+      "a": [
+        "We take whatever you currently have and build a curated financial model that matches your stage and company. Investor ready and tied to your operations."
+      ]
+    },
+    {
+      "q": "What stage should I be at to book a Financial Model Preparation session?",
+      "a": [
+        "If you're raising or plan to in the next 1–6 months and you're between Seed and early Series B, this is for you. We calibrate the model to your stage."
+      ]
+    },
+    {
+      "q": "What if I already have a model? (or none yet?)",
+      "a": [
+        "Either way works. Whether you've got a rough model, back-of-the-napkin math, or nothing yet, we start from where you are and build it into something investor-ready."
+      ]
+    },
+    {
+      "q": "How is this different from Data Room Preparation?",
+      "a": [
+        "Data Room Preparation gets your full set of investor materials organized and complete. Financial Model Preparation goes deep on the piece investors scrutinize most — your model. The model we build drops straight into your data room."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    }
+  ],
+  "operations-audit": [
+    {
+      "q": "What is an Operations Audit?",
+      "a": [
+        "It is a one-hour deep dive session in which we discover the key constraint(s) holding back your business. At the end of the session, we send you an analysis and key action items to work on. We also provide 3 WayaFrames to help you start unblocking these constraints today."
+      ]
+    },
+    {
+      "q": "What are WayaFrames?",
+      "a": [
+        "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Think of them as giving your leadership team access to a seasoned operator on demand. Each WayaFrame was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications."
+      ]
+    },
+    {
+      "q": "Do your WayaFrames work together?",
+      "a": [
+        "WayaFrames work together as an operating system — each one connects to the others, to your business context and to your business applications. The more you use them, the better they get in helping your business run as a single, coherent system."
+      ]
+    },
+    {
+      "q": "What is unique about the process?",
+      "a": [
+        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute alongside you — and every audit ends with tools you can deploy the same day."
+      ]
+    },
+    {
+      "q": "What stage companies can you help?",
+      "a": [
+        "We work with companies from the early stage through growth. The Operations Audit can be tailored to companies of all stages."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    },
+    {
+      "q": "When should I schedule a call?",
+      "a": [
+        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between."
+      ]
+    }
+  ],
+  "scale-up-program": [
+    {
+      "q": "What is unique about the process?",
+      "a": [
+        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute your transformation alongside you.",
+        "It starts with an intensive workshop — a high-intensity, high-alignment experience that creates strategic focus and execution clarity faster than you ever thought possible. Then we embed with your team for 3–6 months, acting as fractional executives to bring the strategy to life through daily operating rhythms, SOPs, and culture work. During this time we connect you with experts from our Expert Network. Finally, we install our AI-enabled operating system — custom-built WayaFrames — to supercharge execution and decision-making at every level."
+      ]
+    },
+    {
+      "q": "Why is the integration period important?",
+      "a": [
+        "The integration period is where strategy becomes daily operations. We ensure that teams don't revert to old habits and plans turn to real actions that drive the strategic change you are looking for."
+      ]
+    },
+    {
+      "q": "What are WayaFrames?",
+      "a": [
+        "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Think of them as giving your leadership team access to a seasoned operator on demand. Each WayaFrame was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications."
+      ]
+    },
+    {
+      "q": "Do your WayaFrames work together?",
+      "a": [
+        "WayaFrames work together as an operating system — each one connects to the others, to your business context and to your business applications. The more you use them, the better they get in helping your business run as a single, coherent system."
+      ]
+    },
+    {
+      "q": "What stage companies can you help?",
+      "a": [
+        "We work with companies from the early stage through growth. Our Scale Up Program is a better fit for companies that have product-market fit and are at an important inflection point such as scaling or pivoting."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    },
+    {
+      "q": "When should I schedule a call?",
+      "a": [
+        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
+      ]
+    }
+  ],
+  "fundraising-narrative": [
+    {
+      "q": "What is Fundraising Narrative?",
+      "a": [
+        "It's a working session where we build the story you raise on. We dig into your company and market, work through narrative angles with you, then tighten the one that lands — yours to use in your pitch deck and every investor conversation."
+      ]
+    },
+    {
+      "q": "What if I already have a pitch / deck?",
+      "a": [
+        "Perfect — that's the starting point. We pressure-test what you've got, find the angle that actually lands, and sharpen it. Whether your story is rough or already polished, we make it better."
+      ]
+    },
+    {
+      "q": "How is this different from Data Room Preparation?",
+      "a": [
+        "Data Room Preparation organizes your materials. Fundraising Narrative is the story that ties them together."
+      ]
+    },
+    {
+      "q": "What stage should I be at to book?",
+      "a": [
+        "If you're raising or plan to in the next 1–6 months, this is for you — from Seed through Series B+. Story matters at every stage."
+      ]
+    },
+    {
+      "q": "What if I don't have a data room yet?",
+      "a": [
+        "That's exactly when you should book a Data Room Preparation session. Starting to prepare your data room a few months before a raise is dramatically better than scrambling from scratch when an investor sends a DD request list while you're still pitching."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    }
+  ]
+}

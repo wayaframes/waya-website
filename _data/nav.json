@@ -1,0 +1,26 @@
+{
+  "logo": { "src": "/assets/logos/waya-logo-charcoal-transparent.png", "href": "/", "alt": "Waya" },
+  "links": [
+    { "label": "Operating System", "href": "/#services" },
+    { "label": "Expert Network", "href": "/about-us/#network" },
+    { "label": "About Us", "href": "/about-us/" },
+    { "label": "FAQ", "href": "/#faq" }
+  ],
+  "cta": {
+    "label": "Schedule a Call",
+    "href": "https://api.leadconnectorhq.com/widget/bookings/waya-consultation",
+    "utm": { "utm_source": "wayaframes", "utm_medium": "landing_page", "utm_campaign": "<page-slug>", "utm_content": "<button-location>" }
+  },
+  "footer_services": [
+    { "label": "Scale Up Program", "href": "/scale-up-program/" },
+    { "label": "Financial Model Preparation", "href": "/financial-model-prep/" },
+    { "label": "Data Room Preparation", "href": "/data-room-preparation/" },
+    { "label": "Fundraising Narrative", "href": "/fundraising-narrative/" },
+    { "label": "Operations Audit", "href": "/operations-audit/" }
+  ],
+  "social": [
+    { "platform": "linkedin", "href": "https://www.linkedin.com/in/naamamoran/" },
+    { "platform": "youtube", "href": "https://www.youtube.com/@Waya-Frames" },
+    { "platform": "substack", "href": "https://substack.com/@themessymiddlefiles" }
+  ]
+}

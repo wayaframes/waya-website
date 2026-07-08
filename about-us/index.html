@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>About Us – Waya</title>
+<meta name="description" content="We are Na'ama Moran and Vincent Matranga, founders of Cheetah — scaled to $150M, rebuilt after COVID. Meet the Waya expert network: curated operators in finance, HR, AI transformation, executive search, and customer experience.">
+<link rel="canonical" href="https://www.wayaframes.com/about-us/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="About Us – Waya">
+<meta property="og:description" content="We are founders. Just like you. Meet the Waya team and expert network.">
+<meta property="og:url" content="https://www.wayaframes.com/about-us/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css">
+
+<style>
+  /* ============ Page-specific styles (about us) ============ */
+  .hero .epigraph {
+    margin-top: 28px; font-family: var(--font-display);
+    font-size: 18px; line-height: 1.55;
+    color: rgba(250,247,241,0.88); font-style: italic;
+  }
+  .hero .epigraph cite { display: block; margin-top: 12px; font-style: normal; font-size: 14px; color: rgba(250,247,241,0.65); }
+  .hero.about { text-align: center; }
+  .hero.about .hero-content { max-width: 900px; margin: 0 auto; }
+
+  /* Story */
+  .story-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; }
+  .story-grid img { border-radius: 18px; box-shadow: var(--shadow-1); }
+  .story-copy p { font-size: 16.5px; line-height: 1.7; color: var(--waya-ink); }
+  .story-copy p + p { margin-top: 18px; }
+
+  /* Expert network */
+  .network { background: var(--waya-paper); }
+  .network-grid { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .network-how, .network-domains {
+    background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 18px;
+    padding: 34px 32px; box-shadow: var(--shadow-1);
+  }
+  .network-how h4, .network-domains h4 {
+    font-family: var(--font-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-stone);
+    margin-bottom: 18px;
+  }
+  .network-how ol { list-style: none; counter-reset: step; }
+  .network-how ol li {
+    counter-increment: step;
+    font-size: 15px; line-height: 1.6; color: var(--waya-ink);
+    padding: 12px 0 12px 44px; position: relative;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .network-how ol li:last-child { border-bottom: 0; }
+  .network-how ol li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute; left: 0; top: 14px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 14px; letter-spacing: 0.1em; color: var(--waya-rust);
+  }
+  .network-how strong { font-family: var(--font-display); font-weight: 600; color: var(--waya-charcoal); }
+  .domain-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--font-display); font-size: 12.5px; font-weight: 500;
+    color: var(--waya-ink); background: var(--waya-paper);
+    border: 1px solid var(--border-1); border-radius: 999px; padding: 6px 13px;
+  }
+  .network-note { margin-top: 22px; font-size: 14.5px; line-height: 1.6; color: var(--fg-2); }
+  .experts { margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .expert-card {
+    background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 18px;
+    padding: 34px 32px; box-shadow: var(--shadow-1);
+    display: grid; grid-template-columns: 120px 1fr; gap: 28px; align-items: start;
+  }
+  .expert-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 14px; background: var(--waya-tan); }
+  .expert-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.015em; color: var(--waya-charcoal); }
+  .expert-role { margin-top: 4px; font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--waya-rust); }
+  .expert-card ul { list-style: none; margin-top: 14px; }
+  .expert-card ul li { font-size: 14px; line-height: 1.5; color: var(--waya-ink); padding: 4px 0 4px 16px; position: relative; }
+  .expert-card ul li::before { content: '▸'; position: absolute; left: 0; top: 4px; color: var(--waya-sage); font-size: 11px; }
+  .expert-card .learn { display: inline-block; margin-top: 12px; font-size: 13.5px; }
+
+  /* Sacagawea */
+  .sacagawea .story-grid { grid-template-columns: 0.7fr 1.3fr; }
+
+  /* Mission + values */
+  .values { background: var(--waya-paper); }
+  .mission-block {
+    background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 18px;
+    padding: 44px 40px; box-shadow: var(--shadow-1); margin-top: 52px;
+    display: grid; grid-template-columns: 96px 1fr; gap: 32px; align-items: center;
+  }
+  .mission-block img { width: 96px; height: 96px; }
+  .mission-block h3 { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--waya-charcoal); margin-bottom: 10px; }
+  .mission-block p { font-size: 16.5px; line-height: 1.65; color: var(--waya-ink); }
+  .values-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .value-card { background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 18px; padding: 32px; box-shadow: var(--shadow-1); }
+  .value-card h4 { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--waya-charcoal); margin-bottom: 10px; }
+  .value-card p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
+
+  @media (max-width: 960px) {
+    .story-grid, .sacagawea .story-grid, .experts, .values-grid, .network-grid { grid-template-columns: 1fr; }
+    .story-grid { gap: 36px; }
+    .expert-card { grid-template-columns: 96px 1fr; gap: 20px; }
+    .expert-card img { width: 96px; height: 96px; }
+    .mission-block { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/fundraising-narrative/">Fundraising Narrative</a>
+          <a href="/data-room-preparation/">Data Room Preparation</a>
+          <a href="/financial-model-prep/">Financial Model Preparation</a>
+          <a href="/operations-audit/">Operations Audit</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=about-us&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =============== HERO =============== -->
+<section class="hero compact about">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>We Are Founders. Just Like You.</h1>
+      <p class="epigraph">
+        "Chaos is a ladder. Many who try to climb it fail and never get to try again. Only the ladder is real. The climb is all there is."
+        <cite>– Petyr "Littlefinger" Baelish</cite>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =============== OUR STORY =============== -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/875f04c14010e2c4dd156f6877e8b40906a63ad8-768x1024.jpg" alt="Na'ama Moran and Vincent Matranga">
+      <div class="story-copy">
+        <p class="section-eyebrow">Our Story</p>
+        <p>We are Na'ama Moran and Vincent Matranga, and we have worked together for almost a decade. We built a tech-enabled food distributor called Cheetah, founded in the Bay Area. Together with our co-founders and team, we led this high-growth startup to $150M in sales, across multiple states, with over 350 employees — and raised over $130M in venture funding. All the while we scaled the competencies, processes, and culture of our organization.</p>
+        <p>During the COVID pandemic our company lost more than 80% of its revenue. We had to downscale massively and reorganize in order to survive. The robust systems we built allowed us to both scale responsibly and mitigate the impact of this major crisis. We can confidently say that we understand what it's like to lead in times of chaos.</p>
+        <p>The frameworks, tools, and systems we developed empowered us to manage through this uncertainty. A testament to the internal structures we built are the individuals who entered our company at a manager level and went on to become directors and VPs at Fortune 500 companies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== EXPERT NETWORK =============== -->
+<section id="network" class="network">
+  <div class="container">
+    <p class="section-eyebrow">Expert Network</p>
+    <p class="section-lead">
+      We augment our core team with subject matter experts to provide additional lift during complex integrations.
+    </p>
+
+    <div class="experts">
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/Naama-headshot.jpeg" alt="Na'ama Moran">
+        <div>
+          <h3>Na'ama Moran</h3>
+          <p class="expert-role">Operator and Systems Builder</p>
+          <ul>
+            <li>Seasoned operator with 20+ years scaling tech companies</li>
+            <li>Co-founded Cheetah, grew to $150M revenue</li>
+            <li>Raised $130M, scaled Cheetah to 350+ employees</li>
+            <li>Rebuilt Cheetah after losing 80% of revenue in COVID</li>
+            <li>Serial founder with exits to Groupon and Xenon</li>
+            <li>Mentor at Stanford's StartX and Alchemist Accelerator</li>
+            <li>Leads Waya, coaching Series A–C founders</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/naamamoran/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/Vince-Headshot.jpeg" alt="Vincent Matranga">
+        <div>
+          <h3>Vincent Matranga</h3>
+          <p class="expert-role">Lean Process Optimization</p>
+          <ul>
+            <li>Seasoned operator and entrepreneur with Lean expertise</li>
+            <li>Built Lean Process Optimization at Sutter Health</li>
+            <li>Trained in Toyota Production Systems with executives</li>
+            <li>Co-founded Cheetah, scaled to $150M revenue</li>
+            <li>Raised $130M, grew Cheetah to 350+ employees</li>
+            <li>Rebuilt Cheetah after near-fatal COVID revenue loss</li>
+            <li>Brings battle-tested frameworks to Waya founders</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/vincent-matranga-84899811/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/Bjoern-Headshot.jpeg" alt="Bjoern Lasse Herrmann">
+        <div>
+          <h3>Bjoern Lasse Herrmann</h3>
+          <p class="expert-role">Leadership Transformation</p>
+          <ul>
+            <li>Technology entrepreneur and AI transformation leader</li>
+            <li>AI executive at Sage; co-founded multiple AI ventures</li>
+            <li>Bridges AI with real-world operational systems</li>
+            <li>Transforms isolated AI initiatives into enterprise-wide change</li>
+            <li>Combines technical insight with executive-level systems thinking</li>
+            <li>Mentors leadership teams on practical AI strategy</li>
+            <li>Drives sustained competitive advantage through AI adoption</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/bjoernlasse/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/05/Sephi-Shapira.png" alt="Sephi Shapira">
+        <div>
+          <h3>Sephi Shapira</h3>
+          <p class="expert-role">Founder Funding Expert</p>
+          <ul>
+            <li>4x founder with 4 exits</li>
+            <li>Raised $100M+ and helped founders raise $1.2B+</li>
+            <li>Author of "Fundable" and creator of the Fundable Method</li>
+            <li>Founder of WarmIntro, a founder-to-founder investor intro network</li>
+            <li>Helps founders become fundable and secure investor meetings</li>
+            <li>Brings battle-tested fundraising frameworks to founders</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/sephi-shapira-2b306127b/">LinkedIn →</a>
+          <a class="learn" href="https://app.warmintro.net/invite-only-1150/">WarmIntro →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/Chris-Traub-headshot-2.jpg" alt="Chris Traub">
+        <div>
+          <h3>Chris Traub</h3>
+          <p class="expert-role">Executive Search &amp; Community Creator</p>
+          <ul>
+            <li>Global executive search pioneer and leadership community curator</li>
+            <li>Co-founded Strategic Executive Search Group in 1988</li>
+            <li>Managing Partner leading C-Suite and Board practices</li>
+            <li>Leads Technology and Private Equity search practices</li>
+            <li>Partners with world's largest enterprise companies</li>
+            <li>Works with exponential tech and PE-backed ventures</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/christraub/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/04/Josh_Brajtman-2.jpg" alt="Josh Brajtman">
+        <div>
+          <h3>Josh Brajtman</h3>
+          <p class="expert-role">Customer Experience &amp; Support</p>
+          <ul>
+            <li>20+ years scaling CX and operations across tech, logistics, and telecom</li>
+            <li>Head of CX at Easyplant (~$300M ARR), owning full CX strategy</li>
+            <li>Led CX across consumer, courier, and merchant verticals at Wolt, managing 1,500+ staff</li>
+            <li>Head of CX at Cheetah, building 24/7 global support across US and Philippines, working closely with CEO on leadership development</li>
+            <li>Founded global support operations at Juno, improving driver and rider experience</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/joshbrajtman/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/headshot-3-Copy.jpg" alt="Gia Ilole">
+        <div>
+          <h3>Gia Ilole</h3>
+          <p class="expert-role">Human Resources, People &amp; Culture</p>
+          <ul>
+            <li>Executive HR consultant across public and private sectors</li>
+            <li>Experience spanning healthcare, tech, and energy industries</li>
+            <li>Improves culture, talent pipelines, and performance management</li>
+            <li>Partners with leaders on strategic workforce initiatives</li>
+            <li>Serves startups through Fortune 500 companies</li>
+            <li>Lean Six Sigma Yellow Belt with a data-driven approach</li>
+            <li>Transforms organizations through culture and continuous learning</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/giailole/">LinkedIn →</a>
+        </div>
+      </article>
+
+      <article class="expert-card">
+        <img src="https://www.wayaframes.com/wp-content/uploads/2026/04/Stephen-Kilts-e1776398322384.png" alt="Steve Kilts">
+        <div>
+          <h3>Steve Kilts</h3>
+          <p class="expert-role">AI Strategy for SMB Leaders</p>
+          <ul>
+            <li>Founder, executive, and AI strategist building software to optimize operations</li>
+            <li>Background in engineering, computer science, and applied mathematics</li>
+            <li>Published in Neural Networks magazine and a high-speed computing textbook</li>
+            <li>Founded and exited multiple tech companies, then led business units as VP</li>
+            <li>Provides AI strategy and agent implementation to optimize workflows and revenue</li>
+            <li>Partners with leadership teams to align AI with core business processes</li>
+          </ul>
+          <a class="learn" href="https://www.linkedin.com/in/steve-kilts/">LinkedIn →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SACAGAWEA =============== -->
+<section class="sacagawea">
+  <div class="container">
+    <div class="story-grid">
+      <img src="https://www.wayaframes.com/wp-content/uploads/2026/03/ba8baa1cf9349953eec1dab38d37443208451b9e.jpg" alt="Sacagawea illustration">
+      <div class="story-copy">
+        <p class="section-eyebrow">Sacagawea</p>
+        <h2 class="section-title" style="margin-bottom: 22px;">The Inspiration Behind Our Name</h2>
+        <p>Our name is inspired by Sacagawea — the Native American guide who helped lead the Lewis and Clark expedition through unknown territory with resilience, clarity, and trust.</p>
+        <p>At Waya, we take a similar role. We partner with founders navigating the chaos of growth — helping them stay aligned, make confident decisions, and scale with purpose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== MISSION & VALUES =============== -->
+<section class="values">
+  <div class="container">
+    <p class="section-eyebrow">Our Core Principles</p>
+    <h2 class="section-title">The compass that guides our own operations.</h2>
+
+    <div class="mission-block">
+      <img src="/assets/icons/mission.png" alt="">
+      <div>
+        <h3>Mission</h3>
+        <p>Waya brings human-centered business operations enabled by AI to founders navigating high-stakes transitions — scaling, pivoting, or reinventing — so they can build a business aligned with their purpose and bring their vision to the world.</p>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <h4>Walk the talk</h4>
+        <p>We use our own methodology internally. Every tool we sell, we run on ourselves first. We don't advise from the sidelines — if we haven't done it ourselves, we don't teach it.</p>
+      </div>
+      <div class="value-card">
+        <h4>Human first, AI-powered</h4>
+        <p>AI amplifies human judgment — it never replaces it. We build tools that make people more capable, not more dependent.</p>
+      </div>
+      <div class="value-card">
+        <h4>Purpose over profit</h4>
+        <p>We choose clients and projects that align with our mission, even when easier money is on the table.</p>
+      </div>
+      <div class="value-card">
+        <h4>Treat the system, not the symptom</h4>
+        <p>We don't patch — we diagnose. Root cause analysis before solutions. Every fix considers the whole picture, and every process has a next version. We're living through a once-in-a-century technological shift. You can't sit back and expect the world to wait. Continuous improvement isn't optional, it's survival.</p>
+      </div>
+      <div class="value-card">
+        <h4>Aligned from the inside out</h4>
+        <p>We're transparent with our team, our clients, and ourselves. The work should elevate the person doing it — that's true for us and for the founders we serve. We lead with integrity and don't shy away from hard truths.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section id="book" class="final-cta">
+  <h2>Prepare for the Journey Ahead</h2>
+  <p>Book a call. We'll walk through where your company is on the path, what's holding it back, and which expert can help you close the gap.</p>
+  <div class="section-cta" style="margin-top: 40px;">
+    <a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=about-us&utm_content=final_cta">Schedule a Call</a>
+  </div>
+</section>
+
+</main>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/financial-model-prep/">Financial Model Preparation</a></li>
+        <li><a href="/data-room-preparation/">Data Room Preparation</a></li>
+        <li><a href="/fundraising-narrative/">Fundraising Narrative</a></li>
+        <li><a href="/operations-audit/">Operations Audit</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+</body>
+</html>

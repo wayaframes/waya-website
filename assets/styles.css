@@ -175,8 +175,11 @@ button { font-family: inherit; }
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(31,36,34,0.58) 0%, rgba(31,36,34,0.34) 50%, rgba(31,36,34,0.58) 100%);
 }
-.hero-inner { position: relative; z-index: 2; max-width: 1200px; width: 100%; margin: 0 auto; }
-.hero-content { max-width: 880px; }
+/* Heroes are centered full-width, matching the live wayaframes.com title style */
+.hero-inner { position: relative; z-index: 2; max-width: 1200px; width: 100%; margin: 0 auto; text-align: center; }
+.hero-content { max-width: 880px; margin: 0 auto; }
+.hero .sub { margin-left: auto; margin-right: auto; }
+.hero-cta { justify-content: center; }
 .eyebrow {
   font-family: var(--font-display); font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
@@ -204,22 +207,32 @@ button { font-family: inherit; }
 /* ---------- Section frames ---------- */
 section { padding: 104px 32px; }
 .container { max-width: 1140px; margin: 0 auto; }
+
+/* Section headings are centered full-width, matching the live wayaframes.com title style.
+   Inside split layouts (.two-col challenge blocks, .story-grid) they stay left-aligned. */
 .section-eyebrow {
   font-family: var(--font-display); font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
   font-weight: 600; color: var(--waya-rust);
   margin-bottom: 16px;
+  text-align: center;
 }
 h2.section-title {
   font-family: var(--font-display); font-weight: 700;
   font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;
   color: var(--waya-charcoal); text-wrap: balance; max-width: 800px;
+  text-align: center; margin-left: auto; margin-right: auto;
 }
 .section-lead {
   margin-top: 22px; font-size: 18px; line-height: 1.6;
   color: var(--waya-ink); max-width: 740px; text-wrap: pretty;
+  text-align: center; margin-left: auto; margin-right: auto;
 }
-.section-cta { margin-top: 36px; }
+.section-cta { margin-top: 36px; text-align: center; }
+.two-col .section-eyebrow, .story-grid .section-eyebrow, .body-block .section-eyebrow { text-align: left; }
+.two-col h2.section-title, .story-grid h2.section-title, .body-block h2.section-title { text-align: left; margin-left: 0; }
+.two-col .section-lead, .story-grid .section-lead { text-align: left; margin-left: 0; }
+.two-col .section-cta { text-align: left; }
 .bg-paper { background: var(--waya-paper); }
 
 /* ---------- Testimonial strip ---------- */
@@ -266,7 +279,7 @@ h2.section-title {
 .card-icon { width: 72px; height: 72px; margin-bottom: 20px; }
 
 /* ---------- Process steps (service pages) ---------- */
-.steps { margin-top: 52px; max-width: 860px; }
+.steps { margin-top: 52px; max-width: 860px; margin-left: auto; margin-right: auto; }
 .steps li {
   list-style: none;
   display: grid; grid-template-columns: 52px 1fr; gap: 20px;
@@ -325,7 +338,7 @@ h2.section-title {
   color: #FFFFFF; max-width: 900px; margin: 0 auto; text-wrap: balance;
 }
 .cta-band p {
-  margin: 22px auto 0; font-size: 17px; line-height: 1.6;
+  margin: 22px auto 0; font-size: 18px; line-height: 1.6;
   color: rgba(255,255,255,0.96); max-width: 820px; text-wrap: pretty;
 }
 

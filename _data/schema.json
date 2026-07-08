@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.wayaframes.com/#organization",
+  "name": "Waya",
+  "alternateName": "WayaFrames",
+  "url": "https://www.wayaframes.com/",
+  "logo": "https://www.wayaframes.com/wp-content/uploads/2026/03/WAYA_logo-1.jpg",
+  "description": "Waya is the operating system for mission-driven founders — services, workshops, and AI-enabled products that streamline operations, finance, people systems, and governance for companies that are starting, growing, or pivoting.",
+  "founder": [
+    { "@type": "Person", "name": "Na'ama Moran", "sameAs": "https://www.linkedin.com/in/naamamoran/" },
+    { "@type": "Person", "name": "Vincent Matranga", "sameAs": "https://www.linkedin.com/in/vincent-matranga-84899811/" }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/naamamoran/",
+    "https://www.youtube.com/@Waya-Frames",
+    "https://substack.com/@themessymiddlefiles"
+  ]
+}
