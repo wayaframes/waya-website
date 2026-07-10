@@ -1,10 +1,37 @@
-narrative: https://api.leadconnectorhq.com/widget/bookings/fundraising-narrative
+narrative:https://api.leadconnectorhq.com/widget/bookings/fundraising-narrative
 
-data room prep: https://api.leadconnectorhq.com/widget/bookings/dataroom-preparation
+data room prep:https://api.leadconnectorhq.com/widget/bookings/dataroom-preparation
 
-Financial model prep: https://api.leadconnectorhq.com/widget/bookings/financial-model-preparation
+Financial model prep:https://api.leadconnectorhq.com/widget/bookings/financial-model-preparation
 
-General consultation (home page and navbar on all pages): https://api.leadconnectorhq.com/widget/bookings/waya-consultation
+General consultation (home page and navbar on all pages):https://api.leadconnectorhq.com/widget/bookings/waya-consultation
 
-operations audit: https://api.leadconnectorhq.com/widget/bookings/ops-audit-intro-call
+Operations audit:https://api.leadconnectorhq.com/widget/bookings/ops-audit-intro-call
+
+
+
+campaign tags: 
+
+Apollo email: 
+utm_source=apollo&
+utm_medium=email_number_from_campaign&
+utm_campaign=p4-yc-dataroom& (or any other campaign code that the user specifies whern they want to tag the button)
+utm_content=email_button
+
+
+GHL email: 
+utm_source=ghl&
+utm_medium=email_number_from_campaign&
+utm_campaign=p4-yc-dataroom& (or any other campaign code that the user specifies whern they want to tag the button)
+utm_content=email_button
+
+Website: (www.wayaframes.com or staging.wayaframes.com)
+utm_source=<URL-slug>&
+utm_content=<button_identifier>
+
+landing page
+utm_source=wayaframes&
+utm_medium=landing_page& 
+utm_campaign=p4-yc-dataroom& (or any other campaign code that the user specifies whern they want to tag the button)
+utm_content=mail_button
 
