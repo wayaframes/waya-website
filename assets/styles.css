@@ -27,6 +27,7 @@
   --waya-tan: #D0AE89;
   --waya-mustard: #EAB62F;
   --waya-sage: #6A9D8A;
+  --white: #FFFFFF;
   --fg-1: var(--waya-ink);
   --fg-2: var(--waya-stone);
   --fg-on-dark: var(--waya-cream);
@@ -76,7 +77,7 @@ button { font-family: inherit; }
 .nav-links a:hover { color: var(--waya-rust); }
 /* keep the CTA text white — .nav-links a would otherwise force charcoal */
 .nav-links a.btn-rust,
-.nav-links a.btn-rust:hover { color: #FFFFFF; }
+.nav-links a.btn-rust:hover { color: var(--white); }
 
 /* ---------- Nav dropdown (Services) ---------- */
 /* flex-centered so the inline-flex trigger aligns with the Home/About Us
@@ -135,7 +136,7 @@ button { font-family: inherit; }
   font-weight: 600; font-size: 14px;
   padding: 12px 22px;
   border-radius: 6px; border: 0; cursor: pointer;
-  background: var(--waya-rust); color: #FFFFFF;
+  background: var(--waya-rust); color: var(--white);
   transition: filter var(--dur-base) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
   letter-spacing: 0.01em;
 }
@@ -237,7 +238,7 @@ section { padding: 104px 32px; }
 /* Section headings are centered full-width, matching the live wayaframes.com title style.
    Inside split layouts (.two-col challenge blocks, .story-grid) they stay left-aligned. */
 .section-eyebrow {
-  font-family: var(--font-display); font-size: 12px;
+  font-family: var(--font-display); font-size: 15px;
   letter-spacing: 0.18em; text-transform: uppercase;
   font-weight: 600; color: var(--waya-rust);
   margin-bottom: 16px;
@@ -260,7 +261,7 @@ h2.section-title {
 .two-col .section-lead, .story-grid .section-lead { text-align: left; margin-left: 0; }
 .two-col .section-cta { text-align: left; }
 .bg-paper { background: var(--waya-paper); }
-.bg-mint { background: #D2EAE0; }
+.bg-mint { background: var(--waya-mint); }
 .overview-card {
   background: var(--waya-cream);
   border-radius: 28px;
@@ -279,9 +280,18 @@ h2.section-title {
   padding: 72px 32px;
   border-bottom: 1px solid var(--border-1);
 }
-.testimonial-strip .container {
-  display: grid; grid-template-columns: 96px 1fr;
-  gap: 32px; align-items: center; max-width: 980px;
+/* Featured testimonial now uses the same card layout as the carousel:
+   quote on top, then founder photo + name/role + company logo. */
+.testimonial-strip .container { max-width: 820px; }
+.testimonial-strip .proof-card { padding: 40px; }
+.testimonial-strip .proof-card blockquote {
+  font-family: var(--font-body); font-weight: 400; font-size: 16px;
+  line-height: 1.65; letter-spacing: normal; color: var(--waya-ink);
+}
+.testimonial-strip .proof-who .company-logo {
+  margin-left: auto; align-self: center;
+  width: auto; height: auto; max-height: 40px; max-width: 150px;
+  border-radius: 0; object-fit: contain; flex-shrink: 0;
 }
 /* Testimonial headshots are round with no background plate.
    Expert Network photos (about page) keep the squared 14px-radius treatment. */
@@ -396,7 +406,7 @@ h2.section-title {
 .cta-band h2 {
   font-family: var(--font-display); font-weight: 700;
   font-size: 40px; line-height: 1.15; letter-spacing: -0.02em;
-  color: #FFFFFF; max-width: 900px; margin: 0 auto; text-wrap: balance;
+  color: var(--white); max-width: 900px; margin: 0 auto; text-wrap: balance;
 }
 .cta-band p {
   margin: 22px auto 0; font-size: 18px; line-height: 1.6;

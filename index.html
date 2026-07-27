@@ -123,7 +123,7 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What does Waya do for founders?",
+          "name": "What is Waya's offering?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Waya provides services, workshops, and AI-enabled products for mission-driven companies that are starting, growing, or pivoting. Founders stay focused on mission and product while Waya streamlines operations, finance, people systems, and governance — data room preparation, financial model preparation, fundraising narrative, operations audits, and the Scale Up Program."
@@ -228,14 +228,23 @@
 
   .engage-strip { margin-top: 56px; border-top: 1px solid var(--border-1); padding-top: 40px; }
   .engage-label {
-    font-family: var(--font-display); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-stone);
-    margin-bottom: 24px;
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--waya-charcoal);
+    margin-bottom: 28px;
   }
   .engage-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .engage-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; margin-bottom: 16px; border-radius: 12px;
+    background: var(--waya-cream); border: 1px solid var(--border-1);
+  }
+  .engage-icon svg {
+    width: 22px; height: 22px; stroke: var(--waya-rust); fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
   .engage-items strong {
     display: block; font-family: var(--font-display); font-weight: 600;
-    font-size: 16px; color: var(--waya-charcoal); margin-bottom: 6px;
+    font-size: 19px; color: var(--waya-charcoal); margin-bottom: 8px;
   }
   .engage-items span { font-size: 14.5px; line-height: 1.55; color: var(--fg-2); }
 
@@ -264,7 +273,7 @@
   }
   .stat-icon {
     width: 84px; height: 84px; border-radius: 26px;
-    background: #FFFFFF;
+    background: var(--white);
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 26px;
     box-shadow: 0 6px 18px rgba(31,36,34,0.15);
@@ -272,9 +281,9 @@
   .stat-icon svg { width: 36px; height: 36px; stroke: var(--waya-rust); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .stat-num {
     font-family: var(--font-display); font-weight: 700;
-    font-size: 44px; letter-spacing: -0.02em; color: #FFFFFF;
+    font-size: 44px; letter-spacing: -0.02em; color: var(--white);
   }
-  .stat-label { margin-top: 8px; font-size: 17px; font-weight: 500; color: #FFFFFF; }
+  .stat-label { margin-top: 8px; font-size: 17px; font-weight: 500; color: var(--white); }
 
   /* Founder journey path */
   .journey { background: var(--waya-cream); }
@@ -424,12 +433,18 @@
 <!-- =============== TESTIMONIAL STRIP =============== -->
 <section class="testimonial-strip" aria-label="Featured testimonial">
   <div class="container">
-    <img class="portrait" src="/assets/images/headshots/ashish-srimal.png" alt="Ashish Srimal">
-    <div>
+    <div class="proof-card">
       <blockquote>
         "Before Waya, I was waking up in the middle of the night clenching my teeth. We'd hit profitability, but it was duct-taped together, with no real process or structure, and as a remote team were not aligned on values or ways of working. Today we've grown 300%+, doubled our team size, launched a fully agentic platform in production, passed 10,000+ buyers on our platform, and for the first time the whole team is marching toward the same goal — with all signs pointing to $100M by 2028. Thanks Na'ama and Waya we are better aligned with better process and structure. Waya is the hidden operating system for founders: you don't know you need it until you can't keep duct-taping things, and once you have it, you realize how much has to turn beneath the surface to run a business at scale — like an iceberg, you only ever saw the top."
       </blockquote>
-      <div class="attribution"><strong>Ashish Srimal</strong> — Co-founder &amp; CEO, Ratio</div>
+      <div class="proof-who">
+        <img src="/assets/images/headshots/ashish-srimal.png" alt="Ashish Srimal" onerror="this.remove()">
+        <div>
+          <div class="name">Ashish Srimal</div>
+          <div class="role">Co-founder &amp; CEO, Ratio</div>
+        </div>
+        <img class="company-logo" src="/assets/logos/companies/ratio-tech.jpg" alt="Ratio" onerror="this.remove()">
+      </div>
     </div>
   </div>
 </section>
@@ -438,7 +453,7 @@
 <section id="services" class="os">
   <div class="container">
     <p class="section-eyebrow">The Founder Operating System</p>
-    <h2 class="section-title os-title">One operating system. Four pillars: Operations, Finance, People, Governance.</h2>
+    <h2 class="section-title os-title">One operating system. Four pillars: Operations, Fundraising, Culture, Governance.</h2>
     <p class="section-lead">
       We build the machinery that helps you bring your mission to life.
     </p>
@@ -452,7 +467,7 @@
           <img class="card-icon" src="/assets/icons/process-optimization.png" alt="">
           <h3 class="pillar-name">Operations</h3>
         </div>
-        <p>Diagnose the constraint holding you back, then build the processes and operating rhythms that scale with you instead of against you.</p>
+        <p>Diagnose the constraints holding you back, then build the processes and operating rhythms that will help you scale seamlessly.</p>
         <div class="product-list">
           <a href="/operations-audit/">Operations Audit <span>→</span></a>
           <a href="/scale-up-program/">Scale Up Program <span>→</span></a>
@@ -461,9 +476,9 @@
       <article class="pillar">
         <div class="card-head">
           <img class="card-icon" src="/assets/icons/goal.png" alt="">
-          <h3 class="pillar-name">Finance</h3>
+          <h3 class="pillar-name">Fundraising</h3>
         </div>
-        <p>Investor-ready narrative, financial model, and data room — calibrated to your stage, built by operators who have raised $130M+ themselves.</p>
+        <p>Investor-ready funding narrative, financial model, and data room that will help you stand out — all calibrated to your stage and industry, built by operators who have raised $130M+ in venture funding from tier-1 VCs.</p>
         <div class="product-list">
           <a href="/fundraising-narrative/">Fundraising Narrative <span>→</span></a>
           <a href="/data-room-preparation/">Data Room Preparation <span>→</span></a>
@@ -472,9 +487,9 @@
       <article class="pillar">
         <div class="card-head">
           <img class="card-icon" src="/assets/icons/business-organization.png" alt="">
-          <h3 class="pillar-name">People</h3>
+          <h3 class="pillar-name">Culture</h3>
         </div>
-        <p>In the age of AI, your team needs to know the company cares — about their health, their families, and their growth. We build the people systems that prove it.</p>
+        <p>In the age of AI, we help you build a human-first culture. The systems, communication, and culture that make sure your culture and team are aligned with your mission.</p>
         <div class="product-list">
           <a href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=home&utm_content=people_alignment">Founder &amp; Team Alignment <span>→</span></a>
           <a href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=home&utm_content=people_team">Team Design &amp; Hiring <span>→</span></a>
@@ -485,7 +500,7 @@
           <img class="card-icon" src="/assets/icons/core-values.png" alt="">
           <h3 class="pillar-name">Governance</h3>
         </div>
-        <p>Governance and culture designed for a mission-driven company — built on conscious business principles, so growth can't corrupt the purpose.</p>
+        <p>Governance designed to protect a mission-driven company for generations — built on conscious business principles, in partnership with Eric Ries's Incorruptible.</p>
         <div class="product-list">
           <a href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=home&utm_content=governance">Governance &amp; Culture Setup <span>→</span></a>
         </div>
@@ -493,19 +508,28 @@
     </div>
 
     <div class="engage-strip">
-      <p class="engage-label">Delivered three ways</p>
+      <p class="engage-label">Delivered 3 Ways</p>
       <div class="engage-items">
         <div>
+          <span class="engage-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18v3h3l6.4-6.3a4 4 0 0 0 5.3-5.4l-2.9 2.9-2-2 2.9-2.9z"/></svg>
+          </span>
           <strong>Tools</strong>
-          <span>WayaFrames — AI-enabled frameworks built by operators, running inside your own tools and aligned with your mission.</span>
+          <span>WayaFrames — AI-enabled frameworks built by expert operators, running inside your own AI tools, integrated with your business applications, and aligned with your mission.</span>
         </div>
         <div>
+          <span class="engage-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+          </span>
           <strong>Services</strong>
-          <span>In a time crunch? We prepare the specific deliverable you need, so you stay focused on mission and product.</span>
+          <span>Are you hustling for customers and investors? Let us prepare the specific deliverables you need so you can stay focused on your highest leverage tasks.</span>
         </div>
         <div>
+          <span class="engage-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="12" rx="1"/><polyline points="7 11 10 8 13 11 17 7"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
+          </span>
           <strong>Workshops</strong>
-          <span>For high stakes challenges where you need an expert in the room.</span>
+          <span>Ready to take your company to the next level of performance? Our expert team will create a custom business operating system and teach your team how to use it.</span>
         </div>
       </div>
     </div>
@@ -570,7 +594,7 @@
     <p class="section-eyebrow">Your Path</p>
     <h2 class="section-title">Every company walks a similar path. Few walk it prepared.</h2>
     <p class="section-lead">
-      Starting and growing — these are stages of the journey, not products. The same operating system meets you at each one; only the components change. This is the map we guide founders through.
+      Starting your business and growing it — these are stages of the journey we accompany you on. The same operating system meets you at each stage; only the components change. This is the map we guide founders through.
     </p>
 
     <div class="path">
@@ -581,13 +605,13 @@
             <p class="waypoint-tag">Starting</p>
             <h3>Find the fit</h3>
             <p>Pre-product-market fit, the constraint is almost always PMF itself. Build only the scaffolding that keeps you honest and fundable.</p>
-            <h4>What to set up</h4>
+            <h4>Examples of what we help set up</h4>
             <ul>
-              <li>Founder alignment, mission &amp; values</li>
-              <li>Executive summary built from hypotheses</li>
-              <li>Lightweight financial model</li>
-              <li>Value-hypothesis OKRs — pivots expected</li>
-              <li>First hires and how you'll onboard them</li>
+              <li>Executive summary built from first principles that meets investors' checklist for your stage.</li>
+              <li>Experiment framework for a structured approach to reach PMF.</li>
+              <li>Founder alignment on mission &amp; values.</li>
+              <li>Lightweight financial model tied to your hypotheses.</li>
+              <li>First hires and how you'll onboard them.</li>
             </ul>
           </div>
         </article>
@@ -598,13 +622,13 @@
             <p class="waypoint-tag">Growing</p>
             <h3>Scale without breaking</h3>
             <p>Post-PMF, real processes exist and are worth improving. This is where process debt compounds — or gets paid down.</p>
-            <h4>What to set up</h4>
+            <h4>Examples of what we help set up</h4>
             <ul>
-              <li>KPI tree tied to your financial model</li>
-              <li>Data room and investor reporting cadence</li>
-              <li>Org design grounded in the model</li>
-              <li>Continuous improvement on core processes</li>
-              <li>SOPs — codify what works as you hire</li>
+              <li>KPI tree tied to your financial model.</li>
+              <li>Data room and investor reporting cadence.</li>
+              <li>Org design grounded in the model.</li>
+              <li>Continuous improvement on core processes.</li>
+              <li>SOPs that codify what works as you hire.</li>
             </ul>
           </div>
         </article>
@@ -728,7 +752,7 @@
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>What does Waya do for founders?</summary>
+        <summary>What is Waya's offering?</summary>
         <div class="answer">
           <p>Waya provides services, workshops, and AI-enabled products for mission-driven companies that are starting, growing, or pivoting. You stay focused on mission and product; we streamline operations, finance, people systems, and governance — from data room preparation and financial modeling to operations audits and the Scale Up Program.</p>
         </div>
