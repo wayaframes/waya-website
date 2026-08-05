@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-PMF MCP – Waya</title>
+<meta name="description" content="The Waya Pre-PMF MCP gives early-stage founders a set of Wayaframes — guided frameworks that run right inside your AI assistant — to find your purpose, sharpen your idea, and design the experiments that get you to product-market fit.">
+<link rel="canonical" href="https://www.wayaframes.com/pre-pmf-mcp/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="Pre-PMF MCP – Waya">
+<meta property="og:description" content="The Waya Pre-PMF MCP gives early-stage founders a set of Wayaframes — guided frameworks that run right inside your AI assistant — to find your purpose, sharpen your idea, and design the experiments that get you to product-market fit.">
+<meta property="og:url" content="https://www.wayaframes.com/pre-pmf-mcp/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=3">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Pre-PMF MCP",
+  "url": "https://www.wayaframes.com/pre-pmf-mcp/",
+  "description": "An MCP with Wayaframes for the pre-product-market-fit founder. Includes guided frameworks for personal Ikigai, a pre-PMF executive summary, and a mission and values guide, with a paid tier for experiment design and a four-week coaching program to build your PMF infrastructure.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Waya",
+    "url": "https://www.wayaframes.com/"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "The Pre-PMF MCP with the personal Ikigai, pre-PMF executive summary, and mission and values Wayaframes."
+    },
+    {
+      "@type": "Offer",
+      "name": "Pro",
+      "price": "20",
+      "priceCurrency": "USD",
+      "description": "Everything in Free plus the Waya experiment design Wayaframe. Billed monthly."
+    },
+    {
+      "@type": "Offer",
+      "name": "PMF Infrastructure Program",
+      "price": "2500",
+      "priceCurrency": "USD",
+      "description": "A four-week program with four coaching sessions to set up your product-market-fit infrastructure."
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Pre-PMF MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. The free tier helps you surface your purpose, write a pre-PMF executive summary, and set your mission and values. Paid tiers add experiment design and a four-week coaching program."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a Wayaframe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, an executive summary, or a set of experiments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I get for free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The free MCP includes three Wayaframes: personal Ikigai, the pre-PMF executive summary, and the mission and values guide. Together they help you clarify who you are as a founder, articulate the business you want to build, and set the foundation your company will scale on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the $20 per month Pro tier add?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pro adds the Waya experiment design Wayaframe, which turns your riskiest assumptions into small, testable experiments with clear success criteria — the engine that moves you toward product-market fit. It's billed monthly and includes everything in the free tier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the $2,500 program?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's a four-week program with four one-hour coaching sessions that set up your PMF infrastructure. A Waya specialist onboards you, aligns on your idea, helps you refine or eliminate hypotheses, configures your experiments, and gets your automations and analytics running — so you leave with a working system for finding product-market fit, not just a plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is this for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Early-stage founders who are still searching for product-market fit — whether you're pre-idea, validating a hypothesis, or running your first experiments. If you know the destination is PMF but not yet the path, this is built for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I need to run it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AI assistant that supports MCP, such as Claude. You connect the Waya MCP once, and the Wayaframes become available as commands you can invoke any time."
+      }
+    }
+  ]
+}
+</script>
+<style>
+/* ---------- Pre-PMF MCP page-specific styles ---------- */
+
+/* Command chips for referencing Wayaframes inline */
+.cmd {
+  font-family: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em; color: var(--waya-rust);
+  background: rgba(209,108,2,0.08);
+  border: 1px solid rgba(209,108,2,0.18);
+  border-radius: 6px; padding: 1px 7px; white-space: nowrap;
+}
+
+/* Frame cards: what's inside the MCP */
+.frames { margin-top: 52px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.frame {
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  padding: 32px 30px; box-shadow: var(--shadow-1);
+  display: flex; flex-direction: column;
+}
+.frame .cmd { align-self: flex-start; margin-bottom: 16px; }
+.frame h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 20px; line-height: 1.2; letter-spacing: -0.015em;
+  color: var(--waya-charcoal); margin-bottom: 10px;
+}
+.frame p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
+
+/* ---------- Pricing tiers ---------- */
+.tiers { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+.tier {
+  position: relative;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 22px;
+  padding: 40px 32px; box-shadow: var(--shadow-1);
+  display: flex; flex-direction: column;
+}
+.tier.featured {
+  border-color: var(--waya-rust);
+  box-shadow: var(--shadow-3);
+}
+.tier-flag {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-display); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--white); background: var(--waya-rust);
+  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+}
+.tier-name {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-rust);
+  margin-bottom: 16px;
+}
+.tier-price {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 44px; line-height: 1; letter-spacing: -0.03em;
+  color: var(--waya-charcoal);
+}
+.tier-price .per {
+  font-family: var(--font-body); font-weight: 500;
+  font-size: 15px; letter-spacing: 0; color: var(--fg-2);
+}
+.tier-note { margin-top: 8px; font-size: 13.5px; color: var(--fg-2); min-height: 20px; }
+.tier-desc {
+  margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border-1);
+  font-size: 15px; line-height: 1.6; color: var(--waya-ink);
+}
+.tier-feats { list-style: none; margin: 20px 0 0; flex: 1; }
+.tier-feats li {
+  font-size: 14.5px; line-height: 1.55; color: var(--waya-ink);
+  padding: 10px 0 10px 26px; position: relative;
+  border-bottom: 1px solid var(--border-1);
+}
+.tier-feats li:last-child { border-bottom: 0; }
+.tier-feats li::before {
+  content: '✓'; position: absolute; left: 0; top: 10px;
+  color: var(--waya-sage); font-size: 13px; font-weight: 700;
+}
+.tier-feats li .cmd { font-size: 0.86em; }
+.tier .tier-cta { margin-top: 28px; }
+.tier .tier-cta a { display: block; text-align: center; width: 100%; }
+/* ghost CTA for the free tier */
+.btn-ghost-rust {
+  display: inline-block; font-family: var(--font-display);
+  font-weight: 600; font-size: 14px; padding: 12px 22px;
+  border-radius: 6px; cursor: pointer;
+  background: transparent; color: var(--waya-rust);
+  border: 1px solid var(--waya-rust);
+  transition: background var(--dur-base) var(--ease-standard);
+}
+.btn-ghost-rust:hover { background: rgba(209,108,2,0.06); }
+
+/* ---------- 4-week program timeline ---------- */
+.weeks { margin-top: 52px; display: flex; flex-direction: column; gap: 20px; max-width: 960px; margin-left: auto; margin-right: auto; }
+.week {
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 20px;
+  box-shadow: var(--shadow-1);
+  padding: 28px 30px;
+  display: grid; grid-template-columns: 132px 1fr; gap: 28px; align-items: start;
+}
+.week-label {
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--waya-charcoal);
+}
+.week-label .wk {
+  display: block; font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--waya-rust); margin-bottom: 4px;
+}
+.week-label .phase {
+  display: block; font-size: 20px; letter-spacing: -0.015em; line-height: 1.15;
+}
+.week-body { display: flex; flex-direction: column; gap: 14px; }
+.week-tasks { display: flex; flex-wrap: wrap; gap: 10px; }
+.task {
+  font-size: 14px; line-height: 1.4; color: var(--waya-ink);
+  background: var(--waya-paper); border: 1px solid var(--border-1);
+  border-radius: 10px; padding: 9px 13px;
+}
+.task strong { font-family: var(--font-display); font-weight: 600; color: var(--waya-charcoal); }
+.task .who { display: block; font-size: 12px; color: var(--fg-2); margin-top: 2px; }
+.coaching {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  background: var(--waya-mint); border-radius: 12px;
+  padding: 12px 16px;
+}
+.coaching .badge {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #085041;
+}
+.coaching .detail { font-size: 14.5px; color: #0f6e56; line-height: 1.45; }
+.entry-note {
+  max-width: 960px; margin: 28px auto 0; text-align: center;
+  font-size: 14.5px; color: var(--fg-2);
+}
+
+@media (max-width: 720px) {
+  .frames, .tiers { grid-template-columns: 1fr; }
+  .week { grid-template-columns: 1fr; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/pre-pmf-mcp/">Pre-PMF MCP</a>
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/fundraising-narrative/">Fundraising Narrative</a>
+          <a href="/data-room-preparation/">Data Room Preparation</a>
+          <a href="/financial-model-prep/">Financial Model Preparation</a>
+          <a href="/operations-audit/">Operations Audit</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=pre-pmf-mcp&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =============== HERO =============== -->
+<section class="hero compact" style="background-image: url('/assets/images/hero/mountain-sage.png');">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow">Built by founders, for founders</p>
+      <h1>Pre-PMF MCP</h1>
+      <p class="sub">Guided frameworks that run right inside your AI assistant — to find your purpose, sharpen your idea, and design the experiments that get you to product-market fit.</p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="#pricing">Get Started Free</a>
+        <a class="btn-ghost-dark" href="#program">See the 4-Week Program</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== CHALLENGE =============== -->
+<section id="challenge" class="bg-paper">
+  <div class="container">
+    <div class="two-col">
+      <div class="body-block">
+        <p class="section-eyebrow">The Challenge</p>
+        <p>Before product-market fit, everything is a question. Is this the right idea? Am I the right person to build it? What should I test first, and how would I even know if it worked? Most early founders answer these alone, in a blank chat window, with no method and no one who has walked the path.</p><p>The Pre-PMF MCP puts Waya's frameworks — our Wayaframes — inside the AI assistant you already use. Each one facilitates a proven method with you, step by step, and hands you a real deliverable at the end. It's the fastest honest route from "I have an idea" to "I have evidence."</p>
+        <div class="section-cta"><a class="btn-rust" href="#pricing">Get Started Free</a></div>
+      </div>
+      <img src="/assets/images/challenge/founder-pre-pmf.jpg" alt="A founder working late at a desk covered in idea sketches, sticky notes, and a laptop">
+    </div>
+  </div>
+</section>
+
+<!-- =============== WHAT'S INSIDE (FREE FRAMES) =============== -->
+<section id="whats-inside">
+  <div class="container">
+    <p class="section-eyebrow">Wayaframes</p>
+    <h2 class="section-title">Everything you need to start — free</h2>
+    <p class="section-lead">Connect the MCP once and these three Wayaframes become commands in your AI assistant. Run them in any order, as many times as you need.</p>
+    <div class="frames">
+      <article class="frame">
+        <span class="cmd">/personal-ikigai</span>
+        <h3>Personal Ikigai</h3>
+        <p>Surface what you love, what you're good at, what you can be paid for, and what the world needs — then synthesize the four intersections into a personal Ikigai statement. Clarity on why you're the founder to build this.</p>
+      </article>
+      <article class="frame">
+        <span class="cmd">/pre-pmf-executive-summary</span>
+        <h3>Pre-PMF Executive Summary</h3>
+        <p>Turn a rough idea into a sharp, one-page articulation of the business — the problem, the customer, the wedge, and the assumptions it rests on. The document you'll return to every time the idea shifts.</p>
+      </article>
+      <article class="frame">
+        <span class="cmd">/mission-values-guide</span>
+        <h3>Mission &amp; Values Guide</h3>
+        <p>Set the foundation your company will scale on. Define the mission you're actually here for and the values that will guide the hard calls — before the pressure of growth makes them harder to change.</p>
+      </article>
+      <article class="frame" style="background: var(--waya-paper); border-style: dashed;">
+        <span class="cmd">/waya-experiment-design</span>
+        <h3>Experiment Design <span style="color: var(--waya-rust); font-size: 13px; font-weight: 600;">· Pro</span></h3>
+        <p>Turn your riskiest assumptions into small, testable experiments with clear success criteria — the engine that actually moves you toward product-market fit. Included in Pro and the program.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PRICING =============== -->
+<section id="pricing" class="bg-paper">
+  <div class="container">
+    <p class="section-eyebrow">Pricing</p>
+    <h2 class="section-title">Start free. Go deeper when you're ready.</h2>
+    <p class="section-lead">Begin with the free Wayaframes, add experiment design when you're testing, and bring in a coach when you're ready to build your PMF infrastructure.</p>
+    <div class="tiers">
+
+      <!-- FREE -->
+      <article class="tier">
+        <p class="tier-name">Free</p>
+        <div class="tier-price">$0</div>
+        <p class="tier-note">Free forever</p>
+        <p class="tier-desc">The Pre-PMF MCP with the three foundational Wayaframes.</p>
+        <ul class="tier-feats">
+          <li>The Pre-PMF MCP for your AI assistant</li>
+          <li><span class="cmd">/personal-ikigai</span></li>
+          <li><span class="cmd">/pre-pmf-executive-summary</span></li>
+          <li><span class="cmd">/mission-values-guide</span></li>
+        </ul>
+        <div class="tier-cta"><a class="btn-ghost-rust" href="#setup">Get Started Free</a></div>
+      </article>
+
+      <!-- PRO -->
+      <article class="tier featured">
+        <span class="tier-flag">Most popular</span>
+        <p class="tier-name">Pro</p>
+        <div class="tier-price">$20<span class="per"> / month</span></div>
+        <p class="tier-note">Cancel anytime</p>
+        <p class="tier-desc">Everything in Free, plus the experiment engine that drives you toward PMF.</p>
+        <ul class="tier-feats">
+          <li>Everything in Free</li>
+          <li><span class="cmd">/waya-experiment-design</span></li>
+          <li>Design testable experiments with clear success criteria</li>
+          <li>Run the test–learn–revise loop toward fit</li>
+        </ul>
+        <div class="tier-cta"><a class="btn-rust" href="#setup">Start Pro</a></div>
+      </article>
+
+      <!-- PROGRAM -->
+      <article class="tier">
+        <p class="tier-name">PMF Infrastructure Program</p>
+        <div class="tier-price">$2,500</div>
+        <p class="tier-note">4-week program · one-time</p>
+        <p class="tier-desc">Four coaching sessions to stand up the infrastructure that finds your product-market fit.</p>
+        <ul class="tier-feats">
+          <li>Everything in Pro</li>
+          <li>4 × one-hour coaching sessions</li>
+          <li>Specialist-led onboarding &amp; idea alignment</li>
+          <li>Experiments, automations &amp; analytics configured with you</li>
+        </ul>
+        <div class="tier-cta"><a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=pre-pmf-mcp&utm_content=pricing_program">Book a Consultation</a></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============== 4-WEEK PROGRAM =============== -->
+<section id="program">
+  <div class="container">
+    <p class="section-eyebrow">The 4-Week Program</p>
+    <h2 class="section-title">Build your PMF infrastructure in four weeks</h2>
+    <p class="section-lead">Four one-hour coaching sessions, paired with the work you do in the MCP. A Waya specialist walks you from your first hypothesis to a running system of experiments, automations, and analytics.</p>
+
+    <p class="entry-note">Before week one, you apply and meet the founders on a short consultation call to make sure it's the right fit.</p>
+
+    <div class="weeks">
+
+      <div class="week">
+        <div class="week-label"><span class="wk">Week 1</span><span class="phase">Foundation</span></div>
+        <div class="week-body">
+          <div class="week-tasks">
+            <div class="task"><strong>Onboarding</strong><span class="who">Specialist-led · 1 hr</span></div>
+            <div class="task"><strong>Ikigai</strong><span class="who">Purpose profile · 60–90 min</span></div>
+            <div class="task"><strong>Hypotheses</strong><span class="who">Business ideas · 15–30 min</span></div>
+          </div>
+          <div class="coaching"><span class="badge">Coaching 1</span><span class="detail">Align on the idea worth pursuing.</span></div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-label"><span class="wk">Week 2</span><span class="phase">Refine</span></div>
+        <div class="week-body">
+          <div class="week-tasks">
+            <div class="task"><strong>Business brief</strong><span class="who">Self-serve · 1–3 hrs</span></div>
+          </div>
+          <div class="coaching"><span class="badge">Coaching 2</span><span class="detail">Refine or eliminate hypotheses.</span></div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-label"><span class="wk">Week 3</span><span class="phase">Build</span></div>
+        <div class="week-body">
+          <div class="week-tasks">
+            <div class="task"><strong>Experiments</strong><span class="who">Founder builds</span></div>
+          </div>
+          <div class="coaching"><span class="badge">Coaching 3</span><span class="detail">Configure your experiments.</span></div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-label"><span class="wk">Week 4</span><span class="phase">Build</span></div>
+        <div class="week-body">
+          <div class="week-tasks">
+            <div class="task"><strong>Automations</strong><span class="who">&amp; analytics setup</span></div>
+          </div>
+          <div class="coaching"><span class="badge">Coaching 4</span><span class="detail">Iterate your automations.</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="section-cta"><a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=pre-pmf-mcp&utm_content=program_cta">Book a Consultation</a></div>
+  </div>
+</section>
+
+<!-- =============== SETUP / HOW IT WORKS =============== -->
+<section id="setup" class="bg-paper">
+  <div class="container">
+    <p class="section-eyebrow">Getting Started</p>
+    <h2 class="section-title">Connect it once, use it forever</h2>
+    <p class="section-lead">The Pre-PMF MCP works with any AI assistant that supports MCP, like Claude. Connect it once and the Wayaframes show up as commands you can invoke any time.</p>
+    <ul class="steps">
+      <li><span class="step-n">01</span><span><strong>Add the MCP:</strong> connect the Waya Pre-PMF MCP to your AI assistant.</span></li>
+      <li><span class="step-n">02</span><span><strong>Run a Wayaframe:</strong> invoke <span class="cmd">/personal-ikigai</span>, <span class="cmd">/pre-pmf-executive-summary</span>, or <span class="cmd">/mission-values-guide</span> and follow the facilitation.</span></li>
+      <li><span class="step-n">03</span><span><strong>Upgrade when you're testing:</strong> add Pro for <span class="cmd">/waya-experiment-design</span> to turn assumptions into experiments.</span></li>
+      <li><span class="step-n">04</span><span><strong>Bring in a coach:</strong> join the four-week program to stand up your full PMF infrastructure with a Waya specialist.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- =============== CTA BAND =============== -->
+<section class="cta-band" aria-label="Call to action">
+  <h2>Product-market fit isn't found by accident. It's found by method.</h2>
+  <p>The founders who get there fastest run experiments deliberately, know why they're building, and don't confuse motion for progress. The Pre-PMF MCP gives you the method — for free.</p>
+  <a class="btn-pill-cream" href="#pricing">Get Started Free</a>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section id="faq" class="faq">
+  <div class="container">
+    <p class="section-eyebrow">Frequently Asked Questions</p>
+    <h2 class="section-title" style="margin-bottom: 8px;">Everything you need to know about the Pre-PMF MCP</h2>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>What is the Pre-PMF MCP?</summary>
+        <div class="answer"><p>It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. The free tier helps you surface your purpose, write a pre-PMF executive summary, and set your mission and values. Paid tiers add experiment design and a four-week coaching program.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is a Wayaframe?</summary>
+        <div class="answer"><p>A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, an executive summary, or a set of experiments.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What do I get for free?</summary>
+        <div class="answer"><p>The free MCP includes three Wayaframes: personal Ikigai, the pre-PMF executive summary, and the mission and values guide. Together they help you clarify who you are as a founder, articulate the business you want to build, and set the foundation your company will scale on.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What does the $20 per month Pro tier add?</summary>
+        <div class="answer"><p>Pro adds the Waya experiment design Wayaframe, which turns your riskiest assumptions into small, testable experiments with clear success criteria — the engine that moves you toward product-market fit. It's billed monthly and includes everything in the free tier.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is the $2,500 program?</summary>
+        <div class="answer"><p>It's a four-week program with four one-hour coaching sessions that set up your PMF infrastructure. A Waya specialist onboards you, aligns on your idea, helps you refine or eliminate hypotheses, configures your experiments, and gets your automations and analytics running — so you leave with a working system for finding product-market fit, not just a plan.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Who is this for?</summary>
+        <div class="answer"><p>Early-stage founders who are still searching for product-market fit — whether you're pre-idea, validating a hypothesis, or running your first experiments. If you know the destination is PMF but not yet the path, this is built for you.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What do I need to run it?</summary>
+        <div class="answer"><p>An AI assistant that supports MCP, such as Claude. You connect the Waya MCP once, and the Wayaframes become available as commands you can invoke any time.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section id="book" class="final-cta">
+  <h2>Start the search for fit</h2>
+  <p>Connect the free MCP and run your first Wayaframe today. When you're ready to test and build, we're right here.</p>
+  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#pricing">Get Started Free</a></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/pre-pmf-mcp/">Pre-PMF MCP</a></li>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/financial-model-prep/">Financial Model Preparation</a></li>
+        <li><a href="/data-room-preparation/">Data Room Preparation</a></li>
+        <li><a href="/fundraising-narrative/">Fundraising Narrative</a></li>
+        <li><a href="/operations-audit/">Operations Audit</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=3" defer></script>
+</body>
+</html>
