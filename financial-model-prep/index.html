@@ -13,7 +13,7 @@
 <meta property="og:description" content="Your financial model isn't just a checkbox for your next fundraise. It tells you the key levers of the business and how to measure them. Waya builds an investor-ready model tied to your operations.">
 <meta property="og:url" content="https://www.wayaframes.com/financial-model-prep/">
 <link rel="icon" href="/assets/favicon.png">
-<link rel="stylesheet" href="/assets/styles.css?v=2">
+<link rel="stylesheet" href="/assets/styles.css?v=3">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -108,6 +108,15 @@
           <a href="/operations-audit/">Operations Audit</a>
         </div>
       </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Products
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/pre-pmf-mcp/">Pre-PMF MCP</a>
+        </div>
+      </div>
       <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=financial-model-prep&utm_content=nav">Schedule a Call</a>
     </nav>
   </div>
@@ -129,10 +138,16 @@
 
 <section class="testimonial-strip" aria-label="Featured testimonial">
   <div class="container">
-    <img class="portrait" src="/assets/images/headshots/ally-levy.png" alt="Ally Levy">
-    <div>
+    <div class="proof-card">
       <blockquote>"Na'ama and Vince pushed me to interrogate every assumption in our growth model not to make it look clean for investors, but to actually understand where the business breaks. We came out with a model that tells me which bets to make and in what order. That clarity changed how I'm thinking about capital deployment."</blockquote>
-      <div class="attribution"><strong>Ally Levy</strong> — Founder &amp; CEO, Rhyme AI</div>
+      <div class="proof-who">
+        <img src="/assets/images/headshots/ally-levy.png" alt="Ally Levy" onerror="this.remove()">
+        <div>
+          <div class="name">Ally Levy</div>
+          <div class="role">Founder &amp; CEO, Rhyme AI</div>
+        </div>
+        <img class="company-logo" src="/assets/logos/companies/rhyme.png" alt="Rhyme AI" onerror="this.remove()">
+      </div>
     </div>
   </div>
 </section>
@@ -194,11 +209,11 @@
 
 <section id="who">
   <div class="container">
-    <div class="two-col">
-      <img src="/assets/images/headshots/vince-headshot.jpeg" alt="Vincent Matranga" style="max-width: 360px; border-radius: 18px;">
-      <div class="body-block">
-        <p class="stage-tag">Vincent Matranga, Co-Founder Waya</p>
-        <h2 class="section-title" style="margin-bottom: 22px;">Who Builds Your Model</h2>
+    <h2 class="section-title">Who Builds Your Model</h2>
+    <div style="display: flex; gap: 28px; align-items: center; justify-content: center; max-width: 720px; margin: 28px auto 0; flex-wrap: wrap;">
+      <img src="/assets/images/headshots/vince-headshot.jpeg" alt="Vincent Matranga" style="width: 120px; height: 120px; border-radius: 14px; object-fit: cover; box-shadow: var(--shadow-1); flex-shrink: 0;">
+      <div class="body-block" style="text-align: left; flex: 1 1 320px; min-width: 0;">
+        <p class="stage-tag" style="margin-bottom: 8px;">Vincent Matranga</p>
         <p>You work directly with me, Vince. I've built financial models for rounds from seed up to $60M.</p>
       </div>
     </div>
@@ -293,6 +308,6 @@
   <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
 </footer>
 
-<script src="/assets/nav.js?v=2" defer></script>
+<script src="/assets/nav.js?v=3" defer></script>
 </body>
 </html>

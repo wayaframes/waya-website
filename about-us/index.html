@@ -14,7 +14,7 @@
 <meta property="og:description" content="We are founders. Just like you. Meet the Waya team and expert network.">
 <meta property="og:url" content="https://www.wayaframes.com/about-us/">
 <link rel="icon" href="/assets/favicon.png">
-<link rel="stylesheet" href="/assets/styles.css?v=2">
+<link rel="stylesheet" href="/assets/styles.css?v=3">
 
 <style>
   /* ============ Page-specific styles (about us) ============ */
@@ -26,6 +26,13 @@
   .hero .epigraph cite { display: block; margin-top: 12px; font-style: normal; font-size: 14px; color: rgba(250,247,241,0.65); }
   .hero.about { text-align: center; }
   .hero.about .hero-content { max-width: 900px; margin: 0 auto; }
+  /* Match the home hero header/subheader scale (overrides .hero.compact) */
+  .hero.about h1 { font-size: 68px; }
+  .hero.about .epigraph { font-size: 21px; }
+  @media (max-width: 960px) {
+    .hero.about h1 { font-size: 44px; }
+    .hero.about .epigraph { font-size: 18px; }
+  }
 
   /* Story */
   .story-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; }
@@ -130,6 +137,15 @@
           <a href="/data-room-preparation/">Data Room Preparation</a>
           <a href="/financial-model-prep/">Financial Model Preparation</a>
           <a href="/operations-audit/">Operations Audit</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Products
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/pre-pmf-mcp/">Pre-PMF MCP</a>
         </div>
       </div>
       <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=about-us&utm_content=nav">Schedule a Call</a>
@@ -427,6 +443,6 @@
   <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
 </footer>
 
-<script src="/assets/nav.js?v=2" defer></script>
+<script src="/assets/nav.js?v=3" defer></script>
 </body>
 </html>

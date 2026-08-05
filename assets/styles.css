@@ -152,11 +152,14 @@ button { font-family: inherit; }
   border: 1px solid rgba(250,247,241,0.45);
 }
 .btn-ghost-dark:hover { background: rgba(250,247,241,0.08); }
+/* CTA-band button: same rounded-rect shape as the other CTA buttons.
+   On dark bands it reads as cream fill with rust text + rust border. */
 .btn-pill-cream {
   display: inline-block; margin-top: 36px;
   font-family: var(--font-display); font-weight: 600; font-size: 15px;
-  padding: 16px 32px; border-radius: 999px;
+  padding: 16px 32px; border-radius: 6px;
   background: var(--waya-cream); color: var(--waya-rust);
+  border: 1px solid var(--waya-rust);
   transition: filter var(--dur-base) var(--ease-standard);
 }
 .btn-pill-cream:hover { filter: brightness(0.96); }
