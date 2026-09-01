@@ -490,7 +490,7 @@ details.faq-item .answer p + p { margin-top: 12px; }
 footer { background: var(--waya-charcoal); color: var(--fg-on-dark); padding: 80px 32px 48px; }
 .footer-inner {
   max-width: 1140px; margin: 0 auto;
-  display: grid; grid-template-columns: 1.4fr 0.8fr 1fr 0.8fr;
+  display: grid; grid-template-columns: 1.4fr 0.7fr 1fr 0.8fr 0.7fr;
   gap: 48px; align-items: start;
 }
 footer img.footer-logo { height: 36px; opacity: 0.95; }
