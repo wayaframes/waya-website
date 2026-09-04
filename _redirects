@@ -1,3 +1,8 @@
+# Serve the real favicon at the root path — crawlers (incl. Google) probe
+# /favicon.ico, which otherwise falls through to the HTML page. 200 = rewrite
+# (no redirect), so it returns the PNG with image/png content-type.
+/favicon.ico    /assets/favicon.png    200
+
 # Old slugs -> current URLs (301)
 /storytelling_pitch/            /fundraising-narrative/    301
 /fundraising-audit/             /fundraising-narrative/    301
