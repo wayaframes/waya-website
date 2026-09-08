@@ -9,15 +9,24 @@
 Instrument the Waya website (static HTML on Cloudflare Pages) with PostHog to answer two classes of question:
 
 1. **Behavioral** — where prospects come in, where they click, how they navigate, what they read, and what makes them click a CTA.
-2. **Timeline / outcome** — visitors per month, best traffic sources, funnel outcomes, website-attributed bookings, and thought-leadership engagement.
+2. **Timeline / outcome** — visitors per month, best traffic sources, funnel outcomes, website-attributed intent, and thought-leadership engagement.
 
-Sales close in GoHighLevel (GHL) after the visitor leaves the site for a `leadconnectorhq.com` booking widget. This design carries the visitor's identity across that handoff so the funnel **visit → CTA → booking** is unified in PostHog (**closed-loop to bookings**). Dollar values remain in GHL.
+Sales close in GoHighLevel (GHL) after the visitor leaves the site for a `leadconnectorhq.com` booking widget.
+
+## Phasing
+
+The build is split so **Phase 1 ships value with zero external configuration**:
+
+- **Phase 1 (v1, this build)** — all client-side tracking. Funnel ends at the **CTA click** (`cta_schedule_call_clicked`). No GHL, no Cloudflare Worker. Booking *outcomes* continue to be read from GHL's own reports via the existing UTMs.
+- **Phase 2 (optional, later)** — closed-loop to bookings: a Cloudflare Worker receives a GHL "appointment booked" webhook and pushes `booking_completed` back into PostHog, so the full funnel (visit → click → booking) lives in one place. Only build this if reconciling PostHog and GHL by hand becomes annoying.
+
+Everything below is tagged **[Phase 1]** or **[Phase 2]**.
 
 ## Decisions (locked)
 
 | Decision | Choice |
 |---|---|
-| Attribution scope | Closed-loop to bookings (booking event pushed back to PostHog; $ stays in GHL) |
+| Attribution scope | v1 funnel ends at CTA click. Closed-loop to bookings is **optional Phase 2**. |
 | Capabilities | Autocapture + pageviews, Heatmaps + scroll depth, Custom conversion events. **No session replay.** |
 | Consent | Cookies + lightweight consent banner; PostHog deferred until Accept |
 | Region | PostHog US Cloud (`https://us.i.posthog.com`) |
@@ -39,34 +48,44 @@ One shared, deferred external script owns the whole client integration; each pag
 
 ```
 Each page <head>
-  └─ <script defer src="/assets/analytics.js"></script>
+  └─ <script defer src="/assets/analytics.js"></script>          [Phase 1]
 
-assets/analytics.js
+assets/analytics.js                                              [Phase 1]
   ├─ Consent gate (banner UI, localStorage, defer PostHog until Accept)
   ├─ PostHog init  (autocapture, heatmaps, pageview/pageleave, cookie persistence)
-  ├─ Custom events (CTA click, service nav, carousel, outbound)
-  └─ Identity passthrough (append ph_distinct_id to leadconnectorhq.com links on click)
+  └─ Custom events (CTA click, service nav, carousel, outbound)
 
-Cloudflare Worker (analytics-webhook/)
-  └─ receives GHL "appointment booked" webhook → POST booking_completed to PostHog capture API
+--- optional, later ---
+assets/analytics.js  + identity passthrough                     [Phase 2]
+  └─ append ph_distinct_id to leadconnectorhq.com links on click
+Cloudflare Worker (analytics-webhook/)                          [Phase 2]
+  └─ GHL "appointment booked" webhook → POST booking_completed to PostHog capture API
 ```
 
-### Data flow (closed-loop)
+### Data flow — Phase 1
 
 ```
 Visitor lands (utm_source/medium/campaign/content)
   → autocapture + $pageview + scroll/heatmap
-  → clicks "Schedule a Call"        [event: cta_schedule_call_clicked, {location}]
-  → redirect to GHL booking widget WITH ph_distinct_id (+ ph_session_id) appended
-  → visitor books call
-  → GHL workflow fires webhook → Cloudflare Worker
-  → Worker POSTs to PostHog /capture  [event: booking_completed, distinct_id = passed-through id]
-= unified funnel: $pageview → cta_schedule_call_clicked → booking_completed, split by source
+  → clicks "Schedule a Call"   [event: cta_schedule_call_clicked, {location, service}]
+  → redirect to GHL booking widget (existing UTMs preserved)
+= funnel: $pageview → cta_schedule_call_clicked, split by source
+  (actual bookings read from GHL reports via UTMs)
+```
+
+### Data flow — Phase 2 (optional add-on)
+
+```
+… cta_schedule_call_clicked
+  → redirect to GHL booking widget WITH ph_distinct_id appended
+  → visitor books → GHL workflow webhook → Cloudflare Worker
+  → PostHog /capture: booking_completed (same distinct_id)
+= funnel extends to: … → cta_schedule_call_clicked → booking_completed
 ```
 
 ## Components
 
-### 1. `assets/analytics.js` (new)
+### 1. `assets/analytics.js` (new) — **[Phase 1]**
 
 Load order & consent:
 - On load, read `localStorage['waya_analytics_consent']` (`granted` | `denied` | unset).
@@ -96,16 +115,11 @@ Custom events (thin layer over autocapture, for clean funnels):
 | `carousel_interacted` | click `#carPrev` / `#carNext` | `direction` |
 | `outbound_click` | click to Substack / LinkedIn / YouTube | `network`, `href` (thought-leadership signal) |
 
-Identity passthrough:
-- Delegated click listener on `a[href*="leadconnectorhq.com"]`.
-- Before navigation, append `ph_distinct_id=<posthog.get_distinct_id()>` and `ph_session_id=<posthog.get_session_id()>` to the href (preserving existing UTMs).
-- Only when consent granted (otherwise no id exists — booking still recorded by GHL, matched later by email).
-
-### 2. `assets/styles.css` (edit)
+### 2. `assets/styles.css` (edit) — **[Phase 1]**
 
 Add consent-banner rules only (fixed bottom bar, Accept/Decline buttons reusing existing `.btn-*` visual language, mobile-stacked, respects reduced-motion). ~30–40 lines, no changes to existing rules.
 
-### 3. The 10 `index.html` files (edit)
+### 3. The 10 `index.html` files (edit) — **[Phase 1]**
 
 Add exactly one line inside each `<head>` (after the stylesheet link):
 ```html
@@ -113,7 +127,13 @@ Add exactly one line inside each `<head>` (after the stylesheet link):
 ```
 No other markup changes. Existing `utm_content` values are reused as event properties — no per-CTA edits required.
 
-### 4. Cloudflare Worker — `analytics-webhook/` (new)
+### 4. Identity passthrough — **[Phase 2]**
+
+- Delegated click listener on `a[href*="leadconnectorhq.com"]`.
+- Before navigation, append `ph_distinct_id=<posthog.get_distinct_id()>` (+ `ph_session_id`) to the href, preserving existing UTMs.
+- Inert until Phase 2 exists to consume it; kept out of v1 to keep the client minimal.
+
+### 5. Cloudflare Worker — `analytics-webhook/` (new) — **[Phase 2]**
 
 - Endpoint receives the GHL "appointment booked" webhook (shared-secret header validated).
 - Maps payload → PostHog capture:
@@ -124,46 +144,58 @@ No other markup changes. Existing `utm_content` values are reused as event prope
     properties: { calendar, utm_source, utm_campaign, utm_content, booking_id } }
   ```
 - Deployed separately (wrangler); URL + shared secret go into the GHL workflow.
-- Rationale for a Worker over GHL-posting-PostHog-directly: validation, id-fallback logic, and a clean home for adding **revenue** (won-opportunity value) later without touching GHL config again.
+- Also the clean seam for adding **revenue** (won-opportunity value) later.
 
 ## Dashboards (built in PostHog UI post-instrumentation)
 
-| Ask | Insight |
-|---|---|
-| Visitors per month | Unique-users trend on `$pageview`, monthly |
-| Best traffic sources | `$pageview` breakdown by `utm_source`, then `$referring_domain` |
-| Outcomes / funnel | Funnel: `$pageview` → `cta_schedule_call_clicked` → `booking_completed`, filterable by page & source |
-| Website-attributed bookings | `booking_completed` count by `utm_source` / `utm_campaign` |
-| Thought leadership | Inbound from Substack/LinkedIn/YouTube (`$referring_domain`) + `outbound_click` by `network` |
-| What they read | Scroll-depth + heatmaps per page (native PostHog per-URL) |
+| Ask | Insight | Phase |
+|---|---|---|
+| Visitors per month | Unique-users trend on `$pageview`, monthly | 1 |
+| Best traffic sources | `$pageview` breakdown by `utm_source`, then `$referring_domain` | 1 |
+| Outcomes / funnel | Funnel: `$pageview` → `cta_schedule_call_clicked`, by page & source | 1 |
+| Website-attributed bookings | v1: from **GHL reports** (UTMs). Phase 2: `booking_completed` by source, inside PostHog | 1 / 2 |
+| Thought leadership | Inbound from Substack/LinkedIn/YouTube (`$referring_domain`) + `outbound_click` by `network` | 1 |
+| What they read | Scroll-depth + heatmaps per page (native PostHog per-URL) | 1 |
 
-Delivered as one PostHog dashboard, "Waya Website — Acquisition & Outcomes." Built via UI (documented steps); optionally scripted via PostHog API as a follow-up.
+Delivered as one PostHog dashboard, "Waya Website — Acquisition & Outcomes."
 
 ## Risks & mitigations
 
-1. **Identity passthrough through GHL** — depends on the booking widget carrying `ph_distinct_id` into a GHL contact custom field, then into the webhook payload. *Mitigation:* Worker falls back to matching on email; booking is always recorded even if the id doesn't survive. This is the one piece requiring GHL-side configuration and live validation.
-2. **Consent decline reduces data** — expected; declines are simply uncaptured. No dark patterns.
-3. **Drift across 10 pages** — mitigated by the single external script; only the one `<script>` line must exist on each page (covered by a QA check).
+1. **Consent decline reduces data** — expected; declines are simply uncaptured. No dark patterns. *[Phase 1]*
+2. **Drift across 10 pages** — mitigated by the single external script; only the one `<script>` line must exist on each page (covered by a QA check). *[Phase 1]*
+3. **Identity passthrough through GHL** *(Phase 2 only)* — depends on the booking widget carrying `ph_distinct_id` into a GHL custom field, then into the webhook payload. *Mitigation:* Worker falls back to matching on email; booking is always recorded even if the id doesn't survive.
 
 ## Out of scope (YAGNI)
 
 - Session replay.
-- Full revenue ($ value) piped into PostHog — deliberately deferred; the Worker leaves a clean seam to add it.
-- Server-side/proxy PostHog ingestion (reverse proxy) — not needed without a CSP or ad-block-evasion requirement.
+- Full revenue ($ value) piped into PostHog.
+- Server-side/proxy PostHog ingestion (reverse proxy) — not needed without a CSP.
 - Feature flags / experiments / surveys.
 
-## Prerequisites (user-provided)
+## Prerequisites
 
+**Phase 1 (needed now):**
 - PostHog project **public** API key (US Cloud). Host: `https://us.i.posthog.com`.
-- Permission/steps to add the GHL workflow + outbound webhook and (ideally) a `ph_distinct_id` custom field on the contact.
+
+**Phase 2 (only if/when built):**
+- Permission/steps to add the GHL workflow + outbound webhook and a `ph_distinct_id` custom field on the contact.
 - Cloudflare account access to deploy the Worker (already on Cloudflare).
 
-## Implementation surface (summary)
+## Implementation surface
+
+**Phase 1 (this build):**
 
 | File | Change |
 |---|---|
-| `assets/analytics.js` | new — consent gate, PostHog init, custom events, identity passthrough |
+| `assets/analytics.js` | new — consent gate, PostHog init, custom events |
 | `assets/styles.css` | edit — consent-banner styles only |
 | 10 × `index.html` | edit — one `<script defer>` line in `<head>` |
-| `analytics-webhook/` | new — Cloudflare Worker (GHL → PostHog booking_completed) |
-| `docs/` | this spec + a GHL/PostHog setup checklist |
+| `docs/` | this spec + a PostHog dashboard setup checklist |
+
+**Phase 2 (optional, later):**
+
+| File | Change |
+|---|---|
+| `assets/analytics.js` | edit — add identity passthrough |
+| `analytics-webhook/` | new — Cloudflare Worker (GHL → PostHog `booking_completed`) |
+| `docs/` | GHL workflow + webhook setup checklist |
