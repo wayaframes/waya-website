@@ -538,3 +538,36 @@ footer ul a:hover { color: var(--waya-mustard); }
   .mountain-band { height: 160px; }
   .mountain-band.mustard { height: 140px; }
 }
+
+/* ============ COOKIE CONSENT ============ */
+.waya-consent {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1000;
+  max-width: 720px; margin: 0 auto;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--waya-charcoal); color: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 12px;
+  box-shadow: var(--shadow-3);
+  font-family: var(--font-body);
+  animation: waya-consent-in var(--dur-base) var(--ease-standard);
+}
+.waya-consent__text { margin: 0; flex: 1 1 260px; font-size: 13px; line-height: 1.5; }
+.waya-consent__actions { display: flex; gap: 10px; flex: 0 0 auto; }
+.waya-consent__btn {
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  padding: 10px 20px; border-radius: 6px; cursor: pointer; border: 0;
+  transition: filter var(--dur-fast) var(--ease-standard);
+}
+.waya-consent__btn--accept { background: var(--waya-rust); color: var(--white); }
+.waya-consent__btn--accept:hover { filter: brightness(0.92); }
+.waya-consent__btn--decline {
+  background: transparent; color: var(--waya-cream);
+  border: 1px solid rgba(250,247,241,0.35);
+}
+.waya-consent__btn--decline:hover { background: rgba(250,247,241,0.08); }
+@keyframes waya-consent-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .waya-consent { animation: none; } }
+@media (max-width: 520px) {
+  .waya-consent { flex-direction: column; align-items: stretch; }
+  .waya-consent__actions { justify-content: flex-end; }
+}
