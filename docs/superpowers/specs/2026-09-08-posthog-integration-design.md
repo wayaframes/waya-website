@@ -34,7 +34,7 @@ Everything below is tagged **[Phase 1]** or **[Phase 2]**.
 
 ## Site facts (context)
 
-- No build system. Nav/footer are hand-copied into every page (no includes). **10 pages currently:**
+- No build system. Nav/footer are hand-copied into every page (no includes). **10 `index.html` files; 9 use the shared template and get instrumented. `waya-os-mcp/setup/index.html` is a generated Claude Design bundle and is excluded.** Template pages:
   `/`, `/about-us/`, `/scale-up-program/`, `/fundraising-narrative/`, `/data-room-preparation/`,
   `/financial-model-prep/`, `/operations-audit/`, `/waya-os-mcp/`, `/waya-os-mcp/setup/`, `/pre-pmf-mcp/`.
 - Shared `assets/styles.css`; tiny vanilla `assets/nav.js`. No existing analytics.
