@@ -37,8 +37,79 @@
     document.head.appendChild(s);
   }
 
-  /* ---- Custom events (filled in Task 4) ---- */
-  function wireCustomEvents() {}
+  /* ---- Custom events ---- */
+  var SERVICE_PATHS = {
+    '/scale-up-program/':      'scale-up-program',
+    '/fundraising-narrative/': 'fundraising-narrative',
+    '/data-room-preparation/': 'data-room-preparation',
+    '/financial-model-prep/':  'financial-model-prep',
+    '/operations-audit/':      'operations-audit',
+    '/waya-os-mcp/':           'waya-os-mcp',
+    '/pre-pmf-mcp/':           'pre-pmf-mcp'
+  };
+
+  function parseQuery(href) {
+    var out = {}, q = href.split('?')[1];
+    if (!q) return out;
+    q.split('#')[0].split('&').forEach(function (pair) {
+      var kv = pair.split('=');
+      out[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+    });
+    return out;
+  }
+  function bookingService(href) {
+    var m = href.match(/\/bookings\/([a-z0-9\-]+)/i);
+    return m ? m[1] : null;
+  }
+  function outboundNetwork(href) {
+    if (/linkedin\.com/i.test(href)) return 'linkedin';
+    if (/youtube\.com/i.test(href))  return 'youtube';
+    if (/substack\.com/i.test(href)) return 'substack';
+    return null;
+  }
+  function internalService(href) {
+    for (var p in SERVICE_PATHS) {
+      if (SERVICE_PATHS.hasOwnProperty(p) && href.indexOf(p) !== -1) return SERVICE_PATHS[p];
+    }
+    return null;
+  }
+  function linkSource(a) {
+    if (a.closest && a.closest('.nav-dropdown-menu')) return 'nav';
+    if (a.closest && a.closest('footer'))             return 'footer';
+    return 'grid';
+  }
+
+  function wireCustomEvents() {
+    var ph = window.posthog;
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+
+      if (href.indexOf('leadconnectorhq.com') !== -1) {         // CTA → booking widget
+        var u = parseQuery(href);
+        ph.capture('cta_schedule_call_clicked', {
+          location: u.utm_content || null,
+          service:  bookingService(href),
+          href: href
+        });
+        return;
+      }
+      var net = outboundNetwork(href);                          // thought-leadership outbound
+      if (net) { ph.capture('outbound_click', { network: net, href: href }); return; }
+
+      var svc = internalService(href);                          // internal service nav
+      if (svc) { ph.capture('service_nav_clicked', { service: svc, source: linkSource(a) }); }
+    }, true);
+
+    ['carPrev', 'carNext'].forEach(function (id) {              // pillar carousel
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function () {
+        ph.capture('carousel_interacted', { direction: id === 'carNext' ? 'next' : 'prev' });
+      });
+    });
+  }
 
   /* ---- Consent banner ---- */
   function showBanner() {
