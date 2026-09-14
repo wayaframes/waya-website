@@ -5,7 +5,7 @@
   'use strict';
 
   var POSTHOG_KEY  = 'phc_mAbTEGUVYzRY2EZLqYJzpjn4LTxQSaF3KPzcspuZBGyL';              // <-- your phc_… project key
-  var POSTHOG_HOST = 'https://us.i.posthog.com';ß
+  var POSTHOG_HOST = 'https://us.i.posthog.com';
   var ASSET_HOST   = 'https://us-assets.i.posthog.com';
   var CONSENT_KEY  = 'waya_analytics_consent';
 
