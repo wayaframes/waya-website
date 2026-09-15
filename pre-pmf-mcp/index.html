@@ -145,7 +145,7 @@
 .frame p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
 
 /* ---------- Pricing tiers ---------- */
-.tiers { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+.tiers { margin: 56px auto 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: stretch; max-width: 760px; }
 .tier {
   position: relative;
   background: var(--waya-cream);
@@ -376,23 +376,7 @@
           <li><span class="cmd">/pre-pmf-executive-summary</span></li>
           <li><span class="cmd">/mission-values-guide</span></li>
         </ul>
-        <div class="tier-cta"><a class="btn-ghost-rust" href="#setup">Get Started Free</a></div>
-      </article>
-
-      <!-- PRO -->
-      <article class="tier featured">
-        <span class="tier-flag">Most popular</span>
-        <p class="tier-name">Pro</p>
-        <div class="tier-price">$20<span class="per"> / month</span></div>
-        <p class="tier-note">Cancel anytime</p>
-        <p class="tier-desc">Everything in Free, plus the experiment engine that drives you toward PMF.</p>
-        <ul class="tier-feats">
-          <li>Everything in Free</li>
-          <li><span class="cmd">/waya-experiment-design</span></li>
-          <li>Design testable experiments with clear success criteria</li>
-          <li>Run the test–learn–revise loop toward fit</li>
-        </ul>
-        <div class="tier-cta"><a class="btn-rust" href="#setup">Start Pro</a></div>
+        <div class="tier-cta"><a class="btn-ghost-rust" href="/waya-os-mcp/setup/">Get Started Free</a></div>
       </article>
 
       <!-- PROGRAM -->
@@ -402,7 +386,7 @@
         <p class="tier-note">4-week program · one-time</p>
         <p class="tier-desc">Four coaching sessions to stand up the infrastructure that finds your product-market fit.</p>
         <ul class="tier-feats">
-          <li>Everything in Pro</li>
+          <li>The full Pre-PMF MCP, plus <span class="cmd">/waya-experiment-design</span></li>
           <li>4 × one-hour coaching sessions</li>
           <li>Specialist-led onboarding &amp; idea alignment</li>
           <li>Experiments, automations &amp; analytics configured with you</li>
