@@ -142,22 +142,53 @@
 (function () {
   var f = document.getElementById('setupApp');
   if (!f) return;
+  // The Claude Design artboard is much taller than its actual content (empty
+  // canvas below), so scrollHeight would push the footer far down. Measure the
+  // real content bottom instead — the lowest visible element that carries text
+  // or is a media/control — piercing shadow roots the design uses.
+  function contentBottom(doc) {
+    var max = 0;
+    function walk(root) {
+      var els = root.querySelectorAll('*');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i], tag = el.tagName.toLowerCase();
+        var isContent = tag === 'img' || tag === 'svg' || tag === 'button' ||
+          tag === 'a' || tag === 'input' || tag === 'hr' || tag === 'video' || tag === 'canvas';
+        if (!isContent) {
+          var cn = el.childNodes;
+          for (var j = 0; j < cn.length; j++) {
+            if (cn[j].nodeType === 3 && cn[j].textContent.trim()) { isContent = true; break; }
+          }
+        }
+        if (isContent) {
+          var r = el.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0 && r.bottom > max) max = r.bottom;
+        }
+        if (el.shadowRoot) walk(el.shadowRoot);
+      }
+    }
+    walk(doc);
+    return max;
+  }
   function fit() {
     try {
       var d = f.contentDocument || (f.contentWindow && f.contentWindow.document);
       if (!d || !d.documentElement) return;
-      var h = Math.max(
-        d.documentElement.scrollHeight,
-        d.body ? d.body.scrollHeight : 0
-      );
-      if (h > 0) f.style.height = h + 'px';
+      var h = contentBottom(d);
+      if (!h) h = d.documentElement.scrollHeight; // fallback before render
+      if (h > 0) f.style.height = Math.ceil(h + 24) + 'px';
     } catch (e) { /* same-origin expected; ignore transient access errors */ }
   }
-  f.addEventListener('load', fit);
-  // The embedded page renders its content asynchronously (it swaps its own
-  // document after load), so keep syncing height for a while, then ease off.
-  var ticks = 0;
-  var iv = setInterval(function () { fit(); if (++ticks > 40) clearInterval(iv); }, 250);
+  f.addEventListener('load', function () {
+    fit();
+    // The stepper changes height as the visitor makes selections — re-fit on
+    // any interaction inside the frame.
+    try {
+      var d = f.contentDocument;
+      if (d) d.addEventListener('click', function () { setTimeout(fit, 60); setTimeout(fit, 320); }, true);
+    } catch (e) {}
+  });
+  setInterval(fit, 500);   // keeps height in sync through async render + edits
   window.addEventListener('resize', fit);
 })();
 </script>
