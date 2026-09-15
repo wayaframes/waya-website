@@ -43,6 +43,20 @@
     width: 100%; border: 0; display: block;
     min-height: 85vh; /* holds space while the stepper renders */
   }
+  /* Thank-you toast shown after the signup form redirects here (?signup=1) */
+  .signup-thanks {
+    display: none;
+    position: fixed; right: 22px; bottom: 22px;
+    z-index: 2147483000; align-items: center; gap: 14px;
+    background: var(--waya-charcoal); color: var(--waya-cream);
+    padding: 13px 16px 13px 18px; border-radius: 10px; box-shadow: var(--shadow-3);
+    font-family: var(--font-display); font-size: 14.5px; max-width: 92vw;
+  }
+  .signup-thanks .st-check { color: var(--waya-mustard); font-weight: 700; }
+  .signup-thanks .st-x {
+    background: none; border: 0; color: var(--waya-cream);
+    font-size: 20px; line-height: 1; cursor: pointer; padding: 0 2px;
+  }
 </style>
 </head>
 <body>
@@ -191,6 +205,24 @@
   });
   setInterval(fit, 500);   // keeps height in sync through async render + edits
   window.addEventListener('resize', fit);
+})();
+</script>
+
+<!-- Thank-you toast: shown when the signup form redirects here with ?signup=1 -->
+<div id="signupThanks" class="signup-thanks" role="status" aria-live="polite">
+  <span><span class="st-check">✓</span> Thanks for submitting the form — connect your MCP below.</span>
+  <button type="button" class="st-x" aria-label="Dismiss">&times;</button>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('signupThanks');
+  if (!el) return;
+  var show = false;
+  try { show = !!new URLSearchParams(location.search).get('signup'); } catch (e) {}
+  if (!show) return;
+  el.style.display = 'flex';
+  el.querySelector('.st-x').addEventListener('click', function () { el.style.display = 'none'; });
+  setTimeout(function () { el.style.display = 'none'; }, 12000);
 })();
 </script>
 

@@ -33,8 +33,11 @@
   .signup { background: var(--waya-paper); }
   .signup .container { max-width: 760px; }
   .ghl-embed { margin-top: 40px; }
+  /* No min-height: form_embed.js resizes the iframe to the form's real
+     height, so forcing a minimum would leave dead space before the footer.
+     The inline height="973" attribute is just the pre-script fallback. */
   .ghl-embed iframe {
-    width: 100%; min-height: 980px; border: none; border-radius: 8px;
+    width: 100%; border: none; border-radius: 8px;
     background: var(--waya-cream);
   }
   .signup-next {
