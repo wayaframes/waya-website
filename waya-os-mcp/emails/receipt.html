@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Your Receipt from Waya</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f4f5f7; font-family:Arial, Helvetica, sans-serif; color:#2b2f36;">
+  <!-- Preheader (hidden) -->
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0;">
+    Thanks for your payment — here is your receipt.
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f5f7; padding:24px 0;">
+    <tr>
+      <td align="center">
+        <!-- Container -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px; max-width:600px; background-color:#ffffff; border-radius:10px; overflow:hidden; border:1px solid #e6e8eb;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#2b6455; padding:24px 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" style="text-align:left; vertical-align:middle;">
+                    <a href="https://www.wayaframes.com" target="_blank" style="text-decoration:none;">
+                      <img src="https://www.wayaframes.com/assets/logos/waya-logo-cream.png" width="120" alt="Waya" style="display:block; width:120px; max-width:120px; height:auto; border:0; outline:none; text-decoration:none;" />
+                    </a>
+                  </td>
+                  <td align="right" style="text-align:right; vertical-align:middle; font-size:13px; color:#d7e5df;">
+                    Payment Receipt
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Greeting -->
+          <tr>
+            <td style="padding:32px 32px 8px 32px;">
+              <p style="margin:0 0 12px 0; font-size:16px;">Hi {{contact.first_name}},</p>
+              <p style="margin:0; font-size:15px; line-height:1.6; color:#4a4f57;">
+                Thank you for your payment. This email confirms your transaction. A summary is below for your records.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Amount highlight -->
+          <tr>
+            <td style="padding:20px 32px 8px 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0f6f3; border-radius:8px;">
+                <tr>
+                  <td style="padding:20px 24px; text-align:center;">
+                    <div style="font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#5c7a70;">Amount Paid</div>
+                    <div style="margin-top:6px; font-size:30px; font-weight:bold; color:#2b6455;">{{amount_paid}}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Receipt details -->
+          <tr>
+            <td style="padding:16px 32px 0 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; color:#4a4f57;">
+                <tr>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; color:#8a9099;">Receipt #</td>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; text-align:right; font-weight:bold; color:#2b2f36;">{{receipt_number}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; color:#8a9099;">Date</td>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; text-align:right; color:#2b2f36;">{{payment_date}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; color:#8a9099;">Payment method</td>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; text-align:right; color:#2b2f36;">{{payment_method}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0; color:#8a9099;">Billed to</td>
+                  <td style="padding:10px 0; text-align:right; color:#2b2f36;">{{contact.first_name}} {{contact.last_name}}<br />{{contact.email}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Line items -->
+          <tr>
+            <td style="padding:24px 32px 0 32px;">
+              <div style="font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#8a9099; margin-bottom:8px;">Summary</div>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; color:#2b2f36;">
+                <tr>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2;">{{item_description}}</td>
+                  <td style="padding:10px 0; border-bottom:1px solid #eef0f2; text-align:right;">{{item_amount}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 0; font-weight:bold; font-size:16px;">Total</td>
+                  <td style="padding:12px 0; font-weight:bold; font-size:16px; text-align:right; color:#2b6455;">{{amount_paid}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Help -->
+          <tr>
+            <td style="padding:28px 32px 8px 32px;">
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#4a4f57;">
+                Questions about this receipt? Just reply to this email or reach us at
+                <a href="mailto:info@wayaframes.com" style="color:#2b6455; text-decoration:none;">info@wayaframes.com</a>.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 32px 32px 32px; border-top:1px solid #eef0f2; text-align:center;">
+              <p style="margin:0 0 4px 0; font-size:13px; color:#8a9099;">Waya</p>
+              <p style="margin:0 0 4px 0; font-size:12px; color:#a0a6ad;">5013 S. Louise Ave Unit 646, Sioux Falls, SD 57108</p>
+              <p style="margin:0; font-size:12px; color:#a0a6ad;">
+                <a href="https://www.wayaframes.com" style="color:#8a9099; text-decoration:none;">www.wayaframes.com</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Container -->
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waya OS · 12-Week Founder Cohort</title>
+<meta name="description" content="A 12-week founder cohort that sets you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=5">
+
+<!--
+  ==========================================================================
+  ASSUMPTIONS SURFACED FOR REVIEW (Oren):
+  1. HERO IMAGE: waya-design has no true 2400x1200 hero asset. Using the
+     documented interim fallback — sepia/charcoal gradient + inline mountain
+     SVG silhouette + scrim. Swap in a real tall sepia landscape when available.
+  2. APPLY / PAY FLOW: every "Apply for the cohort" button links to /apply/,
+     which embeds the GHL order form (form id LXcmFPl3FRQJ88JoJBnf). After
+     PAYMENT, configure the GHL order form to redirect to the /welcome/ page
+     (its "what to expect + MCP setup + experiment tools" overview). The
+     welcome page links out to the existing MCP setup guide at
+     /waya-os-mcp/setup/.
+  3. Price shown as $3,000 for the 12 weeks. Seats capped at 5–7.
+  4. Start date: second week of November 2026. Work-exchange / scholarship
+     seats are handled privately and are intentionally NOT advertised here.
+  5. No real named testimonial yet. The pain carousel + shortened challenge
+     sit directly under the hero; video is a placeholder in the challenge.
+  ==========================================================================
+-->
+
+<style>
+  :root{ --border-2: rgba(56,63,59,0.28); --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --waya-white:#FFFFFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--waya-cream);
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- Header ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,247,241,0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { height: 28px; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 500;
+    color: var(--waya-charcoal);
+    letter-spacing: -0.005em;
+  }
+  .nav-links a:hover { color: var(--waya-rust); }
+  .btn-rust {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 6px; border: 0; cursor: pointer;
+    background: var(--waya-rust); color: var(--waya-cream);
+    transition: filter var(--dur-base) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+    letter-spacing: 0.01em;
+  }
+  .btn-rust:hover { filter: brightness(0.92); }
+  .btn-rust:active { transform: translateY(1px) scale(0.99); }
+  .btn-ghost-dark {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 6px; cursor: pointer;
+    background: transparent; color: var(--waya-cream);
+    border: 1px solid rgba(250,247,241,0.45);
+    transition: background var(--dur-base) var(--ease-standard);
+  }
+  .btn-ghost-dark:hover { background: rgba(250,247,241,0.08); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 660px;
+    background:
+      radial-gradient(120% 90% at 78% 8%, rgba(208,174,137,0.30) 0%, rgba(208,174,137,0) 55%),
+      linear-gradient(178deg, #4a4f47 0%, #3b413c 44%, #2b302c 100%);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 56px 120px;
+    overflow: hidden;
+  }
+  .hero-ridge { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; z-index: 1; }
+  .hero-ridge svg { display: block; width: 100%; height: auto; }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(31,36,34,0.34) 0%, rgba(31,36,34,0.10) 46%, rgba(31,36,34,0.52) 100%);
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1200px; width: 100%;
+    margin: 0 auto;
+  }
+  .hero-content { max-width: 900px; }
+  .eyebrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(250,247,241,0.85);
+    margin-bottom: 22px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--waya-rust); box-shadow: 0 0 0 4px rgba(209,108,2,0.22); }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 68px; line-height: 1.04; letter-spacing: -0.025em;
+    color: var(--waya-cream); text-wrap: balance;
+  }
+  .hero .sub {
+    font-family: var(--font-body); font-weight: 400;
+    font-size: 21px; line-height: 1.5;
+    color: rgba(250,247,241,0.92);
+    margin-top: 24px; max-width: 680px; text-wrap: pretty;
+  }
+  .hero-cta { display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
+  .hero-meta {
+    margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(250,247,241,0.78);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 8px; }
+  .hero-meta span::before { content: '▸'; color: var(--waya-mustard); font-size: 11px; }
+
+  /* ---------- Section frames ---------- */
+  section { padding: 112px 32px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .narrow { max-width: 760px; margin: 0 auto; }
+
+  /* ---------- Pain carousel (directly under hero) ---------- */
+  .pain-carousel { background: var(--waya-paper); border-bottom: 1px solid var(--border-1); padding: 84px 32px; }
+  .pain-carousel .container { max-width: 860px; }
+  .flip-stage { margin-top: 26px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+  .flip-viewport { perspective: 1400px; flex: 1; max-width: 640px; }
+  .flip-card {
+    background: var(--waya-cream); border: 1px solid var(--border-1);
+    border-radius: 20px; box-shadow: var(--shadow-2);
+    padding: 48px 44px; min-height: 210px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center;
+    transform-style: preserve-3d; transform-origin: center;
+    transition: transform 320ms var(--ease-standard), opacity 320ms var(--ease-standard);
+    will-change: transform;
+  }
+  .flip-card.flipping { transform: rotateX(90deg); opacity: 0.15; }
+  .flip-glyph {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--waya-mint); color: var(--waya-charcoal);
+    display: flex; align-items: center; justify-content: center; flex: none;
+  }
+  .flip-glyph svg { width: 32px; height: 32px; stroke: var(--waya-charcoal); fill: none; stroke-width: 1.8; }
+  .flip-card blockquote {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 24px; line-height: 1.32; letter-spacing: -0.015em;
+    color: var(--waya-charcoal); text-wrap: balance; max-width: 480px;
+  }
+  .flip-arrow {
+    flex: none; width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--border-2); background: var(--waya-cream);
+    color: var(--waya-charcoal); font-size: 22px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--dur-base) var(--ease-standard), color var(--dur-base) var(--ease-standard);
+  }
+  .flip-arrow:hover { background: var(--waya-charcoal); color: var(--waya-cream); }
+  .flip-dots { margin-top: 26px; display: flex; gap: 10px; justify-content: center; }
+  .flip-dots button {
+    width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+    background: var(--waya-fog); transition: background var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
+  }
+  .flip-dots button.active { background: var(--waya-rust); transform: scale(1.25); }
+
+  /* ---------- Section heading ---------- */
+  .section-eyebrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; color: var(--waya-rust);
+    margin-bottom: 16px;
+  }
+  h2.section-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 44px; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--waya-charcoal);
+    text-wrap: balance;
+    max-width: 820px;
+  }
+  .section-lead {
+    margin-top: 24px;
+    font-family: var(--font-body);
+    font-size: 18px; line-height: 1.6;
+    color: var(--waya-ink); max-width: 760px;
+    text-wrap: pretty;
+  }
+  .section-cta { margin-top: 36px; }
+
+  /* ---------- Challenge + video ---------- */
+  .challenge-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .challenge-copy .section-title { font-size: 40px; }
+  .challenge-copy .punch {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 22px; line-height: 1.34; letter-spacing: -0.015em;
+    color: var(--waya-charcoal); max-width: 460px; text-wrap: pretty;
+    margin-top: 20px;
+  }
+  .video-wrap { width: 100%; }
+  .video-placeholder {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    border-radius: 18px; overflow: hidden;
+    background:
+      radial-gradient(120% 100% at 70% 10%, rgba(208,174,137,0.30) 0%, rgba(208,174,137,0) 55%),
+      linear-gradient(160deg, #454b44 0%, #363c37 60%, #2b302c 100%);
+    border: 1px solid var(--border-1);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+    box-shadow: var(--shadow-2);
+  }
+  .video-play {
+    width: 76px; height: 76px; border-radius: 50%; cursor: pointer;
+    border: 0; background: var(--waya-rust);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(31,36,34,0.28);
+    transition: transform var(--dur-fast) var(--ease-standard), filter var(--dur-base) var(--ease-standard);
+  }
+  .video-play:hover { filter: brightness(0.94); transform: scale(1.05); }
+  .video-play .tri {
+    width: 0; height: 0; margin-left: 5px;
+    border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+    border-left: 20px solid var(--waya-cream);
+  }
+  .video-cap {
+    font-family: var(--font-display); font-weight: 500; font-size: 14px;
+    letter-spacing: 0.02em; color: rgba(250,247,241,0.9);
+  }
+
+  /* ---------- Curriculum (spread-out module rows) ---------- */
+  .curriculum { background: var(--waya-paper); }
+  .module-stack { margin-top: 64px; border-top: 1px solid var(--border-1); }
+  .module-row {
+    display: grid; grid-template-columns: 260px 1fr;
+    gap: 64px; align-items: start;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border-1);
+    position: relative;
+  }
+  .module-aside { position: relative; display: flex; flex-direction: column; gap: 14px; }
+  .ghost-num {
+    position: absolute; top: -20px; right: 8px;
+    font-family: var(--font-display); font-weight: 700; font-size: 108px;
+    line-height: 1; letter-spacing: -0.04em;
+    color: var(--waya-charcoal); opacity: 0.06; pointer-events: none;
+  }
+  /* Icons drop in FLAT — no colored circle wrapper, no filters. They are already the badge. */
+  .module-aside .icon img { width: 88px; height: 88px; position: relative; }
+  .module-tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .module-week {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; letter-spacing: -0.01em;
+    color: var(--waya-charcoal);
+    border-left: 3px solid var(--waya-mustard); padding-left: 12px;
+  }
+  .module-main { max-width: 640px; }
+  .module-main h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 30px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal); margin-bottom: 16px;
+  }
+  .module-main .lede {
+    font-family: var(--font-body);
+    font-size: 16.5px; line-height: 1.62;
+    color: var(--fg-2); margin-bottom: 26px;
+  }
+  .module-main .process-label {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-stone); margin-bottom: 14px;
+  }
+  .module-main ol { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 12px; }
+  .module-main ol li {
+    counter-increment: step;
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.55; color: var(--waya-ink);
+    padding-left: 34px; position: relative;
+  }
+  .module-main ol li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--waya-mint); color: var(--waya-charcoal);
+    font-family: var(--font-display); font-weight: 600; font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ---------- Timeline (12-week arc) ---------- */
+  .timeline { margin-top: 56px; border-top: 1px solid var(--border-1); }
+  .week-row {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .week-marker { display: flex; flex-direction: column; gap: 6px; }
+  .week-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .week-phase {
+    font-family: var(--font-body); font-size: 13px;
+    color: var(--fg-2);
+  }
+  .week-body h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal); margin-bottom: 10px;
+  }
+  .week-body p {
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.6; color: var(--fg-2); max-width: 640px;
+  }
+  .week-body .homework {
+    margin-top: 12px;
+    font-family: var(--font-body); font-size: 14px;
+    color: var(--waya-ink);
+    border-left: 2px solid var(--waya-mustard);
+    padding-left: 14px;
+  }
+  .week-body .homework strong {
+    font-family: var(--font-display); font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    font-size: 11px; color: var(--waya-stone);
+    display: block; margin-bottom: 4px;
+  }
+
+  /* ---------- Build / outcomes cards ---------- */
+  .build { background: var(--waya-paper); }
+  .build-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .build-card {
+    background: var(--waya-cream);
+    border: 1px solid var(--border-1);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-1);
+  }
+  .build-card h3 {
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 20px;
+    line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal);
+    margin-bottom: 12px;
+  }
+  .build-card p {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.55;
+    color: var(--fg-2);
+  }
+
+  /* ---------- Format / how the cohort runs ---------- */
+  .format-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .format-card {
+    border: 1px solid var(--border-1);
+    border-radius: 18px;
+    padding: 40px;
+    background: var(--waya-cream);
+    box-shadow: var(--shadow-1);
+  }
+  .format-card .tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+    margin-bottom: 16px;
+  }
+  .format-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 28px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal);
+    margin-bottom: 14px;
+  }
+  .format-card p {
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 1.6;
+    color: var(--fg-2);
+  }
+  .format-card .detail {
+    margin-top: 20px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .format-card .detail span {
+    font-family: var(--font-body); font-size: 14.5px;
+    color: var(--waya-ink); padding-left: 20px; position: relative;
+  }
+  .format-card .detail span::before {
+    content: '▸'; position: absolute; left: 0; top: 2px;
+    color: var(--waya-sage); font-size: 12px;
+  }
+
+  /* ---------- Pull-quote band ---------- */
+  .pullquote-band {
+    background: var(--waya-charcoal);
+    padding: 120px 32px;
+    text-align: center;
+  }
+  .pullquote-band blockquote {
+    max-width: 920px; margin: 0 auto;
+    font-family: var(--font-display);
+    font-weight: 500; font-size: 38px;
+    line-height: 1.25; letter-spacing: -0.02em;
+    color: var(--waya-cream);
+    text-wrap: balance;
+  }
+  .pullquote-band .attribution {
+    margin-top: 28px; color: rgba(250,247,241,0.65);
+    font-family: var(--font-body); font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .pullquote-band .section-cta { margin-top: 44px; }
+
+  /* ---------- Enrollment / pricing ---------- */
+  .enroll { background: var(--waya-cream); }
+  .enroll-card {
+    max-width: 760px; margin: 56px auto 0;
+    background: var(--waya-charcoal);
+    border-radius: 22px;
+    padding: 56px;
+    text-align: center;
+    box-shadow: var(--shadow-3);
+  }
+  .enroll-card .price-eyebrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; color: var(--waya-mustard);
+    margin-bottom: 20px;
+  }
+  .enroll-card .price {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 64px; line-height: 1; letter-spacing: -0.03em;
+    color: var(--waya-cream);
+  }
+  .enroll-card .price span {
+    font-size: 18px; font-weight: 400; letter-spacing: 0;
+    color: rgba(250,247,241,0.7);
+    display: block; margin-top: 12px;
+    font-family: var(--font-body);
+  }
+  .enroll-lead {
+    margin: 30px auto 0; max-width: 460px; text-align: left;
+    font-family: var(--font-display); font-weight: 600; font-size: 13px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(250,247,241,0.55);
+  }
+  .enroll-list {
+    list-style: none; max-width: 460px; margin: 14px auto 0;
+    text-align: left; display: flex; flex-direction: column; gap: 14px;
+  }
+  .enroll-list li {
+    font-family: var(--font-body); font-size: 15px;
+    line-height: 1.5; color: rgba(250,247,241,0.88);
+    padding-left: 28px; position: relative;
+  }
+  .enroll-list li::before {
+    content: '▸'; position: absolute; left: 0; top: 1px;
+    color: var(--waya-mustard); font-size: 12px;
+  }
+  .enroll-note {
+    margin-top: 18px;
+    font-family: var(--font-body); font-size: 13px;
+    color: rgba(250,247,241,0.55);
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq { background: var(--waya-paper); }
+  .faq-list {
+    margin-top: 48px;
+    max-width: 820px; margin-left: auto; margin-right: auto;
+  }
+  details.faq-item {
+    border-top: 1px solid var(--border-1);
+    padding: 4px 0;
+  }
+  details.faq-item:last-child { border-bottom: 1px solid var(--border-1); }
+  details.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 4px 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 19px;
+    line-height: 1.35; letter-spacing: -0.01em;
+    color: var(--waya-charcoal);
+    transition: color var(--dur-base) var(--ease-standard);
+    gap: 24px;
+  }
+  details.faq-item summary::-webkit-details-marker { display: none; }
+  details.faq-item summary:hover { color: var(--waya-rust); }
+  details.faq-item summary::after {
+    content: '+';
+    font-family: var(--font-display);
+    font-weight: 400; font-size: 28px;
+    color: var(--waya-rust);
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  details.faq-item[open] summary::after { content: '−'; }
+  details.faq-item .answer {
+    padding: 0 36px 28px 4px;
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 1.65;
+    color: var(--fg-2); text-wrap: pretty;
+  }
+  details.faq-item .answer p + p { margin-top: 12px; }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta {
+    background: var(--waya-cream);
+    text-align: center;
+    padding: 128px 32px;
+  }
+  .final-cta h2 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 52px;
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--waya-charcoal);
+    text-wrap: balance;
+    max-width: 820px; margin: 0 auto;
+  }
+  .final-cta p {
+    margin-top: 22px;
+    font-family: var(--font-body);
+    font-size: 18px; line-height: 1.6;
+    color: var(--fg-2); max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .final-cta .section-cta { display: inline-flex; justify-content: center; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--waya-charcoal);
+    color: var(--fg-on-dark);
+    padding: 80px 32px 48px;
+  }
+  .footer-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.4fr 0.7fr 1fr 0.8fr 0.7fr;
+    gap: 48px; align-items: start;
+  }
+  footer img.footer-logo { height: 36px; opacity: 0.95; }
+  footer p.foot-tag {
+    margin-top: 20px;
+    font-family: var(--font-body);
+    font-size: 14.5px; line-height: 1.6;
+    color: rgba(250,247,241,0.72);
+    max-width: 320px;
+  }
+  footer h5 {
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(250,247,241,0.5);
+    margin-bottom: 18px;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  footer ul a {
+    font-family: var(--font-body);
+    font-size: 14.5px; color: rgba(250,247,241,0.86);
+  }
+  footer ul a:hover { color: var(--waya-mustard); }
+  .social-row { display: flex; gap: 18px; align-items: center; }
+  .social-row svg { width: 26px; height: 26px; fill: rgba(250,247,241,0.85); }
+  .social-row a:hover svg { fill: var(--waya-mustard); }
+  .foot-bottom {
+    max-width: 1140px; margin: 56px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(250,247,241,0.12);
+    text-align: center;
+    font-family: var(--font-body); font-size: 13px;
+    color: rgba(250,247,241,0.55);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .nav-links a:not(.btn-rust) { display: none; }
+    .hero { padding: 96px 28px 96px; min-height: 560px; }
+    .hero h1 { font-size: 44px; }
+    .hero .sub { font-size: 18px; }
+    section { padding: 80px 28px; }
+    h2.section-title { font-size: 32px; }
+    .challenge-grid { grid-template-columns: 1fr; gap: 40px; }
+    .challenge-copy .section-title { font-size: 30px; }
+    .module-row { grid-template-columns: 1fr; gap: 24px; padding: 44px 0; }
+    .module-aside { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .ghost-num { display: none; }
+    .module-main h3 { font-size: 25px; }
+    .build-grid { grid-template-columns: 1fr; }
+    .format-grid { grid-template-columns: 1fr; }
+    .week-row { grid-template-columns: 1fr; gap: 14px; }
+    .flip-card blockquote { font-size: 20px; }
+    .flip-arrow { width: 38px; height: 38px; font-size: 19px; }
+    .pullquote-band { padding: 88px 28px; }
+    .pullquote-band blockquote { font-size: 26px; }
+    .enroll-card { padding: 40px 28px; }
+    .enroll-card .price { font-size: 48px; }
+    .final-cta h2 { font-size: 36px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .foot-bottom { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#format">How it runs</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn-rust" href="/waya-os-mcp/apply/">Apply for the cohort</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =============== HERO =============== -->
+<section class="hero">
+  <div class="hero-ridge" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,240 L180,150 L340,220 L520,110 L700,200 L880,120 L1060,210 L1240,140 L1440,215 L1440,320 L0,320 Z" fill="#262b27" opacity="0.9"/>
+      <path d="M0,285 L200,205 L400,265 L600,185 L820,260 L1040,195 L1260,255 L1440,205 L1440,320 L0,320 Z" fill="#1f2422"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="eyebrow"><span class="dot"></span> Waya OS · 12-Week Founder Cohort</div>
+      <h1>Become a founder with real traction.</h1>
+      <p class="sub">
+        A 12-week founder cohort that sets you up to find your product-market fit — so by the end you have experiments running with you every week, until the market answers.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="/waya-os-mcp/apply/">Apply for the cohort</a>
+        <a class="btn-ghost-dark" href="#curriculum">See the curriculum</a>
+      </div>
+      <div class="hero-meta">
+        <span>5–7 founders per cohort</span>
+        <span>First cohort starts mid-November 2026</span>
+        <span>Weekly group session + a private hour every week</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== THE CHALLENGE + VIDEO =============== -->
+<section id="challenge">
+  <div class="container">
+    <div class="challenge-grid">
+      <div class="challenge-copy">
+        <div class="section-eyebrow">The Challenge</div>
+        <h2 class="section-title">Motion feels like progress. Until you count the revenue.</h2>
+        <p class="punch">You are shipping fast. The market stays quiet. Nine months disappear.</p>
+        <p class="punch">The hard question is not how to build. It is whether you are building the right thing — and whether you are the right founder to build it.</p>
+        <p class="punch">Waya OS answers it the only honest way. By testing.</p>
+        <div class="section-cta"><a class="btn-rust" href="#curriculum">See the curriculum</a></div>
+      </div>
+
+      <div class="video-wrap">
+        <!-- VIDEO PLACEHOLDER — swap this block for an <iframe>/<video> embed when the cohort intro is ready. -->
+        <div class="video-placeholder" role="img" aria-label="Cohort intro video — coming soon">
+          <button class="video-play" aria-label="Play cohort intro video"><span class="tri"></span></button>
+          <div class="video-cap">Watch — what this cohort is</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PAIN CAROUSEL (between challenge and curriculum) =============== -->
+<section class="pain-carousel">
+  <div class="container">
+    <div class="section-eyebrow" style="text-align:center;">If any of these sound familiar</div>
+    <div class="flip-stage" id="flipStage">
+      <button class="flip-arrow prev" id="flipPrev" aria-label="Previous">&#8249;</button>
+      <div class="flip-viewport">
+        <div class="flip-card" id="flipCard">
+          <div class="flip-glyph" id="flipGlyph" aria-hidden="true"></div>
+          <blockquote id="flipText"></blockquote>
+        </div>
+      </div>
+      <button class="flip-arrow next" id="flipNext" aria-label="Next">&#8250;</button>
+    </div>
+    <div class="flip-dots" id="flipDots" role="tablist" aria-label="Choose a symptom"></div>
+  </div>
+</section>
+
+<!-- =============== CURRICULUM (the four modules) =============== -->
+<section id="curriculum" class="curriculum">
+  <div class="container">
+    <div class="section-eyebrow">The Curriculum</div>
+    <h2 class="section-title">Four modules. Twelve weeks. The base your experiments run against.</h2>
+    <p class="section-lead">
+      Ikigai, the business case, and mission and values are not a warm-up — they are the information layer every experiment is measured against. The experiment system is the engine that turns that base into revenue and learning.
+    </p>
+
+    <div class="module-stack">
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">01</span>
+          <div class="icon"><img src="/assets/icons/north-star.png" alt="North star mark"></div>
+          <div class="module-tag">Module One</div>
+          <div class="module-week">Week 1</div>
+        </div>
+        <div class="module-main">
+          <h3>Ikigai — founder–startup fit</h3>
+          <p class="lede">
+            The alignment check between you and the company you are building — where what you love, what you are good at, what the world needs, and what you can be paid for actually overlap, and whether this startup sits in that overlap.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Run the Ikigai self-evaluation, or the team evaluation if you have co-founders.</li>
+            <li>Map the four intersections — passion, profession, mission, vocation.</li>
+            <li>Test the company against the map: is this the right thing, built by the right founder.</li>
+            <li>Name the gaps that would make you the wrong person — and how you close them.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">02</span>
+          <div class="icon"><img src="/assets/icons/goal.png" alt="Goal mark"></div>
+          <div class="module-tag">Module Two</div>
+          <div class="module-week">Weeks 2–3</div>
+        </div>
+        <div class="module-main">
+          <h3>The business case</h3>
+          <p class="lede">
+            The honest argument for why this company should exist and how it makes money. Not a plan you defend — a case you can test, with assumptions explicit enough to be proven wrong.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>State the problem, the customer, and the value in one page.</li>
+            <li>Surface the assumptions the whole business rests on — and rank them by risk.</li>
+            <li>Build the economics: who pays, how much, and why the numbers work.</li>
+            <li>Turn the riskiest assumptions into the experiments you will run first.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">03</span>
+          <div class="icon"><img src="/assets/icons/core-values.png" alt="Core values mark"></div>
+          <div class="module-tag">Module Three</div>
+          <div class="module-week">Weeks 4–5</div>
+        </div>
+        <div class="module-main">
+          <h3>Mission and values</h3>
+          <p class="lede">
+            The why-now and the how-we-operate. The mission that decides which experiments are worth your weeks, and the values that decide how you run them when the pressure is on.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Draft the mission statement — the change you exist to make, in plain language.</li>
+            <li>Define the values as behaviors, not adjectives — what they look like on a hard day.</li>
+            <li>Pressure-test both against real decisions you are facing right now.</li>
+            <li>Use them as the filter for what you say yes and no to in the experiment phase.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">04</span>
+          <div class="icon"><img src="/assets/icons/process-optimization.png" alt="Process mark"></div>
+          <div class="module-tag">Module Four</div>
+          <div class="module-week">Weeks 6–12</div>
+        </div>
+        <div class="module-main">
+          <h3>The experiment system</h3>
+          <p class="lede">
+            The engine of the whole program. Finding traction means finding what is true by testing it — so you build the machine that reaches customers, captures what you learn, and books revenue, then run it on a loop.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Design experiments from your riskiest assumptions — each with a clear pass or fail.</li>
+            <li>Build the infrastructure: personas, campaigns, outreach, and a live website.</li>
+            <li>Talk to customers, record and summarize every conversation into a knowledge base.</li>
+            <li>Book calls, book revenue, read the result, and run the next experiment.</li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============== HOW THE COHORT RUNS =============== -->
+<section id="format">
+  <div class="container">
+    <div class="section-eyebrow">How It Runs</div>
+    <h2 class="section-title">A small cohort, two rhythms a week, operators in the room.</h2>
+
+    <div class="format-grid">
+      <article class="format-card">
+        <div class="tag">Every week · Group</div>
+        <h3>The cohort session</h3>
+        <p>One weekly session with the whole cohort — 5 to 7 founders — working through the Waya OS modules and how to run each one. This is where the method is taught and where founders learn from each other's experiments.</p>
+        <div class="detail">
+          <span>Led by Vince or Oren</span>
+          <span>Module walk-throughs and live Q&amp;A</span>
+          <span>Shared learning across the cohort</span>
+        </div>
+      </article>
+
+      <article class="format-card">
+        <div class="tag">Every week · Private</div>
+        <h3>Your coaching hour</h3>
+        <p>One private hour each week, dedicated to your company and your specific path to product-market fit. This is where we go deep on your experiments, your customer conversations, and your next move.</p>
+        <div class="detail">
+          <span>One-on-one with Vince or Oren</span>
+          <span>Your experiments, your pipeline, your revenue</span>
+          <span>Direct accountability, week over week</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PULL-QUOTE BAND =============== -->
+<section class="pullquote-band">
+  <blockquote>
+    Before traction, the job is not to build faster. It is to find what is true — by testing it, on a loop, until the market stops being quiet.
+  </blockquote>
+  <div class="attribution">— Waya operating note</div>
+  <div class="section-cta"><a class="btn-rust" href="/waya-os-mcp/apply/">Apply for the cohort</a></div>
+</section>
+
+<!-- =============== ENROLLMENT / PRICING =============== -->
+<section id="apply" class="enroll">
+  <div class="container">
+    <div class="section-eyebrow" style="text-align:center;">Enrollment</div>
+    <h2 class="section-title" style="margin:0 auto; text-align:center;">Five to seven founders. One cohort. Twelve weeks.</h2>
+
+    <div class="enroll-card">
+      <div class="price-eyebrow">The investment</div>
+      <div class="price">$3,000<span>for the full 12-week cohort</span></div>
+
+      <div class="enroll-lead">By the end, you walk away with:</div>
+      <ul class="enroll-list">
+        <li>A repeatable system for reaching product-market fit — one you keep running long after week 12.</li>
+        <li>A clear read on your own strengths — where you actually fit the company you are building.</li>
+        <li>A clear read on your market — who it is, and where the real opening sits.</li>
+        <li>A clear read on your customer — who they are, and how to reach them.</li>
+        <li>A clear read on their pain — what actually hurts, in their words, from real conversations.</li>
+        <li>Clarity on what to build — decided after you have talked to customers, not before.</li>
+      </ul>
+
+      <!-- Apply -> GHL order form on the /apply/ page. After payment, GHL redirects to /welcome/. -->
+      <a class="btn-rust" href="/waya-os-mcp/apply/" style="padding:16px 32px; font-size:15px;">Apply for the cohort</a>
+
+      <div class="enroll-note">Seats are limited and filled by application. The first cohort starts the second week of November 2026.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="section-eyebrow">Frequently Asked</div>
+    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the cohort</h2>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Who is this cohort for?</summary>
+        <div class="answer">
+          <p>Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week.</p>
+          <p>The cohort is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does the weekly commitment look like?</summary>
+        <div class="answer">
+          <p>Two touchpoints a week: one group session with the whole cohort on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is Waya OS?</summary>
+        <div class="answer">
+          <p>Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the cohort walks you through running it against your own company.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why start with Ikigai, business case, and mission and values instead of just running experiments?</summary>
+        <div class="answer">
+          <p>Because those three are what make an experiment worth running and keep you honest about the result. Without them, founders test the wrong things and misread the answers. The base is the information layer; the experiments run against it.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Who runs the sessions?</summary>
+        <div class="answer">
+          <p>Vince or Oren. One leads the weekly group session; one of them takes your private hour each week. Both are operators who have built, scaled, and rebuilt companies — you are working with founders, not a curriculum on autopilot.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What will I actually have built by the end?</summary>
+        <div class="answer">
+          <p>A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the program. The point is a working machine, not a deck.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does it cost, and when does it start?</summary>
+        <div class="answer">
+          <p>$3,000 for the full 12-week cohort. The first cohort starts the second week of November 2026. Seats are limited and filled by application.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I join?</summary>
+        <div class="answer">
+          <p>Apply through the button above. Because the cohort is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>The market will answer. The question is whether you are running the experiment that asks.</h2>
+  <p>Apply for the first Waya OS cohort. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
+  <div class="section-cta" style="margin-top: 40px;">
+    <a class="btn-rust" href="/waya-os-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the cohort</a>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/operations-audit/">Operations Audit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Products</h5>
+      <ul>
+        <li><a href="/waya-os-mcp/">Waya OS MCP</a></li>
+        <li><a href="/pre-pmf-mcp/">Pre-PMF MCP</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">&copy; Copyright 2026 &ndash; WayaFrames &ndash; All rights reserved.</div>
+</footer>
+
+<!-- =============== PAIN CAROUSEL SCRIPT =============== -->
+<script>
+(function () {
+  var slides = [
+    { svg: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16" y1="16" x2="21" y2="21"></line><path d="M9.2 9.4a2 2 0 1 1 2.9 2.3c-.7.5-1.1.9-1.1 1.8"></path><line x1="11" y1="15.5" x2="11" y2="15.6"></line></svg>',
+      text: '“I’m building fast, but I can’t tell if anyone actually wants it.”' },
+    { svg: '<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.4"></circle><circle cx="16.5" cy="10" r="2"></circle><path d="M3.5 18c0-2.5 2-4.2 4.5-4.2s4.5 1.7 4.5 4.2"></path><path d="M14.5 17.4c.1-2 1.6-3.3 3.4-3.3 1.9 0 3.1 1.4 3.1 3.3"></path></svg>',
+      text: '“I have no personas, no pipeline, and no repeatable way to reach customers.”' },
+    { svg: '<svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-4 3.5V15H4z"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="12" x2="13" y2="12"></line></svg>',
+      text: '“I talk to customers, but the learning evaporates — nothing compounds.”' },
+    { svg: '<svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20"></line><line x1="7" y1="20" x2="7" y2="13"></line><line x1="12" y1="20" x2="12" y2="9"></line><line x1="17" y1="20" x2="17" y2="15"></line><polyline points="6 8 10 11 14 6 19 9"></polyline></svg>',
+      text: '“I’m busy every week and still haven’t booked real revenue.”' },
+    { svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><polygon points="15.5 8.5 10.5 10.5 8.5 15.5 13.5 13.5"></polygon></svg>',
+      text: '“I’m not sure this company matches what I actually care about.”' }
+  ];
+  var card = document.getElementById('flipCard');
+  var glyph = document.getElementById('flipGlyph');
+  var textEl = document.getElementById('flipText');
+  var dotsWrap = document.getElementById('flipDots');
+  var stage = document.getElementById('flipStage');
+  if (!card) return;
+  var i = 0, timer = null, animating = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  slides.forEach(function (s, idx) {
+    var b = document.createElement('button');
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Symptom ' + (idx + 1));
+    b.addEventListener('click', function () { go(idx); restart(); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function render(idx) {
+    glyph.innerHTML = slides[idx].svg;
+    textEl.textContent = slides[idx].text;
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === idx); });
+  }
+  function go(idx) {
+    idx = (idx + slides.length) % slides.length;
+    if (idx === i) return;
+    if (reduce) { i = idx; render(i); return; }
+    if (animating) return;
+    animating = true;
+    card.classList.add('flipping');
+    setTimeout(function () {
+      i = idx; render(i);
+      card.classList.remove('flipping');
+      setTimeout(function () { animating = false; }, 320);
+    }, 320);
+  }
+  function next() { go(i + 1); }
+  function prev() { go(i - 1); }
+  function start() { if (!reduce) timer = setInterval(next, 4200); }
+  function stop() { clearInterval(timer); }
+  function restart() { stop(); start(); }
+
+  document.getElementById('flipNext').addEventListener('click', function () { next(); restart(); });
+  document.getElementById('flipPrev').addEventListener('click', function () { prev(); restart(); });
+  stage.addEventListener('mouseenter', stop);
+  stage.addEventListener('mouseleave', start);
+
+  render(0);
+  start();
+})();
+</script>
+
+</body>
+</html>

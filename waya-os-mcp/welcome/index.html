@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome · Waya OS Cohort</title>
+<meta name="description" content="You're in. Here's what to expect between now and the cohort, how to set up your Waya OS MCP, and the tools you'll connect for the experiment phase.">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=5">
+
+<!--
+  POST-PAYMENT WELCOME PAGE.
+  Configure the GHL order form to redirect here after successful payment
+  (e.g. https://<your-domain>/waya-os-pre-pmf-cohort/welcome/).
+  MCP setup guide linked below is the existing page in the waya-website repo:
+  /waya-os-mcp/setup/
+  Tool stack is a proposed starting set — confirm/trim with Oren before launch.
+-->
+
+<style>
+  :root{ --border-2: rgba(56,63,59,0.28); --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --waya-white:#FFFFFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--waya-cream);
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,247,241,0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { height: 28px; }
+  .nav-tag {
+    font-family: var(--font-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-stone);
+  }
+
+  /* ---------- Hero ---------- */
+  .whero { text-align: center; padding: 88px 32px 20px; max-width: 800px; margin: 0 auto; }
+  .check-badge {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: var(--waya-rust); margin: 0 auto 28px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-2);
+  }
+  .check-badge svg { width: 32px; height: 32px; stroke: var(--waya-cream); fill: none; stroke-width: 2.4; }
+  .whero .eyebrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; color: var(--waya-rust); margin-bottom: 16px;
+  }
+  .whero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 52px; line-height: 1.05; letter-spacing: -0.025em;
+    color: var(--waya-charcoal); text-wrap: balance;
+  }
+  .whero p {
+    margin: 20px auto 0; max-width: 560px;
+    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+    color: var(--fg-2); text-wrap: pretty;
+  }
+
+  /* ---------- Section frames ---------- */
+  section { padding: 64px 32px; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-eyebrow {
+    font-family: var(--font-display); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; color: var(--waya-rust); margin-bottom: 14px;
+  }
+  h2.section-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 34px; line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal); text-wrap: balance; max-width: 720px;
+  }
+  .section-lead {
+    margin-top: 18px; max-width: 720px;
+    font-family: var(--font-body); font-size: 17px; line-height: 1.62;
+    color: var(--fg-2); text-wrap: pretty;
+  }
+
+  /* ---------- What happens next (steps) ---------- */
+  .next { background: var(--waya-paper); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); }
+  .steps { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .step {
+    background: var(--waya-cream); border: 1px solid var(--border-1);
+    border-radius: 16px; padding: 30px; box-shadow: var(--shadow-1);
+  }
+  .step .n {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--waya-mint); color: var(--waya-charcoal);
+    font-family: var(--font-display); font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+  }
+  .step h3 {
+    font-family: var(--font-display); font-weight: 600; font-size: 19px;
+    line-height: 1.2; letter-spacing: -0.01em; color: var(--waya-charcoal); margin-bottom: 10px;
+  }
+  .step p { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--fg-2); }
+
+  /* ---------- Setup CTA card ---------- */
+  .setup-card {
+    margin-top: 40px;
+    background: var(--waya-charcoal); border-radius: 20px;
+    padding: 44px; box-shadow: var(--shadow-3);
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  .setup-card .step-kicker {
+    font-family: var(--font-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-mustard); margin-bottom: 12px;
+  }
+  .setup-card h3 {
+    font-family: var(--font-display); font-weight: 700; font-size: 27px;
+    line-height: 1.14; letter-spacing: -0.02em; color: var(--waya-cream); margin-bottom: 12px;
+  }
+  .setup-card p {
+    font-family: var(--font-body); font-size: 15.5px; line-height: 1.6;
+    color: rgba(250,247,241,0.8); max-width: 520px;
+  }
+  .btn-rust {
+    display: inline-block; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 600; font-size: 15px;
+    padding: 16px 28px; border-radius: 8px; border: 0; cursor: pointer;
+    background: var(--waya-rust); color: var(--waya-cream); letter-spacing: 0.01em;
+    transition: filter var(--dur-base) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+  }
+  .btn-rust:hover { filter: brightness(0.92); }
+  .btn-rust:active { transform: translateY(1px) scale(0.99); }
+
+  /* ---------- Tools ---------- */
+  .tools { background: var(--waya-paper); border-top: 1px solid var(--border-1); }
+  .tools-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .tool-card {
+    background: var(--waya-cream); border: 1px solid var(--border-1);
+    border-radius: 16px; padding: 28px 30px; box-shadow: var(--shadow-1);
+  }
+  .tool-cat {
+    font-family: var(--font-display); font-weight: 700; font-size: 18px;
+    letter-spacing: -0.01em; color: var(--waya-charcoal); margin-bottom: 6px;
+  }
+  .tool-use { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--fg-2); margin-bottom: 18px; }
+  .tool-picks { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pick {
+    font-family: var(--font-display); font-weight: 500; font-size: 13px;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--border-2); color: var(--waya-ink);
+  }
+  .pick.rec {
+    background: var(--waya-rust); border-color: var(--waya-rust); color: var(--waya-cream);
+  }
+  .pick.rec::after {
+    content: 'recommended'; margin-left: 8px; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85;
+  }
+  .tools-note {
+    margin-top: 28px; max-width: 720px;
+    font-family: var(--font-body); font-size: 14.5px; line-height: 1.6; color: var(--fg-2);
+    border-left: 2px solid var(--waya-mustard); padding-left: 16px;
+  }
+
+  /* ---------- Closing ---------- */
+  .closing { text-align: center; }
+  .closing h2 { margin: 0 auto; }
+  .closing p { margin-left: auto; margin-right: auto; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--waya-charcoal); color: var(--fg-on-dark); padding: 40px 32px; text-align: center; }
+  footer .footer-logo { height: 26px; opacity: 0.95; margin: 0 auto 14px; }
+  footer .foot-bottom { font-family: var(--font-body); font-size: 13px; color: rgba(250,247,241,0.55); }
+
+  @media (max-width: 860px) {
+    .whero { padding-top: 60px; }
+    .whero h1 { font-size: 38px; }
+    section { padding: 52px 28px; }
+    .steps { grid-template-columns: 1fr; }
+    .setup-card { grid-template-columns: 1fr; gap: 24px; padding: 32px 28px; text-align: left; }
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <span class="nav-tag">Waya OS · Founder Cohort</span>
+  </div>
+</header>
+
+<!-- =============== HERO =============== -->
+<section class="whero">
+  <div class="check-badge" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+  </div>
+  <div class="eyebrow">Welcome to the cohort</div>
+  <h1>You are in. Let us get you set up.</h1>
+  <p>Your seat is confirmed. Here is what happens between now and the first session — and how to get your Waya OS ready before we start.</p>
+</section>
+
+<!-- =============== WHAT HAPPENS NEXT =============== -->
+<section class="next">
+  <div class="container">
+    <div class="section-eyebrow">What happens next</div>
+    <h2 class="section-title">Two things land in your inbox. Then we get to work.</h2>
+
+    <div class="steps">
+      <article class="step">
+        <div class="n">1</div>
+        <h3>Check your inbox</h3>
+        <p>A confirmation email is on its way with your receipt and everything you need to get oriented. If you do not see it, check spam.</p>
+      </article>
+      <article class="step">
+        <div class="n">2</div>
+        <h3>Watch for a calendar invite</h3>
+        <p>You will get an invite to lock in your weekly group session and your private hour with Vince or Oren.</p>
+      </article>
+      <article class="step">
+        <div class="n">3</div>
+        <h3>We start in mid-November</h3>
+        <p>The first cohort begins the second week of November 2026. Use the runway before then to get set up below.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SET UP THE MCP =============== -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Get set up before we start</div>
+    <h2 class="section-title">Step one — install your Waya OS MCP.</h2>
+    <p class="section-lead">The Waya OS MCP is the operating system you will run the whole program inside. Set it up now so week one is spent on your company, not on setup. The guide walks you through connecting it to Claude in a few minutes.</p>
+
+    <div class="setup-card">
+      <div>
+        <div class="step-kicker">Existing guide</div>
+        <h3>Set up the Waya OS MCP</h3>
+        <p>Choose your variant, Claude plan, and environment, then add the Waya MCP connector. The guide handles the rest.</p>
+      </div>
+      <a class="btn-rust" href="/waya-os-mcp/setup/">Open the setup guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- =============== INSIDE THE EXPERIMENT PHASE =============== -->
+<section class="tools">
+  <div class="container">
+    <div class="section-eyebrow">Get your tools ready</div>
+    <h2 class="section-title">Start with two tools.</h2>
+    <p class="section-lead">From week six, the cohort shifts into live execution — designing experiments, reaching real customers, capturing every conversation, and booking calls and revenue. You start with just two tools; we finalize the rest of your stack together, based on what you already use.</p>
+
+    <div class="tools-grid">
+      <article class="tool-card">
+        <div class="tool-cat">Knowledge base &amp; docs</div>
+        <div class="tool-use">Where your business case, learnings, and meeting summaries live and compound.</div>
+        <div class="tool-picks"><span class="pick rec">Notion</span><span class="pick">Google Drive</span></div>
+      </article>
+
+      <article class="tool-card">
+        <div class="tool-cat">Meeting capture</div>
+        <div class="tool-use">Record and summarize every customer call, straight into the knowledge base.</div>
+        <div class="tool-picks"><span class="pick rec">Wispr Flow</span></div>
+      </article>
+    </div>
+
+    <div class="tools-note">That is all you need on day one. You will add more — outreach, CRM, scheduling, a website — as the experiment phase ramps, and we connect each one through the MCP as you go.</div>
+  </div>
+</section>
+
+<!-- =============== CLOSING =============== -->
+<section class="closing">
+  <div class="container">
+    <h2 class="section-title">That is it for now. Watch your inbox.</h2>
+    <p class="section-lead">Questions before we begin? Reply to your confirmation email and it comes straight to us.</p>
+  </div>
+</section>
+
+<footer>
+  <a href="/">
+    <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+  </a>
+  <div class="foot-bottom">&copy; Copyright 2026 &ndash; WayaFrames &ndash; All rights reserved.</div>
+</footer>
+
+</body>
+</html>
