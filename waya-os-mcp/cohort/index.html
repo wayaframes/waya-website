@@ -11,9 +11,9 @@
 <!--
   ==========================================================================
   ASSUMPTIONS SURFACED FOR REVIEW (Oren):
-  1. HERO IMAGE: waya-design has no true 2400x1200 hero asset. Using the
-     documented interim fallback — sepia/charcoal gradient + inline mountain
-     SVG silhouette + scrim. Swap in a real tall sepia landscape when available.
+  1. HERO IMAGE: uses /assets/images/hero/mountain-sage.png (sage/green tone),
+     matching the treatment on pre-pmf-mcp, scale-up-program, data-room-preparation,
+     and operations-audit.
   2. APPLY / PAY FLOW: every "Apply to the Workshop" button links to /apply/,
      which embeds the GHL order form (form id LXcmFPl3FRQJ88JoJBnf). After
      PAYMENT, configure the GHL order form to redirect to the /welcome/ page
@@ -92,15 +92,17 @@
   .hero {
     position: relative;
     min-height: 660px;
-    background:
+    background-color: #3b413c;
+    background-image:
       radial-gradient(120% 90% at 78% 8%, rgba(208,174,137,0.30) 0%, rgba(208,174,137,0) 55%),
-      linear-gradient(178deg, #4a4f47 0%, #3b413c 44%, #2b302c 100%);
+      url('/assets/images/hero/mountain-sage.png');
+    background-size: auto, cover;
+    background-position: center, center bottom;
+    background-repeat: no-repeat, no-repeat;
     display: flex; flex-direction: column; justify-content: center;
     padding: 140px 56px 120px;
     overflow: hidden;
   }
-  .hero-ridge { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; z-index: 1; }
-  .hero-ridge svg { display: block; width: 100%; height: auto; }
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: 1;
     background: linear-gradient(180deg, rgba(31,36,34,0.34) 0%, rgba(31,36,34,0.10) 46%, rgba(31,36,34,0.52) 100%);
@@ -655,12 +657,6 @@
 
 <!-- =============== HERO =============== -->
 <section class="hero">
-  <div class="hero-ridge" aria-hidden="true">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,240 L180,150 L340,220 L520,110 L700,200 L880,120 L1060,210 L1240,140 L1440,215 L1440,320 L0,320 Z" fill="#262b27" opacity="0.9"/>
-      <path d="M0,285 L200,205 L400,265 L600,185 L820,260 L1040,195 L1260,255 L1440,205 L1440,320 L0,320 Z" fill="#1f2422"/>
-    </svg>
-  </div>
   <div class="hero-inner">
     <div class="hero-content">
       <div class="eyebrow"><span class="dot"></span> Waya OS · 12-Week Founder Cohort</div>
