@@ -1,10 +1,25 @@
 {
   "logo": { "src": "/assets/logos/waya-logo-charcoal-transparent.png", "href": "/", "alt": "Waya" },
   "links": [
-    { "label": "Operating System", "href": "/#services" },
-    { "label": "Expert Network", "href": "/about-us/#network" },
+    { "label": "Home", "href": "/" },
     { "label": "About Us", "href": "/about-us/" },
-    { "label": "FAQ", "href": "/#faq" }
+    {
+      "label": "Services",
+      "dropdown": [
+        { "label": "Scale Up Program", "href": "/scale-up-program/" },
+        { "label": "Fundraising Narrative", "href": "/fundraising-narrative/" },
+        { "label": "Data Room Preparation", "href": "/data-room-preparation/" },
+        { "label": "Financial Model Preparation", "href": "/financial-model-prep/" },
+        { "label": "Operations Audit", "href": "/operations-audit/" }
+      ]
+    },
+    {
+      "label": "Products",
+      "dropdown": [
+        { "label": "Waya OS MCP", "href": "/waya-os-mcp/" },
+        { "label": "Pre-PMF MCP", "href": "/pre-pmf-mcp/" }
+      ]
+    }
   ],
   "cta": {
     "label": "Schedule a Call",

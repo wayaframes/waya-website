@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Waya OS · 12-Week Founder Cohort</title>
-<meta name="description" content="A 12-week founder cohort that sets you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.">
+<title>Waya OS · 12-Week Founder Program</title>
+<meta name="description" content="A 12-week founder program that sets you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=5">
 
@@ -14,17 +14,18 @@
   1. HERO IMAGE: uses /assets/images/hero/mountain-sage.png (sage/green tone),
      matching the treatment on pre-pmf-mcp, scale-up-program, data-room-preparation,
      and operations-audit.
-  2. APPLY / PAY FLOW: every "Apply to the Workshop" button links to /apply/,
+  2. APPLY / PAY FLOW: every "Apply to the Program" button links to /apply/,
      which embeds the GHL order form (form id LXcmFPl3FRQJ88JoJBnf). After
      PAYMENT, configure the GHL order form to redirect to the /welcome/ page
      (its "what to expect + MCP setup + experiment tools" overview). The
      welcome page links out to the existing MCP setup guide at
      /waya-os-mcp/setup/.
-  3. Price shown as $3,000 for the 12 weeks. Seats capped at 5–7.
+  3. Price ($3,000 for the 12 weeks) is no longer shown on-page (the
+     "investment" block was removed) — it is only disclosed at checkout via
+     the GHL order form on /apply/. Seats capped at 5–7.
   4. Start date: second week of November 2026. Work-exchange / scholarship
      seats are handled privately and are intentionally NOT advertised here.
-  5. No real named testimonial yet. The pain carousel + shortened challenge
-     sit directly under the hero; video is a placeholder in the challenge.
+  5. No real named testimonial yet.
   ==========================================================================
 -->
 
@@ -112,7 +113,7 @@
     max-width: 1200px; width: 100%;
     margin: 0 auto;
   }
-  .hero-content { max-width: 900px; }
+  .hero-content { max-width: 1100px; }
   .eyebrow {
     font-family: var(--font-display); font-size: 12px;
     letter-spacing: 0.18em; text-transform: uppercase;
@@ -147,47 +148,6 @@
   .container { max-width: 1100px; margin: 0 auto; }
   .narrow { max-width: 760px; margin: 0 auto; }
 
-  /* ---------- Pain carousel (directly under hero) ---------- */
-  .pain-carousel { background: var(--waya-paper); border-bottom: 1px solid var(--border-1); padding: 84px 32px; }
-  .pain-carousel .container { max-width: 860px; }
-  .flip-stage { margin-top: 26px; display: flex; align-items: center; justify-content: center; gap: 16px; }
-  .flip-viewport { perspective: 1400px; flex: 1; max-width: 640px; }
-  .flip-card {
-    background: var(--waya-cream); border: 1px solid var(--border-1);
-    border-radius: 20px; box-shadow: var(--shadow-2);
-    padding: 48px 44px; min-height: 210px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center;
-    transform-style: preserve-3d; transform-origin: center;
-    transition: transform 320ms var(--ease-standard), opacity 320ms var(--ease-standard);
-    will-change: transform;
-  }
-  .flip-card.flipping { transform: rotateX(90deg); opacity: 0.15; }
-  .flip-glyph {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: var(--waya-mint); color: var(--waya-charcoal);
-    display: flex; align-items: center; justify-content: center; flex: none;
-  }
-  .flip-glyph svg { width: 32px; height: 32px; stroke: var(--waya-charcoal); fill: none; stroke-width: 1.8; }
-  .flip-card blockquote {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 24px; line-height: 1.32; letter-spacing: -0.015em;
-    color: var(--waya-charcoal); text-wrap: balance; max-width: 480px;
-  }
-  .flip-arrow {
-    flex: none; width: 44px; height: 44px; border-radius: 50%;
-    border: 1px solid var(--border-2); background: var(--waya-cream);
-    color: var(--waya-charcoal); font-size: 22px; line-height: 1; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background var(--dur-base) var(--ease-standard), color var(--dur-base) var(--ease-standard);
-  }
-  .flip-arrow:hover { background: var(--waya-charcoal); color: var(--waya-cream); }
-  .flip-dots { margin-top: 26px; display: flex; gap: 10px; justify-content: center; }
-  .flip-dots button {
-    width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
-    background: var(--waya-fog); transition: background var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
-  }
-  .flip-dots button.active { background: var(--waya-rust); transform: scale(1.25); }
-
   /* ---------- Section heading ---------- */
   .section-eyebrow {
     font-family: var(--font-display); font-size: 12px;
@@ -210,47 +170,6 @@
     text-wrap: pretty;
   }
   .section-cta { margin-top: 36px; }
-
-  /* ---------- Challenge + video ---------- */
-  .challenge-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 64px; align-items: center;
-  }
-  .challenge-copy .section-title { font-size: 40px; }
-  .challenge-copy .punch {
-    font-family: var(--font-display); font-weight: 500;
-    font-size: 22px; line-height: 1.34; letter-spacing: -0.015em;
-    color: var(--waya-charcoal); max-width: 460px; text-wrap: pretty;
-    margin-top: 20px;
-  }
-  .video-wrap { width: 100%; }
-  .video-placeholder {
-    position: relative; width: 100%; aspect-ratio: 16 / 9;
-    border-radius: 18px; overflow: hidden;
-    background:
-      radial-gradient(120% 100% at 70% 10%, rgba(208,174,137,0.30) 0%, rgba(208,174,137,0) 55%),
-      linear-gradient(160deg, #454b44 0%, #363c37 60%, #2b302c 100%);
-    border: 1px solid var(--border-1);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
-    box-shadow: var(--shadow-2);
-  }
-  .video-play {
-    width: 76px; height: 76px; border-radius: 50%; cursor: pointer;
-    border: 0; background: var(--waya-rust);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 24px rgba(31,36,34,0.28);
-    transition: transform var(--dur-fast) var(--ease-standard), filter var(--dur-base) var(--ease-standard);
-  }
-  .video-play:hover { filter: brightness(0.94); transform: scale(1.05); }
-  .video-play .tri {
-    width: 0; height: 0; margin-left: 5px;
-    border-top: 12px solid transparent; border-bottom: 12px solid transparent;
-    border-left: 20px solid var(--waya-cream);
-  }
-  .video-cap {
-    font-family: var(--font-display); font-weight: 500; font-size: 14px;
-    letter-spacing: 0.02em; color: rgba(250,247,241,0.9);
-  }
 
   /* ---------- Curriculum (spread-out module rows) ---------- */
   .curriculum { background: var(--waya-paper); }
@@ -385,7 +304,7 @@
     color: var(--fg-2);
   }
 
-  /* ---------- Format / how the cohort runs ---------- */
+  /* ---------- Format / how the program runs ---------- */
   .format-grid {
     margin-top: 56px;
     display: grid; grid-template-columns: 1fr 1fr;
@@ -449,58 +368,6 @@
     letter-spacing: 0.02em;
   }
   .pullquote-band .section-cta { margin-top: 44px; }
-
-  /* ---------- Enrollment / pricing ---------- */
-  .enroll { background: var(--waya-cream); }
-  .enroll-card {
-    max-width: 760px; margin: 56px auto 0;
-    background: var(--waya-charcoal);
-    border-radius: 22px;
-    padding: 56px;
-    text-align: center;
-    box-shadow: var(--shadow-3);
-  }
-  .enroll-card .price-eyebrow {
-    font-family: var(--font-display); font-size: 12px;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    font-weight: 600; color: var(--waya-mustard);
-    margin-bottom: 20px;
-  }
-  .enroll-card .price {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 64px; line-height: 1; letter-spacing: -0.03em;
-    color: var(--waya-cream);
-  }
-  .enroll-card .price span {
-    font-size: 18px; font-weight: 400; letter-spacing: 0;
-    color: rgba(250,247,241,0.7);
-    display: block; margin-top: 12px;
-    font-family: var(--font-body);
-  }
-  .enroll-lead {
-    margin: 30px auto 0; max-width: 460px; text-align: left;
-    font-family: var(--font-display); font-weight: 600; font-size: 13px;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(250,247,241,0.55);
-  }
-  .enroll-list {
-    list-style: none; max-width: 460px; margin: 14px auto 34px;
-    text-align: left; display: flex; flex-direction: column; gap: 14px;
-  }
-  .enroll-list li {
-    font-family: var(--font-body); font-size: 15px;
-    line-height: 1.5; color: rgba(250,247,241,0.88);
-    padding-left: 28px; position: relative;
-  }
-  .enroll-list li::before {
-    content: '▸'; position: absolute; left: 0; top: 1px;
-    color: var(--waya-mustard); font-size: 12px;
-  }
-  .enroll-note {
-    margin-top: 18px;
-    font-family: var(--font-body); font-size: 13px;
-    color: rgba(250,247,241,0.55);
-  }
 
   /* ---------- FAQ ---------- */
   .faq { background: var(--waya-paper); }
@@ -617,8 +484,6 @@
     .hero .sub { font-size: 18px; }
     section { padding: 80px 28px; }
     h2.section-title { font-size: 32px; }
-    .challenge-grid { grid-template-columns: 1fr; gap: 40px; }
-    .challenge-copy .section-title { font-size: 30px; }
     .module-row { grid-template-columns: 1fr; gap: 24px; padding: 44px 0; }
     .module-aside { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; }
     .ghost-num { display: none; }
@@ -626,12 +491,8 @@
     .build-grid { grid-template-columns: 1fr; }
     .format-grid { grid-template-columns: 1fr; }
     .week-row { grid-template-columns: 1fr; gap: 14px; }
-    .flip-card blockquote { font-size: 20px; }
-    .flip-arrow { width: 38px; height: 38px; font-size: 19px; }
     .pullquote-band { padding: 88px 28px; }
     .pullquote-band blockquote { font-size: 26px; }
-    .enroll-card { padding: 40px 28px; }
-    .enroll-card .price { font-size: 48px; }
     .final-cta h2 { font-size: 36px; }
     .footer-inner { grid-template-columns: 1fr; gap: 40px; }
     .foot-bottom { flex-direction: column; gap: 8px; }
@@ -650,7 +511,7 @@
       <a href="#curriculum">Curriculum</a>
       <a href="#format">How it runs</a>
       <a href="#faq">FAQ</a>
-      <a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Workshop</a>
+      <a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Program</a>
     </nav>
   </div>
 </header>
@@ -659,63 +520,21 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="eyebrow"><span class="dot"></span> Waya OS · 12-Week Founder Cohort</div>
-      <h1>Become a founder with real traction.</h1>
+      <div class="eyebrow"><span class="dot"></span> Waya OS · 12-Week Founder Program</div>
+      <h1>You are a mission-driven founder.<br>Now, let's find product-market fit.</h1>
       <p class="sub">
-        A 12-week founder cohort that sets you up to find your product-market fit — so by the end you have experiments running with you every week, until the market answers.
+        A 12-week founder-only program to go from mission and vision to product-market fit.
       </p>
       <div class="hero-cta">
-        <a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Workshop</a>
+        <a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Program</a>
         <a class="btn-ghost-dark" href="#curriculum">See the curriculum</a>
       </div>
       <div class="hero-meta">
         <span>5–7 founders per cohort</span>
-        <span>First cohort starts mid-November 2026</span>
+        <span>First program starts mid-November 2026</span>
         <span>Weekly group session + a private hour every week</span>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- =============== THE CHALLENGE + VIDEO =============== -->
-<section id="challenge">
-  <div class="container">
-    <div class="challenge-grid">
-      <div class="challenge-copy">
-        <div class="section-eyebrow">The Challenge</div>
-        <h2 class="section-title">Motion feels like progress. Until you count the revenue.</h2>
-        <p class="punch">You are shipping fast. The market stays quiet. Nine months disappear.</p>
-        <p class="punch">The hard question is not how to build. It is whether you are building the right thing — and whether you are the right founder to build it.</p>
-        <p class="punch">Waya OS answers it the only honest way. By testing.</p>
-        <div class="section-cta"><a class="btn-rust" href="#curriculum">See the curriculum</a></div>
-      </div>
-
-      <div class="video-wrap">
-        <!-- VIDEO PLACEHOLDER — swap this block for an <iframe>/<video> embed when the cohort intro is ready. -->
-        <div class="video-placeholder" role="img" aria-label="Cohort intro video — coming soon">
-          <button class="video-play" aria-label="Play cohort intro video"><span class="tri"></span></button>
-          <div class="video-cap">Watch — what this cohort is</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =============== PAIN CAROUSEL (between challenge and curriculum) =============== -->
-<section class="pain-carousel">
-  <div class="container">
-    <div class="section-eyebrow" style="text-align:center;">If any of these sound familiar</div>
-    <div class="flip-stage" id="flipStage">
-      <button class="flip-arrow prev" id="flipPrev" aria-label="Previous">&#8249;</button>
-      <div class="flip-viewport">
-        <div class="flip-card" id="flipCard">
-          <div class="flip-glyph" id="flipGlyph" aria-hidden="true"></div>
-          <blockquote id="flipText"></blockquote>
-        </div>
-      </div>
-      <button class="flip-arrow next" id="flipNext" aria-label="Next">&#8250;</button>
-    </div>
-    <div class="flip-dots" id="flipDots" role="tablist" aria-label="Choose a symptom"></div>
   </div>
 </section>
 
@@ -744,10 +563,9 @@
           </p>
           <div class="process-label">The process</div>
           <ol>
-            <li>Run the Ikigai self-evaluation, or the team evaluation if you have co-founders.</li>
+            <li>Run a personality assessment and life planning session with a life coach.</li>
             <li>Map the four intersections — passion, profession, mission, vocation.</li>
             <li>Test the company against the map: is this the right thing, built by the right founder.</li>
-            <li>Name the gaps that would make you the wrong person — and how you close them.</li>
           </ol>
         </div>
       </article>
@@ -762,14 +580,13 @@
         <div class="module-main">
           <h3>The business case</h3>
           <p class="lede">
-            The honest argument for why this company should exist and how it makes money. Not a plan you defend — a case you can test, with assumptions explicit enough to be proven wrong.
+            Why this company should exist and how it makes money. Not a plan you defend — a case you can test, with assumptions explicit enough to be proven wrong.
           </p>
           <div class="process-label">The process</div>
           <ol>
-            <li>State the problem, the customer, and the value in one page.</li>
-            <li>Surface the assumptions the whole business rests on — and rank them by risk.</li>
-            <li>Build the economics: who pays, how much, and why the numbers work.</li>
-            <li>Turn the riskiest assumptions into the experiments you will run first.</li>
+            <li>Assess your market with a business coach — size, trends, and where the real opportunity sits.</li>
+            <li>Map your positioning against the competition — where you fit and how you differ.</li>
+            <li>Build the revenue model and capital requirements — how the business makes money and what it takes to get there.</li>
           </ol>
         </div>
       </article>
@@ -784,13 +601,12 @@
         <div class="module-main">
           <h3>Mission and values</h3>
           <p class="lede">
-            The why-now and the how-we-operate. The mission that decides which experiments are worth your weeks, and the values that decide how you run them when the pressure is on.
+            The deep purpose behind your business, and the values that guide how you run it. The mission decides which experiments are worth your weeks; the values decide how you run them under pressure.
           </p>
           <div class="process-label">The process</div>
           <ol>
             <li>Draft the mission statement — the change you exist to make, in plain language.</li>
             <li>Define the values as behaviors, not adjectives — what they look like on a hard day.</li>
-            <li>Pressure-test both against real decisions you are facing right now.</li>
             <li>Use them as the filter for what you say yes and no to in the experiment phase.</li>
           </ol>
         </div>
@@ -806,14 +622,13 @@
         <div class="module-main">
           <h3>The experiment system</h3>
           <p class="lede">
-            The engine of the whole program. Finding traction means finding what is true by testing it — so you build the machine that reaches customers, captures what you learn, and books revenue, then run it on a loop.
+            Finding traction means finding what is true by testing it — so you build the machine that reaches customers, captures what you learn, and books revenue.
           </p>
           <div class="process-label">The process</div>
           <ol>
             <li>Design experiments from your riskiest assumptions — each with a clear pass or fail.</li>
             <li>Build the infrastructure: personas, campaigns, outreach, and a live website.</li>
             <li>Talk to customers, record and summarize every conversation into a knowledge base.</li>
-            <li>Book calls, book revenue, read the result, and run the next experiment.</li>
           </ol>
         </div>
       </article>
@@ -822,21 +637,21 @@
   </div>
 </section>
 
-<!-- =============== HOW THE COHORT RUNS =============== -->
+<!-- =============== HOW THE PROGRAM RUNS =============== -->
 <section id="format">
   <div class="container">
     <div class="section-eyebrow">How It Runs</div>
-    <h2 class="section-title">A small cohort, setting up a continuous learning engine with operators in the room.</h2>
+    <h2 class="section-title">A small program, setting up a continuous learning engine with operators in the room.</h2>
 
     <div class="format-grid">
       <article class="format-card">
         <div class="tag">Every week · Group</div>
-        <h3>The cohort session</h3>
-        <p>One weekly session with the whole cohort — 5 to 7 founders — working through the Waya OS modules and how to run each one. This is where the method is taught and where founders learn from each other's experiments.</p>
+        <h3>The program session</h3>
+        <p>One weekly session with everyone in the program — 5 to 7 founders — working through the Waya OS modules and how to run each one. This is where the method is taught and where founders learn from each other's experiments.</p>
         <div class="detail">
-          <span>Led by Na'ama, Vince or Oren</span>
+          <span>Led by experienced founders who built businesses from $0 to $150M in revenue</span>
           <span>Module walk-throughs and live Q&amp;A</span>
-          <span>Shared learning across the cohort</span>
+          <span>Shared learning across the program</span>
         </div>
       </article>
 
@@ -845,7 +660,7 @@
         <h3>Your coaching hour</h3>
         <p>One private hour each week, dedicated to your company and your specific path to product-market fit. This is where we go deep on your experiments, your customer conversations, and your next move.</p>
         <div class="detail">
-          <span>One-on-one with Na'ama, Vince or Oren</span>
+          <span>One-on-one with Na'ama</span>
           <span>Your experiments, your pipeline, your revenue</span>
           <span>Direct accountability, week over week</span>
         </div>
@@ -857,63 +672,38 @@
 <!-- =============== PULL-QUOTE BAND =============== -->
 <section class="pullquote-band">
   <blockquote>
-    Before traction, the job is not to build faster. It is to find what is true — by testing it, on a loop, until the market responds.
+    Full experiment and marketing automation suite to reach product-market fit.
   </blockquote>
   <div class="attribution">— Waya operating note</div>
-  <div class="section-cta"><a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Workshop</a></div>
-</section>
-
-<!-- =============== ENROLLMENT / PRICING =============== -->
-<section id="apply" class="enroll">
-  <div class="container">
-    <div class="enroll-card">
-      <div class="price-eyebrow">The investment</div>
-      <div class="price">$3,000<span>for the full 12-week cohort</span></div>
-
-      <div class="enroll-lead">By the end, you walk away with:</div>
-      <ul class="enroll-list">
-        <li>A repeatable system for reaching product-market fit — one you keep running long after week 12.</li>
-        <li>A clear read on your own strengths — where you actually fit the company you are building.</li>
-        <li>A clear read on your market — who it is, and where the real opening sits.</li>
-        <li>A clear read on your customer — who they are, and how to reach them.</li>
-        <li>A clear read on their pain — what actually hurts, in their words, from real conversations.</li>
-        <li>Clarity on what to build — decided after you have talked to customers, not before.</li>
-      </ul>
-
-      <!-- Apply -> GHL order form on the /apply/ page. After payment, GHL redirects to /welcome/. -->
-      <a class="btn-rust" href="/waya-os-mcp/apply/" style="padding:16px 32px; font-size:15px;">Apply to the Workshop</a>
-
-      <div class="enroll-note">Seats are limited and filled by application. The first cohort starts the second week of November 2026.</div>
-    </div>
-  </div>
+  <div class="section-cta"><a class="btn-rust" href="/waya-os-mcp/apply/">Apply to the Program</a></div>
 </section>
 
 <!-- =============== FAQ =============== -->
 <section id="faq" class="faq">
   <div class="container">
     <div class="section-eyebrow">Frequently Asked</div>
-    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the cohort</h2>
+    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the program</h2>
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>Who is this cohort for?</summary>
+        <summary>Who is this program for?</summary>
         <div class="answer">
           <p>Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week.</p>
-          <p>The cohort is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
+          <p>The program is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>What does the weekly commitment look like?</summary>
         <div class="answer">
-          <p>Two touchpoints a week: one group session with the whole cohort on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
+          <p>Two touchpoints a week: one group session with everyone in the program on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>What is Waya OS?</summary>
         <div class="answer">
-          <p>Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the cohort walks you through running it against your own company.</p>
+          <p>Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the program walks you through running it against your own company.</p>
         </div>
       </details>
 
@@ -941,14 +731,14 @@
       <details class="faq-item">
         <summary>What does it cost, and when does it start?</summary>
         <div class="answer">
-          <p>$3,000 for the full 12-week cohort. The first cohort starts the second week of November 2026. Seats are limited and filled by application.</p>
+          <p>$3,000 for the full 12-week program. The first program starts the second week of November 2026. Seats are limited and filled by application.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>How do I join?</summary>
         <div class="answer">
-          <p>Apply through the button above. Because the cohort is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
+          <p>Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
         </div>
       </details>
     </div>
@@ -958,9 +748,9 @@
 <!-- =============== FINAL CTA =============== -->
 <section class="final-cta">
   <h2>The market will answer. The question is whether you are running the experiment that asks.</h2>
-  <p>Apply for the first Waya OS cohort. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
+  <p>Apply for the first Waya OS program. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
   <div class="section-cta" style="margin-top: 40px;">
-    <a class="btn-rust" href="/waya-os-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply to the Workshop</a>
+    <a class="btn-rust" href="/waya-os-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply to the Program</a>
   </div>
 </section>
 
@@ -1010,73 +800,6 @@
   </div>
   <div class="foot-bottom">&copy; Copyright 2026 &ndash; WayaFrames &ndash; All rights reserved.</div>
 </footer>
-
-<!-- =============== PAIN CAROUSEL SCRIPT =============== -->
-<script>
-(function () {
-  var slides = [
-    { svg: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16" y1="16" x2="21" y2="21"></line><path d="M9.2 9.4a2 2 0 1 1 2.9 2.3c-.7.5-1.1.9-1.1 1.8"></path><line x1="11" y1="15.5" x2="11" y2="15.6"></line></svg>',
-      text: '“I’m building fast, but I can’t tell if anyone actually wants it.”' },
-    { svg: '<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.4"></circle><circle cx="16.5" cy="10" r="2"></circle><path d="M3.5 18c0-2.5 2-4.2 4.5-4.2s4.5 1.7 4.5 4.2"></path><path d="M14.5 17.4c.1-2 1.6-3.3 3.4-3.3 1.9 0 3.1 1.4 3.1 3.3"></path></svg>',
-      text: '“I have no personas, no pipeline, and no repeatable way to reach customers.”' },
-    { svg: '<svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-4 3.5V15H4z"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="12" x2="13" y2="12"></line></svg>',
-      text: '“I talk to customers, but the learning evaporates — nothing compounds.”' },
-    { svg: '<svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20"></line><line x1="7" y1="20" x2="7" y2="13"></line><line x1="12" y1="20" x2="12" y2="9"></line><line x1="17" y1="20" x2="17" y2="15"></line><polyline points="6 8 10 11 14 6 19 9"></polyline></svg>',
-      text: '“I’m busy every week and still haven’t booked real revenue.”' },
-    { svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><polygon points="15.5 8.5 10.5 10.5 8.5 15.5 13.5 13.5"></polygon></svg>',
-      text: '“I’m not sure this company matches what I actually care about.”' }
-  ];
-  var card = document.getElementById('flipCard');
-  var glyph = document.getElementById('flipGlyph');
-  var textEl = document.getElementById('flipText');
-  var dotsWrap = document.getElementById('flipDots');
-  var stage = document.getElementById('flipStage');
-  if (!card) return;
-  var i = 0, timer = null, animating = false;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  slides.forEach(function (s, idx) {
-    var b = document.createElement('button');
-    b.setAttribute('role', 'tab');
-    b.setAttribute('aria-label', 'Symptom ' + (idx + 1));
-    b.addEventListener('click', function () { go(idx); restart(); });
-    dotsWrap.appendChild(b);
-  });
-  var dots = Array.prototype.slice.call(dotsWrap.children);
-
-  function render(idx) {
-    glyph.innerHTML = slides[idx].svg;
-    textEl.textContent = slides[idx].text;
-    dots.forEach(function (d, k) { d.classList.toggle('active', k === idx); });
-  }
-  function go(idx) {
-    idx = (idx + slides.length) % slides.length;
-    if (idx === i) return;
-    if (reduce) { i = idx; render(i); return; }
-    if (animating) return;
-    animating = true;
-    card.classList.add('flipping');
-    setTimeout(function () {
-      i = idx; render(i);
-      card.classList.remove('flipping');
-      setTimeout(function () { animating = false; }, 320);
-    }, 320);
-  }
-  function next() { go(i + 1); }
-  function prev() { go(i - 1); }
-  function start() { if (!reduce) timer = setInterval(next, 4200); }
-  function stop() { clearInterval(timer); }
-  function restart() { stop(); start(); }
-
-  document.getElementById('flipNext').addEventListener('click', function () { next(); restart(); });
-  document.getElementById('flipPrev').addEventListener('click', function () { prev(); restart(); });
-  stage.addEventListener('mouseenter', stop);
-  stage.addEventListener('mouseleave', start);
-
-  render(0);
-  start();
-})();
-</script>
 
 </body>
 </html>

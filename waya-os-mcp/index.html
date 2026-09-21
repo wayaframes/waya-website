@@ -178,6 +178,16 @@
   font-size: 14px; color: var(--fg-2); font-style: italic;
 }
 
+/* Early access signup form */
+.signup-form-card {
+  max-width: 640px; margin: 40px auto 0;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: var(--shadow-1);
+  padding: 12px;
+}
+.signup-form-card iframe { width: 100%; height: 465px; border: none; border-radius: 8px; display: block; }
+
 @media (max-width: 720px) {
   .frames, .frames.cols-3 { grid-template-columns: 1fr; }
   .loop-step { grid-template-columns: 1fr; gap: 16px; }
@@ -229,7 +239,7 @@
       <h1>Waya OS MCP</h1>
       <p class="sub">The diagnostic frameworks that find your real constraint — then get to the root of why it's stuck. Running right inside the AI assistant you already use.</p>
       <div class="hero-cta">
-        <a class="btn-rust" href="/waya-os-mcp/setup/">Add Waya OS</a>
+        <a class="btn-rust" href="#early-access">Sign Up to the Early Access Program</a>
         <a class="btn-ghost-dark" href="#whats-inside">See the Frameworks</a>
       </div>
     </div>
@@ -344,7 +354,7 @@
     </div>
 
     <p class="loop-foot">Not sure which step you're on? Start with <span class="cmd">/a3-thinking</span> — it opens the right method for you.</p>
-    <div class="section-cta"><a class="btn-rust" href="/waya-os-mcp/setup/">Add Waya OS</a></div>
+    <div class="section-cta"><a class="btn-rust" href="#early-access">Sign Up to the Early Access Program</a></div>
   </div>
 </section>
 
@@ -408,7 +418,7 @@
 <section class="cta-band" aria-label="Call to action">
   <h2>The number doesn't move by working harder. It moves by working on the right thing.</h2>
   <p>Waya OS finds the one constraint that's actually in the way, gets to the root of why, and points you at the fix — inside the assistant you already use. Free to connect.</p>
-  <a class="btn-pill-cream" href="/waya-os-mcp/setup/">Add Waya OS</a>
+  <a class="btn-pill-cream" href="#early-access">Sign Up to the Early Access Program</a>
 </section>
 
 <!-- =============== FAQ =============== -->
@@ -449,7 +459,37 @@
 <section id="book" class="final-cta">
   <h2>Find the real constraint</h2>
   <p>Connect Waya OS and run your first diagnosis today. When you want a specialist in the room, we're right here.</p>
-  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="/waya-os-mcp/setup/">Add Waya OS</a></div>
+  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#early-access">Sign Up to the Early Access Program</a></div>
+</section>
+
+<!-- =============== EARLY ACCESS SIGNUP =============== -->
+<section id="early-access" class="bg-paper">
+  <div class="container">
+    <p class="section-eyebrow">Early Access</p>
+    <h2 class="section-title">Sign up to the early access program</h2>
+    <p class="section-lead">Leave your details and we'll reach out about getting you connected to Waya OS.</p>
+    <div class="signup-form-card">
+      <iframe
+          src="https://api.leadconnectorhq.com/widget/form/ovuQkgpzBEHY7DhfyU1j"
+          style="width:100%;height:100%;border:none;border-radius:8px"
+          id="inline-ovuQkgpzBEHY7DhfyU1j"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Waya OS Pro MCP curious"
+          data-height="465"
+          data-layout-iframe-id="inline-ovuQkgpzBEHY7DhfyU1j"
+          data-form-id="ovuQkgpzBEHY7DhfyU1j"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Waya OS Pro MCP curious">
+      </iframe>
+    </div>
+  </div>
 </section>
 
 </main>
@@ -501,5 +541,6 @@
 </footer>
 
 <script src="/assets/nav.js?v=5" defer></script>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body>
 </html>
