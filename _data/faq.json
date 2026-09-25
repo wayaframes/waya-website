@@ -293,5 +293,87 @@
         "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
       ]
     }
+  ],
+  "waya-os-mcp": [
+    {
+      "q": "What is Waya OS?",
+      "a": [
+        "Waya OS is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
+      ]
+    },
+    {
+      "q": "What is a WayaFrame?",
+      "a": [
+        "A WayaFrame is a framework that runs inside your AI assistant. The assistant walks you through a proven method, asking the right questions in the right order, and you finish with a real deliverable: a clear problem statement, a set of root causes, or a ranked list of experiments."
+      ]
+    },
+    {
+      "q": "How is this different from just asking Claude or ChatGPT?",
+      "a": [
+        "Waya OS doesn't replace your AI assistant. It runs inside it. On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Waya OS gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees, and each session ends with a document you keep. It's the same assistant, following a method from people who have run a company."
+      ]
+    },
+    {
+      "q": "Do I need to learn commands?",
+      "a": [
+        "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Waya OS starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
+      ]
+    },
+    {
+      "q": "Who is this for?",
+      "a": [
+        "Founders, operators, and leaders past the earliest stage: anyone with a problem that keeps coming back, improvement work that isn't moving the main number, or a decision that needs a diagnosis that holds up later. It works in any area: operations, sales, hiring, support, finance, product."
+      ]
+    },
+    {
+      "q": "How do I get access?",
+      "a": [
+        "Waya OS is in early access. Sign up below and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
+      ]
+    },
+    {
+      "q": "What do I need to run it?",
+      "a": [
+        "An AI assistant that supports MCP, such as Claude. Once Waya OS is connected, bring it a problem and the assistant opens the right WayaFrame."
+      ]
+    }
+  ],
+  "pre-pmf-mcp": [
+    {
+      "q": "What is the Pre-PMF MCP?",
+      "a": [
+        "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Workshop you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
+      ]
+    },
+    {
+      "q": "What is a Wayaframe?",
+      "a": [
+        "A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, a business case, or a set of experiments."
+      ]
+    },
+    {
+      "q": "How is this different from just asking Claude or ChatGPT?",
+      "a": [
+        "Waya doesn't replace your AI assistant. It runs inside it. A general assistant will talk through your idea for as long as you like, agree with most of it, and never tell you what to test first. The Wayaframes give it a set order: why you're the founder for this, what the business is, what it stands for, and which assumptions to test. Each one ends in a document you keep. Na'ama and Vince built them from scaling Cheetah to $150M in revenue, and in the workshop they coach you every week, which a chatbot can't do."
+      ]
+    },
+    {
+      "q": "What is the Product Market Fit Workshop?",
+      "a": [
+        "It's a $3,000, 12-week workshop that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
+      ]
+    },
+    {
+      "q": "Who is this for?",
+      "a": [
+        "Early-stage founders who are still searching for product-market fit — whether you're pre-idea, validating a hypothesis, or running your first experiments. If you know the destination is PMF but not yet the path, this is built for you."
+      ]
+    },
+    {
+      "q": "What do I need to run it?",
+      "a": [
+        "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the workshop. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
+      ]
+    }
   ]
 }
