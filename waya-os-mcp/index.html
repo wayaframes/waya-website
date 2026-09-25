@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Waya OS MCP – Waya</title>
-<meta name="description" content="Waya OS is a diagnostic MCP for operators. It puts Waya's Wayaframes inside your AI assistant to find the one constraint blocking your goal, then get to the root of why it's stuck. Free to connect.">
+<title>Waya OS – Waya</title>
+<meta name="description" content="Waya OS is an MCP server that puts WayaFrames problem solving inside your AI assistant. Describe a problem and it works through A3 thinking with you: define the gap, find the root causes, and test a fix.">
 <link rel="canonical" href="https://www.wayaframes.com/waya-os-mcp/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Waya">
-<meta property="og:title" content="Waya OS MCP – Waya">
-<meta property="og:description" content="A diagnostic MCP with Wayaframes for operators. Find the one constraint blocking your goal, then get to the root of why it's stuck — right inside your AI assistant.">
+<meta property="og:title" content="Waya OS – Waya">
+<meta property="og:description" content="A3 problem solving inside your AI assistant. Describe a problem and Waya OS works through the root causes and the fix with you.">
 <meta property="og:url" content="https://www.wayaframes.com/waya-os-mcp/">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=5">
@@ -19,9 +19,9 @@
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Waya OS MCP",
+  "name": "Waya OS",
   "url": "https://www.wayaframes.com/waya-os-mcp/",
-  "description": "A diagnostic MCP with Wayaframes for operators and leaders. Includes guided frameworks for constraint identification and gap analysis, with A3 thinking, experiment design, and impact–effort prioritization. Free to connect.",
+  "description": "An MCP server with WayaFrames for operators and leaders. Built on A3 thinking, with gap analysis, experiment design, and impact vs effort prioritization inside it.",
   "provider": {
     "@type": "Organization",
     "name": "Waya",
@@ -39,23 +39,23 @@
       "name": "What is Waya OS?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step diagnostic frameworks the assistant runs with you. It helps you find the one constraint blocking your goal and get to the root of why it's stuck, instead of guessing from a blank chat."
+        "text": "Waya OS is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a Wayaframe?",
+      "name": "What is a WayaFrame?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order — and produces a real deliverable at the end: a validated constraint, a set of root causes, a ranked list of experiments."
+        "text": "A WayaFrame is a framework that runs inside your AI assistant. The assistant walks you through a proven method, asking the right questions in the right order, and you finish with a real deliverable: a clear problem statement, a set of root causes, or a ranked list of experiments."
       }
     },
     {
       "@type": "Question",
-      "name": "What's the difference between constraint identification and gap analysis?",
+      "name": "Do I need to learn commands?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Constraint identification is the compass: of everything you could work on, which one thing actually blocks the goal? Gap analysis is the drill: given that thing, why is it happening? You point with one and dig with the other."
+        "text": "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Waya OS starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
       }
     },
     {
@@ -63,15 +63,15 @@
       "name": "Who is this for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Founders, operators, and leaders past the earliest stage — anyone whose improvement work isn't moving the main number, who's deciding where to spend scarce resources, or who needs a diagnosis that holds up later. It's domain-independent: operations, sales, hiring, support, finance, product."
+        "text": "Founders, operators, and leaders past the earliest stage: anyone with a problem that keeps coming back, improvement work that isn't moving the main number, or a decision that needs a diagnosis that holds up later. It works in any area: operations, sales, hiring, support, finance, product."
       }
     },
     {
       "@type": "Question",
-      "name": "What does it cost?",
+      "name": "How do I get access?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Waya OS is free to connect today — no payment and no seat. When you want a specialist to run the diagnosis with you, you can schedule a call."
+        "text": "Waya OS is in early access. Sign up on this page and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
       }
     },
     {
@@ -79,43 +79,53 @@
       "name": "What do I need to run it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An AI assistant that supports MCP, such as Claude. You connect the Waya OS connector once, and the Wayaframes become commands you can invoke any time."
+        "text": "An AI assistant that supports MCP, such as Claude. Once Waya OS is connected, bring it a problem and the assistant opens the right WayaFrame."
       }
     }
   ]
 }
 </script>
 <style>
-/* ---------- Waya OS MCP page-specific styles ---------- */
+/* ---------- Waya OS page-specific styles ---------- */
 
-/* Command chips for referencing Wayaframes inline */
-.cmd {
-  font-family: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.92em; color: var(--waya-rust);
+/* Example prompts: what you'd type to your assistant */
+.prompt {
+  font-size: 0.92em; font-style: italic; color: var(--waya-rust);
   background: rgba(209,108,2,0.08);
   border: 1px solid rgba(209,108,2,0.18);
-  border-radius: 6px; padding: 1px 7px; white-space: nowrap;
+  border-radius: 8px; padding: 3px 10px;
 }
 
 /* Frame cards: what's inside the MCP */
-.frames { margin-top: 52px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.frames.cols-3 { grid-template-columns: repeat(3, 1fr); margin-top: 40px; }
+.frames { margin-top: 52px; display: grid; grid-template-columns: 1fr; gap: 24px; }
+.frames.cols-3 { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
 .frame {
   background: var(--waya-cream);
   border: 1px solid var(--border-1); border-radius: 18px;
   padding: 32px 30px; box-shadow: var(--shadow-1);
   display: flex; flex-direction: column;
 }
+.frame.featured { padding: 36px 36px; }
 .frame.supporting { background: var(--waya-paper); box-shadow: none; padding: 28px 26px; }
-.frame .cmd { align-self: flex-start; margin-bottom: 16px; }
+.frame .tag {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--waya-rust); margin-bottom: 10px;
+}
+.frame .prompt { align-self: flex-start; margin-top: 16px; }
 .frame h3 {
   font-family: var(--font-display); font-weight: 700;
   font-size: 20px; line-height: 1.2; letter-spacing: -0.015em;
   color: var(--waya-charcoal); margin-bottom: 10px;
 }
+.frame.featured h3 { font-size: 24px; }
 .frame.supporting h3 { font-size: 17px; }
 .frame p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
 .frame.supporting p { font-size: 14px; }
+.submodules-label {
+  margin: 36px 0 0; text-align: center;
+  font-size: 14.5px; color: var(--fg-2);
+}
 /* Responsive 16:9 video embed */
 .video-wrap {
   margin: 44px auto 0; max-width: 900px;
@@ -126,56 +136,73 @@
 }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* ---------- Diagnostic loop / worked-example timeline ---------- */
-.loop { margin-top: 52px; display: flex; flex-direction: column; gap: 20px; max-width: 960px; margin-left: auto; margin-right: auto; }
-.loop-step {
+/* ---------- How it works: Define / Diagnose / Fix infographic ---------- */
+.flow-case {
+  max-width: 1000px; margin: 44px auto 0;
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  justify-content: center; text-align: center;
+  font-size: 15.5px; line-height: 1.55; color: var(--waya-ink);
+}
+.flow-case p { max-width: 720px; }
+.flow-case-k, .flow-ex-k {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.flow-case-k { color: var(--waya-rust); }
+.flow {
+  list-style: none; padding: 0;
+  max-width: 1000px; margin: 32px auto 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+}
+.flow-step {
+  position: relative;
   background: var(--waya-cream);
   border: 1px solid var(--border-1); border-radius: 20px;
   box-shadow: var(--shadow-1);
-  padding: 28px 30px;
-  display: grid; grid-template-columns: 148px 1fr; gap: 28px; align-items: start;
+  padding: 30px 26px 24px;
+  /* Subgrid keeps each row (number, title, tools, text, example) aligned across the three steps */
+  display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0;
+  justify-items: center; text-align: center;
 }
-.loop-label {
+/* Arrow between steps */
+.flow-step:not(:last-child)::after {
+  content: ""; position: absolute; top: 44px; right: -31px;
+  width: 22px; height: 22px;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D16C02' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E");
+}
+.flow-n {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--waya-rust); color: var(--waya-cream);
+  font-family: var(--font-display); font-weight: 700; font-size: 18px;
+  margin-bottom: 14px;
+}
+.flow-step h3 {
   font-family: var(--font-display); font-weight: 700;
-  color: var(--waya-charcoal);
+  font-size: 22px; letter-spacing: -0.015em; color: var(--waya-charcoal);
 }
-.loop-label .k {
-  display: block; font-size: 12px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--waya-rust); margin-bottom: 4px;
-}
-.loop-label .phase {
-  display: block; font-size: 20px; letter-spacing: -0.015em; line-height: 1.15;
-}
-.loop-body { display: flex; flex-direction: column; gap: 14px; }
-.loop-body .cmd { align-self: flex-start; }
-.loop-cmds { display: flex; flex-wrap: wrap; gap: 8px; }
-.loop-body p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
-.loop-body p strong { color: var(--waya-ink); font-weight: 600; }
-.out {
-  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  background: var(--waya-mint); border-radius: 12px;
-  padding: 12px 16px;
-}
-.out .badge {
-  font-family: var(--font-display); font-weight: 700; font-size: 12px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: #085041;
-}
-.out .detail { font-size: 14.5px; color: #0f6e56; line-height: 1.45; }
-.loop-foot {
-  max-width: 960px; margin: 22px auto 0; text-align: center;
-  font-size: 14.5px; color: var(--fg-2);
-}
-.example-setup {
-  max-width: 960px; margin: 40px auto 0;
+.flow-tools { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; align-content: flex-start; gap: 6px; margin: 8px 0 14px; }
+.flow-tool {
+  font-size: 13px; font-weight: 600; color: var(--waya-charcoal);
   background: var(--waya-paper); border: 1px solid var(--border-1);
-  border-radius: 16px; padding: 24px 28px;
-  font-size: 15.5px; line-height: 1.6; color: var(--waya-ink);
+  border-radius: 999px; padding: 3px 12px;
 }
-.example-setup strong { font-family: var(--font-display); color: var(--waya-charcoal); }
+.flow-step > p { font-size: 14.5px; line-height: 1.55; color: var(--fg-2); }
+.flow-ex { padding-top: 18px; width: 100%; display: flex; flex-direction: column; }
+.flow-ex-k { color: #085041; margin-bottom: 6px; }
+.flow-ex p {
+  flex: 1;
+  background: var(--waya-mint); border-radius: 12px; padding: 12px 14px;
+  font-size: 14px; line-height: 1.45; color: #0f6e56;
+}
+.flow-back { max-width: 1000px; margin: 6px auto 0; text-align: center; }
+.flow-back svg { display: block; width: 100%; height: 44px; overflow: visible; }
+.flow-back path { fill: none; stroke: var(--waya-rust); stroke-width: 2; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
+.flow-back path.head { stroke-dasharray: none; stroke-linecap: round; stroke-linejoin: round; }
+.flow-back p { margin-top: 10px; font-size: 14.5px; font-weight: 600; color: var(--waya-charcoal); }
 .entry-note {
-  max-width: 960px; margin: 28px auto 0; text-align: center;
-  font-size: 14px; color: var(--fg-2); font-style: italic;
+  max-width: 960px; margin: 20px auto 0; text-align: center;
+  font-size: 13.5px; color: var(--fg-2); font-style: italic;
 }
 
 /* Early access signup form */
@@ -189,9 +216,15 @@
 .signup-form-card iframe { width: 100%; height: 465px; border: none; border-radius: 8px; display: block; }
 
 @media (max-width: 720px) {
-  .frames, .frames.cols-3 { grid-template-columns: 1fr; }
-  .loop-step { grid-template-columns: 1fr; gap: 16px; }
-}
+  .frames.cols-3 { grid-template-columns: 1fr; }
+  .frame.featured { padding: 30px 26px; }
+  .flow { grid-template-columns: 1fr; gap: 36px; }
+  .flow-step { grid-row: auto; grid-template-rows: none; }
+  .flow-step:not(:last-child)::after { top: auto; right: auto; bottom: -30px; left: calc(50% - 11px); transform: rotate(90deg); }
+  .flow-back svg { display: none; }
+  .flow-back p { margin-top: 20px; }
+  .flow-back p::before { content: "\21BA  "; color: var(--waya-rust); }
+  }
 </style>
 </head>
 <body>
@@ -220,7 +253,7 @@
           <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
         </button>
         <div class="nav-dropdown-menu">
-          <a href="/waya-os-mcp/">Waya OS MCP</a>
+          <a href="/waya-os-mcp/">Waya OS</a>
           <a href="/pre-pmf-mcp/">Pre-PMF MCP</a>
         </div>
       </div>
@@ -236,11 +269,10 @@
   <div class="hero-inner">
     <div class="hero-content">
       <p class="eyebrow">Built by operators, for operators</p>
-      <h1>Waya OS MCP</h1>
-      <p class="sub">The diagnostic frameworks that find your real constraint — then get to the root of why it's stuck. Running right inside the AI assistant you already use.</p>
+      <h1>Waya OS</h1>
+      <p class="sub">A3 problem solving inside the AI assistant you already use. Describe the problem, and Waya OS works through the root causes and the fix with you.</p>
       <div class="hero-cta">
-        <a class="btn-rust" href="#early-access">Sign Up to the Early Access Program</a>
-        <a class="btn-ghost-dark" href="#whats-inside">See the Frameworks</a>
+        <a class="btn-rust" href="#early-access">Sign Up for Early Access</a>
       </div>
     </div>
   </div>
@@ -252,10 +284,10 @@
     <div class="two-col">
       <div class="body-block">
         <p class="section-eyebrow">The Challenge</p>
-        <p>Most improvement work is busy work aimed at the wrong target. Teams pour effort into what they understand and control, the loudest complaint gets the budget, and a month later the main number still hasn't moved. When a problem does get attention, the fix usually chases a symptom — because no one stopped to ask why it's really happening.</p><p>Waya OS puts the diagnostic method inside the assistant you already use. Two moves do the heavy lifting: <strong>find the one constraint</strong> that's actually blocking the goal, then <strong>get to the root</strong> of why it's stuck — with the evidence to back it up. Aim before you fire.</p>
+        <p>Most fixes chase a symptom. The loudest complaint gets the budget, a fix goes in, and a month later the same problem is back, because no one stopped to ask why it was happening.</p><p>Waya OS puts a structured problem-solving method inside your assistant. It runs on <strong>A3 thinking</strong>: define the problem and the gap, <strong>find the root causes</strong> with evidence, then test a fix before you roll it out.</p>
         <div class="section-cta"><a class="btn-rust" href="#whats-inside">See the Frameworks</a></div>
       </div>
-      <img src="/assets/images/challenge/operations-audit.jpg" alt="An operator at a whiteboard mapping a system to find the bottleneck">
+      <img src="/assets/images/challenge/operations-audit.jpg" alt="A leadership team working through a problem around a conference table">
     </div>
   </div>
 </section>
@@ -265,11 +297,11 @@
   <div class="container">
     <p class="section-eyebrow">See it in action</p>
     <h2 class="section-title">Watch a diagnosis run</h2>
-    <p class="section-lead">A short walkthrough of Waya OS finding a constraint and drilling it to root cause &mdash; live, inside the assistant.</p>
+    <p class="section-lead">Waya OS diagnosing a problem and working through root causes and solutions with a user.</p>
     <div class="video-wrap">
       <iframe
         src="https://www.youtube-nocookie.com/embed/P5bsJ9lWhqQ?rel=0"
-        title="Waya OS — a diagnosis, live"
+        title="Waya OS diagnosing a problem with a user"
         loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -281,144 +313,97 @@
 <!-- =============== WHAT'S INSIDE =============== -->
 <section id="whats-inside">
   <div class="container">
-    <p class="section-eyebrow">Wayaframes</p>
-    <h2 class="section-title">Point the tool, then dig</h2>
-    <p class="section-lead">Connect the MCP once and these become commands in your AI assistant. Each one facilitates a proven method with you, step by step, and hands you a real deliverable at the end.</p>
+    <p class="section-eyebrow">WayaFrames</p>
+    <h2 class="section-title">One method, with the tools it needs</h2>
+    <p class="section-lead">There are no commands to learn. Tell your assistant what's wrong in your own words, and Waya OS opens A3 thinking. Each framework facilitates a proven method with you, step by step, and you finish with a real deliverable.</p>
     <div class="frames">
-      <article class="frame">
-        <span class="cmd">/constraint-identification</span>
-        <h3>Constraint Identification</h3>
-        <p>Every system has exactly one constraint relative to a goal — one thing that, if you improved it, would move the number more than anything else. This Wayaframe locks in the goal, maps the system, pressure-tests your candidates against the comfort-and-control bias, and validates the real bottleneck before you spend a dollar attacking it. Then it points you at the right way to fix it.</p>
-      </article>
-      <article class="frame">
-        <span class="cmd">/gap-analysis</span>
-        <h3>Gap Analysis</h3>
-        <p>A vague, contested problem becomes a validated set of root causes. It solidifies the problem against SMART-P criteria, picks the right method — 5 Whys for a contained issue, Fishbone when it crosses departments — and facilitates the analysis until the causes are actionable and evidence-based. The output you can defend later, not a hunch.</p>
+      <article class="frame featured">
+        <span class="tag">The backbone</span>
+        <h3>A3 Thinking</h3>
+        <p>A3 is the problem-solving method the other WayaFrames run inside. It pins down the problem, measures the gap between where you are and where you need to be, finds the root causes, and designs countermeasures to test. It adjusts its depth to the problem, from a fifteen-minute pass to a multi-week effort, and opens gap analysis, experiment design, or impact vs effort at the step where you need them.</p>
       </article>
     </div>
 
+    <p class="submodules-label">Inside A3 thinking. Each one can also be used on its own:</p>
     <div class="frames cols-3">
       <article class="frame supporting">
-        <span class="cmd">/a3-thinking</span>
-        <h3>A3 Thinking</h3>
-        <p>The master frame the others run inside. Adapts depth to the problem — a fifteen-minute quick pass or a full engagement — and opens the narrower methods at the right step. The default entry when you're not sure where to start.</p>
+        <h3>Gap Analysis</h3>
+        <p>Turns a vague, contested problem into a set of validated root causes. It tightens the problem statement against SMART-P criteria, then picks the method: 5 Whys for a contained issue, Fishbone when it crosses departments.</p>
       </article>
       <article class="frame supporting">
-        <span class="cmd">/experiment-design</span>
         <h3>Experiment Design</h3>
-        <p>Turns validated root causes into small, testable experiments with clear success criteria and a real test–learn–revise loop.</p>
+        <p>Turns root causes into small, testable experiments with clear success criteria, and runs the test, learn, and revise loop.</p>
       </article>
       <article class="frame supporting">
-        <span class="cmd">/impact-effort</span>
-        <h3>Impact–Effort</h3>
-        <p>Ranks competing options — gaps, experiments, fixes — by impact against effort, so you act on the two or three that matter and park the rest.</p>
+        <h3>Impact vs Effort</h3>
+        <p>Ranks competing options (gaps, experiments, fixes) by impact against effort, so you act on the two or three that matter and park the rest.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- =============== DIAGNOSTIC LOOP =============== -->
+<!-- =============== HOW IT WORKS (infographic) =============== -->
 <section id="loop" class="bg-paper">
   <div class="container">
-    <p class="section-eyebrow">How it fits together</p>
-    <h2 class="section-title">Aim. Diagnose. Fix.</h2>
-    <p class="section-lead">The frameworks work stand alone or as a sequence. Each framework hands it off to the next if necessary, and Waya routes you to the right steps so you don't skip the one that you need.</p>
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Define. Diagnose. Fix.</h2>
+    <p class="section-lead">A3 thinking runs the sequence and opens each step when you need it. Here's how it plays out on one problem.</p>
 
-    <div class="loop">
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 01</span><span class="phase">Aim</span></div>
-        <div class="loop-body">
-          <span class="cmd">/constraint-identification</span>
-          <p>Find the one constraint blocking the goal and validate it moves the number. Most companies never do this — they attack whatever's loudest.</p>
-          <div class="out"><span class="badge">Output</span><span class="detail">A named, validated constraint — and where to point next.</span></div>
-        </div>
-      </div>
-
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 02</span><span class="phase">Diagnose</span></div>
-        <div class="loop-body">
-          <span class="cmd">/gap-analysis</span>
-          <p>Now that you know <strong>where</strong>, get to <strong>why</strong>. Drill the constraint to root causes you can defend with evidence.</p>
-          <div class="out"><span class="badge">Output</span><span class="detail">Validated root causes, via 5 Whys or Fishbone.</span></div>
-        </div>
-      </div>
-
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 03</span><span class="phase">Fix</span></div>
-        <div class="loop-body">
-          <div class="loop-cmds"><span class="cmd">/experiment-design</span><span class="cmd">/impact-effort</span><span class="cmd">/a3-thinking</span></div>
-          <p>Turn root causes into experiments, rank them by impact and effort, and run the test–learn–revise loop. Break this constraint and the next one surfaces — the loop begins again.</p>
-          <div class="out"><span class="badge">Output</span><span class="detail">Prioritized experiments with clear success criteria.</span></div>
-        </div>
-      </div>
+    <div class="flow-case">
+      <span class="flow-case-k">Example</span>
+      <p>Monthly revenue is stuck at $500K against an $800K target. Ops already cut its error rate from 50% to 5%, and revenue still hasn't moved.</p>
     </div>
 
-    <p class="loop-foot">Not sure which step you're on? Start with <span class="cmd">/a3-thinking</span> — it opens the right method for you.</p>
-    <div class="section-cta"><a class="btn-rust" href="#early-access">Sign Up to the Early Access Program</a></div>
-  </div>
-</section>
+    <ol class="flow" aria-label="The three steps">
+      <li class="flow-step">
+        <span class="flow-n" aria-hidden="true">1</span>
+        <h3>Define</h3>
+        <span class="flow-tools"><span class="flow-tool">A3 Thinking</span></span>
+        <p>Pin the problem down with data: what's happening, what should be, and how big the gap is.</p>
+        <div class="flow-ex">
+          <span class="flow-ex-k">In the example</span>
+          <p>Ops improved and revenue didn't, so ops isn't it. 60% of pipeline is unqualified, and those leads close at 3%.</p>
+        </div>
+      </li>
+      <li class="flow-step">
+        <span class="flow-n" aria-hidden="true">2</span>
+        <h3>Diagnose</h3>
+        <span class="flow-tools"><span class="flow-tool">Gap Analysis</span></span>
+        <p>Get from what to why, with 5 Whys or Fishbone, until the root cause is backed by evidence.</p>
+        <div class="flow-ex">
+          <span class="flow-ex-k">In the example</span>
+          <p>A 5 Whys chain traces the bad leads to a targeting spec no one owns.</p>
+        </div>
+      </li>
+      <li class="flow-step">
+        <span class="flow-n" aria-hidden="true">3</span>
+        <h3>Fix</h3>
+        <span class="flow-tools"><span class="flow-tool">Experiment Design</span><span class="flow-tool">Impact vs Effort</span></span>
+        <p>Turn root causes into tests, rank them, run the best one, and watch the number.</p>
+        <div class="flow-ex">
+          <span class="flow-ex-k">In the example</span>
+          <p>Test a new targeting spec with a clear owner and track revenue against the target.</p>
+        </div>
+      </li>
+    </ol>
 
-<!-- =============== WORKED EXAMPLE =============== -->
-<section id="example">
-  <div class="container">
-    <p class="section-eyebrow">What it looks like</p>
-    <h2 class="section-title">From "everything's on fire" to one validated cause</h2>
-
-    <div class="example-setup">
-      <strong>The setup.</strong> Goal: grow monthly revenue from $500K to $800K this quarter. Three teams each swear they're the bottleneck. Ops has already cut its error rate from 50% to 5% — and sales still hasn't moved.
+    <div class="flow-back">
+      <svg viewBox="0 0 1000 44" preserveAspectRatio="none" aria-hidden="true"><path d="M833 2 V26 Q833 40 819 40 H181 Q167 40 167 26 V8" /><path class="head" d="M159 14 L167 4 L175 14" /></svg>
+      <p>Revenue didn't move? Go back to Define with what you learned.</p>
     </div>
 
-    <div class="loop">
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 01</span><span class="phase">Constraint ID</span></div>
-        <div class="loop-body">
-          <p>Candidates get pressure-tested against the goal. Ops improved and the number didn't move — so ops wasn't the constraint for <strong>this</strong> goal. Upstream test: sales isn't slow, it's drowning in unqualified leads.</p>
-          <div class="out"><span class="badge">Found</span><span class="detail">Constraint: lead quality. 60% of pipeline is unqualified; sales closes 40% of qualified leads and 3% of the rest.</span></div>
-        </div>
-      </div>
-
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 02</span><span class="phase">Gap Analysis</span></div>
-        <div class="loop-body">
-          <p>Drill <strong>why</strong> lead gen produces 60% unqualified leads. A 5 Whys chain traces it to a targeting spec no one owns.</p>
-          <div class="out"><span class="badge">Found</span><span class="detail">Root cause, with evidence — not a hunch.</span></div>
-        </div>
-      </div>
-
-      <div class="loop-step">
-        <div class="loop-label"><span class="k">Step 03</span><span class="phase">Fix</span></div>
-        <div class="loop-body">
-          <p>Design an experiment on the targeting spec, size it against the alternatives with impact–effort, run it, watch the goal metric. If revenue moves, the constraint was real. If it doesn't, back to Step 01 — and that's the method working, not failing.</p>
-          <div class="out"><span class="badge">Next</span><span class="detail">A prioritized experiment tied to the number that matters.</span></div>
-        </div>
-      </div>
+    <p class="entry-note">The figures are illustrative.</p>
+    <div class="section-cta">
+      <a class="btn-rust" href="#early-access">Sign Up for Early Access</a>
     </div>
-
-    <p class="entry-note">Every figure here is illustrative — the point is the sequence, not the numbers.</p>
-    <div class="section-cta"><a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=waya-os-mcp&utm_content=example_cta">Schedule a Call</a></div>
-  </div>
-</section>
-
-<!-- =============== SETUP =============== -->
-<section id="setup" class="bg-paper">
-  <div class="container">
-    <p class="section-eyebrow">Getting Started</p>
-    <h2 class="section-title">Connect it once, use it forever</h2>
-    <p class="section-lead">Waya OS works with any AI assistant that supports MCP, like Claude. Connect it once and the Wayaframes show up as commands you can invoke any time. Free to connect — no payment, no seat.</p>
-    <ul class="steps">
-      <li><span class="step-n">01</span><span><strong>Connect Waya OS:</strong> follow the <a href="/waya-os-mcp/setup/">setup guide</a> to add the Waya OS MCP (<span class="cmd">pro-mcp.wayaframes.com/mcp</span>) to your assistant, then sign in.</span></li>
-      <li><span class="step-n">02</span><span><strong>Aim:</strong> run <span class="cmd">/constraint-identification</span> to find the one thing actually blocking your goal — or <span class="cmd">/a3-thinking</span> if you're not sure where to start.</span></li>
-      <li><span class="step-n">03</span><span><strong>Diagnose:</strong> run <span class="cmd">/gap-analysis</span> on the constraint to reach root causes you can defend.</span></li>
-      <li><span class="step-n">04</span><span><strong>Fix:</strong> turn causes into tests with <span class="cmd">/experiment-design</span>, rank them with <span class="cmd">/impact-effort</span>, and run the loop.</span></li>
-    </ul>
   </div>
 </section>
 
 <!-- =============== CTA BAND =============== -->
 <section class="cta-band" aria-label="Call to action">
-  <h2>The number doesn't move by working harder. It moves by working on the right thing.</h2>
-  <p>Waya OS finds the one constraint that's actually in the way, gets to the root of why, and points you at the fix — inside the assistant you already use. Free to connect.</p>
-  <a class="btn-pill-cream" href="#early-access">Sign Up to the Early Access Program</a>
+  <h2>The number doesn't move by working harder. It moves when you fix the real cause.</h2>
+  <p>Waya OS defines the problem with you, finds the root cause, and helps you test the fix, inside the assistant you already use.</p>
+  <a class="btn-pill-cream" href="#early-access">Sign Up for Early Access</a>
 </section>
 
 <!-- =============== FAQ =============== -->
@@ -429,27 +414,27 @@
     <div class="faq-list">
       <details class="faq-item" open>
         <summary>What is Waya OS?</summary>
-        <div class="answer"><p>It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step diagnostic frameworks the assistant runs with you. It helps you find the one constraint blocking your goal and get to the root of why it's stuck, instead of guessing from a blank chat.</p></div>
+        <div class="answer"><p>Waya OS is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What is a Wayaframe?</summary>
-        <div class="answer"><p>A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order — and produces a real deliverable at the end: a validated constraint, a set of root causes, a ranked list of experiments.</p></div>
+        <summary>What is a WayaFrame?</summary>
+        <div class="answer"><p>A WayaFrame is a framework that runs inside your AI assistant. The assistant walks you through a proven method, asking the right questions in the right order, and you finish with a real deliverable: a clear problem statement, a set of root causes, or a ranked list of experiments.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What's the difference between constraint identification and gap analysis?</summary>
-        <div class="answer"><p>Constraint identification is the compass: of everything you could work on, which one thing actually blocks the goal? Gap analysis is the drill: given that thing, why is it happening? You point with one and dig with the other.</p></div>
+        <summary>Do I need to learn commands?</summary>
+        <div class="answer"><p>No. Describe the problem in your own words, for example "help me figure out why our churn went up." Waya OS starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name.</p></div>
       </details>
       <details class="faq-item">
         <summary>Who is this for?</summary>
-        <div class="answer"><p>Founders, operators, and leaders past the earliest stage — anyone whose improvement work isn't moving the main number, who's deciding where to spend scarce resources, or who needs a diagnosis that holds up later. It's domain-independent: operations, sales, hiring, support, finance, product.</p></div>
+        <div class="answer"><p>Founders, operators, and leaders past the earliest stage: anyone with a problem that keeps coming back, improvement work that isn't moving the main number, or a decision that needs a diagnosis that holds up later. It works in any area: operations, sales, hiring, support, finance, product.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What does it cost?</summary>
-        <div class="answer"><p>Waya OS is free to connect today — no payment and no seat. When you want a specialist to run the diagnosis with you, you can schedule a call.</p></div>
+        <summary>How do I get access?</summary>
+        <div class="answer"><p>Waya OS is in early access. <a href="#early-access">Sign up below</a> and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can <a href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=waya-os-mcp&utm_content=faq">schedule a call</a>.</p></div>
       </details>
       <details class="faq-item">
         <summary>What do I need to run it?</summary>
-        <div class="answer"><p>An AI assistant that supports MCP, such as Claude. You connect the Waya OS connector once, and the Wayaframes become available as commands you can invoke any time.</p></div>
+        <div class="answer"><p>An AI assistant that supports MCP, such as Claude. Once Waya OS is connected, bring it a problem and the assistant opens the right WayaFrame.</p></div>
       </details>
     </div>
   </div>
@@ -457,16 +442,16 @@
 
 <!-- =============== FINAL CTA =============== -->
 <section id="book" class="final-cta">
-  <h2>Find the real constraint</h2>
-  <p>Connect Waya OS and run your first diagnosis today. When you want a specialist in the room, we're right here.</p>
-  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#early-access">Sign Up to the Early Access Program</a></div>
+  <h2>Solve the real problem</h2>
+  <p>Join early access to get Waya OS in your assistant. When you want a specialist in the room, we're here.</p>
+  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#early-access">Sign Up for Early Access</a></div>
 </section>
 
 <!-- =============== EARLY ACCESS SIGNUP =============== -->
 <section id="early-access" class="bg-paper">
   <div class="container">
     <p class="section-eyebrow">Early Access</p>
-    <h2 class="section-title">Sign up to the early access program</h2>
+    <h2 class="section-title">Sign up for early access</h2>
     <p class="section-lead">Leave your details and we'll reach out about getting you connected to Waya OS.</p>
     <div class="signup-form-card">
       <iframe
@@ -486,7 +471,7 @@
           data-form-id="ovuQkgpzBEHY7DhfyU1j"
           data-cookie-consent="true"
           data-cookie-consent-provider="auto"
-          title="Waya OS Pro MCP curious">
+          title="Waya OS early access signup form">
       </iframe>
     </div>
   </div>
@@ -519,7 +504,7 @@
     <div>
       <h5>Products</h5>
       <ul>
-        <li><a href="/waya-os-mcp/">Waya OS MCP</a></li>
+        <li><a href="/waya-os-mcp/">Waya OS</a></li>
         <li><a href="/pre-pmf-mcp/">Pre-PMF MCP</a></li>
       </ul>
     </div>
