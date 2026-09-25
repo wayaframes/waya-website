@@ -9,3 +9,15 @@
 /fundraising-audit-2/           /financial-model-prep/     301
 /fundraising-readiness-audit/   /data-room-preparation/    301
 /radical-change-program/        /scale-up-program/         301
+
+# Pre-PMF workshop moved off the Waya OS (Pro) URLs (301)
+/waya-os-mcp/cohort/    /pre-pmf-mcp/cohort/    301
+/waya-os-mcp/cohort     /pre-pmf-mcp/cohort/    301
+/waya-os-mcp/apply/     /pre-pmf-mcp/apply/     301
+/waya-os-mcp/apply      /pre-pmf-mcp/apply/     301
+/waya-os-mcp/welcome/   /pre-pmf-mcp/welcome/   301
+/waya-os-mcp/welcome    /pre-pmf-mcp/welcome/   301
+
+# Self-serve signup retired (301)
+/pre-pmf-mcp/get-started/   /pre-pmf-mcp/   301
+/pre-pmf-mcp/get-started    /pre-pmf-mcp/   301

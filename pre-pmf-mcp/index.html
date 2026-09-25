@@ -21,7 +21,7 @@
   "@type": "Service",
   "name": "Pre-PMF MCP",
   "url": "https://www.wayaframes.com/pre-pmf-mcp/",
-  "description": "An MCP with Wayaframes for the pre-product-market-fit founder. Includes guided frameworks for personal Ikigai, a business case, and a mission and values guide, with a 12-week workshop that adds experiment design and builds your PMF infrastructure.",
+  "description": "The Product Market Fit Workshop: 12 weeks for pre-product-market-fit founders. Four Wayaframes — personal Ikigai, business case, mission and values, and experiment design — run inside your AI assistant, with a weekly group session and a private hour with Na'ama or Vince.",
   "provider": {
     "@type": "Organization",
     "name": "Waya",
@@ -30,14 +30,7 @@
   "offers": [
     {
       "@type": "Offer",
-      "name": "Free",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "The Pre-PMF MCP with the personal Ikigai, business case, and mission and values Wayaframes."
-    },
-    {
-      "@type": "Offer",
-      "name": "PMF Experimentation Workshop",
+      "name": "Product Market Fit Workshop",
       "price": "3000",
       "priceCurrency": "USD",
       "description": "A 12-week workshop to set up your product-market-fit infrastructure."
@@ -55,7 +48,7 @@
       "name": "What is the Pre-PMF MCP?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. The free tier helps you surface your purpose, write a business case, and set your mission and values. The 12-week workshop adds experiment design and stands up your PMF infrastructure."
+        "text": "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Workshop you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
       }
     },
     {
@@ -68,18 +61,10 @@
     },
     {
       "@type": "Question",
-      "name": "What do I get for free?",
+      "name": "What is the Product Market Fit Workshop?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The free MCP includes three Wayaframes: personal Ikigai, the business case, and the mission and values guide. Together they help you clarify who you are as a founder, articulate the business you want to build, and set the foundation your company will scale on."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the $3,000 program?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It's a 12-week program that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Vince or Oren — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
+        "text": "It's a $3,000, 12-week workshop that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
       }
     },
     {
@@ -95,7 +80,7 @@
       "name": "What do I need to run it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An AI assistant that supports MCP, such as Claude. You connect the Waya MCP once, and the Wayaframes become available as commands. For the workshop you also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
+        "text": "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the workshop. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
       }
     }
   ]
@@ -182,7 +167,7 @@
 .tier-feats li .cmd { font-size: 0.86em; }
 .tier .tier-cta { margin-top: 28px; }
 .tier .tier-cta a { display: block; text-align: center; width: 100%; }
-/* ghost CTA for the free tier */
+/* ghost CTA */
 .btn-ghost-rust {
   display: inline-block; font-family: var(--font-display);
   font-weight: 600; font-size: 14px; padding: 12px 22px;
@@ -238,6 +223,10 @@
   font-size: 14.5px; color: var(--fg-2);
 }
 
+/* Pull the deep-linked scroll past the section's top padding so the
+   heading and the "Apply for the Workshop" button land in frame together. */
+#pricing { scroll-margin-top: -40px; }
+
 @media (max-width: 720px) {
   .frames, .tiers { grid-template-columns: 1fr; }
   .week { grid-template-columns: 1fr; gap: 16px; }
@@ -270,7 +259,7 @@
           <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
         </button>
         <div class="nav-dropdown-menu">
-          <a href="/waya-os-mcp/">Waya OS MCP</a>
+          <a href="/waya-os-mcp/">Waya OS</a>
           <a href="/pre-pmf-mcp/">Pre-PMF MCP</a>
         </div>
       </div>
@@ -289,8 +278,7 @@
       <h1>Pre-PMF MCP</h1>
       <p class="sub">Guided frameworks that run right inside your AI assistant — to find your purpose, sharpen your idea, and design the experiments that get you to product-market fit.</p>
       <div class="hero-cta">
-        <a class="btn-rust" href="#pricing">Get Started Free</a>
-        <a class="btn-ghost-dark" href="#program">See the 12-Week Program</a>
+        <a class="btn-rust" href="#pricing">See the Workshop</a>
       </div>
     </div>
   </div>
@@ -302,40 +290,36 @@
     <div class="two-col">
       <div class="body-block">
         <p class="section-eyebrow">The Challenge</p>
-        <p>Before product-market fit, everything is a question. Is this the right idea? Am I the right person to build it? What should I test first, and how would I even know if it worked? Most early founders answer these alone, in a blank chat window, with no method and no one who has walked the path.</p><p>The Pre-PMF MCP puts Waya's frameworks — our Wayaframes — inside the AI assistant you already use. Each one facilitates a proven method with you, step by step, and hands you a real deliverable at the end. It's the fastest honest route from "I have an idea" to "I have evidence."</p>
-        <div class="section-cta"><a class="btn-rust" href="#pricing">Get Started Free</a></div>
+        <p>Before product-market fit, everything is a question. Is this the right idea? Am I the right person to build it? What should I test first, and how would I even know if it worked? Most early founders answer these alone, in a blank chat window, with no method and no one who has walked the path.</p><p>The Pre-PMF MCP puts Waya's frameworks — our Wayaframes — inside the AI assistant you already use. Over twelve weeks, Na'ama and Vince run them with you, one at a time, and each one ends in a real deliverable. It's the fastest honest route from "I have an idea" to "I have evidence."</p>
+        <div class="section-cta"><a class="btn-rust" href="#pricing">See the Workshop</a></div>
       </div>
-      <img src="/assets/images/challenge/founder-pre-pmf.jpg" alt="A founder working late at a desk covered in idea sketches, sticky notes, and a laptop">
+      <img src="/assets/images/about/our-story.jpg" alt="Na'ama Moran and Vincent Matranga in front of a company values wall" style="aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 40%; width: 100%;">
     </div>
   </div>
 </section>
 
-<!-- =============== WHAT'S INSIDE (FREE FRAMES) =============== -->
+<!-- =============== WHAT'S INSIDE =============== -->
 <section id="whats-inside">
   <div class="container">
     <p class="section-eyebrow">Wayaframes</p>
-    <h2 class="section-title">Everything you need to start — free</h2>
-    <p class="section-lead">Connect the MCP once and these three Wayaframes become commands in your AI assistant. Run them in any order, as many times as you need.</p>
+    <h2 class="section-title">The four Wayaframes you work through</h2>
+    <p class="section-lead">Each one runs inside your AI assistant. We take you through them in order during the workshop, and each ends in a document you keep.</p>
     <div class="frames">
       <article class="frame">
-        <span class="cmd">/personal-ikigai</span>
         <h3>Personal Ikigai</h3>
         <p>Surface what you love, what you're good at, what you can be paid for, and what the world needs — then synthesize the four intersections into a personal Ikigai statement. Clarity on why you're the founder to build this.</p>
       </article>
       <article class="frame">
-        <span class="cmd">/business-case</span>
         <h3>Business Case</h3>
         <p>Turn a rough idea into a sharp, one-page articulation of the business — the problem, the customer, the wedge, and the assumptions it rests on. The document you'll return to every time the idea shifts.</p>
       </article>
       <article class="frame">
-        <span class="cmd">/mission-values-guide</span>
         <h3>Mission &amp; Values Guide</h3>
         <p>Set the foundation your company will scale on. Define the mission you're actually here for and the values that will guide the hard calls — before the pressure of growth makes them harder to change.</p>
       </article>
-      <article class="frame" style="background: var(--waya-paper); border-style: dashed;">
-        <span class="cmd">/waya-experiment-design</span>
+      <article class="frame">
         <h3>Experiment Design</h3>
-        <p>Turn your riskiest assumptions into small, testable experiments with clear success criteria — the engine that actually moves you toward product-market fit. Included in the workshop.</p>
+        <p>Turn your riskiest assumptions into small, testable experiments with clear success criteria — the engine that actually moves you toward product-market fit.</p>
       </article>
     </div>
   </div>
@@ -346,44 +330,43 @@
   <div class="container">
     <p class="section-eyebrow">Pricing</p>
     <h2 class="section-title">Twelve weeks to product-market fit.</h2>
-    <p class="section-lead">Join the workshop when you're ready to design experiments and build your PMF infrastructure.</p>
     <div class="tiers">
 
-      <!-- PROGRAM -->
+      <!-- WORKSHOP -->
       <article class="tier" style="grid-column: 1 / -1;">
-        <p class="tier-name">PMF Experimentation Workshop</p>
+        <p class="tier-name">Product Market Fit Workshop</p>
         <div class="tier-price">$3,000</div>
-        <p class="tier-note">12-week program · one-time</p>
-        <p class="tier-desc">A 12-week cohort to stand up the infrastructure that finds your product-market fit.</p>
+        <p class="tier-note">12 weeks · one-time</p>
+        <p class="tier-desc">Twelve weeks to stand up the infrastructure that finds your product-market fit.</p>
         <ul class="tier-feats">
-          <li>The full Pre-PMF MCP, plus <span class="cmd">/waya-experiment-design</span></li>
+          <li>All four Wayaframes in the Pre-PMF MCP</li>
           <li>Weekly group session on the Waya OS modules</li>
-          <li>A private coaching hour every week with Vince or Oren</li>
+          <li>A private coaching hour every week with Na'ama or Vince</li>
           <li>Experiments, automations &amp; analytics configured with you</li>
         </ul>
-        <div class="tier-cta"><a class="btn-rust" href="/waya-os-mcp/cohort/">Sign Up for the Workshop</a></div>
+        <div class="tier-cta"><a class="btn-rust" href="/pre-pmf-mcp/cohort/">Apply for the Workshop</a></div>
       </article>
 
     </div>
   </div>
 </section>
 
-<!-- =============== 12-WEEK PROGRAM =============== -->
+<!-- =============== 12-WEEK TIMELINE =============== -->
 <section id="program">
   <div class="container">
-    <p class="section-eyebrow">The 12-Week Program</p>
+    <p class="section-eyebrow">The 12 Weeks</p>
     <h2 class="section-title">Build your PMF infrastructure in twelve weeks</h2>
-    <p class="section-lead">A weekly group session on the Waya OS modules and a private coaching hour, paired with the work you do in the MCP. Vince or Oren walk you from your first hypothesis to a running system of experiments, automations, and analytics.</p>
+    <p class="section-lead">A weekly group session on the Waya OS modules and a private coaching hour, paired with the work you do in the MCP. Na'ama and Vince walk you from your first hypothesis to a running system of experiments, automations, and analytics.</p>
 
     <p class="entry-note">Before week one, you apply and meet the founders on a short consultation call to make sure it's the right fit.</p>
 
     <div class="weeks">
 
       <div class="week">
-        <div class="week-label"><span class="wk">Week 1</span><span class="phase">Foundation</span></div>
+        <div class="week-label"><span class="wk">Week 1</span><span class="phase">Align</span></div>
         <div class="week-body">
           <div class="week-tasks">
-            <div class="task"><strong>Program overview</strong><span class="who">Group session · 1 hr</span></div>
+            <div class="task"><strong>Workshop overview</strong><span class="who">Group session · 1 hr</span></div>
             <div class="task"><strong>Ikigai</strong><span class="who">Founder–startup fit</span></div>
           </div>
           <div class="coaching"><span class="badge">Private hour</span><span class="detail">Align on the idea worth pursuing.</span></div>
@@ -394,9 +377,9 @@
         <div class="week-label"><span class="wk">Weeks 2–3</span><span class="phase">Refine</span></div>
         <div class="week-body">
           <div class="week-tasks">
-            <div class="task"><strong>Business case</strong><span class="who">Self-serve · 1–3 hrs</span></div>
+            <div class="task"><strong>Business case</strong><span class="who">Market, positioning, revenue model</span></div>
           </div>
-          <div class="coaching"><span class="badge">Private hour</span><span class="detail">Refine or eliminate hypotheses.</span></div>
+          <div class="coaching"><span class="badge">Private hour</span><span class="detail">Refine positioning and revenue model.</span></div>
         </div>
       </div>
 
@@ -432,15 +415,15 @@
       </div>
 
     </div>
-    <div class="section-cta"><a class="btn-rust" href="/waya-os-mcp/cohort/">Sign Up for the Workshop</a></div>
+    <div class="section-cta"><a class="btn-rust" href="/pre-pmf-mcp/cohort/">Apply for the Workshop</a></div>
   </div>
 </section>
 
 <!-- =============== CTA BAND =============== -->
 <section class="cta-band" aria-label="Call to action">
   <h2>Product-market fit isn't found by accident. It's found by method.</h2>
-  <p>The founders who get there fastest run experiments deliberately, know why they're building, and don't confuse motion for progress. The Pre-PMF MCP gives you the method — for free.</p>
-  <a class="btn-pill-cream" href="#pricing">Get Started Free</a>
+  <p>The founders who get there fastest run experiments deliberately, know why they're building, and don't confuse motion for progress. The workshop gives you the method and two operators to run it with.</p>
+  <a class="btn-pill-cream" href="/pre-pmf-mcp/cohort/">Apply for the Workshop</a>
 </section>
 
 <!-- =============== FAQ =============== -->
@@ -451,19 +434,15 @@
     <div class="faq-list">
       <details class="faq-item" open>
         <summary>What is the Pre-PMF MCP?</summary>
-        <div class="answer"><p>It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. The free tier helps you surface your purpose, write a business case, and set your mission and values. The 12-week workshop adds experiment design and stands up your PMF infrastructure.</p></div>
+        <div class="answer"><p>It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Workshop you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit.</p></div>
       </details>
       <details class="faq-item">
         <summary>What is a Wayaframe?</summary>
         <div class="answer"><p>A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, a business case, or a set of experiments.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What do I get for free?</summary>
-        <div class="answer"><p>The free MCP includes three Wayaframes: personal Ikigai, the business case, and the mission and values guide. Together they help you clarify who you are as a founder, articulate the business you want to build, and set the foundation your company will scale on.</p></div>
-      </details>
-      <details class="faq-item">
-        <summary>What is the $3,000 program?</summary>
-        <div class="answer"><p>It's a 12-week program that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Vince or Oren — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan.</p></div>
+        <summary>What is the Product Market Fit Workshop?</summary>
+        <div class="answer"><p>It's a $3,000, 12-week workshop that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan.</p></div>
       </details>
       <details class="faq-item">
         <summary>Who is this for?</summary>
@@ -471,7 +450,7 @@
       </details>
       <details class="faq-item">
         <summary>What do I need to run it?</summary>
-        <div class="answer"><p>An AI assistant that supports MCP, such as Claude. You connect the Waya MCP once, and the Wayaframes become available as commands. For the workshop you also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place.</p></div>
+        <div class="answer"><p>An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the workshop. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place.</p></div>
       </details>
     </div>
   </div>
@@ -480,8 +459,8 @@
 <!-- =============== FINAL CTA =============== -->
 <section id="book" class="final-cta">
   <h2>Start the search for fit</h2>
-  <p>Connect the free MCP and run your first Wayaframe today. When you're ready to test and build, we're right here.</p>
-  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#pricing">Get Started Free</a></div>
+  <p>Apply for the Product Market Fit Workshop. We'll get on a short call, talk through where you are, and decide together whether these twelve weeks are right for you.</p>
+  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="/pre-pmf-mcp/cohort/">Apply for the Workshop</a></div>
 </section>
 
 </main>
@@ -511,7 +490,7 @@
     <div>
       <h5>Products</h5>
       <ul>
-        <li><a href="/waya-os-mcp/">Waya OS MCP</a></li>
+        <li><a href="/waya-os-mcp/">Waya OS</a></li>
         <li><a href="/pre-pmf-mcp/">Pre-PMF MCP</a></li>
       </ul>
     </div>
