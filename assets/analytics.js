@@ -44,7 +44,7 @@
     '/data-room-preparation/': 'data-room-preparation',
     '/financial-model-prep/':  'financial-model-prep',
     '/operations-audit/':      'operations-audit',
-    '/waya-os-mcp/':           'waya-os-mcp',
+    '/lean-ai/':               'lean-ai',
     '/pre-pmf-mcp/':           'pre-pmf-mcp'
   };
 

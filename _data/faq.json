@@ -294,11 +294,11 @@
       ]
     }
   ],
-  "waya-os-mcp": [
+  "lean-ai": [
     {
-      "q": "What is Waya OS?",
+      "q": "What is Lean AI?",
       "a": [
-        "Waya OS is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
+        "Lean AI is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
       ]
     },
     {
@@ -310,13 +310,13 @@
     {
       "q": "How is this different from just asking Claude or ChatGPT?",
       "a": [
-        "Waya OS doesn't replace your AI assistant. It runs inside it. On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Waya OS gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees, and each session ends with a document you keep. It's the same assistant, following a method from people who have run a company."
+        "Lean AI doesn't replace your AI assistant. It runs inside it. On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Lean AI gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees, and each session ends with a document you keep. It's the same assistant, following a method from people who have run a company."
       ]
     },
     {
       "q": "Do I need to learn commands?",
       "a": [
-        "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Waya OS starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
+        "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Lean AI starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
       ]
     },
     {
@@ -328,13 +328,13 @@
     {
       "q": "How do I get access?",
       "a": [
-        "Waya OS is in early access. Sign up below and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
+        "Lean AI is in early access. Sign up below and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
       ]
     },
     {
       "q": "What do I need to run it?",
       "a": [
-        "An AI assistant that supports MCP, such as Claude. Once Waya OS is connected, bring it a problem and the assistant opens the right WayaFrame."
+        "An AI assistant that supports MCP, such as Claude. Once Lean AI is connected, bring it a problem and the assistant opens the right WayaFrame."
       ]
     }
   ],

@@ -19,5 +19,16 @@
 /waya-os-mcp/welcome    /pre-pmf-mcp/welcome/   301
 
 # Self-serve signup retired (301)
-/pre-pmf-mcp/get-started/   /pre-pmf-mcp/   301
-/pre-pmf-mcp/get-started    /pre-pmf-mcp/   301
+/pre-pmf-mcp/get-started/   /pre-pmf-mcp/cohort/   301
+/pre-pmf-mcp/get-started    /pre-pmf-mcp/cohort/   301
+
+# Waya OS renamed to Lean AI (301)
+/waya-os-mcp/              /lean-ai/              301
+/waya-os-mcp               /lean-ai/              301
+/waya-os-mcp/setup/        /lean-ai/setup/        301
+/waya-os-mcp/setup         /lean-ai/setup/        301
+/waya-os-mcp/setup/app/    /lean-ai/setup/app/    301
+
+# Pre-PMF MCP page retired; the 12-week program page replaces it (301)
+/pre-pmf-mcp/    /pre-pmf-mcp/cohort/    301
+/pre-pmf-mcp     /pre-pmf-mcp/cohort/    301
