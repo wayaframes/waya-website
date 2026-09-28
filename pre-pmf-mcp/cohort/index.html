@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product Market Fit Workshop – Waya</title>
-<meta name="description" content="The Product Market Fit Workshop: 12 weeks that set you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.">
+<title>Product Market Fit Program – Waya</title>
+<meta name="description" content="The Product Market Fit Program: 12 weeks that set you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=5">
 
@@ -14,7 +14,7 @@
   1. HERO IMAGE: uses /assets/images/hero/mountain-sage.png (sage/green tone),
      matching the treatment on pre-pmf-mcp, scale-up-program, data-room-preparation,
      and operations-audit.
-  2. APPLY / PAY FLOW: every "Apply for the Workshop" button links to /pre-pmf-mcp/apply/,
+  2. APPLY / PAY FLOW: every "Apply for the Program" button links to /pre-pmf-mcp/apply/,
      which embeds the GHL order form (form id LXcmFPl3FRQJ88JoJBnf). After
      PAYMENT, configure the GHL order form to redirect to the /welcome/ page
      (its "what to expect + MCP setup + experiment tools" overview). The
@@ -125,9 +125,10 @@
   .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--waya-rust); box-shadow: 0 0 0 4px rgba(209,108,2,0.22); }
   .hero h1 {
     font-family: var(--font-display); font-weight: 700;
-    font-size: 68px; line-height: 1.04; letter-spacing: -0.025em;
+    font-size: min(68px, calc((100vw - 72px) / 14.5)); line-height: 1.04; letter-spacing: -0.025em;
     color: var(--waya-cream); text-wrap: balance;
   }
+  .hero h1 .h1-line { display: block; white-space: nowrap; }
   .hero .sub {
     font-family: var(--font-body); font-weight: 400;
     font-size: 21px; line-height: 1.5;
@@ -136,7 +137,7 @@
   }
   .hero-cta { display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
   .hero-meta {
-    margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap;
+    margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
     font-family: var(--font-body); font-size: 14px;
     color: rgba(250,247,241,0.78);
   }
@@ -316,6 +317,8 @@
     padding: 40px;
     background: var(--waya-cream);
     box-shadow: var(--shadow-1);
+    /* Subgrid so the tag, title, text and each bullet line up across both cards. */
+    display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0;
   }
   .format-card .tag {
     font-family: var(--font-display);
@@ -336,9 +339,9 @@
     font-size: 16px; line-height: 1.6;
     color: var(--fg-2);
   }
-  .format-card .detail {
-    margin-top: 20px; display: flex; flex-direction: column; gap: 10px;
-  }
+  .format-card .detail { display: contents; }
+  .format-card .detail span { margin-top: 10px; }
+  .format-card .detail span:first-child { margin-top: 20px; }
   .format-card .detail span {
     font-family: var(--font-body); font-size: 14.5px;
     color: var(--waya-ink); padding-left: 20px; position: relative;
@@ -480,7 +483,7 @@
   @media (max-width: 960px) {
     .nav-links a:not(.btn-rust) { display: none; }
     .hero { padding: 96px 28px 96px; min-height: 560px; }
-    .hero h1 { font-size: 44px; }
+    .hero h1 { font-size: min(44px, calc((100vw - 72px) / 14.5)); }
     .hero .sub { font-size: 18px; }
     section { padding: 80px 28px; }
     h2.section-title { font-size: 32px; }
@@ -511,7 +514,7 @@
       <a href="#curriculum">Curriculum</a>
       <a href="#format">How it runs</a>
       <a href="#faq">FAQ</a>
-      <a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Workshop</a>
+      <a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Program</a>
     </nav>
   </div>
 </header>
@@ -520,19 +523,18 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="eyebrow"><span class="dot"></span> Product Market Fit Workshop · 12 Weeks</div>
-      <h1>You are a mission-driven founder.<br>Now, let's find product-market fit.</h1>
+      <h1><span class="h1-line">12 weeks to product-market fit</span> <span class="h1-line">for mission driven founders.</span></h1>
       <p class="sub">
-        A 12-week workshop, for founders only, to go from mission and vision to product-market fit.
+        Hands on program guided by successful founders to go from mission and vision to proven product-market fit and a fundable business plan.
       </p>
       <div class="hero-cta">
-        <a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Workshop</a>
+        <a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Program</a>
         <a class="btn-ghost-dark" href="#curriculum">See the curriculum</a>
       </div>
       <div class="hero-meta">
         <span>5–7 founders per cohort</span>
-        <span>First workshop starts mid-November 2026</span>
-        <span>Weekly group session + a private hour every week</span>
+        <span>First program starts mid-November 2026</span>
+        <span>2 sessions per week</span>
       </div>
     </div>
   </div>
@@ -557,9 +559,9 @@
           <div class="module-week">Week 1</div>
         </div>
         <div class="module-main">
-          <h3>Ikigai — founder–startup fit</h3>
+          <h3>Find your founder-startup fit</h3>
           <p class="lede">
-            The alignment check between you and the company you are building — where what you love, what you are good at, what the world needs, and what you can be paid for actually overlap, and whether this startup sits in that overlap.
+            Personality assessment to identify what drives you and where you do your best work, to help you focus on the idea that fits your mission in life.
           </p>
           <div class="process-label">The process</div>
           <ol>
@@ -575,18 +577,18 @@
           <span class="ghost-num" aria-hidden="true">02</span>
           <div class="icon"><img src="/assets/icons/goal.png" alt="Goal mark"></div>
           <div class="module-tag">Module Two</div>
-          <div class="module-week">Weeks 2–3</div>
+          <div class="module-week">Week 2</div>
         </div>
         <div class="module-main">
-          <h3>The business case</h3>
+          <h3>Build a fundable business case</h3>
           <p class="lede">
-            Why this company should exist and how it makes money. Not a plan you defend — a case you can test, with assumptions explicit enough to be proven wrong.
+            Why this company should exist, why now and how it makes money.
           </p>
           <div class="process-label">The process</div>
           <ol>
-            <li>Assess your market with a business coach — size, trends, and where the real opportunity sits.</li>
-            <li>Map your positioning against the competition — where you fit and how you differ.</li>
-            <li>Build the revenue model and capital requirements — how the business makes money and what it takes to get there.</li>
+            <li>Build an investor-ready business case from first principles with an experienced business coach.</li>
+            <li>Identify your differentiated market positioning.</li>
+            <li>Build the revenue model and capital requirements — how the business makes money and the resources it takes.</li>
           </ol>
         </div>
       </article>
@@ -596,18 +598,18 @@
           <span class="ghost-num" aria-hidden="true">03</span>
           <div class="icon"><img src="/assets/icons/core-values.png" alt="Core values mark"></div>
           <div class="module-tag">Module Three</div>
-          <div class="module-week">Weeks 4–5</div>
+          <div class="module-week">Week 3</div>
         </div>
         <div class="module-main">
           <h3>Mission and values</h3>
           <p class="lede">
-            The deep purpose behind your business, and the values that guide how you run it. The mission decides which experiments are worth your weeks; the values decide how you run them under pressure.
+            The purpose behind your business, and the values that guide how you run it.
           </p>
           <div class="process-label">The process</div>
           <ol>
-            <li>Draft the mission statement — the change you exist to make, in plain language.</li>
-            <li>Define the values as behaviors, not adjectives — what they look like on a hard day.</li>
-            <li>Use them as the filter for what you say yes and no to in the experiment phase.</li>
+            <li>Define the mission statement that becomes your north star.</li>
+            <li>Define the values as behaviors — what they look like on a hard day.</li>
+            <li>Use the values as the filter for what you say yes and no to in the experiment phase.</li>
           </ol>
         </div>
       </article>
@@ -617,18 +619,18 @@
           <span class="ghost-num" aria-hidden="true">04</span>
           <div class="icon"><img src="/assets/icons/process-optimization.png" alt="Process mark"></div>
           <div class="module-tag">Module Four</div>
-          <div class="module-week">Weeks 6–12</div>
+          <div class="module-week">Weeks 4–12</div>
         </div>
         <div class="module-main">
           <h3>The experiment system</h3>
           <p class="lede">
-            Finding traction means finding what is true by testing it — so you build the machine that reaches customers, captures what you learn, and books revenue.
+            Build a machine that runs marketing and product experiments in parallel. Identify ideal customer profile, value proposition, pricing, and go-to-market channels.
           </p>
           <div class="process-label">The process</div>
           <ol>
-            <li>Design experiments from your riskiest assumptions — each with a clear pass or fail.</li>
-            <li>Build the infrastructure: personas, campaigns, outreach, and a live website.</li>
-            <li>Talk to customers, record and summarize every conversation into a knowledge base.</li>
+            <li>Design experiments from core assumptions. Rank them by risk. Assign pass or fail criteria.</li>
+            <li>Automate your marketing infrastructure. Personas, campaigns, and landing pages.</li>
+            <li>Turn every customer conversation into product and marketing insights that help you iterate quickly until you reach product-market fit.</li>
           </ol>
         </div>
       </article>
@@ -641,28 +643,28 @@
 <section id="format">
   <div class="container">
     <div class="section-eyebrow">How It Runs</div>
-    <h2 class="section-title">A small workshop, setting up a continuous learning engine with operators in the room.</h2>
+    <h2 class="section-title">Selected intimate group.<br>Mission-driven founders.<br>Run by successful founders.</h2>
 
     <div class="format-grid">
       <article class="format-card">
         <div class="tag">Every week · Group</div>
         <h3>The group session</h3>
-        <p>One weekly session with everyone in the workshop — 5 to 7 founders — working through the Waya OS modules and how to run each one. This is where the method is taught and where founders learn from each other's experiments.</p>
+        <p>A weekly group session on the Waya OS modules. Learn the method and from each other's experiments.</p>
         <div class="detail">
-          <span>Led by experienced founders who built businesses from $0 to $150M in revenue</span>
+          <span>Led by founders who scaled from $0 to $150M in revenue</span>
           <span>Module walk-throughs and live Q&amp;A</span>
-          <span>Shared learning across the workshop</span>
+          <span>Shared learning across the program</span>
         </div>
       </article>
 
       <article class="format-card">
         <div class="tag">Every week · Private</div>
         <h3>Your coaching hour</h3>
-        <p>One private hour each week, dedicated to your company and your specific path to product-market fit. This is where we go deep on your experiments, your customer conversations, and your next move.</p>
+        <p>One private hour each week, dedicated to your company and your specific path to product-market fit.</p>
         <div class="detail">
           <span>One-on-one with Na'ama or Vince</span>
           <span>Your experiments, your pipeline, your revenue</span>
-          <span>Direct accountability, week over week</span>
+          <span>Direct accountability, with weekly homework assignments</span>
         </div>
       </article>
     </div>
@@ -674,36 +676,35 @@
   <blockquote>
     Full experiment and marketing automation suite to reach product-market fit.
   </blockquote>
-  <div class="attribution">— Waya operating note</div>
-  <div class="section-cta"><a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Workshop</a></div>
+  <div class="section-cta"><a class="btn-rust" href="/pre-pmf-mcp/apply/">Apply for the Program</a></div>
 </section>
 
 <!-- =============== FAQ =============== -->
 <section id="faq" class="faq">
   <div class="container">
     <div class="section-eyebrow">Frequently Asked</div>
-    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the Product Market Fit Workshop</h2>
+    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the Product Market Fit Program</h2>
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>Who is this workshop for?</summary>
+        <summary>Who is this program for?</summary>
         <div class="answer">
           <p>Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week.</p>
-          <p>The workshop is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
+          <p>The program is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>What does the weekly commitment look like?</summary>
         <div class="answer">
-          <p>Two touchpoints a week: one group session with everyone in the workshop on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
+          <p>Two touchpoints a week: one group session with everyone in the program on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>What is Waya OS?</summary>
         <div class="answer">
-          <p>Waya OS is the founder operating system you set up during the workshop — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the workshop walks you through running it against your own company.</p>
+          <p>Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the program walks you through running it against your own company.</p>
         </div>
       </details>
 
@@ -724,21 +725,21 @@
       <details class="faq-item">
         <summary>What will I actually have built by the end?</summary>
         <div class="answer">
-          <p>A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the workshop. The point is a working machine, not a deck.</p>
+          <p>A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the program. The point is a working machine, not a deck.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>What does it cost, and when does it start?</summary>
         <div class="answer">
-          <p>$3,000 for the full 12-week workshop. The first workshop starts the second week of November 2026. Seats are limited and filled by application.</p>
+          <p>$3,000 for the full 12-week program. The first program starts the second week of November 2026. Seats are limited and filled by application.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>How do I join?</summary>
         <div class="answer">
-          <p>Apply through the button above. Because the workshop is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
+          <p>Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
         </div>
       </details>
     </div>
@@ -748,9 +749,9 @@
 <!-- =============== FINAL CTA =============== -->
 <section class="final-cta">
   <h2>The market will answer. The question is whether you are running the experiment that asks.</h2>
-  <p>Apply for the first Product Market Fit Workshop. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
+  <p>Apply for the first Product Market Fit Program. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
   <div class="section-cta" style="margin-top: 40px;">
-    <a class="btn-rust" href="/pre-pmf-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Workshop</a>
+    <a class="btn-rust" href="/pre-pmf-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
   </div>
 </section>
 

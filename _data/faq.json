@@ -342,7 +342,7 @@
     {
       "q": "What is the Pre-PMF MCP?",
       "a": [
-        "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Workshop you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
+        "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Program you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
       ]
     },
     {
@@ -354,13 +354,13 @@
     {
       "q": "How is this different from just asking Claude or ChatGPT?",
       "a": [
-        "Waya doesn't replace your AI assistant. It runs inside it. A general assistant will talk through your idea for as long as you like, agree with most of it, and never tell you what to test first. The Wayaframes give it a set order: why you're the founder for this, what the business is, what it stands for, and which assumptions to test. Each one ends in a document you keep. Na'ama and Vince built them from scaling Cheetah to $150M in revenue, and in the workshop they coach you every week, which a chatbot can't do."
+        "Waya doesn't replace your AI assistant. It runs inside it. A general assistant will talk through your idea for as long as you like, agree with most of it, and never tell you what to test first. The Wayaframes give it a set order: why you're the founder for this, what the business is, what it stands for, and which assumptions to test. Each one ends in a document you keep. Na'ama and Vince built them from scaling Cheetah to $150M in revenue, and in the program they coach you every week, which a chatbot can't do."
       ]
     },
     {
-      "q": "What is the Product Market Fit Workshop?",
+      "q": "What is the Product Market Fit Program?",
       "a": [
-        "It's a $3,000, 12-week workshop that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
+        "It's a $3,000, 12-week program that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
       ]
     },
     {
@@ -372,7 +372,7 @@
     {
       "q": "What do I need to run it?",
       "a": [
-        "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the workshop. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
+        "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the program. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
       ]
     }
   ]
