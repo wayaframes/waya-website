@@ -1,49 +1,4 @@
 {
-  "home": [
-    {
-      "q": "What does Waya do for founders?",
-      "a": [
-        "Waya provides services, workshops, and AI-enabled products for mission-driven companies that are starting, growing, or pivoting. You stay focused on mission and product; we streamline operations, finance, people systems, and governance — from data room preparation and financial modeling to operations audits and the Scale Up Program."
-      ]
-    },
-    {
-      "q": "What is unique about the process?",
-      "a": [
-        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute alongside you.",
-        "It starts with an intensive workshop that creates strategic focus and execution clarity. Then we embed with your team for 3–6 months, acting as fractional executives to bring the strategy to life through daily operating rhythms, SOPs, and culture work — connecting you with experts from our network for specific business or industry needs. Finally, we install our AI-enabled operating system, custom-built WayaFrames, to supercharge execution and decision-making at every level."
-      ]
-    },
-    {
-      "q": "What are WayaFrames?",
-      "a": [
-        "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Each one was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications. They work together as an operating system — the more you use them, the better they get at helping your business run as a single, coherent system."
-      ]
-    },
-    {
-      "q": "What stage companies can you help?",
-      "a": [
-        "We work with companies from the early stage through growth. Our Scale Up Program is a better fit for companies that have product-market fit and are at an important inflection point such as scaling or pivoting. Our Data Room, Financial Model, and Fundraising Narrative sessions are tailored to companies of all stages, from Seed through Series B+."
-      ]
-    },
-    {
-      "q": "Do we have to be a US-based company to work with you?",
-      "a": [
-        "No, our system works for companies in any region."
-      ]
-    },
-    {
-      "q": "Does my company have to be a tech startup?",
-      "a": [
-        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
-      ]
-    },
-    {
-      "q": "When should I schedule a call?",
-      "a": [
-        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
-      ]
-    }
-  ],
   "data-room-preparation": [
     {
       "q": "What is Data Room Preparation?",
@@ -126,6 +81,178 @@
       ]
     }
   ],
+  "fundraising-narrative": [
+    {
+      "q": "What is Fundraising Narrative?",
+      "a": [
+        "It's a working session where we build the story you raise on. We dig into your company and market, work through narrative angles with you, then tighten the one that lands — yours to use in your pitch deck and every investor conversation."
+      ]
+    },
+    {
+      "q": "What stage should I be at to book a Fundraising Narrative session?",
+      "a": [
+        "If you're raising or plan to in the next 1–6 months, this is for you — from Seed through Series B+. Story matters at every stage."
+      ]
+    },
+    {
+      "q": "What if I already have a pitch or deck?",
+      "a": [
+        "Perfect — that's the starting point. We pressure-test what you've got, find the angle that actually lands, and sharpen it. Whether your story is rough or already polished, we make it better."
+      ]
+    },
+    {
+      "q": "How is Fundraising Narrative different from Data Room Preparation?",
+      "a": [
+        "Data Room Preparation organizes your materials. Fundraising Narrative is the story that ties them together."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations that have a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    }
+  ],
+  "home": [
+    {
+      "q": "What is Waya's offering?",
+      "a": [
+        "Waya provides services, workshops, and AI-enabled products for mission-driven companies that are starting, growing, or pivoting. You stay focused on mission and product; we streamline operations, finance, people systems, and governance — from data room preparation and financial modeling to operations audits and the Scale Up Program."
+      ]
+    },
+    {
+      "q": "What is unique about the process?",
+      "a": [
+        "We're not management consultants who hand over a strategy deck and disappear. We're founders and operators who design, plan, and execute alongside you.",
+        "It starts with an intensive workshop that creates strategic focus and execution clarity. Then we embed with your team for 3–6 months, acting as fractional executives to bring the strategy to life through daily operating rhythms, SOPs, and culture work — connecting you with experts from our network for specific business or industry needs. Finally, we install our AI-enabled operating system, custom-built WayaFrames, to supercharge execution and decision-making at every level."
+      ]
+    },
+    {
+      "q": "What are WayaFrames?",
+      "a": [
+        "WayaFrames are AI-enabled frameworks that live inside your Claude Teams or Claude Cowork environment. Each one was designed by an industry and operations expert, encoding decades of hard-won knowledge into a structured, guided flow that integrates with your company's documents, data, and business applications. They work together as an operating system — the more you use them, the better they get at helping your business run as a single, coherent system."
+      ]
+    },
+    {
+      "q": "What stage companies can you help?",
+      "a": [
+        "We work with companies from the early stage through growth. Our Scale Up Program is a better fit for companies that have product-market fit and are at an important inflection point such as scaling or pivoting. Our Data Room, Financial Model, and Fundraising Narrative sessions are tailored to companies of all stages, from Seed through Series B+."
+      ]
+    },
+    {
+      "q": "Do we have to be a US-based company to work with you?",
+      "a": [
+        "No, our system works for companies in any region."
+      ]
+    },
+    {
+      "q": "Does my company have to be a tech startup?",
+      "a": [
+        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
+      ]
+    },
+    {
+      "q": "When should I schedule a call?",
+      "a": [
+        "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
+      ]
+    }
+  ],
+  "lean-ai-cohort": [
+    {
+      "q": "Who is this program for?",
+      "a": [
+        "Mission-driven operators with a working business and a margin that is thinner than it should be. You have revenue, customers, and costs you can look at. You want to know where the money goes and fix it without cutting what the company stands for.",
+        "The program is small, 5 to 7 operators, so both the group session and your private hour stay focused on your numbers."
+      ]
+    },
+    {
+      "q": "What does the weekly commitment look like?",
+      "a": [
+        "Two sessions a week: one group session with everyone in the program, and one private hour on your company. Between sessions you pull numbers, run the frameworks in Lean AI, and run your experiments. Expect real work outside the calls."
+      ]
+    },
+    {
+      "q": "What is Lean AI?",
+      "a": [
+        "Lean AI is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: A3 thinking, gap analysis, experiment design, and impact vs effort. You describe a problem in your own words, and the assistant runs the right method with you. You set it up in week one and keep it after the program."
+      ]
+    },
+    {
+      "q": "How is this different from just asking Claude or ChatGPT?",
+      "a": [
+        "On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Lean AI gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. The program adds people who have done it: Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees."
+      ]
+    },
+    {
+      "q": "Who runs the sessions?",
+      "a": [
+        "Na'ama and Vince. Both are operators who have built, scaled, and rebuilt companies."
+      ]
+    },
+    {
+      "q": "What will I have by the end?",
+      "a": [
+        "A clear path to increase your margins. A written A3 on your biggest margin problem, root causes backed by data, a ranked list of fixes, and experiments with results. You also keep Lean AI in your assistant, so you can run the same method on the next problem without us."
+      ]
+    },
+    {
+      "q": "How do I join?",
+      "a": [
+        "Apply by scheduling an intro call, where we get to know you, your business, your margin challenge, and decide together whether this program is the right fit for you."
+      ]
+    }
+  ],
+  "lean-ai": [
+    {
+      "q": "What is Lean AI?",
+      "a": [
+        "Lean AI is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
+      ]
+    },
+    {
+      "q": "What is a WayaFrame?",
+      "a": [
+        "A WayaFrame is a framework that runs inside your AI assistant. The assistant walks you through a proven method, asking the right questions in the right order, and you finish with a real deliverable: a clear problem statement, a set of root causes, or a ranked list of experiments."
+      ]
+    },
+    {
+      "q": "How is this different from just asking Claude or ChatGPT?",
+      "a": [
+        "Lean AI doesn't replace your AI assistant. It runs inside it. On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Lean AI gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees, and each session ends with a document you keep. It's the same assistant, following a method from people who have run a company."
+      ]
+    },
+    {
+      "q": "Do I need to learn commands?",
+      "a": [
+        "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Lean AI starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
+      ]
+    },
+    {
+      "q": "Who is this for?",
+      "a": [
+        "Founders, operators, and leaders past the earliest stage: anyone with a problem that keeps coming back, improvement work that isn't moving the main number, or a decision that needs a diagnosis that holds up later. It works in any area: operations, sales, hiring, support, finance, product."
+      ]
+    },
+    {
+      "q": "How do I get access?",
+      "a": [
+        "Lean AI is in early access. Sign up below and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
+      ]
+    },
+    {
+      "q": "What do I need to run it?",
+      "a": [
+        "An AI assistant that supports MCP, such as Claude. Once Lean AI is connected, bring it a problem and the assistant opens the right WayaFrame."
+      ]
+    }
+  ],
   "operations-audit": [
     {
       "q": "What is an Operations Audit?",
@@ -194,6 +321,133 @@
       ]
     }
   ],
+  "planning-guide": [
+    {
+      "q": "Is the guide really free?",
+      "a": [
+        "Yes. Enter your email and we send the guide straight to your inbox. No sales call required."
+      ]
+    },
+    {
+      "q": "Who is this for?",
+      "a": [
+        "Founders and leadership teams running quarterly planning — OKRs, key results, or any goal-setting cycle that needs to turn into real, tracked work."
+      ]
+    },
+    {
+      "q": "How long does the session take?",
+      "a": [
+        "About 90 minutes, run once per quarter with your leadership team in the room and last quarter's plan in front of you."
+      ]
+    },
+    {
+      "q": "What if we can't cut our objectives down to three?",
+      "a": [
+        "This is the most common place teams get stuck. It is a facilitation problem, not a thinking problem — the guide shows you how to chair that conversation."
+      ]
+    },
+    {
+      "q": "What if we run out of energy before step four?",
+      "a": [
+        "That is the second most common stall, and it is exactly where plans start reaching real work. The guide flags it so you can protect the time for it."
+      ]
+    },
+    {
+      "q": "Do we need special software to run this?",
+      "a": [
+        "No. The session runs with pen, paper, or a whiteboard. You plug the output into whatever system your team already uses on Monday morning."
+      ]
+    }
+  ],
+  "pre-pmf-mcp-cohort": [
+    {
+      "q": "Who is this program for?",
+      "a": [
+        "Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week.",
+        "The program is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal."
+      ]
+    },
+    {
+      "q": "What does the weekly commitment look like?",
+      "a": [
+        "Two touchpoints a week: one group session with everyone in the program on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls."
+      ]
+    },
+    {
+      "q": "What is Waya OS?",
+      "a": [
+        "Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the program walks you through running it against your own company."
+      ]
+    },
+    {
+      "q": "Why start with Ikigai, business case, and mission and values instead of just running experiments?",
+      "a": [
+        "Because those three are what make an experiment worth running and keep you honest about the result. Without them, founders test the wrong things and misread the answers. The base is the information layer; the experiments run against it."
+      ]
+    },
+    {
+      "q": "Who runs the sessions?",
+      "a": [
+        "Na'ama and Vince. One leads the weekly group session; one of them takes your private hour each week. Both are operators who have built, scaled, and rebuilt companies — you are working with founders, not a curriculum on autopilot."
+      ]
+    },
+    {
+      "q": "What will I actually have built by the end?",
+      "a": [
+        "A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the program. The point is a working machine, not a deck."
+      ]
+    },
+    {
+      "q": "What does it cost, and when does it start?",
+      "a": [
+        "$3,000 for the full 12-week program. The first program starts the second week of November 2026. Seats are limited and filled by application."
+      ]
+    },
+    {
+      "q": "How do I join?",
+      "a": [
+        "Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in."
+      ]
+    }
+  ],
+  "pre-pmf-mcp": [
+    {
+      "q": "What is the Pre-PMF MCP?",
+      "a": [
+        "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Program you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
+      ]
+    },
+    {
+      "q": "What is a Wayaframe?",
+      "a": [
+        "A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, a business case, or a set of experiments."
+      ]
+    },
+    {
+      "q": "How is this different from just asking Claude or ChatGPT?",
+      "a": [
+        "Waya doesn't replace your AI assistant. It runs inside it. A general assistant will talk through your idea for as long as you like, agree with most of it, and never tell you what to test first. The Wayaframes give it a set order: why you're the founder for this, what the business is, what it stands for, and which assumptions to test. Each one ends in a document you keep. Na'ama and Vince built them from scaling Cheetah to $150M in revenue, and in the program they coach you every week, which a chatbot can't do."
+      ]
+    },
+    {
+      "q": "What is the Product Market Fit Program?",
+      "a": [
+        "It's a $3,000, 12-week program that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
+      ]
+    },
+    {
+      "q": "Who is this for?",
+      "a": [
+        "Early-stage founders who are still searching for product-market fit — whether you're pre-idea, validating a hypothesis, or running your first experiments. If you know the destination is PMF but not yet the path, this is built for you."
+      ]
+    },
+    {
+      "q": "What do I need to run it?",
+      "a": [
+        "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the program. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
+      ]
+    }
+  ],
   "scale-up-program": [
     {
       "q": "What is unique about the process?",
@@ -247,132 +501,6 @@
       "q": "When should I schedule a call?",
       "a": [
         "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
-      ]
-    }
-  ],
-  "fundraising-narrative": [
-    {
-      "q": "What is Fundraising Narrative?",
-      "a": [
-        "It's a working session where we build the story you raise on. We dig into your company and market, work through narrative angles with you, then tighten the one that lands — yours to use in your pitch deck and every investor conversation."
-      ]
-    },
-    {
-      "q": "What if I already have a pitch / deck?",
-      "a": [
-        "Perfect — that's the starting point. We pressure-test what you've got, find the angle that actually lands, and sharpen it. Whether your story is rough or already polished, we make it better."
-      ]
-    },
-    {
-      "q": "How is this different from Data Room Preparation?",
-      "a": [
-        "Data Room Preparation organizes your materials. Fundraising Narrative is the story that ties them together."
-      ]
-    },
-    {
-      "q": "What stage should I be at to book?",
-      "a": [
-        "If you're raising or plan to in the next 1–6 months, this is for you — from Seed through Series B+. Story matters at every stage."
-      ]
-    },
-    {
-      "q": "What if I don't have a data room yet?",
-      "a": [
-        "That's exactly when you should book a Data Room Preparation session. Starting to prepare your data room a few months before a raise is dramatically better than scrambling from scratch when an investor sends a DD request list while you're still pitching."
-      ]
-    },
-    {
-      "q": "Do we have to be a US-based company to work with you?",
-      "a": [
-        "No, our system works for companies in any region."
-      ]
-    },
-    {
-      "q": "Does my company have to be a tech startup?",
-      "a": [
-        "Waya works with technology companies as well as physical-world companies. You can be the founder of a tech startup, a non-profit organization, or a physical-world business. We are particularly effective for organizations with a high level of complexity, like supply chain, healthcare, and logistics."
-      ]
-    }
-  ],
-  "lean-ai": [
-    {
-      "q": "What is Lean AI?",
-      "a": [
-        "Lean AI is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: guided problem-solving frameworks the assistant runs with you. You describe a problem, and it helps you define it, find the root causes, and test a fix."
-      ]
-    },
-    {
-      "q": "What is a WayaFrame?",
-      "a": [
-        "A WayaFrame is a framework that runs inside your AI assistant. The assistant walks you through a proven method, asking the right questions in the right order, and you finish with a real deliverable: a clear problem statement, a set of root causes, or a ranked list of experiments."
-      ]
-    },
-    {
-      "q": "How is this different from just asking Claude or ChatGPT?",
-      "a": [
-        "Lean AI doesn't replace your AI assistant. It runs inside it. On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Lean AI gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees, and each session ends with a document you keep. It's the same assistant, following a method from people who have run a company."
-      ]
-    },
-    {
-      "q": "Do I need to learn commands?",
-      "a": [
-        "No. Describe the problem in your own words, for example \"help me figure out why our churn went up.\" Lean AI starts with A3 thinking and brings in gap analysis, experiment design, or impact vs effort when the problem calls for them. If you want one method on its own, ask for it by name."
-      ]
-    },
-    {
-      "q": "Who is this for?",
-      "a": [
-        "Founders, operators, and leaders past the earliest stage: anyone with a problem that keeps coming back, improvement work that isn't moving the main number, or a decision that needs a diagnosis that holds up later. It works in any area: operations, sales, hiring, support, finance, product."
-      ]
-    },
-    {
-      "q": "How do I get access?",
-      "a": [
-        "Lean AI is in early access. Sign up below and we'll contact you about getting connected. If you want a specialist to work through a problem with you, you can schedule a call."
-      ]
-    },
-    {
-      "q": "What do I need to run it?",
-      "a": [
-        "An AI assistant that supports MCP, such as Claude. Once Lean AI is connected, bring it a problem and the assistant opens the right WayaFrame."
-      ]
-    }
-  ],
-  "pre-pmf-mcp": [
-    {
-      "q": "What is the Pre-PMF MCP?",
-      "a": [
-        "It's a Waya MCP — a small server you connect to your AI assistant — that adds a set of Wayaframes: guided, step-by-step frameworks the assistant runs with you. In the 12-week Product Market Fit Program you use it to surface your purpose, write a business case, set your mission and values, and design the experiments that get you to product-market fit."
-      ]
-    },
-    {
-      "q": "What is a Wayaframe?",
-      "a": [
-        "A Wayaframe is a facilitated framework that runs inside your AI assistant. Instead of a blank chat, the assistant walks you through a proven method — asking the right questions in the right order and producing a real deliverable at the end, like an Ikigai profile, a business case, or a set of experiments."
-      ]
-    },
-    {
-      "q": "How is this different from just asking Claude or ChatGPT?",
-      "a": [
-        "Waya doesn't replace your AI assistant. It runs inside it. A general assistant will talk through your idea for as long as you like, agree with most of it, and never tell you what to test first. The Wayaframes give it a set order: why you're the founder for this, what the business is, what it stands for, and which assumptions to test. Each one ends in a document you keep. Na'ama and Vince built them from scaling Cheetah to $150M in revenue, and in the program they coach you every week, which a chatbot can't do."
-      ]
-    },
-    {
-      "q": "What is the Product Market Fit Program?",
-      "a": [
-        "It's a $3,000, 12-week program that stands up your PMF infrastructure. Each week pairs a group session on the Waya OS modules with a private hour with Na'ama or Vince — from your first hypothesis to a running system of experiments, automations, and analytics, so you leave with a working system for finding product-market fit, not just a plan."
-      ]
-    },
-    {
-      "q": "Who is this for?",
-      "a": [
-        "Early-stage founders who are still searching for product-market fit — whether you're pre-idea, validating a hypothesis, or running your first experiments. If you know the destination is PMF but not yet the path, this is built for you."
-      ]
-    },
-    {
-      "q": "What do I need to run it?",
-      "a": [
-        "An AI assistant that supports MCP, such as Claude. We connect the Waya MCP with you at the start of the program. You also connect a couple of everyday tools — a knowledge base like Notion or Google Drive, and a meeting-transcription tool like Wispr Flow — so your learnings and customer calls flow into one place."
       ]
     }
   ]
