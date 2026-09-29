@@ -366,7 +366,17 @@
   .tslide blockquote .tq-list li { position: relative; padding-left: 20px; }
   .tslide blockquote .tq-list li::before { content: '▸'; position: absolute; left: 0; color: var(--waya-rust); font-size: 12px; top: 3px; }
   .tcarousel-viewport { overflow: hidden; }
-  .tcarousel-track { display: flex; transition: transform 500ms var(--ease-standard); }
+  .tcarousel-viewport { transition: height 400ms var(--ease-standard); }
+  @media (prefers-reduced-motion: reduce) { .tcarousel-viewport, .tcarousel-track { transition: none; } }
+  /* phones: wider card, and the company logo moves under the name so the name isn't squeezed */
+  @media (max-width: 640px) {
+    .testimonial-strip { padding: 48px 16px; }
+    .testimonial-strip .tslide .proof-card { padding: 24px 22px; }
+    .testimonial-strip .tslide .proof-card blockquote { font-size: 16px; }
+    .testimonial-strip .tslide .proof-who { display: grid; grid-template-columns: 48px 1fr; column-gap: 14px; row-gap: 12px; }
+    .testimonial-strip .tslide .proof-who .company-logo { grid-column: 2; justify-self: start; margin-left: 0; max-height: 30px; }
+  }
+  .tcarousel-track { display: flex; align-items: flex-start; transition: transform 500ms var(--ease-standard); }
   .tslide { flex: 0 0 100%; display: flex; justify-content: center; padding: 4px; }
   .tslide .proof-card { max-width: 760px; width: 100%; }
   /* company logo sits on the same row as the founder photo + name, pushed right */
@@ -763,9 +773,16 @@
   });
   var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll('.tdot'));
 
+  // the viewport takes the active slide's height, so short quotes don't sit in empty space
+  var viewport = root.querySelector('.tcarousel-viewport');
+  function fit() { viewport.style.height = slides[i].offsetHeight + 'px'; }
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+
   function go(n) {
     i = (n + slides.length) % slides.length;
     track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    fit();
     dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
     slides.forEach(function (s, k) { s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
   }
