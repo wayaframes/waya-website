@@ -45,3 +45,44 @@
     if (e.key === 'Escape') dropdowns.forEach(close);
   });
 })();
+
+/* Mobile menu: under 960px the links collapse behind a menu button
+   (added here so every page gets it without extra markup). */
+(function () {
+  var nav = document.querySelector('.nav');
+  var links = nav && nav.querySelector('.nav-links');
+  if (!links) return;
+
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'nav-toggle';
+  btn.setAttribute('aria-label', 'Open menu');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', 'nav-links');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+  links.id = links.id || 'nav-links';
+  links.parentNode.appendChild(btn);
+
+  function set(open) {
+    nav.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    set(!nav.classList.contains('open'));
+  });
+  links.addEventListener('click', function (e) {  /* following a link closes the menu */
+    if (e.target.closest('a')) set(false);
+  });
+  document.addEventListener('click', function (e) {  /* outside click closes */
+    if (!nav.contains(e.target)) set(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') set(false);
+  });
+  window.addEventListener('resize', function () {  /* back to desktop width: reset */
+    if (window.innerWidth > 960) set(false);
+  });
+})();

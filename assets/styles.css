@@ -68,6 +68,19 @@ button { font-family: inherit; }
   display: flex; align-items: center; justify-content: space-between;
 }
 .nav-logo { height: 30px; }
+/* Menu button: hidden on desktop, shown under 960px (see Responsive) */
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 44px; height: 44px; margin-left: 10px; padding: 0 11px;
+  background: none; border: 0; cursor: pointer;
+}
+.nav-toggle span {
+  display: block; height: 2px; border-radius: 2px; background: var(--waya-charcoal);
+  transition: transform var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard);
+}
+.nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .nav-links { display: flex; gap: 30px; align-items: center; }
 .nav-links a {
   font-family: var(--font-display);
@@ -327,6 +340,7 @@ h2.section-title {
 
 /* ---------- Cards (shared pillar/card pattern) ---------- */
 .pillars { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pillars.cols-2 { grid-template-columns: repeat(2, 1fr); }
 .pillar {
   background: var(--waya-cream);
   border: 1px solid var(--border-1); border-radius: 18px;
@@ -519,12 +533,44 @@ footer ul a:hover { color: var(--waya-mustard); }
 @media (max-width: 960px) {
   .nav-links a:not(.btn-rust) { display: none; }
   .nav-dropdown { display: none; }
+  .nav-links { margin-left: auto; }
+  .nav-toggle { display: inline-flex; }
+
+  /* Open mobile menu: links drop down as a full-width panel under the bar */
+  .nav.open .nav-links {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--waya-cream);
+    border-bottom: 1px solid var(--border-1);
+    box-shadow: var(--shadow-3);
+    padding: 8px 24px 24px;
+    max-height: calc(100vh - 64px); overflow-y: auto;
+  }
+  .nav.open .nav-links a:not(.btn-rust) {
+    display: block; padding: 14px 0;
+    font-size: 16px; border-bottom: 1px solid var(--border-1);
+  }
+  .nav.open .nav-dropdown { display: block; border-bottom: 1px solid var(--border-1); padding-bottom: 6px; }
+  .nav.open .nav-dropdown-trigger {
+    padding: 16px 0 6px; pointer-events: none;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2);
+  }
+  .nav.open .nav-caret { display: none; }
+  .nav.open .nav-dropdown-menu {
+    position: static; transform: none; opacity: 1; visibility: visible; pointer-events: auto;
+    min-width: 0; background: none; border: 0; box-shadow: none; padding: 0; gap: 0;
+  }
+  .nav.open .nav-dropdown-menu::before { display: none; }
+  .nav.open .nav-links .nav-dropdown-menu a {
+    border-bottom: 0; padding: 11px 0 11px 12px; font-size: 15.5px; white-space: normal;
+  }
+  .nav.open .nav-links .btn-rust { margin-top: 20px; padding: 14px 20px; font-size: 15px; text-align: center; }
   .hero { padding: 96px 28px; min-height: 540px; }
   .hero h1, .hero.compact h1 { font-size: 44px; }
   .hero .sub { font-size: 18px; }
   section { padding: 76px 24px; }
   h2.section-title { font-size: 32px; }
-  .pillars, .stages, .two-col { grid-template-columns: 1fr; }
+  .pillars, .pillars.cols-2, .stages, .two-col { grid-template-columns: 1fr; }
   .two-col { gap: 36px; }
   .steps li { grid-template-columns: 40px 1fr; }
   .cta-band { padding: 80px 24px; }
@@ -537,6 +583,12 @@ footer ul a:hover { color: var(--waya-mustard); }
   .testimonial-strip blockquote { font-size: 19px; }
   .mountain-band { height: 160px; }
   .mountain-band.mustard { height: 140px; }
+}
+
+@media (max-width: 640px) {
+  .nav-inner { padding: 12px 16px; }
+  .nav-links .btn-rust { padding: 10px 14px; font-size: 13px; }
+  .nav.open .nav-links { padding: 4px 16px 20px; }
 }
 
 /* ============ COOKIE CONSENT ============ */
@@ -568,6 +620,8 @@ footer ul a:hover { color: var(--waya-mustard); }
 @keyframes waya-consent-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .waya-consent { animation: none; } }
 @media (max-width: 520px) {
-  .waya-consent { flex-direction: column; align-items: stretch; }
+  .waya-consent { flex-direction: column; align-items: stretch; gap: 14px; }
+  /* in a column the 260px flex-basis becomes height, leaving an empty box */
+  .waya-consent__text { flex: 0 0 auto; }
   .waya-consent__actions { justify-content: flex-end; }
 }
