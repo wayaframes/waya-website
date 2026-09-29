@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Studies – Waya</title>
+<meta name="description" content="Eight operations case studies from the Waya team: what was wrong, what caused it, what we changed, and what it did to margin and operations.">
+<link rel="canonical" href="https://www.wayaframes.com/case-studies/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="Case Studies – Waya">
+<meta property="og:description" content="What was wrong, what caused it, what we changed, and what it did to margin and operations.">
+<meta property="og:url" content="https://www.wayaframes.com/case-studies/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=6">
+<script defer src="/assets/analytics.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Case Studies",
+  "url": "https://www.wayaframes.com/case-studies/",
+  "description": "Operations case studies from the Waya team.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Waya",
+    "url": "https://www.wayaframes.com/"
+  }
+}
+</script>
+<style>
+/* ---------- Case studies page-specific styles ---------- */
+
+/* Index of cases under the hero */
+.cs-index {
+  list-style: none; padding: 0; margin: 44px auto 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.cs-index a {
+  display: block; height: 100%;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 14px;
+  padding: 18px 18px 16px;
+  transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+.cs-index a:hover { border-color: var(--waya-rust); box-shadow: var(--shadow-1); }
+.cs-index .k {
+  display: block;
+  font-family: var(--font-display); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2);
+}
+.cs-index .t {
+  display: block; margin-top: 8px;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.3;
+  color: var(--waya-charcoal); text-wrap: balance;
+}
+.cs-index a:hover .t { color: var(--waya-rust); }
+.cs-index-note { margin-top: 18px; text-align: center; font-size: 13.5px; color: var(--fg-2); font-style: italic; }
+
+/* One case study */
+.case { scroll-margin-top: 72px; }
+.case-meta {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--waya-rust); margin-bottom: 12px;
+}
+.case h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 36px; line-height: 1.12; letter-spacing: -0.02em;
+  color: var(--waya-charcoal); text-wrap: balance; max-width: 800px;
+}
+.case-sum { margin-top: 14px; font-size: 18px; line-height: 1.55; color: var(--waya-ink); max-width: 740px; }
+.case-grid {
+  margin-top: 40px;
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px;
+  align-items: start;
+}
+.case-body h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: 17px;
+  color: var(--waya-charcoal); margin-top: 28px;
+}
+.case-body h3:first-child { margin-top: 0; }
+.case-body p { margin-top: 8px; font-size: 15.5px; line-height: 1.65; color: var(--fg-1); }
+.case-side { position: sticky; top: 92px; display: grid; gap: 16px; }
+.results {
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: var(--shadow-1);
+  padding: 24px 24px 10px;
+}
+.bg-paper .results { background: var(--waya-cream); }
+.results h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--fg-2); margin-bottom: 6px;
+}
+.results dl > div { padding: 12px 0; border-top: 1px solid var(--border-1); }
+.results dl > div:first-child { border-top: 0; }
+.results dt { font-size: 13.5px; color: var(--fg-2); }
+.results dd {
+  margin-top: 2px;
+  font-family: var(--font-display); font-weight: 600; font-size: 16px; line-height: 1.35;
+  color: var(--waya-charcoal);
+}
+.lens {
+  background: var(--waya-mint); border-radius: 18px; padding: 20px 22px;
+  font-size: 14.5px; line-height: 1.6; color: #0f4f3f;
+}
+.lens strong {
+  display: block; margin-bottom: 6px;
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: #085041;
+}
+.case-quote {
+  margin-top: 28px; padding-left: 18px; border-left: 3px solid var(--waya-rust);
+  font-size: 16.5px; line-height: 1.6; color: var(--waya-ink); font-style: italic;
+}
+.case-quote cite { display: block; margin-top: 6px; font-style: normal; font-size: 13.5px; color: var(--fg-2); }
+.back-top { margin-top: 32px; font-size: 14px; }
+.back-top a { color: var(--fg-2); }
+.back-top a:hover { color: var(--waya-rust); }
+
+@media (max-width: 960px) {
+  .cs-index { grid-template-columns: repeat(2, 1fr); }
+  .case-grid { grid-template-columns: 1fr; gap: 32px; }
+  .case-side { position: static; }
+  .case h2 { font-size: 30px; }
+}
+@media (max-width: 520px) {
+  .cs-index { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=case-studies&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =============== HERO =============== -->
+<section class="hero compact" style="background-image: url('/assets/images/hero/mountain-mustard-header.png');">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow">Built by operators, for operators</p>
+      <h1>Case Studies</h1>
+      <p class="sub">Eight problems our team worked through: what was wrong, what caused it, what we changed, and what it did to margin and operations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============== INDEX =============== -->
+<section id="all" class="bg-paper">
+  <div class="container">
+    <p class="section-eyebrow">All Case Studies</p>
+    <h2 class="section-title">Pick a result to read how we got there</h2>
+    <ul class="cs-index">
+      <li><a href="#ap-automation-margin"><span class="k">Restaurant AP automation</span><span class="t">Gross margin increased from 20% to 70%</span></a></li>
+      <li><a href="#warehouse-quality"><span class="k">Food distribution · Warehouse</span><span class="t">Gross margin increased from 10% to 20–25%</span></a></li>
+      <li><a href="#post-acquisition-turnaround"><span class="k">Food distribution · M&amp;A</span><span class="t">From $1M monthly burn to profitable</span></a></li>
+      <li><a href="#cash-float"><span class="k">Food distribution · Finance</span><span class="t">Cash float cut 90%, freeing $1M in working capital</span></a></li>
+      <li><a href="#planning-okrs"><span class="k">14-person startup · Planning</span><span class="t">ARR grew from $7.3M to $10M, profitably</span></a></li>
+      <li><a href="#sole-supplier"><span class="k">Food distribution · Supply chain</span><span class="t">Revenue grew from $75M to $155M while replacing the only supplier</span></a></li>
+      <li><a href="#customer-support"><span class="k">Food distribution · Support</span><span class="t">First support response cut from 22 hours to 6 minutes</span></a></li>
+      <li><a href="#hospital-patient-wait"><span class="k">Hospital · GI suite</span><span class="t">Patient wait cut from 5 months to 2</span></a></li>
+    </ul>
+    <p class="cs-index-note">Company names are withheld.</p>
+  </div>
+</section>
+
+<!-- =============== 1. AP AUTOMATION =============== -->
+<section id="ap-automation-margin" class="case">
+  <div class="container">
+    <p class="case-meta">AP automation for restaurants · Continuous improvement</p>
+    <h2>From 20% to 70% gross margin</h2>
+    <p class="case-sum">Cost per invoice fell by two-thirds while volume grew 50%.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>The company processed supplier invoices for independent restaurants and pulled out the line items, so restaurants could track costs by product and supplier. In March 2016, processing cost $1.67 per invoice. Line-item extraction cost another $1.67 and took 24 hours, so it wasn't offered to every customer yet. An invoice with line items cost $3.34 to process, all of what it brought in. Gross margin sat near 20%.</p>
+        <h3>The root cause</h3>
+        <p>Every line item was typed by hand, twice. Two processors each extracted the same invoice, a senior processor checked every line, and the batch was imported by hand. Product names and units were re-keyed for vendors the system already knew. Slow internet at the offshore team meant invoices moved in batches of 25 to 200, and only one person on the day shift was trained to verify them. Queues built up and a 24-hour lag became normal.</p>
+        <h3>What we did</h3>
+        <p>A one-page improvement plan put a cost on every step and set targets for extraction: $0.80 per invoice and a 4-hour turnaround. We built extraction into the app. The database already knew each vendor's products and units, so the app filled those fields and checked the extraction itself. A processor typed 3 fields instead of a whole invoice, and the manual check went away.</p>
+        <p>With no transit time, there was no reason to hold invoices, so they moved one at a time, first in, first out. We trained the night shift to verify, so two shifts worked the queue. Labor per invoice fell by two-thirds, and a second outsourced team and 3 of 5 US contractors were wound down. Extraction went live in July 2016, and cost per invoice was tracked for 90 days after.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Gross margin</dt><dd>~20% → ~70%</dd></div>
+            <div><dt>Invoice with line items, all-in</dt><dd>$3.34 → $0.97</dd></div>
+            <div><dt>Processing cost per invoice</dt><dd>$1.67 → $0.55</dd></div>
+            <div><dt>Line-item extraction cost per invoice</dt><dd>$1.67 → $0.41</dd></div>
+            <div><dt>Line-item turnaround</dt><dd>24 hours → under 30 minutes</dd></div>
+            <div><dt>Invoices per month</dt><dd>9,663 → 14,485, on a total bill a quarter lower</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>Measure the current state before you change it. The tracker showed where the money went, and root cause analysis showed why: double entry and batching. The fixes were built into the system, and the metric stayed visible so the gain held.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 2. WAREHOUSE QUALITY =============== -->
+<section id="warehouse-quality" class="case bg-paper">
+  <div class="container">
+    <p class="case-meta">Food distribution · Kaizen, A3</p>
+    <h2>Better quality with fewer QC staff</h2>
+    <p class="case-sum">QC went from 100% of carts to 30%, and carts with a picking error fell from ~72% to ~10%.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>An experienced manager checked every picked cart, item by item. QC took about 13 minutes per order, and roughly 7 in 10 carts had at least one error. At the planned 80 to 100 orders a day, QC would need seven full-time checkers per warehouse and about 1.6 labor-hours per order. Even at low volume, a full aisle of carts sat waiting for QC.</p>
+        <h3>The root cause</h3>
+        <p>QC was applied to every cart and every picker because there was no data on who was reliable. Without picker-level accuracy history, the only safe policy was to check everyone, every time. Quality was inspected at the end of the line instead of built into the pick, so its cost grew with every order.</p>
+        <h3>What we did</h3>
+        <p>The app started tracking each picker's error rate and speed, and a bonus paid on both, earned only when a cart shipped clean. The fastest way to earn more was to pick accurately.</p>
+        <p>Once a picker's error rate held under 1%, the app moved them to "super-picker" status and checked 1 in 10 of their carts. If a sample slipped past about 1.5%, they went back to full QC until they recovered. New pickers stayed at 100%. We also changed the app to pick by bin location instead of category, and automated the paperwork for out-of-stocks and cart labels.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Gross margin</dt><dd>~10% → 20–25%</dd></div>
+            <div><dt>QC staff per 100 orders</dt><dd>7 FTEs → 2 FTEs</dd></div>
+            <div><dt>Carts requiring QC</dt><dd>100% → 30%</dd></div>
+            <div><dt>Carts with a picking error</dt><dd>~72% → ~10%</dd></div>
+            <div><dt>Top-picker pay</dt><dd>$13/hr → $26/hr, earned on accuracy and speed</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>You can't inspect quality in at the end of the line. The cost grows with every order and slows production. Build quality into each step so defects don't get passed on.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 3. POST-ACQUISITION TURNAROUND =============== -->
+<section id="post-acquisition-turnaround" class="case">
+  <div class="container">
+    <p class="case-meta">Food distribution · A3, gap analysis</p>
+    <h2>A post-acquisition operations turnaround</h2>
+    <p class="case-sum">From about $1M a month in contribution margin burn to profitable.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>After the company acquired three regional distributors, fulfillment fell apart. Fill rate dropped to about 75%. Shrink ran 17–18% for the month and hit 28% in one week, with full pallets of food thrown out. On-time delivery fell as low as 24%, about 22% of orders shipped with an error, and a physical count found errors in 90% of storage locations. Nightly replenishment jobs jumped from about 70 to over 300. The operation was burning about $1M a month in contribution margin.</p>
+        <h3>The root cause</h3>
+        <p>It was tempting to blame the crews. The gap analysis found something more precise: the warehouse had been physically rebuilt, with new racking, a new freezer, and hundreds of new locations, but the warehouse management system's logic was never updated. Old locations kept their old rules, new ones had none, and many had no dimensions entered.</p>
+        <p>So replenishment sent product to slots too small to hold it, left others empty, and scattered single SKUs across as many as 886 locations. The system recreated the mess faster than crews could clear it. There had also been no full inventory count of the acquired businesses, so counts weren't trusted and product was double-bought.</p>
+        <h3>What we did</h3>
+        <p>We ran two tracks at once, because neither worked alone. Track one stopped the bleeding by hand: daily triage to clear staging lanes and trailers, replenish the top 1,000 items, consolidate each SKU to one location, and cycle-count by aisle, with corporate staff trained and on the floor.</p>
+        <p>Track two fixed the cause. We rebuilt the WMS into a hybrid slotting model (fixed locations for fast movers, dynamic slots for the rest), re-zoned the facility to the new racking, and added logic to consolidate inventory instead of scattering it. Then we added barcode scanning with QA hard-stops across receiving, picking, loading, and delivery, and wrote it all into daily standard work.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Contribution margin</dt><dd>~$1M/mo burn → ~$260K/mo (Mar 2023) → profitable (Oct 2023)</dd></div>
+            <div><dt>Shrink</dt><dd>~17–18% (peak ~28%) → ~2%</dd></div>
+            <div><dt>Fill rate</dt><dd>~75% → 99%+</dd></div>
+            <div><dt>On-time delivery</dt><dd>under 40% (as low as 24%) → ~90%+</dd></div>
+            <div><dt>Orders with an error</dt><dd>~22% → ~3%</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>In a fulfillment crisis, the instinct is to add labor or assign blame. Here the root cause was system logic undoing the crews' work. Separate the symptom from the cause, run manual triage and the systemic fix at the same time, then standardize the fix so it survives the next reorg.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 4. CASH FLOAT =============== -->
+<section id="cash-float" class="case bg-paper">
+  <div class="container">
+    <p class="case-meta">Food distribution · Gap analysis</p>
+    <h2>Cutting the cash float 90%</h2>
+    <p class="case-sum">About $1M of working capital freed, and the supplier credit line no longer needed.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>The company paid its supplier for a customer's product almost immediately, but customers paid three to four business days later. On about 70% of revenue, it was fronting the supplier's cash. Covering that took a line of credit from the supplier itself, capped at $200,000, and the supplier refused to raise it. As volume grew, the float climbed toward $1M and the credit limit became a ceiling on growth.</p>
+        <h3>The root cause</h3>
+        <p>Supplier payments weren't linked to customer billing. Nothing tied what a customer was billed to what the supplier was paid for the same order, so the company fronted 100% of product cost and reconciled by hand afterward. It already had API access to the supplier's invoices and had its own customer invoices. The data to link them existed. It just wasn't connected.</p>
+        <h3>What we did</h3>
+        <p>A completed delivery now split the payment automatically. The platform took each customer's payment, sent the product portion straight to the supplier's bank account matched to its invoice, and kept only the company's share, about 8% (delivery fees, alcohol, tax-exempt items). The last customers paying by check moved to card and ACH.</p>
+        <p>The supplier got a self-service portal showing each payout against the exact invoices it covered, to the cent, so it could check at any time that it had been paid in full, and move the staff who had matched wires by hand. A monthly reconciliation investigated every mismatch and automated it away.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Working capital freed</dt><dd>~$1M</dd></div>
+            <div><dt>Cash fronted for product</dt><dd>~100% → ~8%</dd></div>
+            <div><dt>Supplier line of credit</dt><dd>$200K, maxed out → no longer needed</dd></div>
+            <div><dt>Supplier reconciliation</dt><dd>Manual list and lump-sum wire → self-service portal, matched to the cent</dd></div>
+            <div><dt>Delivery to cash</dt><dd>3–4 days → 1–3 days</dd></div>
+            <div><dt>Billing errors</dt><dd>Undetected → ~$60K in double charges found and refunded</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>The symptom was the float. The cause was a missing link between billing and payment. Fixing the link resolved the float, the manual work, and the hidden billing errors together. Freeing $1M also removed a real risk: without it, the company would eventually have had to choose between paying suppliers and making payroll.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 5. PLANNING / OKRS =============== -->
+<section id="planning-okrs" class="case">
+  <div class="container">
+    <p class="case-meta">14-person startup · Annual &amp; quarterly planning</p>
+    <h2>Cutting seven goals to three</h2>
+    <p class="case-sum">A facilitated planning offsite turned an unranked goal list into three measured objectives, and a 30-agent build into three workflows.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>The company had found its market and planned to triple revenue. Asked for his top five goals for the year, the CEO listed six, then remembered a seventh. None were ranked. Two pre-offsite surveys named the same top blocker: prioritization. Five of twelve people asked leadership to start prioritizing, and four wanted to stop treating everything as urgent. Asked for one word to describe the culture, the CEO said "survival."</p>
+        <h3>The root cause</h3>
+        <p>The goals were real, but they lived in one person's head, unranked and not shared, so each function worked toward a different one. With no ranked list and no way to turn goals into owned work, "urgent" was the only prioritization signal the company had. It bought one-off exceptions that added complexity and left no time for the fixes that would have prevented them.</p>
+        <h3>What we did</h3>
+        <p>A four-day offsite, phones in a box. Two anonymous surveys, answered by most of the team, meant the room opened with the team's own words rather than the CEO's.</p>
+        <p>Seven goals came down to three, the number a team can actually carry. All three had to sit on the real bottleneck, which was collections, not the thirty AI agents on the wish list. A key result reading "test 10–30 agents" was struck out and rewritten as three agent workflows: deal desk, close, and collect.</p>
+        <blockquote class="case-quote">"We've really gone from survival to thrival. I don't look at the bank balance every week and think, what's gonna happen next week."<cite>The CEO, six months later</cite></blockquote>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>ARR</dt><dd>$7.3M → ~$10M by end of Q1, profitable</dd></div>
+            <div><dt>Company goals</dt><dd>6–7 unranked → 3 objectives, 17 key results</dd></div>
+            <div><dt>Team</dt><dd>14 people → 24</dd></div>
+            <div><dt>Top-3 customer concentration</dt><dd>95%, unmeasured → tracked, target under 67% (still open)</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>The result was clear priorities and an end to scope creep. The goals were set on the real bottleneck, and every project was tied to the gap between where the company stood and those goals. The cadence is what held: they kept running it after we left.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 6. SOLE SUPPLIER =============== -->
+<section id="sole-supplier" class="case bg-paper">
+  <div class="container">
+    <p class="case-meta">Food distribution · Kaikaku, scenario planning</p>
+    <h2>Replacing a sole supplier in 14 months</h2>
+    <p class="case-sum">Owned warehouses and direct sourcing, built while revenue grew from about $75M to $155M.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>The whole business ran on one supplier. It bought product from that wholesaler's stores, used its inventory, and routed trucks from its docks. In July 2018, with the company at about $75M in annualized revenue, the supplier said the partnership no longer worked at current pricing. The options were to build an independent supply chain from scratch, or shut down.</p>
+        <h3>Why small fixes wouldn't work</h3>
+        <p>Getting better at buying from the supplier couldn't fix a dependency on it. The system itself was the constraint. That calls for a redesign (Kaikaku), not incremental improvement (Kaizen).</p>
+        <h3>What we did</h3>
+        <p>In a two-day event with an owner from every function, the team designed the new system backward from the target state. They mapped five scenarios, from "the supplier does nothing" to "the supplier finds out and cuts us off tomorrow," with target metrics for churn, out-of-stocks, and new customers in each.</p>
+        <p>A seven-flows gap analysis turned problems into a build list: scrape supplier pricing, set up about 2,800 SKUs in a new ERP, secure a building with racking, refrigeration, and permits, hire and schedule a 35-person crew, and script customer retention for every scenario. Because one leak could trigger the worst case, the work ran as a separate team in a separate office, and a staged worst-case drill tested readiness before go-live.</p>
+        <p>Fourteen months after the call, the first orders shipped from the company's own 75,000 sq ft warehouse, with its own vendor relationships and its own warehouse and inventory systems. The existing business kept growing the whole time.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Revenue during the transition</dt><dd>~$75M → ~$155M, with no shutdown</dd></div>
+            <div><dt>Time to rebuild</dt><dd>14 months from decision to first orders</dd></div>
+            <div><dt>Supply model</dt><dd>One supplier → owned warehouses and direct sourcing</dd></div>
+            <div><dt>Strategic risk</dt><dd>Single point of failure → removed</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>You can't improve your way into a new business model one step at a time. Design the new system backward from the target, plan for the futures you might face, and use a flow-by-flow gap analysis to turn what's broken into what has to be built.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 7. CUSTOMER SUPPORT =============== -->
+<section id="customer-support" class="case">
+  <div class="container">
+    <p class="case-meta">Food distribution · A3, SIPOC</p>
+    <h2>From a 22-hour to a 6-minute support response</h2>
+    <p class="case-sum">Structured intake, automatic routing, and self-service let support scale.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>First response on support tickets averaged 22 hours, which frustrated customers and drove churn. Requests came in over five disconnected channels, including a ticketing tool, calls to operations, messages to sales reps, and a 1-800 line, and about half were resolved outside any system. Only 10% came through the app, and only 10% were assigned to the right person automatically. Calls went to voicemail, and an executive still took 5–10 support calls a day.</p>
+        <h3>The root cause</h3>
+        <p>There was no structured front door. Customers couldn't say which order or issue a ticket was about, so a person had to read, categorize, and route every message. The most common questions (credits, returns, invoices, delivery delays) had no self-service path, and even a small credit needed escalation.</p>
+        <p>With several warehouses, agents had to search multiple systems to find which one filled an order. Customers called for delivery times on trucks the company already tracked by GPS. And with so much work outside the ticketing system, no one could see the real queue.</p>
+        <h3>What we did</h3>
+        <p>In the app, the customer picks the order and the issue, which creates a tagged, linked ticket. The system routes it to the right group and agent, with alerts for overdue tickets. Every channel feeds one system: a masked 1-800 line, in-app chat, and calling.</p>
+        <p>Agents see delivery and billing details on each ticket, including which warehouse filled the order, and can approve credits up to $50 per order and $500 per customer a year without escalating. Customers can see their invoices, credits, returns, and truck location in the app. Root-cause tags on resolved tickets go back to operations to fix what generates them.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>First response</dt><dd>22 hours → 6 minutes</dd></div>
+            <div><dt>Phone calls answered</dt><dd>No live queue → within ~6 seconds</dd></div>
+            <div><dt>Tickets assigned correctly, automatically</dt><dd>10% → 95%</dd></div>
+            <div><dt>Tickets submitted in the app</dt><dd>10% → 70%</dd></div>
+            <div><dt>Agent credit authority</dt><dd>Escalate every credit → approve up to $50/order, $500/year</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>Don't handle everything by hand when you have the data to build a system. Map the flows and redesign them so customers can serve themselves, and save people for the cases that need judgment.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== 8. HOSPITAL =============== -->
+<section id="hospital-patient-wait" class="case bg-paper">
+  <div class="container">
+    <p class="case-meta">Regional hospital · Kaizen</p>
+    <h2>Cutting a 5-month patient wait to 2</h2>
+    <p class="case-sum">Faster room turnover and better pre-op readiness in a GI suite.</p>
+    <div class="case-grid">
+      <div class="case-body">
+        <h3>The problem</h3>
+        <p>A GI and endoscopy suite with two rooms took about 29 minutes to turn a room over, scope out to scope in. That capped the day at about 10 procedures per room, while more than 560 patients waited up to five months for a colonoscopy. Physicians often worked through lunch to keep up.</p>
+        <h3>The root cause</h3>
+        <p>The team mapped the changeover role by role (physician, techs, two nurses) and ran 5 Whys on the longest delays. The changeover was only part of it. Often the next case couldn't start because the physician was covering clinic or on call, or because the next patient wasn't ready: a late arrival, prep or fasting not followed, no nurse free for a difficult IV, no open bed, or missing orders in a records system not built for GI.</p>
+        <h3>What we did</h3>
+        <p>The team worked on readiness and standardization at the same time. They wrote standard work for room turnover, with a defined tech-and-nurse flow and supplies staged where each step needs them. They added a standard GI order set and recovery protocol to the records system, plus a shorter pre-procedure summary.</p>
+        <p>For pre-op, they set up an IV placement priority process, standard prep and fasting screening, and a cleaner handoff. And they redesigned the block schedule and staffing to work down the backlog.</p>
+      </div>
+      <aside class="case-side">
+        <div class="results">
+          <h3>Results</h3>
+          <dl>
+            <div><dt>Referral to procedure wait</dt><dd>5 months → 2 months (target was 3)</dd></div>
+            <div><dt>Room turnover</dt><dd>29 min → 23.7 min (target 15)</dd></div>
+            <div><dt>Procedures per room per day</dt><dd>10.4 → 11.4 (target 13)</dd></div>
+          </dl>
+        </div>
+        <div class="lens"><strong>The Waya lens</strong>Improvement work often turns up more than one problem. We started on room turnover, but sometimes the constraint was the patient not being ready, or staffing. Hitting the target meant fixing both.</div>
+      </aside>
+    </div>
+    <p class="back-top"><a href="#all">↑ Back to all case studies</a></p>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section id="book" class="final-cta">
+  <h2>Have a problem like one of these?</h2>
+  <p>Talk to us about working through it together, or run the same methods yourself with Lean AI.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=case-studies&utm_content=final-cta">Schedule a Call</a>
+    <a class="btn-ghost-dark" style="padding: 16px 30px; font-size: 15px;" href="/lean-ai/">See Lean AI</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=5" defer></script>
+</body>
+</html>

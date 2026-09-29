@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 Weeks to Higher Margins – Waya</title>
+<meta name="description" content="4 weeks to increase your margins: Lean AI for mission-driven operators. Find what is hurting your margin, fix the root cause with A3 thinking, and keep the method running inside your AI assistant.">
+<link rel="canonical" href="https://www.wayaframes.com/lean-ai/cohort/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="4 Weeks to Higher Margins – Waya">
+<meta property="og:url" content="https://www.wayaframes.com/lean-ai/cohort/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=6">
+<script defer src="/assets/analytics.js"></script>
+
+<!--
+  ASSUMPTIONS FOR REVIEW:
+  1. Structure mirrors /pre-pmf-mcp/cohort/; content comes from /lean-ai/.
+  2. No apply/checkout page exists yet, so every "Apply for the Program" button
+     goes to the consultation booking link (utm_campaign=lean-ai-cohort).
+  3. No price or start date shown. Cohort size (5–7) and 2 sessions/week copied
+     from the PMF program.
+-->
+
+<style>
+  :root{ --border-2: rgba(56,63,59,0.28); --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --waya-white:#FFFFFF; }
+
+  /* ---------- Hero (page-specific additions to the shared hero) ---------- */
+  .hero h1 { font-size: min(52px, calc((100vw - 72px) / 17.5)); }
+  .hero h1 { white-space: nowrap; }
+  .hero .hero-subtitle {
+    margin-top: 14px;
+    font-family: var(--font-display); font-weight: 500;
+    font-size: min(32px, calc((100vw - 72px) / 30)); line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--waya-cream);
+  }
+  .hero-meta {
+    margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(250,247,241,0.78);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 8px; }
+  .hero-meta span::before { content: '▸'; color: var(--waya-mustard); font-size: 11px; }
+
+  /* ---------- Curriculum (spread-out module rows) ---------- */
+  .curriculum { background: var(--waya-paper); }
+  .module-stack { margin-top: 64px; border-top: 1px solid var(--border-1); }
+  .module-row {
+    display: grid; grid-template-columns: 260px 1fr;
+    gap: 64px; align-items: start;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border-1);
+    position: relative;
+  }
+  .module-aside { position: relative; display: flex; flex-direction: column; gap: 14px; }
+  .ghost-num {
+    position: absolute; top: -20px; right: 8px;
+    font-family: var(--font-display); font-weight: 700; font-size: 108px;
+    line-height: 1; letter-spacing: -0.04em;
+    color: var(--waya-charcoal); opacity: 0.06; pointer-events: none;
+  }
+  /* Icons drop in FLAT — no colored circle wrapper, no filters. They are already the badge. */
+  .module-aside .icon img { width: 88px; height: 88px; position: relative; }
+  .module-tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .module-week {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; letter-spacing: -0.01em;
+    color: var(--waya-charcoal);
+    border-left: 3px solid var(--waya-mustard); padding-left: 12px;
+  }
+  .module-main { max-width: 640px; }
+  .module-main h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 30px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal); margin-bottom: 16px;
+  }
+  .module-main .lede {
+    font-family: var(--font-body);
+    font-size: 16.5px; line-height: 1.62;
+    color: var(--fg-2); margin-bottom: 26px;
+  }
+  .module-main .process-label {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-stone); margin-bottom: 14px;
+  }
+  .module-main ol { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 12px; }
+  .module-main ol li {
+    counter-increment: step;
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.55; color: var(--waya-ink);
+    padding-left: 34px; position: relative;
+  }
+  .module-main ol li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--waya-mint); color: var(--waya-charcoal);
+    font-family: var(--font-display); font-weight: 600; font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ---------- Timeline (12-week arc) ---------- */
+  .timeline { margin-top: 56px; border-top: 1px solid var(--border-1); }
+  .week-row {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .week-marker { display: flex; flex-direction: column; gap: 6px; }
+  .week-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .week-phase {
+    font-family: var(--font-body); font-size: 13px;
+    color: var(--fg-2);
+  }
+  .week-body h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal); margin-bottom: 10px;
+  }
+  .week-body p {
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.6; color: var(--fg-2); max-width: 640px;
+  }
+  .week-body .homework {
+    margin-top: 12px;
+    font-family: var(--font-body); font-size: 14px;
+    color: var(--waya-ink);
+    border-left: 2px solid var(--waya-mustard);
+    padding-left: 14px;
+  }
+  .week-body .homework strong {
+    font-family: var(--font-display); font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    font-size: 11px; color: var(--waya-stone);
+    display: block; margin-bottom: 4px;
+  }
+
+  /* ---------- Build / outcomes cards ---------- */
+  .build { background: var(--waya-paper); }
+  .build-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .build-card {
+    background: var(--waya-cream);
+    border: 1px solid var(--border-1);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-1);
+  }
+  .build-card h3 {
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 20px;
+    line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal);
+    margin-bottom: 12px;
+  }
+  .build-card p {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.55;
+    color: var(--fg-2);
+  }
+
+  /* ---------- Format / how the program runs ---------- */
+  .format-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .format-card {
+    border: 1px solid var(--border-1);
+    border-radius: 18px;
+    padding: 40px;
+    background: var(--waya-cream);
+    box-shadow: var(--shadow-1);
+    /* Subgrid so the tag, title, text and each bullet line up across both cards. */
+    display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0;
+  }
+  .format-card .tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+    margin-bottom: 16px;
+  }
+  .format-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 28px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal);
+    margin-bottom: 14px;
+  }
+  .format-card p {
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 1.6;
+    color: var(--fg-2);
+  }
+  .format-card .detail { display: contents; }
+  .format-card .detail span { margin-top: 10px; }
+  .format-card .detail span:first-child { margin-top: 20px; }
+  .format-card .detail span {
+    font-family: var(--font-body); font-size: 14.5px;
+    color: var(--waya-ink); padding-left: 20px; position: relative;
+  }
+  .format-card .detail span::before {
+    content: '▸'; position: absolute; left: 0; top: 2px;
+    color: var(--waya-sage); font-size: 12px;
+  }
+
+  /* ---------- Pull-quote band ---------- */
+  .pullquote-band {
+    background: var(--waya-charcoal);
+    padding: 120px 32px;
+    text-align: center;
+  }
+  .pullquote-band blockquote {
+    max-width: 920px; margin: 0 auto;
+    font-family: var(--font-display);
+    font-weight: 500; font-size: 38px;
+    line-height: 1.25; letter-spacing: -0.02em;
+    color: var(--waya-cream);
+    text-wrap: balance;
+  }
+  .pullquote-band .attribution {
+    margin-top: 28px; color: rgba(250,247,241,0.65);
+    font-family: var(--font-body); font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .pullquote-band .section-cta { margin-top: 44px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero h1 { font-size: min(44px, calc((100vw - 72px) / 17.5)); }
+    .module-row { grid-template-columns: 1fr; gap: 24px; padding: 44px 0; }
+    .module-aside { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .ghost-num { display: none; }
+    .module-main h3 { font-size: 25px; }
+    .build-grid { grid-template-columns: 1fr; }
+    .format-grid { grid-template-columns: 1fr; }
+    .week-row { grid-template-columns: 1fr; gap: 14px; }
+    .pullquote-band { padding: 88px 28px; }
+    .pullquote-band blockquote { font-size: 26px; }
+  }
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 34px; }
+    .hero .hero-subtitle { font-size: 20px; }
+    .hero h1 { white-space: normal; }
+  }
+
+/* ---------- Case studies carousel ---------- */
+/* Deep green, same gradient as the site's quote block */
+#results { background: linear-gradient(120deg, #1C2A23 0%, #2E4237 55%, #5D7A6B 100%); }
+#results .section-eyebrow { color: var(--waya-tan); }
+#results h2.section-title { color: var(--waya-cream); }
+#results .section-lead { color: rgba(250,247,241,0.88); }
+.cs-carousel { margin-top: 48px; }
+.cs-track {
+  list-style: none; padding: 4px 4px 30px; margin: 0 -4px;
+  display: grid; grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 3); gap: 24px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.cs-track::-webkit-scrollbar { display: none; }
+.cs-card {
+  scroll-snap-align: start;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  padding: 28px 26px 24px;
+  /* Subgrid keeps the stat, title, text, and link rows aligned across cards */
+  display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0;
+}
+.cs-kind {
+  font-family: var(--font-display); font-weight: 700; font-size: 11.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2);
+}
+.cs-card h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 21px; line-height: 1.25; letter-spacing: -0.015em;
+  color: var(--waya-charcoal); margin-top: 10px; text-wrap: balance;
+}
+.cs-card > p:not(.cs-kind) { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-1); font-size: 14.5px; line-height: 1.55; color: var(--fg-2); }
+.cs-more {
+  justify-self: start; align-self: end; margin-top: 18px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  color: var(--waya-rust);
+}
+.cs-all { margin-top: 22px; text-align: center; }
+.cs-all a { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-cream); border-bottom: 1px solid var(--waya-tan); padding-bottom: 2px; }
+.cs-all a:hover { color: var(--waya-tan); }
+.cs-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cs-controls { margin-top: 6px; display: flex; gap: 18px; align-items: center; justify-content: center; }
+.cs-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--border-1); background: var(--waya-cream);
+  color: var(--waya-rust); font-size: 24px; line-height: 1;
+  font-family: var(--font-display); cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard);
+}
+.cs-btn:hover { background: var(--waya-tan); }
+.cs-btn:disabled { opacity: 0.3; cursor: default; background: var(--waya-cream); }
+.cs-dots { display: flex; gap: 10px; }
+.cs-dot {
+  width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0;
+  background: rgba(250,247,241,0.3); cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard);
+}
+.cs-dot.active { background: var(--waya-tan); }
+@media (max-width: 960px) {
+  .cs-track { grid-auto-columns: calc((100% - 24px) / 2); }
+}
+@media (max-width: 640px) {
+  .cs-track { grid-auto-columns: 86%; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .cs-track { scroll-behavior: auto; } }
+
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=lean-ai-cohort&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =============== HERO =============== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>4 weeks to increase your margins</h1>
+      <p class="hero-subtitle">Lean AI for mission-driven operators</p>
+      <p class="sub">
+        Hands-on program led by Lean Operators who consistently grew margins by 3–5x. Find what is hurting your margin, fix the root cause, and keep the method running inside the AI assistant you already use.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=lean-ai-cohort&utm_content=hero">Apply for the Program</a>
+        <a class="btn-ghost-dark" href="#curriculum">See the curriculum</a>
+      </div>
+      <div class="hero-meta">
+        <span>5–7 operators per cohort</span>
+        <span>4 weeks</span>
+        <span>2 sessions per week</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== CURRICULUM (the four modules) =============== -->
+<section id="curriculum" class="curriculum">
+  <div class="container">
+    <div class="section-eyebrow">The Curriculum</div>
+    <p class="section-lead">
+      Lean AI runs on Lean modules, including A3 thinking, root cause and gap analysis. We work on increasing your margins from week one, and teach you how to use Lean AI to improve your operations and bottom line.
+    </p>
+
+    <div class="module-stack">
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">01</span>
+          <div class="icon"><img src="/assets/icons/goal.png" alt="Goal mark"></div>
+          <div class="module-tag">Module One</div>
+          <div class="module-week">Week 1</div>
+        </div>
+        <div class="module-main">
+          <h3>Measure your margin gap</h3>
+          <p class="lede">
+            Pin the problem down with numbers: where the margin is today, where it needs to be, and how to close the gap.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Break your margin down by product, customer, and sales/marketing channel to see where it leaks.</li>
+            <li>Run a quantitative gap analysis identifying current and target states.</li>
+            <li>Write it up as an A3 you keep working from for the rest of the program.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">02</span>
+          <div class="icon"><img src="/assets/icons/process-optimization.png" alt="Process mark"></div>
+          <div class="module-tag">Module Two</div>
+          <div class="module-week">Week 2</div>
+        </div>
+        <div class="module-main">
+          <h3>Find the root causes</h3>
+          <p class="lede">
+            Go from what is happening to why it is happening. Back each root cause with operational evidence before you invest in a fix.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Tighten the problem statement against SMART-P criteria.</li>
+            <li>Run 5 Whys for a contained issue, or Fishbone when it crosses teams.</li>
+            <li>Check each root cause against on-the-ground data, so you are fixing the root problem and not a symptom.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">03</span>
+          <div class="icon"><img src="/assets/icons/north-star-badge.png" alt="North star mark"></div>
+          <div class="module-tag">Module Three</div>
+          <div class="module-week">Week 3</div>
+        </div>
+        <div class="module-main">
+          <h3>Rank the fixes</h3>
+          <p class="lede">
+            Time is money. Learn how to use impact vs effort analysis to rank your fixes by ROI so you can focus your time and effort.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>List the countermeasures for each root cause.</li>
+            <li>Score them on impact against effort.</li>
+            <li>Choose what to test first, and check it against your mission and values.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">04</span>
+          <div class="icon"><img src="/assets/icons/core-values.png" alt="Core values mark"></div>
+          <div class="module-tag">Module Four</div>
+          <div class="module-week">Week 4</div>
+        </div>
+        <div class="module-main">
+          <h3>Test, learn, and lock it in</h3>
+          <p class="lede">
+            Turn the top fixes into small experiments with clear success criteria, run them, and watch the margin move.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Design each experiment with an owner, a pass or fail number, and a date.</li>
+            <li>Run the test, learn, and revise loop. If the number doesn't move, go back to your margin gap with what you learned.</li>
+            <li>Make the fixes that work part of how the company runs, so the margin holds after the program ends.</li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============== RESULTS =============== -->
+<section id="results">
+  <div class="container">
+    <p class="section-eyebrow">Proven Results</p>
+    <h2 class="section-title">The same method, used inside real companies</h2>
+    <div class="cs-carousel" id="csCarousel" role="region" aria-roledescription="carousel" aria-label="Case studies">
+      <ul class="cs-track" id="csTrack">
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="1 of 8">
+          <p class="cs-kind">Restaurant AP automation</p>
+          <h3>Gross margin increased from 20% to 70%</h3>
+          <p>We built invoice extraction into the app and moved from batches to one invoice at a time.</p>
+          <a class="cs-more" href="/case-studies/#ap-automation-margin">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="2 of 8">
+          <p class="cs-kind">Food distribution · Warehouse</p>
+          <h3>Gross margin increased from 10% to 20–25%</h3>
+          <p>We tracked each picker's accuracy and checked only 1 in 10 carts for the most reliable pickers.</p>
+          <a class="cs-more" href="/case-studies/#warehouse-quality">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="3 of 8">
+          <p class="cs-kind">Food distribution · M&amp;A</p>
+          <h3>From $1M monthly burn to profitable</h3>
+          <p>We found the warehouse system was never updated for the new racking, and rebuilt it while triaging by hand.</p>
+          <a class="cs-more" href="/case-studies/#post-acquisition-turnaround">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="4 of 8">
+          <p class="cs-kind">Food distribution · Finance</p>
+          <h3>Cash float cut 90%, freeing $1M in working capital</h3>
+          <p>We linked each customer payment to its supplier invoice, so the supplier was paid straight from it.</p>
+          <a class="cs-more" href="/case-studies/#cash-float">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="5 of 8">
+          <p class="cs-kind">14-person startup · Planning</p>
+          <h3>ARR grew from $7.3M to $10M, profitably</h3>
+          <p>We cut seven unranked goals to three objectives set on the real bottleneck.</p>
+          <a class="cs-more" href="/case-studies/#planning-okrs">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="6 of 8">
+          <p class="cs-kind">Food distribution · Supply chain</p>
+          <h3>Revenue grew from $75M to $155M while replacing the only supplier</h3>
+          <p>We built the company's own warehouse and direct sourcing in 14 months, while the old business kept running.</p>
+          <a class="cs-more" href="/case-studies/#sole-supplier">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="7 of 8">
+          <p class="cs-kind">Food distribution · Support</p>
+          <h3>First support response cut from 22 hours to 6 minutes</h3>
+          <p>We built in-app ticket intake that routes each request to the right person automatically.</p>
+          <a class="cs-more" href="/case-studies/#customer-support">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="8 of 8">
+          <p class="cs-kind">Hospital · GI suite</p>
+          <h3>Patient wait cut from 5 months to 2</h3>
+          <p>We sped up room changeover and fixed pre-op readiness so the next patient was ready on time.</p>
+          <a class="cs-more" href="/case-studies/#hospital-patient-wait">Read more →</a>
+        </li>
+      </ul>
+
+      <div class="cs-controls">
+        <button class="cs-btn cs-prev" type="button" aria-label="Previous case study" aria-controls="csTrack">‹</button>
+        <div class="cs-dots"></div>
+        <button class="cs-btn cs-next" type="button" aria-label="Next case study" aria-controls="csTrack">›</button>
+      </div>
+    </div>
+    <p class="cs-all"><a href="/case-studies/">See all case studies →</a></p>
+  </div>
+</section>
+
+<!-- =============== HOW THE PROGRAM RUNS =============== -->
+<section id="format">
+  <div class="container">
+    <div class="section-eyebrow">How It Runs</div>
+    <h2 class="section-title">Small group of experienced operators.<br>Run by Lean experts and successful operators.</h2>
+
+    <div class="format-grid">
+      <article class="format-card">
+        <div class="tag">Every week · Group</div>
+        <h3>The group session</h3>
+        <p>A weekly group session on the Lean AI frameworks. Learn the method and from each other's margin problems.</p>
+        <div class="detail">
+          <span>Led by operators who scaled from $0 to $150M in revenue</span>
+          <span>Framework walk-throughs and live Q&amp;A</span>
+          <span>Shared learning across the program</span>
+        </div>
+      </article>
+
+      <article class="format-card">
+        <div class="tag">Every week · Private</div>
+        <h3>Your coaching hour</h3>
+        <p>One private hour each week, dedicated to your company and your margin.</p>
+        <div class="detail">
+          <span>One-on-one with Na'ama or Vince</span>
+          <span>Your numbers, your root causes, your experiments</span>
+          <span>Direct accountability, with weekly homework assignments</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PULL-QUOTE BAND =============== -->
+<section class="pullquote-band">
+  <blockquote>
+    The margin doesn't move by working harder. It moves when you fix the real cause.
+  </blockquote>
+  <div class="section-cta"><a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=lean-ai-cohort&utm_content=pullquote">Apply for the Program</a></div>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="section-eyebrow">Frequently Asked</div>
+    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about 4 Weeks to Higher Margins</h2>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Who is this program for?</summary>
+        <div class="answer">
+          <p>Mission-driven operators with a working business and a margin that is thinner than it should be. You have revenue, customers, and costs you can look at. You want to know where the money goes and fix it without cutting what the company stands for.</p>
+          <p>The program is small, 5 to 7 operators, so both the group session and your private hour stay focused on your numbers.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does the weekly commitment look like?</summary>
+        <div class="answer">
+          <p>Two sessions a week: one group session with everyone in the program, and one private hour on your company. Between sessions you pull numbers, run the frameworks in Lean AI, and run your experiments. Expect real work outside the calls.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is Lean AI?</summary>
+        <div class="answer">
+          <p>Lean AI is an MCP server, a small service you connect to your AI assistant. It adds a set of WayaFrames: A3 thinking, gap analysis, experiment design, and impact vs effort. You describe a problem in your own words, and the assistant runs the right method with you. You set it up in week one and keep it after the program.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How is this different from just asking Claude or ChatGPT?</summary>
+        <div class="answer">
+          <p>On its own, a general assistant answers whatever you ask, and it will suggest fixes before anyone knows the cause. Lean AI gives it a method: pin down the problem with numbers, find the root cause with evidence, then test a fix. The program adds people who have done it: Na'ama and Vince built that method scaling Cheetah to $150M in revenue and 350+ employees.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Who runs the sessions?</summary>
+        <div class="answer">
+          <p>Na'ama and Vince. Both are operators who have built, scaled, and rebuilt companies.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What will I have by the end?</summary>
+        <div class="answer">
+          <p>A clear path to increase your margins. A written A3 on your biggest margin problem, root causes backed by data, a ranked list of fixes, and experiments with results. You also keep Lean AI in your assistant, so you can run the same method on the next problem without us.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I join?</summary>
+        <div class="answer">
+          <p>Apply by scheduling an intro call, where we get to know you, your business, your margin challenge, and decide together whether this program is the right fit for you.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>Find what is hurting your margin, and fix it.</h2>
+  <p>Apply to be part of the 4 Weeks to Higher Margins program. We'll talk through your numbers and whether this program is the right fit.</p>
+  <div class="section-cta" style="margin-top: 40px;">
+    <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=lean-ai-cohort&utm_content=final_cta" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=lean-ai-cohort&utm_content=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<!-- =============== CASE STUDIES CAROUSEL CONTROL =============== -->
+<script>
+(function () {
+  var root = document.getElementById('csCarousel');
+  if (!root) return;
+  var track = root.querySelector('.cs-track');
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.cs-card'));
+  var dotsWrap = root.querySelector('.cs-dots');
+  var prev = root.querySelector('.cs-prev');
+  var next = root.querySelector('.cs-next');
+
+  function step() {
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
+  }
+  function perView() { return Math.max(1, Math.round((track.clientWidth + 1) / step())); }
+  // one dot per scroll position, so the last dot means the last card is visible
+  function positions() { return Math.max(1, cards.length - perView() + 1); }
+
+  var dots = [];
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    for (var n = 0; n < positions(); n++) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'cs-dot';
+      d.setAttribute('aria-label', 'Go to case study ' + (n + 1));
+      d.addEventListener('click', (function (k) { return function () { go(k); }; })(n));
+      dotsWrap.appendChild(d);
+      dots.push(d);
+    }
+    update();
+  }
+  // i is the current position; buttons move it, and swiping syncs it back from scrollLeft
+  var i = 0;
+  function go(n) {
+    i = Math.max(0, Math.min(n, positions() - 1));
+    track.scrollTo({ left: i * step() });
+    update();
+  }
+  function update() {
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+    prev.disabled = i <= 0;
+    next.disabled = i >= positions() - 1;
+  }
+  var syncTimer = null;
+  function sync() {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () {
+      i = Math.min(Math.round(track.scrollLeft / step()), positions() - 1);
+      update();
+    }, 80);
+  }
+
+  prev.addEventListener('click', function () { go(i - 1); });
+  next.addEventListener('click', function () { go(i + 1); });
+  track.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', function () { buildDots(); sync(); });
+  buildDots();
+})();
+</script>
+
+<script src="/assets/nav.js?v=5" defer></script>
+</body>
+</html>

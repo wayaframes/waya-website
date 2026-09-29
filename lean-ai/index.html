@@ -13,7 +13,7 @@
 <meta property="og:description" content="A3 problem solving inside your AI assistant. Describe a problem and Lean AI works through the root causes and the fix with you.">
 <meta property="og:url" content="https://www.wayaframes.com/lean-ai/">
 <link rel="icon" href="/assets/favicon.png">
-<link rel="stylesheet" href="/assets/styles.css?v=5">
+<link rel="stylesheet" href="/assets/styles.css?v=6">
 <script defer src="/assets/analytics.js"></script>
 <script type="application/ld+json">
 {
@@ -213,6 +213,74 @@
   font-size: 13.5px; color: var(--fg-2); font-style: italic;
 }
 
+/* ---------- Case studies carousel ---------- */
+/* Deep green, same gradient as the site's quote block */
+#case-studies { background: linear-gradient(120deg, #1C2A23 0%, #2E4237 55%, #5D7A6B 100%); }
+#case-studies .section-eyebrow { color: var(--waya-tan); }
+#case-studies h2.section-title { color: var(--waya-cream); }
+#case-studies .section-lead { color: rgba(250,247,241,0.88); }
+.cs-carousel { margin-top: 48px; }
+.cs-track {
+  list-style: none; padding: 4px 4px 30px; margin: 0 -4px;
+  display: grid; grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 3); gap: 24px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.cs-track::-webkit-scrollbar { display: none; }
+.cs-card {
+  scroll-snap-align: start;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  padding: 28px 26px 24px;
+  /* Subgrid keeps the stat, title, text, and link rows aligned across cards */
+  display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0;
+}
+.cs-kind {
+  font-family: var(--font-display); font-weight: 700; font-size: 11.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2);
+}
+.cs-card h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 21px; line-height: 1.25; letter-spacing: -0.015em;
+  color: var(--waya-charcoal); margin-top: 10px; text-wrap: balance;
+}
+.cs-card > p:not(.cs-kind) { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-1); font-size: 14.5px; line-height: 1.55; color: var(--fg-2); }
+.cs-more {
+  justify-self: start; align-self: end; margin-top: 18px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  color: var(--waya-rust);
+}
+.cs-all { margin-top: 22px; text-align: center; }
+.cs-all a { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-cream); border-bottom: 1px solid var(--waya-tan); padding-bottom: 2px; }
+.cs-all a:hover { color: var(--waya-tan); }
+.cs-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cs-controls { margin-top: 6px; display: flex; gap: 18px; align-items: center; justify-content: center; }
+.cs-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--border-1); background: var(--waya-cream);
+  color: var(--waya-rust); font-size: 24px; line-height: 1;
+  font-family: var(--font-display); cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard);
+}
+.cs-btn:hover { background: var(--waya-tan); }
+.cs-btn:disabled { opacity: 0.3; cursor: default; background: var(--waya-cream); }
+.cs-dots { display: flex; gap: 10px; }
+.cs-dot {
+  width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0;
+  background: rgba(250,247,241,0.3); cursor: pointer;
+  transition: background var(--dur-base) var(--ease-standard);
+}
+.cs-dot.active { background: var(--waya-tan); }
+@media (max-width: 960px) {
+  .cs-track { grid-auto-columns: calc((100% - 24px) / 2); }
+}
+@media (max-width: 640px) {
+  .cs-track { grid-auto-columns: 86%; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .cs-track { scroll-behavior: auto; } }
+
 /* Early access signup form */
 .signup-form-card {
   max-width: 640px; margin: 40px auto 0;
@@ -252,18 +320,8 @@
         </button>
         <div class="nav-dropdown-menu">
           <a href="/scale-up-program/">Scale Up Program</a>
-          <a href="/operations-audit/">Operations Audit</a>
           <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-          Products
-          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="/lean-ai/">Lean AI</a>
-          <a href="/pre-pmf-mcp/cohort/">Pre-PMF MCP</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
         </div>
       </div>
       <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=lean-ai&utm_content=nav">Schedule a Call</a>
@@ -348,6 +406,75 @@
         <p>Ranks competing options (gaps, experiments, fixes) by impact against effort, so you act on the two or three that matter and park the rest.</p>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- =============== CASE STUDIES (carousel) =============== -->
+<section id="case-studies">
+  <div class="container">
+    <p class="section-eyebrow">Case Studies</p>
+    <h2 class="section-title">Results from real companies</h2>
+    <p class="section-lead">The same methods Lean AI runs, used by our team inside eight companies.</p>
+
+    <div class="cs-carousel" id="csCarousel" role="region" aria-roledescription="carousel" aria-label="Case studies">
+      <ul class="cs-track" id="csTrack">
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="1 of 8">
+          <p class="cs-kind">Restaurant AP automation</p>
+          <h3>Gross margin increased from 20% to 70%</h3>
+          <p>We built invoice extraction into the app and moved from batches to one invoice at a time.</p>
+          <a class="cs-more" href="/case-studies/#ap-automation-margin">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="2 of 8">
+          <p class="cs-kind">Food distribution · Warehouse</p>
+          <h3>Gross margin increased from 10% to 20–25%</h3>
+          <p>We tracked each picker's accuracy and checked only 1 in 10 carts for the most reliable pickers.</p>
+          <a class="cs-more" href="/case-studies/#warehouse-quality">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="3 of 8">
+          <p class="cs-kind">Food distribution · M&amp;A</p>
+          <h3>From $1M monthly burn to profitable</h3>
+          <p>We found the warehouse system was never updated for the new racking, and rebuilt it while triaging by hand.</p>
+          <a class="cs-more" href="/case-studies/#post-acquisition-turnaround">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="4 of 8">
+          <p class="cs-kind">Food distribution · Finance</p>
+          <h3>Cash float cut 90%, freeing $1M in working capital</h3>
+          <p>We linked each customer payment to its supplier invoice, so the supplier was paid straight from it.</p>
+          <a class="cs-more" href="/case-studies/#cash-float">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="5 of 8">
+          <p class="cs-kind">14-person startup · Planning</p>
+          <h3>ARR grew from $7.3M to $10M, profitably</h3>
+          <p>We cut seven unranked goals to three objectives set on the real bottleneck.</p>
+          <a class="cs-more" href="/case-studies/#planning-okrs">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="6 of 8">
+          <p class="cs-kind">Food distribution · Supply chain</p>
+          <h3>Revenue grew from $75M to $155M while replacing the only supplier</h3>
+          <p>We built the company's own warehouse and direct sourcing in 14 months, while the old business kept running.</p>
+          <a class="cs-more" href="/case-studies/#sole-supplier">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="7 of 8">
+          <p class="cs-kind">Food distribution · Support</p>
+          <h3>First support response cut from 22 hours to 6 minutes</h3>
+          <p>We built in-app ticket intake that routes each request to the right person automatically.</p>
+          <a class="cs-more" href="/case-studies/#customer-support">Read more →</a>
+        </li>
+        <li class="cs-card" role="group" aria-roledescription="slide" aria-label="8 of 8">
+          <p class="cs-kind">Hospital · GI suite</p>
+          <h3>Patient wait cut from 5 months to 2</h3>
+          <p>We sped up room changeover and fixed pre-op readiness so the next patient was ready on time.</p>
+          <a class="cs-more" href="/case-studies/#hospital-patient-wait">Read more →</a>
+        </li>
+      </ul>
+
+      <div class="cs-controls">
+        <button class="cs-btn cs-prev" type="button" aria-label="Previous case study" aria-controls="csTrack">‹</button>
+        <div class="cs-dots"></div>
+        <button class="cs-btn cs-next" type="button" aria-label="Next case study" aria-controls="csTrack">›</button>
+      </div>
+    </div>
+    <p class="cs-all"><a href="/case-studies/">See all case studies →</a></p>
   </div>
 </section>
 
@@ -511,15 +638,8 @@
       <h5>Services</h5>
       <ul>
         <li><a href="/scale-up-program/">Scale Up Program</a></li>
-        <li><a href="/operations-audit/">Operations Audit</a></li>
         <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
-      </ul>
-    </div>
-    <div>
-      <h5>Products</h5>
-      <ul>
-        <li><a href="/lean-ai/">Lean AI</a></li>
-        <li><a href="/pre-pmf-mcp/cohort/">Pre-PMF MCP</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
       </ul>
     </div>
     <div>
@@ -538,6 +658,69 @@
   </div>
   <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
 </footer>
+
+<!-- =============== CASE STUDIES CAROUSEL CONTROL =============== -->
+<script>
+(function () {
+  var root = document.getElementById('csCarousel');
+  if (!root) return;
+  var track = root.querySelector('.cs-track');
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.cs-card'));
+  var dotsWrap = root.querySelector('.cs-dots');
+  var prev = root.querySelector('.cs-prev');
+  var next = root.querySelector('.cs-next');
+
+  function step() {
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
+  }
+  function perView() { return Math.max(1, Math.round((track.clientWidth + 1) / step())); }
+  // one dot per scroll position, so the last dot means the last card is visible
+  function positions() { return Math.max(1, cards.length - perView() + 1); }
+
+  var dots = [];
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    for (var n = 0; n < positions(); n++) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'cs-dot';
+      d.setAttribute('aria-label', 'Go to case study ' + (n + 1));
+      d.addEventListener('click', (function (k) { return function () { go(k); }; })(n));
+      dotsWrap.appendChild(d);
+      dots.push(d);
+    }
+    update();
+  }
+  // i is the current position; buttons move it, and swiping syncs it back from scrollLeft
+  var i = 0;
+  function go(n) {
+    i = Math.max(0, Math.min(n, positions() - 1));
+    track.scrollTo({ left: i * step() });
+    update();
+  }
+  function update() {
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+    prev.disabled = i <= 0;
+    next.disabled = i >= positions() - 1;
+  }
+  var syncTimer = null;
+  function sync() {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () {
+      i = Math.min(Math.round(track.scrollLeft / step()), positions() - 1);
+      update();
+    }, 80);
+  }
+
+  prev.addEventListener('click', function () { go(i - 1); });
+  next.addEventListener('click', function () { go(i + 1); });
+  track.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', function () { buildDots(); sync(); });
+  buildDots();
+})();
+</script>
 
 <script src="/assets/nav.js?v=5" defer></script>
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
