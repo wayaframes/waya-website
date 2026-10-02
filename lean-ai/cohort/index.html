@@ -331,6 +331,21 @@
 }
 @media (prefers-reduced-motion: reduce) { .cs-track { scroll-behavior: auto; } }
 
+
+  /* Curriculum runs into the video: a divider under the last module, and
+     the two sections share one gap instead of stacking both paddings. */
+  .module-stack .module-row:last-child { padding-bottom: 40px; }
+  #curriculum { padding-bottom: 32px; }
+  #watch { padding-top: 48px; background: var(--waya-paper); }
+  /* ---------- Video (responsive 16:9 embed, same as the Lean AI page) ---------- */
+  .video-wrap {
+    margin: 44px auto 0; max-width: 900px;
+    position: relative; aspect-ratio: 16 / 9;
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border-1); box-shadow: var(--shadow-3);
+    background: var(--waya-charcoal);
+  }
+  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 </style>
 <script type="application/ld+json">
 {
@@ -540,6 +555,23 @@
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- =============== VIDEO =============== -->
+<section id="watch">
+  <div class="container">
+    <h2 class="section-title">See our methods in action</h2>
+    <p class="section-lead">WayaFrames are far more specialized than general purpose AI and less prone to hallucinations.</p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/P5bsJ9lWhqQ?rel=0"
+        title="Lean AI working through a problem with a user"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
     </div>
   </div>
 </section>

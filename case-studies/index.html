@@ -130,6 +130,16 @@
 @media (max-width: 520px) {
   .cs-index { grid-template-columns: 1fr; }
 }
+
+/* Early access signup form (same card as the Lean AI page) */
+.signup-form-card {
+  max-width: 640px; margin: 40px auto 0;
+  background: var(--waya-cream);
+  border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: var(--shadow-1);
+  padding: 12px;
+}
+.signup-form-card iframe { width: 100%; height: 469px; border: none; border-radius: 8px; display: block; }
 </style>
 </head>
 <body>
@@ -474,6 +484,36 @@
   </div>
 </section>
 
+<!-- =============== EARLY ACCESS SIGNUP =============== -->
+<section id="early-access" class="bg-paper">
+  <div class="container">
+    <p class="section-eyebrow">Early Access</p>
+    <h2 class="section-title">Run these methods with Lean AI</h2>
+    <p class="section-lead">Leave your details and we'll reach out about getting you connected to Lean AI.</p>
+    <div class="signup-form-card">
+      <iframe
+          src="https://api.leadconnectorhq.com/widget/form/ovuQkgpzBEHY7DhfyU1j"
+          style="width:100%;height:100%;border:none;border-radius:8px"
+          id="inline-ovuQkgpzBEHY7DhfyU1j"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Waya OS Pro MCP curious"
+          data-height="469"
+          data-layout-iframe-id="inline-ovuQkgpzBEHY7DhfyU1j"
+          data-form-id="ovuQkgpzBEHY7DhfyU1j"
+          data-cookie-consent="true"
+          data-cookie-consent-provider="auto"
+          title="Lean AI early access signup form">
+      </iframe>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
@@ -517,5 +557,6 @@
 </footer>
 
 <script src="/assets/nav.js?v=6" defer></script>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body>
 </html>
