@@ -248,6 +248,30 @@
   .cmp-head div:last-child { background: var(--waya-sage) !important; color: var(--waya-cream) !important; }
 
 
+  /* ---------- Effort vs impact planner ---------- */
+  .plan { background: var(--waya-paper); }
+  .plan-grid { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .cands { display: flex; flex-direction: column; gap: 10px; }
+  .cand { display: grid; grid-template-columns: 24px 1fr auto; gap: 14px; align-items: center; text-align: left; background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 12px; padding: 14px 16px; cursor: pointer; font-family: var(--font-body); font-size: 15px; color: var(--waya-ink); transition: border-color var(--dur-base), box-shadow var(--dur-base); }
+  .cand .box { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--waya-fog); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 13px; }
+  .cand[aria-pressed="true"] { border-color: var(--waya-sage); box-shadow: var(--shadow-2); }
+  .cand[aria-pressed="true"] .box { background: var(--waya-sage); border-color: var(--waya-sage); }
+  .cand .eff { font-family: var(--font-display); font-size: 12px; color: var(--fg-2); }
+  .quad { position: relative; aspect-ratio: 1.15; background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 20px; box-shadow: var(--shadow-1); }
+  .quad::before, .quad::after { content: ''; position: absolute; background: var(--border-1); }
+  .quad::before { left: 50%; top: 16px; bottom: 16px; width: 1px; } .quad::after { top: 50%; left: 16px; right: 16px; height: 1px; }
+  .quad .ql { position: absolute; font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); }
+  .quad .qd { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--waya-fog); transform: translate(-50%, -50%) scale(0.8); transition: all 400ms var(--ease-standard); }
+  .quad .qd.on { background: var(--waya-sage); transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 0 6px rgba(106,157,138,0.2); }
+  .quad .qd.on.bad { background: var(--waya-rust); box-shadow: 0 0 0 6px rgba(209,108,2,0.18); }
+  .budget { margin-top: 22px; }
+  .budget .row { display: flex; justify-content: space-between; font-family: var(--font-display); font-size: 13px; color: var(--fg-2); margin-bottom: 8px; }
+  .budget .t { height: 12px; border-radius: 8px; background: var(--waya-cream); border: 1px solid var(--border-1); overflow: hidden; }
+  .budget .t i { display: block; height: 100%; width: 0; background: var(--waya-sage); transition: width 500ms var(--ease-standard), background 300ms; }
+  .budget .t i.over { background: var(--waya-rust); }
+  .budget-msg { margin-top: 10px; font-size: 14px; color: var(--waya-ink); min-height: 22px; }
+
+
   /* ---------- Fusion overrides ---------- */
   .sn-hero h1 { font-size: min(54px, calc((100vw - 64px) / 10)); max-width: 760px; }
   /* Second headline line: smaller so the whole sentence sits on one line under line one. */
@@ -263,6 +287,14 @@
   .lab-hero { background: var(--waya-paper); border-bottom: 0; padding: 104px 32px; }
   .lab-hero h2 { font-family: var(--font-display); font-weight: 700; font-size: min(48px, calc((100vw - 64px) / 11)); line-height: 1.06; letter-spacing: -0.025em; color: var(--waya-charcoal); text-wrap: balance; }
   .lab-hero .section-eyebrow { text-align: left; }
+  .lab-hero h2 .ln { display: block; }
+  .lab-hero h2 .ln + .ln { margin-top: 6px; }
+  /* Channel states in Build: new, kept, cut, not tried yet. */
+  .viz .c .tg { font-style: normal; margin-left: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 6px; border-radius: 999px; background: var(--waya-mustard); color: var(--waya-ink); vertical-align: 1px; }
+  .viz .c.off .tg { background: rgba(250,247,241,0.25); color: var(--waya-cream); display: inline-block; text-decoration: none; }
+  .viz .c.kept { border-color: rgba(250,247,241,0.45); }
+  .viz .c.later { animation-name: rise-later; border-style: dashed; }
+  @keyframes rise-later { to { opacity: 0.3; transform: none; } }
   .meter i { transition: width 700ms var(--ease-standard), background 500ms; }
   .meter i.crossed { background: var(--waya-sage); }
   .meter .goal::after { content: 'PMF'; position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%); font-family: var(--font-display); font-size: 9px; letter-spacing: 0.12em; color: rgba(250,247,241,0.7); }
@@ -272,7 +304,7 @@
   .cmp { margin-top: 32px; }
 
   @media (max-width: 960px) {
-    .pile-wrap, .lab-hero .grid, .loop-grid, .rank-grid { grid-template-columns: 1fr; }
+    .pile-wrap, .lab-hero .grid, .loop-grid, .rank-grid, .plan-grid { grid-template-columns: 1fr; }
     .sn-legend { display: none; }
     .inputs { flex-direction: row; align-items: center; }
     .inputs .doc { flex: 1; }
@@ -341,7 +373,7 @@
   <div class="grid">
     <div>
       <div class="section-eyebrow">Answers, not output</div>
-      <h2>Everyone has AI. Few know what to build for paying customers.</h2>
+      <h2><span class="ln">Everyone has AI.</span><span class="ln">Few know what to build for paying customers.</span></h2>
       <p class="sub">Test assumptions with real customers, read the evidence, and build only what they'll pay for.</p>
       <div class="hero-cta">
         <a class="btn-rust" href="#loop">See how it works</a>
@@ -463,7 +495,7 @@
         <div class="b">The same rigor investors look for when you raise.</div></div></button>
     </div>
 
-    <h3 class="cmp-title">AI tools make more. This finds what's true.</h3>
+    <h3 class="cmp-title">AI tools make more. Waya helps you find the true signal.</h3>
     <div class="cmp">
       <div class="cmp-row cmp-head"><div>Generic AI tools</div><div>The Experiment System</div></div>
       <div class="cmp-row"><div>Generate more pages, posts, and features</div><div>Test the riskiest assumption first</div></div>
@@ -476,8 +508,34 @@
   </div>
 </section>
 
+<!-- =============== EFFORT VS IMPACT =============== -->
+<section class="plan" id="plan">
+  <div class="container">
+    <div class="section-eyebrow">Budget</div>
+    <h2 class="section-title">Spend effort where the impact is.</h2>
+    <p class="section-lead">Pick this sprint's work. Watch the budget.</p>
+    <div class="plan-grid">
+      <div>
+        <div class="cands" id="cands"></div>
+        <div class="budget">
+          <div class="row"><span>Sprint budget</span><span id="budTxt">0 / 10 days</span></div>
+          <div class="t"><i id="budBar"></i></div>
+          <div class="budget-msg" id="budMsg"></div>
+        </div>
+      </div>
+      <div class="quad" id="quad">
+        <span class="ql" style="left: 18px; top: 14px;">Quick wins</span>
+        <span class="ql" style="right: 18px; top: 14px;">Big bets</span>
+        <span class="ql" style="left: 18px; bottom: 14px;">Fill-ins</span>
+        <span class="ql" style="right: 18px; bottom: 14px;">Money pits</span>
+        <span class="ql" style="left: 50%; bottom: -26px; transform: translateX(-50%);">Effort →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- =============== PROGRAM BRIDGE =============== -->
-<section id="program" class="bg-paper">
+<section id="program">
   <div class="container">
     <div class="section-eyebrow">Where you run it</div>
     <h2 class="section-title">Available today in 12 Weeks to PMF.</h2>
@@ -672,28 +730,35 @@
   (function () {
     var STAGES = ['Define', 'Build', 'Learn', 'Track', 'Analyze'];
     var KEYS = ['Who', 'Why', 'What', 'How'];
-    var CHANNELS = ['Landing pages', 'Social campaigns', 'Email', 'SEO / AEO', 'Ads', 'In-person testing'];
+    var CHANNELS = ['In-person testing', 'Social media', 'Email', 'Landing pages', 'SEO / AEO', 'Ads'];
+    // Channel state per round: n = new this round, k = kept, x = cut, '' = not tried yet.
+    var CH_NOTE = [
+      'Start where you can hear customers',
+      'Added social and email',
+      'Cut social · added landing pages and SEO / AEO',
+      'Cut SEO / AEO · ads only now that the message works'
+    ];
     var R = [
-      { a: ['Small businesses', 'Save time', 'A reporting app', 'Social media'],
-        ch: [0, 1, 2, 3, 4, 5], conv: 6,
+      { a: ['Small businesses', 'Save time', 'A reporting app', 'In-person conversations'],
+        ch: ['n', '', '', '', '', ''], conv: 6,
         quote: 'We don’t really do reporting.', by: 'Small business owner',
         lesson: 'Small businesses aren’t the buyer. Agencies kept showing up.',
-        pass: 10, exps: [['Social ads', 4, 'kill'], ['Landing page', 14, 'keep'], ['Cold email', 8, 'pivot']], signal: 12 },
+        pass: 10, exps: [['Coffee chats', 14, 'keep'], ['Pop-up demo', 4, 'kill'], ['Meetup pitch', 8, 'pivot']], signal: 12 },
       { a: ['Marketing agencies', 'Faster client reports', 'A reporting dashboard', 'LinkedIn'],
-        ch: [0, 1, 4], conv: 14,
+        ch: ['k', 'n', 'n', '', '', ''], conv: 14,
         quote: 'Client reporting eats my Fridays.', by: 'Agency ops manager',
         lesson: 'The pain is real, but it belongs to the founder, not the team.',
-        pass: 30, exps: [['LinkedIn posts', 22, 'kill'], ['Demo page', 34, 'keep'], ['Agency email', 41, 'keep']], signal: 35 },
+        pass: 30, exps: [['LinkedIn posts', 22, 'kill'], ['Agency email', 41, 'keep'], ['Follow-up calls', 34, 'keep']], signal: 35 },
       { a: ['Agency founders with 5+ clients', 'Client reports in 1 hour, not 1 day', 'An auto-built weekly report', 'Agency communities'],
-        ch: [0, 2, 5], conv: 22,
+        ch: ['k', 'x', 'k', 'n', 'n', ''], conv: 22,
         quote: 'I’d pay extra if clients saw it as a premium report.', by: 'Agency founder',
         lesson: 'The report isn’t a cost saver. It’s something they can sell.',
-        pass: 50, exps: [['Community intros', 58, 'keep'], ['Sample report', 64, 'keep'], ['Paid pilot', 41, 'pivot']], signal: 62 },
+        pass: 50, exps: [['Sample report page', 64, 'keep'], ['SEO / AEO guide', 41, 'pivot'], ['Community intros', 58, 'keep']], signal: 62 },
       { a: ['Agency founders with 5+ retainer clients', 'A premium report they resell to clients', 'A white-labeled weekly report', 'Referrals inside agency communities'],
-        ch: [2, 5], conv: 31,
+        ch: ['k', 'x', 'k', 'k', 'x', 'n'], conv: 31,
         quote: 'Can I add my other two clients?', by: 'Paying customer',
         lesson: 'Customers are expanding on their own. That’s the signal.',
-        pass: 70, exps: [['Paid pilot', 82, 'keep'], ['Referral ask', 76, 'keep'], ['Annual plan', 55, 'pivot']], signal: 100 }
+        pass: 70, exps: [['Paid pilot', 82, 'keep'], ['Retargeting ads', 55, 'pivot'], ['Referral ask', 76, 'keep']], signal: 100 }
     ];
     var HEAD = {
       Define: 'Write down what you believe.', Build: 'Put it in front of customers.',
@@ -723,8 +788,12 @@
           '<span class="cap">Round ' + round + ' assumptions' + (round > 1 ? ', rewritten from what round ' + (round - 1) + ' taught' : ', still a guess') + '</span>';
       }
       if (stage === 1) {
-        return delay(CHANNELS.map(function (c, j) { var on = r.ch.indexOf(j) > -1; return '<span class="c' + (on ? ' hot' : ' off') + '" style="">' + c + '</span>'; })) +
-          '<span class="cap"><b>' + r.ch.length + ' of 6 channels</b> · ' + (round === 1 ? 'a wide net to see what bites' : 'only the ones that earned it') + '</span>';
+        var live = r.ch.filter(function (st) { return st === 'n' || st === 'k'; }).length;
+        return delay(CHANNELS.map(function (c, j) {
+          var st = r.ch[j], cls = { n: ' hot', k: ' kept', x: ' off', '': ' later' }[st];
+          return '<span class="c' + cls + '" style="">' + c + (st === 'n' ? '<i class="tg">New</i>' : st === 'x' ? '<i class="tg">Cut</i>' : '') + '</span>';
+        })) +
+          '<span class="cap"><b>' + live + (live === 1 ? ' live channel' : ' live channels') + '</b> · ' + CH_NOTE[round - 1] + '</span>';
       }
       if (stage === 2) {
         return delay(['Zoom', 'Claude', 'ChatGPT', 'Google Docs'].map(function (c) { return '<span class="c" style="">' + c + '</span>'; })) +
@@ -850,6 +919,46 @@
 
   // Tap-to-flip for touch devices.
   document.querySelectorAll('.tile').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('flip'); }); });
+
+  // ---------- Effort vs impact planner ----------
+  (function () {
+    var items = [
+      { t: 'Customer interviews', eff: 2, imp: 9 },
+      { t: 'Landing page test', eff: 1, imp: 7 },
+      { t: 'Pricing page experiment', eff: 2, imp: 8 },
+      { t: 'Full mobile app', eff: 9, imp: 5 },
+      { t: 'Brand video', eff: 5, imp: 2 },
+      { t: 'Integrations marketplace', eff: 8, imp: 3 }
+    ];
+    var cands = document.getElementById('cands'), quad = document.getElementById('quad'), BUDGET = 10;
+    items.forEach(function (it, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'cand'; b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = '<span class="box">✓</span><span>' + it.t + '</span><span class="eff">' + it.eff + (it.eff === 1 ? ' day' : ' days') + '</span>';
+      cands.appendChild(b); it.b = b;
+      var d = document.createElement('span'); d.className = 'qd' + (it.imp < 5 ? ' bad' : '');
+      d.style.left = (8 + it.eff * 9.2) + '%'; d.style.top = (100 - (8 + it.imp * 9.2)) + '%';
+      d.title = it.t; quad.appendChild(d); it.d = d;
+      b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); update(); });
+    });
+    function update() {
+      var e = 0, imp = 0, pits = 0;
+      items.forEach(function (it) {
+        var on = it.b.getAttribute('aria-pressed') === 'true';
+        it.d.classList.toggle('on', on);
+        if (on) { e += it.eff; imp += it.imp; if (it.imp < 5) pits++; }
+      });
+      var bar = document.getElementById('budBar');
+      bar.style.width = Math.min(100, e / BUDGET * 100) + '%'; bar.classList.toggle('over', e > BUDGET);
+      document.getElementById('budTxt').textContent = e + ' / ' + BUDGET + ' days';
+      var msg = '';
+      if (e > BUDGET) msg = 'Over budget. Something has to wait.';
+      else if (pits) msg = 'Low-impact work in the sprint. Is it testing an assumption?';
+      else if (e > 0 && e <= BUDGET && imp >= 20) msg = 'High impact, inside budget. That is the plan.';
+      document.getElementById('budMsg').textContent = msg;
+    }
+    // Pre-select one item so the widget reads as interactive on first view.
+    items[0].b.setAttribute('aria-pressed', 'true'); update();
+  })();
 
 </script>
 <script src="/assets/nav.js?v=6" defer></script>
