@@ -254,12 +254,18 @@
   .sn-hero .h1-next {
     margin-top: 18px; font-family: var(--font-display); font-weight: 600;
     font-size: min(30px, calc((100vw - 64px) / 16)); line-height: 1.2; letter-spacing: -0.02em;
-    color: var(--waya-mustard); max-width: 620px;
+    color: var(--waya-mustard); white-space: nowrap;
   }
+  @media (max-width: 640px) { .sn-hero .h1-next { white-space: normal; } }
   .sn-hero .sub { color: rgba(250,247,241,0.85); }
   .lab-hero { background: var(--waya-paper); border-bottom: 0; padding: 104px 32px; }
   .lab-hero h2 { font-family: var(--font-display); font-weight: 700; font-size: min(48px, calc((100vw - 64px) / 11)); line-height: 1.06; letter-spacing: -0.025em; color: var(--waya-charcoal); text-wrap: balance; }
   .lab-hero .section-eyebrow { text-align: left; }
+  .meter i { transition: width 700ms var(--ease-standard), background 500ms; }
+  .meter i.crossed { background: var(--waya-sage); }
+  .meter .goal::after { content: 'PMF'; position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%); font-family: var(--font-display); font-size: 9px; letter-spacing: 0.12em; color: rgba(250,247,241,0.7); }
+  .ring-center .pmf b { transition: color 500ms; }
+  .ring-center .pmf b.crossed { color: #8CC2AC; }
   .cmp-title { margin-top: 88px; font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; color: var(--waya-charcoal); text-align: center; text-wrap: balance; }
   .cmp { margin-top: 32px; }
 
@@ -323,28 +329,10 @@
     <p class="sub">Test your riskiest assumptions until you get repeat paying customers.</p>
     <div class="hero-cta">
       <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
-      <a class="btn-ghost-dark" href="#tools">See how</a>
+      <a class="btn-ghost-dark" href="#lab">See how</a>
     </div>
   </div>
   <div class="sn-legend"><span><i style="background:rgba(250,247,241,0.4)"></i>Noise</span><span><i style="background:var(--waya-mustard)"></i>Signal</span></div>
-</section>
-
-<!-- =============== TOOL PILE =============== -->
-<section id="tools">
-  <div class="container">
-    <div class="section-eyebrow">Focus</div>
-    <h2 class="section-title">Fewer tools. Sharper focus.</h2>
-    <div class="switch">
-      <span class="off" id="offLbl">Typical founder stack</span>
-      <button type="button" role="switch" aria-checked="false" id="stackSwitch" aria-label="Show the Experiment System stack"></button>
-      <span id="onLbl">With the Experiment System</span>
-    </div>
-    <div class="pile-wrap">
-      <div class="pile" id="pile"></div>
-      <div class="count"><div class="num" id="toolNum">16</div><div class="lbl">tools to pay for and learn</div></div>
-    </div>
-    <p class="illus">Illustrative stack. We pick the verified tools your stage needs, together.</p>
-  </div>
 </section>
 
 <!-- =============== EVERYONE HAS AI (live board, from C) =============== -->
@@ -363,6 +351,24 @@
       <div class="board-h"><span>Experiment board · Week 6</span><span class="live">Live</span></div>
       <div id="board"></div>
     </div>
+  </div>
+</section>
+
+<!-- =============== TOOL PILE =============== -->
+<section id="tools">
+  <div class="container">
+    <div class="section-eyebrow">Focus</div>
+    <h2 class="section-title">Fewer tools. Sharper focus.</h2>
+    <div class="switch">
+      <span class="off" id="offLbl">Typical founder stack</span>
+      <button type="button" role="switch" aria-checked="false" id="stackSwitch" aria-label="Show the Experiment System stack"></button>
+      <span id="onLbl">With the Experiment System</span>
+    </div>
+    <div class="pile-wrap">
+      <div class="pile" id="pile"></div>
+      <div class="count"><div class="num" id="toolNum">16</div><div class="lbl">tools to pay for and learn</div></div>
+    </div>
+    <p class="illus">Illustrative stack. We pick the verified tools your stage needs, together.</p>
   </div>
 </section>
 
@@ -434,7 +440,7 @@
 <section id="different">
   <div class="container">
     <div class="section-eyebrow">Why it's different</div>
-    <h2 class="section-title">Built for focus, not for more.</h2>
+    <h2 class="section-title">Built for focus, not for more output.</h2>
     <div class="tiles">
       <button class="tile" type="button"><div class="in">
         <div class="f"><svg viewBox="0 0 40 40"><rect x="5" y="10" width="30" height="20" rx="3"/><path d="M5 16h30M11 25h6"/></svg><h3>Paying customers, not opinions</h3></div>
@@ -673,7 +679,7 @@
         ch: [2, 5], conv: 31,
         quote: 'Can I add my other two clients?', by: 'Paying customer',
         lesson: 'Customers are expanding on their own. That’s the signal.',
-        pass: 70, exps: [['Paid pilot', 82, 'keep'], ['Referral ask', 76, 'keep'], ['Annual plan', 55, 'pivot']], signal: 88 }
+        pass: 70, exps: [['Paid pilot', 82, 'keep'], ['Referral ask', 76, 'keep'], ['Annual plan', 55, 'pivot']], signal: 100 }
     ];
     var HEAD = {
       Define: 'Write down what you believe.', Build: 'Put it in front of customers.',
@@ -735,9 +741,16 @@
     }
     function meter(stage) {
       var prev = round > 1 ? R[round - 2].signal : 0, end = R[round - 1].signal;
-      var p = Math.round(prev + (end - prev) * (stage + 1) / STAGES.length);
+      var last = STAGES.length - 1;
+      // Round 4 holds just under the PMF line until Analyze confirms it, then crosses.
+      var p = round === 4 && stage < last
+        ? Math.round(prev + (76 - prev) * (stage + 1) / last)
+        : Math.round(prev + (end - prev) * (stage + 1) / STAGES.length);
+      var crossed = p >= 80;
       document.getElementById('meter').style.width = p + '%';
+      document.getElementById('meter').classList.toggle('crossed', crossed);
       document.getElementById('pct').textContent = p + '%';
+      document.getElementById('pct').classList.toggle('crossed', crossed);
     }
     function chrome() {
       document.getElementById('roundK').textContent = 'Round';
