@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Experiment System – Waya</title>
+<meta name="description" content="The Experiment System finds product-market fit by testing your riskiest assumptions with paying customers — signal, not more AI output. Run it in the 12 Weeks to PMF program.">
+<!-- DESIGN DRAFT (Option C — Experiment Lab). Not for indexing until a direction is chosen;
+     the winning option moves to /pre-pmf-mcp/experiment-system/ and joins sitemap.xml. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.wayaframes.com/pre-pmf-mcp/experiment-system/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="The Experiment System – Waya">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=9">
+<script defer src="/assets/analytics.js"></script>
+<style>
+  :root { --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --border-2: rgba(56,63,59,0.28); }
+
+  /* ---------- Program nudge bar (shared by all three drafts) ---------- */
+  .nudge {
+    position: fixed; left: 50%; bottom: 20px; z-index: 40;
+    transform: translate(-50%, 140%); opacity: 0;
+    transition: transform 420ms var(--ease-standard), opacity 420ms var(--ease-standard);
+    display: flex; align-items: center; gap: 18px;
+    background: var(--waya-charcoal); color: var(--waya-cream);
+    border-radius: 999px; padding: 10px 10px 10px 24px;
+    box-shadow: var(--shadow-3); max-width: calc(100vw - 32px);
+  }
+  .nudge.show { transform: translate(-50%, 0); opacity: 1; }
+  .nudge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--waya-mustard); flex: none; animation: nudge-pulse 2s infinite; }
+  .nudge .txt { font-family: var(--font-display); font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .nudge .txt b { color: var(--waya-mustard); font-weight: 600; }
+  .nudge .btn-rust { border-radius: 999px; white-space: nowrap; }
+  .nudge-x { background: none; border: 0; color: rgba(250,247,241,0.6); font-size: 20px; cursor: pointer; padding: 0 8px; }
+  @keyframes nudge-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (max-width: 640px) {
+    .nudge { padding: 8px 8px 8px 16px; gap: 10px; }
+    .nudge .txt .long { display: none; }
+  }
+
+  /* ---------- Program bridge (12-week strip, shared) ---------- */
+  .bridge-weeks { margin: 44px auto 0; max-width: 860px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
+  .bridge-weeks span {
+    height: 44px; border-radius: 8px; background: var(--waya-paper); border: 1px solid var(--border-1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--fg-2);
+  }
+  .bridge-weeks span.exp { background: var(--waya-sage); border-color: var(--waya-sage); color: var(--waya-cream); }
+  .bridge-legend { margin: 14px auto 0; max-width: 860px; display: flex; justify-content: space-between; font-size: 13px; color: var(--fg-2); }
+  .bridge-legend b { color: var(--waya-sage); font-family: var(--font-display); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  /* ---------- Split hero with live board ---------- */
+  .lab-hero { background: var(--waya-cream); padding: 96px 32px 88px; border-bottom: 1px solid var(--border-1); }
+  .lab-hero .grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: center; }
+  .lab-hero .eyebrow { color: var(--waya-rust); }
+  .lab-hero h1 { font-family: var(--font-display); font-weight: 700; font-size: min(60px, calc((100vw - 64px) / 9)); line-height: 1.04; letter-spacing: -0.025em; color: var(--waya-charcoal); }
+  .lab-hero .sub { margin-top: 20px; font-size: 19px; line-height: 1.5; color: var(--fg-2); max-width: 480px; }
+  .lab-hero .hero-cta { justify-content: flex-start; }
+  .lab-hero .btn-ghost { display: inline-block; font-family: var(--font-display); font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 6px; border: 1px solid var(--border-2); color: var(--waya-charcoal); }
+  .board { background: var(--white); border: 1px solid var(--border-1); border-radius: 20px; box-shadow: var(--shadow-3); padding: 22px; }
+  .board-h { display: flex; justify-content: space-between; align-items: center; padding: 0 4px 14px; border-bottom: 1px solid var(--border-1); font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--waya-charcoal); }
+  .board-h .live { font-size: 12px; color: var(--waya-sage); display: flex; align-items: center; gap: 6px; }
+  .board-h .live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--waya-sage); animation: blink 1.6s infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .brow { display: grid; grid-template-columns: 1fr 120px 86px; gap: 14px; align-items: center; padding: 14px 4px; border-bottom: 1px solid var(--border-1); font-size: 14px; }
+  .brow:last-child { border-bottom: 0; }
+  .brow .a { color: var(--waya-ink); }
+  .brow .a small { display: block; font-size: 11px; color: var(--fg-2); font-family: var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brow .m { height: 8px; border-radius: 6px; background: var(--waya-paper); overflow: hidden; }
+  .brow .m i { display: block; height: 100%; background: var(--waya-sage); transition: width 900ms var(--ease-standard); }
+  .pill { text-align: center; font-family: var(--font-display); font-size: 12px; font-weight: 600; padding: 5px 0; border-radius: 999px; background: var(--waya-paper); color: var(--fg-2); transition: all 400ms; }
+  .pill.keep { background: var(--waya-mint); color: var(--waya-charcoal); }
+  .pill.kill { background: rgba(209,108,2,0.12); color: var(--waya-rust); }
+  .pill.run { background: rgba(234,182,47,0.22); color: #8a6408; }
+
+  /* ---------- Simulator ---------- */
+  .sim { background: var(--waya-charcoal); color: var(--waya-cream); }
+  .sim .section-title { color: var(--waya-cream); }
+  .sim .section-eyebrow { color: var(--waya-mustard); }
+  .sim-grid { margin-top: 52px; display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
+  .ctrl h4 { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,247,241,0.55); margin: 0 0 12px; }
+  .ctrl h4 + .opts { margin-bottom: 28px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { background: rgba(250,247,241,0.06); border: 1px solid rgba(250,247,241,0.18); color: var(--waya-cream); border-radius: 10px; padding: 10px 14px; font-family: var(--font-display); font-size: 14px; font-weight: 500; cursor: pointer; transition: all var(--dur-base); }
+  .opt b { color: var(--waya-mustard); margin-right: 6px; font-weight: 600; }
+  .opt[aria-pressed="true"] { background: var(--waya-cream); color: var(--waya-charcoal); border-color: var(--waya-cream); }
+  .opt[aria-pressed="true"] b { color: var(--waya-rust); }
+  .run-btn { margin-top: 6px; width: 100%; padding: 16px; font-size: 15px; border: 0; }
+  .run-btn[disabled] { opacity: 0.5; cursor: default; }
+  .out { background: rgba(250,247,241,0.05); border: 1px solid rgba(250,247,241,0.12); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; gap: 24px; }
+  .out-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .stat { background: rgba(250,247,241,0.06); border-radius: 14px; padding: 16px 18px; }
+  .stat small { display: block; font-family: var(--font-display); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(250,247,241,0.55); }
+  .stat b { display: block; margin-top: 6px; font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+  .pmf-meter .row { display: flex; justify-content: space-between; font-family: var(--font-display); font-size: 13px; color: rgba(250,247,241,0.7); margin-bottom: 10px; }
+  .pmf-meter .row b { color: var(--waya-mustard); }
+  .pmf-track { position: relative; height: 18px; border-radius: 10px; background: rgba(250,247,241,0.1); }
+  .pmf-track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 10px; width: 0; background: linear-gradient(90deg, var(--waya-sage), var(--waya-mustard)); transition: width 1000ms var(--ease-standard); }
+  .pmf-track .goal { position: absolute; left: 80%; top: -6px; bottom: -6px; width: 2px; background: var(--waya-cream); }
+  .pmf-track .goal::after { content: 'Strong PMF signal'; position: absolute; top: 28px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; color: rgba(250,247,241,0.7); font-family: var(--font-display); }
+  .log { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 120px; }
+  .log div { display: grid; grid-template-columns: 74px 1fr auto; gap: 12px; align-items: center; font-size: 14px; padding: 10px 14px; border-radius: 10px; background: rgba(250,247,241,0.05); animation: slidein 400ms var(--ease-standard); }
+  .log .r { font-family: var(--font-display); font-size: 12px; color: rgba(250,247,241,0.55); letter-spacing: 0.08em; text-transform: uppercase; }
+  .log .v { font-family: var(--font-display); font-weight: 600; font-size: 12px; padding: 4px 10px; border-radius: 999px; }
+  .log .v.keep { background: var(--waya-sage); } .log .v.pivot { background: var(--waya-rust); } .log .v.kill { background: rgba(250,247,241,0.2); }
+  .log .empty { display: block; background: none; color: rgba(250,247,241,0.45); padding: 0; font-size: 14px; }
+  @keyframes slidein { from { opacity: 0; transform: translateY(-6px); } }
+  .sim-done { display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px 22px; border-radius: 14px; background: var(--waya-mustard); color: var(--waya-ink); font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+  .sim-done.show { display: flex; }
+  .sim-note { margin-top: 14px; font-size: 12px; color: rgba(250,247,241,0.45); }
+
+  /* ---------- Call to insight ---------- */
+  .calls-grid { margin-top: 52px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+  .transcript { background: var(--white); border: 1px solid var(--border-1); border-radius: 18px; padding: 26px 28px; box-shadow: var(--shadow-1); font-size: 16px; line-height: 1.7; color: var(--waya-ink); }
+  .transcript .who { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2); margin-top: 14px; }
+  .transcript .who:first-child { margin-top: 0; }
+  .hl { border-radius: 4px; padding: 1px 3px; transition: background 500ms, box-shadow 500ms; }
+  .hl.on[data-t="pain"] { background: rgba(209,108,2,0.16); box-shadow: inset 0 -2px 0 var(--waya-rust); }
+  .hl.on[data-t="intent"] { background: rgba(234,182,47,0.25); box-shadow: inset 0 -2px 0 var(--waya-mustard); }
+  .hl.on[data-t="pay"] { background: var(--waya-mint); box-shadow: inset 0 -2px 0 var(--waya-sage); }
+  .buckets { display: flex; flex-direction: column; gap: 14px; }
+  .bucket { border-radius: 16px; padding: 18px 20px; border: 1px solid var(--border-1); background: var(--waya-cream); min-height: 96px; }
+  .bucket h4 { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .bucket[data-t="pain"] h4 { color: var(--waya-rust); } .bucket[data-t="intent"] h4 { color: #8a6408; } .bucket[data-t="pay"] h4 { color: var(--waya-sage); }
+  .bucket .tag { display: inline-block; margin: 0 6px 6px 0; font-size: 14px; padding: 6px 12px; border-radius: 8px; background: var(--white); border: 1px solid var(--border-1); animation: slidein 400ms var(--ease-standard); }
+  .calls-ctrl { margin-top: 20px; text-align: center; }
+  .calls-ctrl button { background: none; border: 1px solid var(--border-2); border-radius: 999px; padding: 8px 16px; font-family: var(--font-display); font-size: 13px; cursor: pointer; color: var(--waya-charcoal); }
+
+  /* ---------- Effort vs impact planner ---------- */
+  .plan { background: var(--waya-paper); }
+  .plan-grid { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .cands { display: flex; flex-direction: column; gap: 10px; }
+  .cand { display: grid; grid-template-columns: 24px 1fr auto; gap: 14px; align-items: center; text-align: left; background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 12px; padding: 14px 16px; cursor: pointer; font-family: var(--font-body); font-size: 15px; color: var(--waya-ink); transition: border-color var(--dur-base), box-shadow var(--dur-base); }
+  .cand .box { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--waya-fog); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 13px; }
+  .cand[aria-pressed="true"] { border-color: var(--waya-sage); box-shadow: var(--shadow-2); }
+  .cand[aria-pressed="true"] .box { background: var(--waya-sage); border-color: var(--waya-sage); }
+  .cand .eff { font-family: var(--font-display); font-size: 12px; color: var(--fg-2); }
+  .quad { position: relative; aspect-ratio: 1.15; background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 20px; box-shadow: var(--shadow-1); }
+  .quad::before, .quad::after { content: ''; position: absolute; background: var(--border-1); }
+  .quad::before { left: 50%; top: 16px; bottom: 16px; width: 1px; } .quad::after { top: 50%; left: 16px; right: 16px; height: 1px; }
+  .quad .ql { position: absolute; font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); }
+  .quad .qd { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--waya-fog); transform: translate(-50%, -50%) scale(0.8); transition: all 400ms var(--ease-standard); }
+  .quad .qd.on { background: var(--waya-sage); transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 0 6px rgba(106,157,138,0.2); }
+  .quad .qd.on.bad { background: var(--waya-rust); box-shadow: 0 0 0 6px rgba(209,108,2,0.18); }
+  .budget { margin-top: 22px; }
+  .budget .row { display: flex; justify-content: space-between; font-family: var(--font-display); font-size: 13px; color: var(--fg-2); margin-bottom: 8px; }
+  .budget .t { height: 12px; border-radius: 8px; background: var(--waya-cream); border: 1px solid var(--border-1); overflow: hidden; }
+  .budget .t i { display: block; height: 100%; width: 0; background: var(--waya-sage); transition: width 500ms var(--ease-standard), background 300ms; }
+  .budget .t i.over { background: var(--waya-rust); }
+  .budget-msg { margin-top: 10px; font-size: 14px; color: var(--waya-ink); min-height: 22px; }
+
+  /* ---------- Comparison ---------- */
+  .cmp { margin: 52px auto 0; max-width: 860px; border: 1px solid var(--border-1); border-radius: 20px; overflow: hidden; background: var(--white); }
+  .cmp-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .cmp-row + .cmp-row { border-top: 1px solid var(--border-1); }
+  .cmp-row div { padding: 18px 24px; font-size: 15.5px; line-height: 1.4; }
+  .cmp-row div:first-child { color: var(--fg-2); }
+  .cmp-row div:last-child { background: rgba(211,233,224,0.45); color: var(--waya-charcoal); font-weight: 600; font-family: var(--font-display); }
+  .cmp-head div { font-family: var(--font-display); font-size: 12px !important; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+  .cmp-head div:last-child { background: var(--waya-sage) !important; color: var(--waya-cream) !important; }
+
+  @media (max-width: 960px) {
+    .lab-hero .grid, .sim-grid, .calls-grid, .plan-grid { grid-template-columns: 1fr; }
+    .out-top { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .lab-hero { padding: 64px 20px; }
+    .out { padding: 20px; }
+    .out-top { grid-template-columns: 1fr; }
+    .brow { grid-template-columns: 1fr 64px 70px; gap: 10px; }
+    .cmp-row div { padding: 14px 14px; font-size: 14px; }
+    .bridge-weeks span { height: 34px; font-size: 10px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- =============== HERO =============== -->
+<section class="lab-hero">
+  <div class="grid">
+    <div>
+      <div class="eyebrow">The Experiment System</div>
+      <h1>Everyone has AI. Few have answers.</h1>
+      <p class="sub">A lab for your startup: test assumptions with real customers, read the evidence, and build only what the market asks for.</p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="#simulator">Run a test experiment</a>
+        <a class="btn-ghost" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
+      </div>
+    </div>
+    <div class="board" aria-label="Example experiment board">
+      <div class="board-h"><span>Experiment board · Week 6</span><span class="live">Live</span></div>
+      <div id="board"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SIMULATOR =============== -->
+<section class="sim" id="simulator">
+  <div class="container">
+    <div class="section-eyebrow">Try it</div>
+    <h2 class="section-title">Run an experiment in 10 seconds.</h2>
+    <div class="sim-grid">
+      <div class="ctrl">
+        <h4>1 · Pick an assumption</h4>
+        <div class="opts" data-group="a">
+          <button class="opt" type="button" data-v="Who" aria-pressed="true"><b>Who</b>Ideal customer</button>
+          <button class="opt" type="button" data-v="Why" aria-pressed="false"><b>Why</b>Value proposition</button>
+          <button class="opt" type="button" data-v="What" aria-pressed="false"><b>What</b>User experience</button>
+          <button class="opt" type="button" data-v="How" aria-pressed="false"><b>How</b>Distribution</button>
+        </div>
+        <h4>2 · Pick a channel</h4>
+        <div class="opts" data-group="c">
+          <button class="opt" type="button" data-v="Landing page" aria-pressed="true">Landing page</button>
+          <button class="opt" type="button" data-v="Social" aria-pressed="false">Social</button>
+          <button class="opt" type="button" data-v="Email" aria-pressed="false">Email</button>
+          <button class="opt" type="button" data-v="Ads" aria-pressed="false">Ads</button>
+          <button class="opt" type="button" data-v="In-person" aria-pressed="false">In-person</button>
+        </div>
+        <button class="btn-rust run-btn" type="button" id="runBtn">Run round 1</button>
+        <p class="sim-note">A simulation. In the program, the numbers are your customers'.</p>
+      </div>
+      <div class="out">
+        <div class="out-top">
+          <div class="stat"><small>Reached</small><b id="sReach">0</b></div>
+          <div class="stat"><small>Conversations</small><b id="sConv">0</b></div>
+          <div class="stat"><small>Intent to buy</small><b id="sIntent">0</b></div>
+        </div>
+        <div class="pmf-meter">
+          <div class="row"><span>PMF signal</span><b id="sPct">0%</b></div>
+          <div class="pmf-track"><i id="sBar"></i><span class="goal"></span></div>
+        </div>
+        <div class="log" id="log"><span class="empty">Pick an assumption and a channel, then run.</span></div>
+        <div class="sim-done" id="simDone"><span>Strong signal. Now do it with your real customers.</span><a class="btn-rust" href="/pre-pmf-mcp/cohort/" style="background: var(--waya-ink);">See the 12-week program</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== CALL TO INSIGHT =============== -->
+<section id="learn">
+  <div class="container">
+    <div class="section-eyebrow">Learn</div>
+    <h2 class="section-title">Every call becomes evidence.</h2>
+    <p class="section-lead">From Zoom, Claude, ChatGPT, and Google Docs: pains, buying intent, and the features people will pay for.</p>
+    <div class="calls-grid">
+      <div class="transcript" id="transcript">
+        <div class="who">Customer · Head of Ops</div>
+        <p>Honestly, <span class="hl" data-t="pain" data-tag="Weekly reporting takes a full day">our weekly reporting eats a full day</span>. We've tried two tools already.</p>
+        <div class="who">Founder</div>
+        <p>What would it take to switch?</p>
+        <div class="who">Customer · Head of Ops</div>
+        <p>If it pulled from our CRM automatically, <span class="hl" data-t="pay" data-tag="Auto CRM sync">I'd pay for that tomorrow</span>. <span class="hl" data-t="intent" data-tag="Wants a pilot next month">Can we pilot it next month?</span> <span class="hl" data-t="pain" data-tag="Burned by tool churn">We can't afford another tool nobody uses.</span></p>
+      </div>
+      <div class="buckets">
+        <div class="bucket" data-t="pain"><h4>Pain points</h4></div>
+        <div class="bucket" data-t="intent"><h4>Intent to buy</h4></div>
+        <div class="bucket" data-t="pay"><h4>Will pay for</h4></div>
+      </div>
+    </div>
+    <div class="calls-ctrl"><button type="button" id="replayCall">Replay</button></div>
+  </div>
+</section>
+
+<!-- =============== EFFORT VS IMPACT =============== -->
+<section class="plan" id="plan">
+  <div class="container">
+    <div class="section-eyebrow">Budget</div>
+    <h2 class="section-title">Spend effort where the impact is.</h2>
+    <p class="section-lead">Pick this sprint's work. Watch the budget.</p>
+    <div class="plan-grid">
+      <div>
+        <div class="cands" id="cands"></div>
+        <div class="budget">
+          <div class="row"><span>Sprint budget</span><span id="budTxt">0 / 10 days</span></div>
+          <div class="t"><i id="budBar"></i></div>
+          <div class="budget-msg" id="budMsg"></div>
+        </div>
+      </div>
+      <div class="quad" id="quad">
+        <span class="ql" style="left: 18px; top: 14px;">Quick wins</span>
+        <span class="ql" style="right: 18px; top: 14px;">Big bets</span>
+        <span class="ql" style="left: 18px; bottom: 14px;">Fill-ins</span>
+        <span class="ql" style="right: 18px; bottom: 14px;">Money pits</span>
+        <span class="ql" style="left: 50%; bottom: -26px; transform: translateX(-50%);">Effort →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== COMPARISON =============== -->
+<section id="compare">
+  <div class="container">
+    <div class="section-eyebrow">Why it's different</div>
+    <h2 class="section-title">AI tools make more. This finds what's true.</h2>
+    <div class="cmp">
+      <div class="cmp-row cmp-head"><div>Generic AI tools</div><div>The Experiment System</div></div>
+      <div class="cmp-row"><div>Generate more pages, posts, and features</div><div>Test the riskiest assumption first</div></div>
+      <div class="cmp-row"><div>Agree with whatever you ask</div><div>Contrarian by design</div></div>
+      <div class="cmp-row"><div>Opinions and likes as validation</div><div>Paying customers as validation</div></div>
+      <div class="cmp-row"><div>A new subscription every week</div><div>A small, verified tool stack</div></div>
+      <div class="cmp-row"><div>Experiments that never end</div><div>Drop-dead dates and pass lines</div></div>
+      <div class="cmp-row"><div>Context-free output</div><div>Built from your Business Case and Mission</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PROGRAM BRIDGE =============== -->
+<section id="program" class="bg-paper">
+  <div class="container">
+    <div class="section-eyebrow">Where you run it</div>
+    <h2 class="section-title">Your lab for weeks 4–12 of 12 Weeks to PMF.</h2>
+    <div class="bridge-weeks" aria-hidden="true">
+      <span>W1</span><span>W2</span><span>W3</span><span class="exp">W4</span><span class="exp">W5</span><span class="exp">W6</span><span class="exp">W7</span><span class="exp">W8</span><span class="exp">W9</span><span class="exp">W10</span><span class="exp">W11</span><span class="exp">W12</span>
+    </div>
+    <div class="bridge-legend"><span>Ikigai · Business Case · Mission &amp; Values</span><b>The Experiment System</b></div>
+    <div class="section-cta"><a class="learn" href="/pre-pmf-mcp/cohort/">See the full 12-week curriculum →</a></div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>The simulation ends here. Your experiments don't have to.</h2>
+  <p>Run the Experiment System on your company with Na'ama and Vince. 5–7 founders. First program starts mid-November 2026.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn-rust" href="/pre-pmf-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
+    <a class="btn-ghost-dark" href="/pre-pmf-mcp/cohort/" style="padding: 16px 30px; font-size: 15px;">See the 12-week program</a>
+  </div>
+</section>
+
+
+<!-- =============== PROGRAM NUDGE =============== -->
+<aside class="nudge" id="nudge" aria-label="12 Weeks to PMF">
+  <span class="nudge-dot" aria-hidden="true"></span>
+  <span class="txt">Run this on your company <span class="long">· <b>12 Weeks to PMF</b> starts mid-November</span></span>
+  <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the program</a>
+  <button class="nudge-x" type="button" aria-label="Dismiss">×</button>
+</aside>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+
+
+<script>
+  // Program nudge: shows after the first screen, hides near the final CTA, dismissible.
+  (function () {
+    var n = document.getElementById('nudge'), closed = false;
+    var end = document.querySelector('.final-cta');
+    n.querySelector('.nudge-x').addEventListener('click', function () { closed = true; n.classList.remove('show'); });
+    function check() {
+      if (closed) return;
+      var past = window.scrollY > window.innerHeight * 0.8;
+      var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
+      n.classList.toggle('show', past && !atEnd);
+    }
+    window.addEventListener('scroll', check, { passive: true }); check();
+  })();
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function onSeen(el, fn, th) {
+    var done = false;
+    new IntersectionObserver(function (e) { if (e[0].isIntersecting && !done) { done = true; fn(); } }, { threshold: th || 0.4 }).observe(el);
+  }
+
+  // ---------- Hero board: experiments resolving in a loop ----------
+  (function () {
+    var rows = [
+      { a: 'Ops leads feel this pain weekly', k: 'Who', seq: [[30,'run','Running'],[72,'keep','Keep']] },
+      { a: 'Teams pay $49 / seat', k: 'Why', seq: [[20,'run','Running'],[44,'run','Running'],[81,'keep','Keep']] },
+      { a: 'LinkedIn reaches our ICP', k: 'How', seq: [[40,'run','Running'],[28,'kill','Pivot']] },
+      { a: 'Setup under 10 minutes', k: 'What', seq: [[15,'run','Queued'],[55,'run','Running']] }
+    ];
+    var b = document.getElementById('board');
+    rows.forEach(function (r) {
+      var d = document.createElement('div'); d.className = 'brow';
+      d.innerHTML = '<div class="a"><small>' + r.k + '</small>' + r.a + '</div><div class="m"><i style="width:0"></i></div><div class="pill">Queued</div>';
+      b.appendChild(d); r.el = d;
+    });
+    var step = 0;
+    function tick() {
+      rows.forEach(function (r) {
+        var s = r.seq[Math.min(step, r.seq.length - 1)];
+        r.el.querySelector('.m i').style.width = s[0] + '%';
+        var p = r.el.querySelector('.pill'); p.className = 'pill ' + s[1]; p.textContent = s[2];
+      });
+      step = (step + 1) % 4;
+    }
+    tick(); if (!reduce) setInterval(tick, 2200);
+  })();
+
+  // ---------- Simulator ----------
+  (function () {
+    var sel = { a: 'Who', c: 'Landing page' }, round = 0, signal = 0, tot = { r: 0, c: 0, i: 0 };
+    document.querySelectorAll('.opts').forEach(function (g) {
+      g.addEventListener('click', function (e) {
+        var b = e.target.closest('.opt'); if (!b) return;
+        g.querySelectorAll('.opt').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+        sel[g.dataset.group] = b.dataset.v;
+      });
+    });
+    // Each round teaches something: a deterministic arc so the outcome is always readable.
+    var verdicts = [['pivot','Pivot'],['keep','Keep'],['kill','Kill'],['keep','Keep'],['keep','Keep']];
+    var gains = [14, 22, 6, 24, 18];
+    function animateNum(el, to) {
+      var from = +el.textContent, t0 = performance.now();
+      (function f(now) { var k = Math.min(1, (now - t0) / 700); el.textContent = Math.round(from + (to - from) * k); if (k < 1) requestAnimationFrame(f); })(t0);
+    }
+    var btn = document.getElementById('runBtn'), log = document.getElementById('log');
+    btn.addEventListener('click', function () {
+      if (signal >= 80) { round = 0; signal = 0; tot = { r: 0, c: 0, i: 0 }; log.innerHTML = ''; document.getElementById('simDone').classList.remove('show'); }
+      var v = verdicts[round % verdicts.length];
+      if (round === 0) log.innerHTML = '';
+      tot.r += 120 + Math.round(Math.random() * 180); tot.c += 4 + Math.round(Math.random() * 6); tot.i += v[0] === 'keep' ? 2 + Math.round(Math.random() * 2) : 0;
+      signal = Math.min(100, signal + gains[round % gains.length]);
+      round++;
+      animateNum(document.getElementById('sReach'), tot.r);
+      animateNum(document.getElementById('sConv'), tot.c);
+      animateNum(document.getElementById('sIntent'), tot.i);
+      document.getElementById('sBar').style.width = signal + '%';
+      document.getElementById('sPct').textContent = signal + '%';
+      var row = document.createElement('div');
+      row.innerHTML = '<span class="r">Round ' + round + '</span><span>' + sel.a + ' · ' + sel.c + '</span><span class="v ' + v[0] + '">' + v[1] + '</span>';
+      log.insertBefore(row, log.firstChild);
+      while (log.children.length > 4) log.removeChild(log.lastChild);
+      if (signal >= 80) { document.getElementById('simDone').classList.add('show'); btn.textContent = 'Start over'; }
+      else btn.textContent = 'Run round ' + (round + 1);
+    });
+  })();
+
+  // ---------- Call to insight ----------
+  (function () {
+    var hls = Array.prototype.slice.call(document.querySelectorAll('.hl')), timers = [];
+    function play() {
+      timers.forEach(clearTimeout); timers = [];
+      hls.forEach(function (h) { h.classList.remove('on'); });
+      document.querySelectorAll('.bucket .tag').forEach(function (t) { t.remove(); });
+      hls.forEach(function (h, i) {
+        timers.push(setTimeout(function () {
+          h.classList.add('on');
+          var t = document.createElement('span'); t.className = 'tag'; t.textContent = h.dataset.tag;
+          document.querySelector('.bucket[data-t="' + h.dataset.t + '"]').appendChild(t);
+        }, reduce ? 0 : 700 + i * 1100));
+      });
+    }
+    document.getElementById('replayCall').addEventListener('click', play);
+    onSeen(document.getElementById('transcript'), play, 0.5);
+  })();
+
+  // ---------- Effort vs impact planner ----------
+  (function () {
+    var items = [
+      { t: 'Customer interviews', eff: 2, imp: 9 },
+      { t: 'Landing page test', eff: 1, imp: 7 },
+      { t: 'Pricing page experiment', eff: 2, imp: 8 },
+      { t: 'Full mobile app', eff: 9, imp: 5 },
+      { t: 'Brand video', eff: 5, imp: 2 },
+      { t: 'Integrations marketplace', eff: 8, imp: 3 }
+    ];
+    var cands = document.getElementById('cands'), quad = document.getElementById('quad'), BUDGET = 10;
+    items.forEach(function (it, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'cand'; b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = '<span class="box">✓</span><span>' + it.t + '</span><span class="eff">' + it.eff + (it.eff === 1 ? ' day' : ' days') + '</span>';
+      cands.appendChild(b); it.b = b;
+      var d = document.createElement('span'); d.className = 'qd' + (it.imp < 5 ? ' bad' : '');
+      d.style.left = (8 + it.eff * 9.2) + '%'; d.style.top = (100 - (8 + it.imp * 9.2)) + '%';
+      d.title = it.t; quad.appendChild(d); it.d = d;
+      b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); update(); });
+    });
+    function update() {
+      var e = 0, imp = 0, pits = 0;
+      items.forEach(function (it) {
+        var on = it.b.getAttribute('aria-pressed') === 'true';
+        it.d.classList.toggle('on', on);
+        if (on) { e += it.eff; imp += it.imp; if (it.imp < 5) pits++; }
+      });
+      var bar = document.getElementById('budBar');
+      bar.style.width = Math.min(100, e / BUDGET * 100) + '%'; bar.classList.toggle('over', e > BUDGET);
+      document.getElementById('budTxt').textContent = e + ' / ' + BUDGET + ' days';
+      var msg = '';
+      if (e > BUDGET) msg = 'Over budget. Something has to wait.';
+      else if (pits) msg = 'Low-impact work in the sprint. Is it testing an assumption?';
+      else if (e > 0 && e <= BUDGET && imp >= 20) msg = 'High impact, inside budget. That is the plan.';
+      document.getElementById('budMsg').textContent = msg;
+    }
+    // Pre-select one item so the widget reads as interactive on first view.
+    items[0].b.setAttribute('aria-pressed', 'true'); update();
+  })();
+
+</script>
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>

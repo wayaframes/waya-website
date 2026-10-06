@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Experiment System – Waya</title>
+<meta name="description" content="The Experiment System finds product-market fit by testing your riskiest assumptions with paying customers — signal, not more AI output. Run it in the 12 Weeks to PMF program.">
+<!-- DESIGN DRAFT (Option B — Signal from Noise). Not for indexing until a direction is chosen;
+     the winning option moves to /pre-pmf-mcp/experiment-system/ and joins sitemap.xml. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.wayaframes.com/pre-pmf-mcp/experiment-system/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="The Experiment System – Waya">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=9">
+<script defer src="/assets/analytics.js"></script>
+<style>
+  :root { --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --border-2: rgba(56,63,59,0.28); }
+
+  /* ---------- Program nudge bar (shared by all three drafts) ---------- */
+  .nudge {
+    position: fixed; left: 50%; bottom: 20px; z-index: 40;
+    transform: translate(-50%, 140%); opacity: 0;
+    transition: transform 420ms var(--ease-standard), opacity 420ms var(--ease-standard);
+    display: flex; align-items: center; gap: 18px;
+    background: var(--waya-charcoal); color: var(--waya-cream);
+    border-radius: 999px; padding: 10px 10px 10px 24px;
+    box-shadow: var(--shadow-3); max-width: calc(100vw - 32px);
+  }
+  .nudge.show { transform: translate(-50%, 0); opacity: 1; }
+  .nudge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--waya-mustard); flex: none; animation: nudge-pulse 2s infinite; }
+  .nudge .txt { font-family: var(--font-display); font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .nudge .txt b { color: var(--waya-mustard); font-weight: 600; }
+  .nudge .btn-rust { border-radius: 999px; white-space: nowrap; }
+  .nudge-x { background: none; border: 0; color: rgba(250,247,241,0.6); font-size: 20px; cursor: pointer; padding: 0 8px; }
+  @keyframes nudge-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (max-width: 640px) {
+    .nudge { padding: 8px 8px 8px 16px; gap: 10px; }
+    .nudge .txt .long { display: none; }
+  }
+
+  /* ---------- Program bridge (12-week strip, shared) ---------- */
+  .bridge-weeks { margin: 44px auto 0; max-width: 860px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
+  .bridge-weeks span {
+    height: 44px; border-radius: 8px; background: var(--waya-paper); border: 1px solid var(--border-1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--fg-2);
+  }
+  .bridge-weeks span.exp { background: var(--waya-sage); border-color: var(--waya-sage); color: var(--waya-cream); }
+  .bridge-legend { margin: 14px auto 0; max-width: 860px; display: flex; justify-content: space-between; font-size: 13px; color: var(--fg-2); }
+  .bridge-legend b { color: var(--waya-sage); font-family: var(--font-display); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  /* ---------- Particle hero ---------- */
+  .sn-hero { position: relative; background: var(--waya-ink); color: var(--waya-cream); padding: 0; min-height: 640px; overflow: hidden; display: flex; align-items: center; }
+  .sn-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sn-hero .inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; padding: 120px 32px; width: 100%; }
+  .sn-hero .eyebrow { color: var(--waya-mustard); }
+  .sn-hero h1 { font-family: var(--font-display); font-weight: 700; font-size: min(76px, calc((100vw - 64px) / 9)); line-height: 1.02; letter-spacing: -0.03em; max-width: 720px; }
+  .sn-hero h1 em { font-style: normal; color: var(--waya-mustard); }
+  .sn-hero .sub { margin-top: 22px; font-size: 20px; line-height: 1.5; color: rgba(250,247,241,0.8); max-width: 540px; }
+  .sn-hero .hero-cta { justify-content: flex-start; }
+  .sn-legend { position: absolute; z-index: 2; right: 32px; bottom: 28px; display: flex; gap: 18px; font-size: 12px; font-family: var(--font-display); letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,247,241,0.5); }
+  .sn-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+  /* ---------- Tool pile ---------- */
+  .switch { margin: 40px auto 0; display: flex; align-items: center; justify-content: center; gap: 14px; font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--fg-2); }
+  .switch button { width: 64px; height: 34px; border-radius: 999px; border: 0; background: var(--waya-fog); position: relative; cursor: pointer; transition: background var(--dur-base); }
+  .switch button::after { content: ''; position: absolute; top: 4px; left: 4px; width: 26px; height: 26px; border-radius: 50%; background: var(--white); box-shadow: var(--shadow-1); transition: transform var(--dur-base) var(--ease-standard); }
+  .switch button[aria-checked="true"] { background: var(--waya-sage); }
+  .switch button[aria-checked="true"]::after { transform: translateX(30px); }
+  .switch .on { color: var(--waya-charcoal); }
+  .pile-wrap { margin: 40px auto 0; max-width: 900px; display: grid; grid-template-columns: 1fr 200px; gap: 40px; align-items: center; }
+  .pile { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .tool { font-family: var(--font-display); font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 10px; background: var(--waya-cream); border: 1px solid var(--border-1); color: var(--waya-charcoal); transition: opacity 500ms, transform 500ms var(--ease-standard), background 500ms, color 500ms; }
+  .focused .tool { opacity: 0.18; transform: scale(0.92); text-decoration: line-through; }
+  .focused .tool.k { opacity: 1; transform: scale(1.04); text-decoration: none; background: var(--waya-charcoal); color: var(--waya-cream); border-color: var(--waya-charcoal); }
+  .count { text-align: center; }
+  .count .num { font-family: var(--font-display); font-weight: 700; font-size: 96px; line-height: 1; letter-spacing: -0.04em; color: var(--waya-rust); }
+  .count .lbl { margin-top: 8px; font-size: 14px; color: var(--fg-2); }
+  .illus { margin-top: 18px; text-align: center; font-size: 12px; color: var(--fg-2); }
+
+  /* ---------- Echo chamber slider ---------- */
+  .echo { background: var(--waya-mint); }
+  .echo-grid { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .rings { position: relative; aspect-ratio: 1; max-width: 360px; margin: 0 auto; width: 100%; }
+  .rings span { position: absolute; inset: 0; margin: auto; border-radius: 50%; border: 2px solid var(--waya-sage); opacity: 0; animation: echo 2.6s infinite; }
+  .rings span:nth-child(2) { animation-delay: 0.65s; } .rings span:nth-child(3) { animation-delay: 1.3s; } .rings span:nth-child(4) { animation-delay: 1.95s; }
+  .rings .core { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; border-radius: 50%; background: var(--waya-cream); box-shadow: var(--shadow-3); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px; z-index: 2; transition: background 500ms; }
+  .rings .core b { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--waya-charcoal); letter-spacing: -0.02em; transition: color 500ms; }
+  .rings .core small { font-size: 12px; color: var(--fg-2); letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--font-display); }
+  .rings.proof span { animation: none; opacity: 0; }
+  .rings.proof .core { background: var(--waya-rust); }
+  .rings.proof .core b, .rings.proof .core small { color: var(--waya-cream); }
+  @keyframes echo { 0% { width: 46%; height: 46%; opacity: 0.8; } 100% { width: 100%; height: 100%; opacity: 0; } }
+  .who { font-family: var(--font-display); font-weight: 700; font-size: 34px; letter-spacing: -0.02em; color: var(--waya-charcoal); min-height: 44px; }
+  .who-note { margin-top: 8px; font-size: 17px; line-height: 1.5; color: var(--waya-ink); min-height: 52px; }
+  input[type=range].ev { -webkit-appearance: none; appearance: none; width: 100%; margin-top: 30px; height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--waya-rust) var(--p, 0%), rgba(56,63,59,0.15) var(--p, 0%)); outline: none; }
+  input[type=range].ev::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: var(--waya-cream); border: 3px solid var(--waya-rust); cursor: grab; box-shadow: var(--shadow-1); }
+  input[type=range].ev::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--waya-cream); border: 3px solid var(--waya-rust); cursor: grab; }
+  .ticks { margin-top: 12px; display: flex; justify-content: space-between; font-size: 12px; color: var(--fg-2); font-family: var(--font-display); }
+
+  /* ---------- Sticky scroll steps ---------- */
+  .scrolly { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 40px; }
+  .sticky { position: sticky; top: 120px; height: 440px; border-radius: 24px; background: var(--waya-charcoal); color: var(--waya-cream); padding: 44px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+  .sticky .big { font-family: var(--font-display); font-weight: 700; font-size: 120px; line-height: 0.9; letter-spacing: -0.05em; color: var(--waya-mustard); }
+  .sticky .nm { font-family: var(--font-display); font-weight: 700; font-size: 36px; letter-spacing: -0.02em; }
+  .sticky svg { width: 100%; height: 160px; }
+  .sticky svg * { transition: opacity 500ms, transform 600ms var(--ease-standard); }
+  .prog { display: flex; gap: 6px; }
+  .prog i { flex: 1; height: 4px; border-radius: 4px; background: rgba(250,247,241,0.16); transition: background 400ms; }
+  .prog i.on { background: var(--waya-mustard); }
+  .steps-col .st { min-height: 46vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.3; transition: opacity 400ms; }
+  .steps-col .st.on { opacity: 1; }
+  .st .k { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-rust); }
+  .st h3 { margin-top: 10px; font-family: var(--font-display); font-weight: 700; font-size: 32px; line-height: 1.12; letter-spacing: -0.02em; color: var(--waya-charcoal); }
+  .st p { margin-top: 12px; font-size: 17px; line-height: 1.55; color: var(--fg-2); max-width: 420px; }
+
+  /* ---------- Drop-dead experiment card ---------- */
+  .dd { background: var(--waya-paper); }
+  .exp-card { margin: 52px auto 0; max-width: 720px; background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 22px; box-shadow: var(--shadow-3); padding: 36px 40px; }
+  .exp-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .exp-top .id { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2); }
+  .exp-top h3 { font-family: var(--font-display); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; color: var(--waya-charcoal); width: 100%; }
+  .exp-meta { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .exp-meta div { background: var(--waya-paper); border-radius: 12px; padding: 14px 16px; }
+  .exp-meta small { display: block; font-family: var(--font-display); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); }
+  .exp-meta b { display: block; margin-top: 4px; font-family: var(--font-display); font-size: 20px; color: var(--waya-charcoal); }
+  .track { margin-top: 28px; }
+  .track .row { display: flex; justify-content: space-between; font-size: 13px; color: var(--fg-2); margin-bottom: 8px; font-family: var(--font-display); }
+  .bar { position: relative; height: 14px; border-radius: 8px; background: var(--waya-paper); overflow: visible; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 8px; background: var(--waya-sage); width: 0; }
+  .bar.days i { background: var(--waya-fog); }
+  .bar .line { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--waya-rust); }
+  .bar .line::after { content: 'Pass line'; position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--waya-rust); font-family: var(--font-display); white-space: nowrap; }
+  .verdict { margin-top: 28px; display: flex; gap: 10px; }
+  .verdict span { flex: 1; text-align: center; padding: 14px; border-radius: 12px; border: 1px solid var(--border-1); font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--fg-2); transition: all 400ms; }
+  .verdict span.on { background: var(--waya-rust); border-color: var(--waya-rust); color: var(--waya-cream); transform: scale(1.04); }
+  .exp-foot { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--fg-2); }
+  .exp-foot button { background: none; border: 1px solid var(--border-2); border-radius: 999px; padding: 6px 14px; font-family: var(--font-display); font-size: 13px; cursor: pointer; color: var(--waya-charcoal); }
+
+  @media (max-width: 960px) {
+    .pile-wrap, .echo-grid, .scrolly { grid-template-columns: 1fr; }
+    .sticky { position: relative; top: 0; height: 320px; padding: 32px; }
+    .sticky .big { font-size: 80px; }
+    .steps-col .st { min-height: 0; padding: 28px 0; opacity: 1; }
+    .sn-legend { display: none; }
+  }
+  @media (max-width: 640px) {
+    .exp-card { padding: 26px 22px; }
+    .exp-meta { grid-template-columns: 1fr; }
+    .bridge-weeks span { height: 34px; font-size: 10px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- =============== PARTICLE HERO =============== -->
+<section class="sn-hero" id="snHero">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="inner">
+    <div class="eyebrow">The Experiment System</div>
+    <h1>Cut through the <em>AI noise.</em></h1>
+    <p class="sub">Find product-market fit with evidence from paying customers — not more generated output.</p>
+    <div class="hero-cta">
+      <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
+      <a class="btn-ghost-dark" href="#tools">See how</a>
+    </div>
+  </div>
+  <div class="sn-legend"><span><i style="background:rgba(250,247,241,0.4)"></i>Noise</span><span><i style="background:var(--waya-mustard)"></i>Signal</span></div>
+</section>
+
+<!-- =============== TOOL PILE =============== -->
+<section id="tools">
+  <div class="container">
+    <div class="section-eyebrow">Focus</div>
+    <h2 class="section-title">Fewer tools. Sharper focus.</h2>
+    <div class="switch">
+      <span class="off" id="offLbl">Typical founder stack</span>
+      <button type="button" role="switch" aria-checked="false" id="stackSwitch" aria-label="Show the Experiment System stack"></button>
+      <span id="onLbl">With the Experiment System</span>
+    </div>
+    <div class="pile-wrap">
+      <div class="pile" id="pile"></div>
+      <div class="count"><div class="num" id="toolNum">16</div><div class="lbl">tools to pay for and learn</div></div>
+    </div>
+    <p class="illus">Illustrative stack. We pick the verified tools your stage needs, together.</p>
+  </div>
+</section>
+
+<!-- =============== ECHO CHAMBER =============== -->
+<section class="echo" id="echo">
+  <div class="container">
+    <div class="section-eyebrow">Evidence</div>
+    <h2 class="section-title">Who said yes?</h2>
+    <div class="echo-grid">
+      <div class="rings" id="rings"><span></span><span></span><span></span><span></span>
+        <div class="core"><b id="evNum">8%</b><small>Evidence</small></div>
+      </div>
+      <div>
+        <div class="who" id="who">Your team</div>
+        <p class="who-note" id="whoNote">An echo chamber. Everyone already agrees.</p>
+        <input class="ev" type="range" min="0" max="4" step="1" value="0" id="ev" aria-label="Who validated the idea">
+        <div class="ticks"><span>Team</span><span>Friends</span><span>Survey</span><span>Call</span><span>Paid</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SCROLLY: THE FIVE LAYERS =============== -->
+<section id="layers">
+  <div class="container">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Five layers, looped until the market answers.</h2>
+    <div class="scrolly">
+      <div class="sticky" id="sticky">
+        <div class="prog"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+        <svg viewBox="0 0 400 160" id="stickyViz" aria-hidden="true"></svg>
+        <div><div class="big" id="bigN">01</div><div class="nm" id="bigName">Define</div></div>
+      </div>
+      <div class="steps-col">
+        <div class="st on" data-i="0"><div class="k">Define</div><h3>Write down what you believe.</h3><p>Who your customer is, why they buy, what they use, and how you reach them.</p></div>
+        <div class="st" data-i="1"><div class="k">Build</div><h3>Put it in front of people.</h3><p>Landing pages, social, email, SEO / AEO, ads, and in-person tests — built for you.</p></div>
+        <div class="st" data-i="2"><div class="k">Learn</div><h3>Capture every conversation.</h3><p>Zoom, Claude, ChatGPT, and Google Docs become one learning engine that checks what you hear against what you assumed.</p></div>
+        <div class="st" data-i="3"><div class="k">Track</div><h3>Watch what's working.</h3><p>Product and marketing experiments side by side. Build only what earns it.</p></div>
+        <div class="st" data-i="4"><div class="k">Analyze</div><h3>Sharpen the next round.</h3><p>Feedback and engagement decide what you test next — until the PMF signal is strong.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== DROP-DEAD DATE =============== -->
+<section class="dd" id="deadline">
+  <div class="container">
+    <div class="section-eyebrow">Discipline</div>
+    <h2 class="section-title">Every experiment has a drop-dead date.</h2>
+    <p class="section-lead">A budget, a pass line, and an end. No experiment drifts for months.</p>
+    <div class="exp-card" id="expCard">
+      <div class="exp-top"><span class="id">Experiment 03 · Distribution</span><h3>“LinkedIn outreach reaches our ideal customer.”</h3></div>
+      <div class="exp-meta">
+        <div><small>Pass line</small><b>15 booked calls</b></div>
+        <div><small>Drop-dead date</small><b>14 days</b></div>
+        <div><small>Budget</small><b>6 hours / week</b></div>
+      </div>
+      <div class="track">
+        <div class="row"><span>Booked calls</span><span id="callsTxt">0 / 15</span></div>
+        <div class="bar"><i id="callsBar"></i><span class="line" style="left: 100%"></span></div>
+      </div>
+      <div class="track">
+        <div class="row"><span>Days</span><span id="daysTxt">Day 0 of 14</span></div>
+        <div class="bar days"><i id="daysBar"></i></div>
+      </div>
+      <div class="verdict"><span data-v="keep">Keep</span><span data-v="kill">Kill</span><span data-v="pivot">Pivot</span></div>
+      <div class="exp-foot"><span id="verdictNote">Running…</span><button type="button" id="replay">Run again</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PROGRAM BRIDGE =============== -->
+<section id="program">
+  <div class="container">
+    <div class="section-eyebrow">Where you run it</div>
+    <h2 class="section-title">Weeks 4–12 of 12 Weeks to PMF run on this system.</h2>
+    <div class="bridge-weeks" aria-hidden="true">
+      <span>W1</span><span>W2</span><span>W3</span><span class="exp">W4</span><span class="exp">W5</span><span class="exp">W6</span><span class="exp">W7</span><span class="exp">W8</span><span class="exp">W9</span><span class="exp">W10</span><span class="exp">W11</span><span class="exp">W12</span>
+    </div>
+    <div class="bridge-legend"><span>Ikigai · Business Case · Mission &amp; Values</span><b>The Experiment System</b></div>
+    <div class="section-cta"><a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a></div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>Less noise. More answers.</h2>
+  <p>Run the Experiment System on your company with founders who have done it. 5–7 seats. First program starts mid-November 2026.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn-rust" href="/pre-pmf-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
+    <a class="btn-ghost-dark" href="/pre-pmf-mcp/cohort/" style="padding: 16px 30px; font-size: 15px;">See the 12-week program</a>
+  </div>
+</section>
+
+
+<!-- =============== PROGRAM NUDGE =============== -->
+<aside class="nudge" id="nudge" aria-label="12 Weeks to PMF">
+  <span class="nudge-dot" aria-hidden="true"></span>
+  <span class="txt">Run this on your company <span class="long">· <b>12 Weeks to PMF</b> starts mid-November</span></span>
+  <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the program</a>
+  <button class="nudge-x" type="button" aria-label="Dismiss">×</button>
+</aside>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+
+
+<script>
+  // Program nudge: shows after the first screen, hides near the final CTA, dismissible.
+  (function () {
+    var n = document.getElementById('nudge'), closed = false;
+    var end = document.querySelector('.final-cta');
+    n.querySelector('.nudge-x').addEventListener('click', function () { closed = true; n.classList.remove('show'); });
+    function check() {
+      if (closed) return;
+      var past = window.scrollY > window.innerHeight * 0.8;
+      var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
+      n.classList.toggle('show', past && !atEnd);
+    }
+    window.addEventListener('scroll', check, { passive: true }); check();
+  })();
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Particle field: noise that settles into a signal wave ----------
+  (function () {
+    var cv = document.getElementById('field'), hero = document.getElementById('snHero'), ctx = cv.getContext('2d');
+    var W, H, dpr = Math.min(window.devicePixelRatio || 1, 2), P = [], N = 260, t = 0, order = reduce ? 1 : 0, target = reduce ? 1 : 0;
+    function size() {
+      W = hero.clientWidth; H = hero.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    size(); window.addEventListener('resize', size);
+    for (var i = 0; i < N; i++) P.push({ x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5) * 0.004, vy: (Math.random() - 0.5) * 0.004, u: i / N, sig: i % 3 === 0 });
+    // Pointer chaos: moving over the hero stirs the noise back up a little.
+    hero.addEventListener('pointermove', function () { if (!reduce) order = Math.max(0, order - 0.04); });
+    function frame() {
+      t += 0.016; order += (target - order) * 0.012;
+      ctx.clearRect(0, 0, W, H);
+      var left = W < 960 ? 0 : W * 0.45;
+      for (var i = 0; i < N; i++) {
+        var p = P[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > 1) p.vx *= -1; if (p.y < 0 || p.y > 1) p.vy *= -1;
+        var nx = p.x * W, ny = p.y * H;
+        var sx = left + p.u * (W - left - 20), sy = H * (W < 960 ? 0.82 : 0.5) + Math.sin(p.u * 12 + t * 1.4) * H * 0.09;
+        var k = p.sig ? order : order * 0.15;
+        var x = nx + (sx - nx) * k, y = ny + (sy - ny) * k;
+        ctx.beginPath(); ctx.arc(x, y, p.sig ? 2.2 : 1.5, 0, 6.283);
+        ctx.fillStyle = p.sig ? 'rgba(234,182,47,' + (0.35 + 0.65 * order) + ')' : 'rgba(250,247,241,' + (0.35 - 0.2 * order) + ')';
+        ctx.fill();
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    // Start as pure noise, then let the signal settle out of it.
+    setTimeout(function () { target = 1; }, 900);
+    if (reduce) frame(); else requestAnimationFrame(frame);
+  })();
+
+  // ---------- Tool pile ----------
+  (function () {
+    var tools = ['AI website builder','AI copywriter','AI SDR','Chatbot','CRM','Survey tool','Analytics','Social scheduler','Ad manager','Email platform','Call transcription','AI note taker','Persona generator','Pitch deck AI','Project tracker','Landing page builder'];
+    var keep = ['CRM','Analytics','Email platform','Call transcription','Landing page builder'];
+    var pile = document.getElementById('pile');
+    tools.forEach(function (t) { var s = document.createElement('span'); s.className = 'tool' + (keep.indexOf(t) > -1 ? ' k' : ''); s.textContent = t; pile.appendChild(s); });
+    var sw = document.getElementById('stackSwitch'), num = document.getElementById('toolNum'), anim;
+    function count(from, to) {
+      clearInterval(anim); var v = from;
+      anim = setInterval(function () { v += to > v ? 1 : -1; num.textContent = v; if (v === to) clearInterval(anim); }, 55);
+    }
+    function set(on) {
+      sw.setAttribute('aria-checked', on); pile.classList.toggle('focused', on);
+      document.getElementById('onLbl').className = on ? 'on' : ''; document.getElementById('offLbl').className = on ? '' : 'on';
+      count(on ? 16 : 5, on ? 5 : 16);
+    }
+    sw.addEventListener('click', function () { set(sw.getAttribute('aria-checked') !== 'true'); });
+    document.getElementById('offLbl').className = 'on';
+    var done = false;
+    new IntersectionObserver(function (e) { if (e[0].isIntersecting && !done) { done = true; setTimeout(function () { set(true); }, 1500); } }, { threshold: 0.6 }).observe(pile);
+  })();
+
+  // ---------- Echo chamber slider ----------
+  (function () {
+    var lv = [
+      ['Your team', 'An echo chamber. Everyone already agrees.', 8],
+      ['Friends and advisors', 'Kind, supportive, and not buying.', 18],
+      ['Survey responses', 'What people say they would do.', 30],
+      ['A customer call', 'Real pain, in their words. Now ask for the money.', 60],
+      ['A paying customer', 'Proof. This is the only yes that counts.', 100]
+    ];
+    var r = document.getElementById('ev'), rings = document.getElementById('rings');
+    function set() {
+      var i = +r.value, l = lv[i];
+      document.getElementById('who').textContent = l[0];
+      document.getElementById('whoNote').textContent = l[1];
+      document.getElementById('evNum').textContent = l[2] + '%';
+      r.style.setProperty('--p', (i / 4 * 100) + '%');
+      rings.classList.toggle('proof', i === 4);
+      rings.querySelectorAll('span').forEach(function (s) { s.style.animationDuration = (1.4 + i * 0.6) + 's'; });
+    }
+    r.addEventListener('input', set); set();
+  })();
+
+  // ---------- Scrolly layers ----------
+  (function () {
+    var names = ['Define','Build','Learn','Track','Analyze'];
+    var svg = document.getElementById('stickyViz');
+    var vizzes = [
+      // Define: four assumption cards
+      '<g fill="none" stroke="rgba(250,247,241,0.5)" stroke-width="1.5">' + ['Who','Why','What','How'].map(function (w, i) { return '<rect x="' + (i * 98 + 4) + '" y="40" width="86" height="80" rx="10"/><text x="' + (i * 98 + 47) + '" y="86" fill="#EAB62F" stroke="none" font-family="Space Grotesk" font-size="18" font-weight="600" text-anchor="middle">' + w + '</text>'; }).join('') + '</g>',
+      // Build: channels fanning out from one point
+      '<g stroke="rgba(250,247,241,0.45)" stroke-width="1.5" fill="none">' + [20,50,80,110,140].map(function (y) { return '<path d="M40 80 C 160 80, 200 ' + y + ', 330 ' + y + '"/><circle cx="340" cy="' + y + '" r="7" fill="#EAB62F" stroke="none"/>'; }).join('') + '<circle cx="40" cy="80" r="14" fill="#D16C02" stroke="none"/></g>',
+      // Learn: transcript lines with highlights
+      '<g>' + [30,58,86,114].map(function (y, i) { return '<rect x="20" y="' + y + '" width="' + [300,240,330,200][i] + '" height="10" rx="5" fill="rgba(250,247,241,0.18)"/>' + (i % 2 === 0 ? '<rect x="' + (60 + i * 30) + '" y="' + y + '" width="110" height="10" rx="5" fill="#EAB62F"/>' : ''); }).join('') + '</g>',
+      // Track: bar chart
+      '<g>' + [62,30,88,45].map(function (h, i) { return '<rect x="' + (40 + i * 85) + '" y="' + (150 - h * 1.4) + '" width="54" height="' + (h * 1.4) + '" rx="6" fill="' + (i === 2 ? '#EAB62F' : 'rgba(250,247,241,0.25)') + '"/>'; }).join('') + '</g>',
+      // Analyze: loop arrow
+      '<g fill="none" stroke="#EAB62F" stroke-width="3" stroke-linecap="round"><path d="M120 80 a80 60 0 1 1 160 0 a80 60 0 1 1 -160 0"/><path d="M270 50 l12 6 -6 12"/></g><text x="200" y="86" fill="rgba(250,247,241,0.8)" font-family="Space Grotesk" font-size="16" text-anchor="middle">next round</text>'
+    ];
+    function show(i) {
+      svg.innerHTML = vizzes[i];
+      document.getElementById('bigN').textContent = '0' + (i + 1);
+      document.getElementById('bigName').textContent = names[i];
+      document.querySelectorAll('.prog i').forEach(function (b, j) { b.classList.toggle('on', j <= i); });
+      document.querySelectorAll('.st').forEach(function (s, j) { s.classList.toggle('on', j === i); });
+    }
+    show(0);
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) show(+e.target.dataset.i); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    document.querySelectorAll('.st').forEach(function (s) { io.observe(s); });
+  })();
+
+  // ---------- Drop-dead experiment simulation ----------
+  (function () {
+    var timer, card = document.getElementById('expCard');
+    function run() {
+      clearInterval(timer);
+      var d = 0, calls = 0, curve = [0,1,1,2,3,4,4,5,6,7,7,8,9,10,11];
+      document.querySelectorAll('.verdict span').forEach(function (s) { s.classList.remove('on'); });
+      document.getElementById('verdictNote').textContent = 'Running…';
+      timer = setInterval(function () {
+        d++; calls = curve[d];
+        document.getElementById('daysBar').style.width = (d / 14 * 100) + '%';
+        document.getElementById('callsBar').style.width = (calls / 15 * 100) + '%';
+        document.getElementById('daysTxt').textContent = 'Day ' + d + ' of 14';
+        document.getElementById('callsTxt').textContent = calls + ' / 15';
+        if (d === 14) {
+          clearInterval(timer);
+          document.querySelector('.verdict [data-v="pivot"]').classList.add('on');
+          document.getElementById('verdictNote').textContent = 'Missed the line. Real interest, wrong channel — pivot to email.';
+        }
+      }, reduce ? 1 : 260);
+    }
+    document.getElementById('replay').addEventListener('click', run);
+    var done = false;
+    new IntersectionObserver(function (e) { if (e[0].isIntersecting && !done) { done = true; run(); } }, { threshold: 0.5 }).observe(card);
+  })();
+
+</script>
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Experiment System – Waya</title>
+<meta name="description" content="The Experiment System finds product-market fit by testing your riskiest assumptions with paying customers — signal, not more AI output. Run it in the 12 Weeks to PMF program.">
+<!-- DESIGN DRAFT (Option A — The Loop). Not for indexing until a direction is chosen;
+     the winning option moves to /pre-pmf-mcp/experiment-system/ and joins sitemap.xml. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.wayaframes.com/pre-pmf-mcp/experiment-system/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="The Experiment System – Waya">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=9">
+<script defer src="/assets/analytics.js"></script>
+<style>
+  :root { --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --border-2: rgba(56,63,59,0.28); }
+
+  /* ---------- Program nudge bar (shared by all three drafts) ---------- */
+  .nudge {
+    position: fixed; left: 50%; bottom: 20px; z-index: 40;
+    transform: translate(-50%, 140%); opacity: 0;
+    transition: transform 420ms var(--ease-standard), opacity 420ms var(--ease-standard);
+    display: flex; align-items: center; gap: 18px;
+    background: var(--waya-charcoal); color: var(--waya-cream);
+    border-radius: 999px; padding: 10px 10px 10px 24px;
+    box-shadow: var(--shadow-3); max-width: calc(100vw - 32px);
+  }
+  .nudge.show { transform: translate(-50%, 0); opacity: 1; }
+  .nudge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--waya-mustard); flex: none; animation: nudge-pulse 2s infinite; }
+  .nudge .txt { font-family: var(--font-display); font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .nudge .txt b { color: var(--waya-mustard); font-weight: 600; }
+  .nudge .btn-rust { border-radius: 999px; white-space: nowrap; }
+  .nudge-x { background: none; border: 0; color: rgba(250,247,241,0.6); font-size: 20px; cursor: pointer; padding: 0 8px; }
+  @keyframes nudge-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (max-width: 640px) {
+    .nudge { padding: 8px 8px 8px 16px; gap: 10px; }
+    .nudge .txt .long { display: none; }
+  }
+
+  /* ---------- Program bridge (12-week strip, shared) ---------- */
+  .bridge-weeks { margin: 44px auto 0; max-width: 860px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; }
+  .bridge-weeks span {
+    height: 44px; border-radius: 8px; background: var(--waya-paper); border: 1px solid var(--border-1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--fg-2);
+  }
+  .bridge-weeks span.exp { background: var(--waya-sage); border-color: var(--waya-sage); color: var(--waya-cream); }
+  .bridge-legend { margin: 14px auto 0; max-width: 860px; display: flex; justify-content: space-between; font-size: 13px; color: var(--fg-2); }
+  .bridge-legend b { color: var(--waya-sage); font-family: var(--font-display); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  .hero h1 { font-size: min(64px, calc((100vw - 64px) / 12)); }
+
+  /* ---------- Noise vs signal toggle ---------- */
+  .ns-wrap { margin: 48px auto 0; max-width: 980px; }
+  .ns-toggle { display: flex; justify-content: center; }
+  .ns-toggle .seg { display: inline-flex; background: var(--waya-paper); border: 1px solid var(--border-1); border-radius: 999px; padding: 4px; }
+  .ns-toggle button {
+    border: 0; background: none; cursor: pointer; border-radius: 999px; padding: 10px 20px;
+    font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--fg-2);
+    transition: background var(--dur-base), color var(--dur-base);
+  }
+  .ns-toggle button[aria-pressed="true"] { background: var(--waya-charcoal); color: var(--waya-cream); }
+  .ns-stage {
+    position: relative; margin-top: 28px; height: 360px; border-radius: 24px; overflow: hidden;
+    background: var(--waya-paper); border: 1px solid var(--border-1);
+  }
+  .ns-chip {
+    position: absolute; left: 0; top: 0; white-space: nowrap;
+    font-family: var(--font-display); font-size: 13px; font-weight: 500;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--waya-cream); border: 1px solid var(--border-1); color: var(--fg-2);
+    transition: transform 900ms var(--ease-standard), opacity 600ms var(--ease-standard), background 600ms, color 600ms;
+  }
+  .ns-chip.keep { background: var(--waya-charcoal); color: var(--waya-cream); border-color: var(--waya-charcoal); }
+  .ns-caption {
+    position: absolute; left: 0; right: 0; bottom: 26px; text-align: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-rust);
+    opacity: 0; transition: opacity 500ms 500ms;
+  }
+  .signal .ns-caption { opacity: 1; }
+
+  /* ---------- The loop ---------- */
+  .loop { background: var(--waya-charcoal); color: var(--waya-cream); }
+  .loop .section-title { color: var(--waya-cream); }
+  .loop .section-eyebrow { color: var(--waya-mustard); }
+  .loop-grid { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .ring { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; margin: 0 auto; }
+  .ring svg { width: 100%; height: 100%; overflow: visible; }
+  .ring .track { fill: none; stroke: rgba(250,247,241,0.14); stroke-width: 2; stroke-dasharray: 4 8; }
+  .ring .lap { fill: none; stroke: var(--waya-mustard); stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset 600ms var(--ease-standard); }
+  .node { cursor: pointer; }
+  .node circle { fill: var(--waya-charcoal); stroke: rgba(250,247,241,0.4); stroke-width: 2; transition: fill var(--dur-base), stroke var(--dur-base), r var(--dur-base); }
+  .node text { fill: var(--waya-cream); font-family: var(--font-display); font-size: 15px; font-weight: 600; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+  .node.on circle { fill: var(--waya-rust); stroke: var(--waya-rust); }
+  .node:focus { outline: none; }
+  .node:focus-visible circle { stroke: var(--waya-mustard); stroke-width: 3; }
+  .ring-center { position: absolute; inset: 28%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .ring-center .k { font-family: var(--font-display); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,247,241,0.6); }
+  .ring-center .v { font-family: var(--font-display); font-weight: 700; font-size: 44px; letter-spacing: -0.02em; color: var(--waya-cream); line-height: 1.1; }
+  .meter { margin-top: 10px; width: 120px; height: 6px; border-radius: 6px; background: rgba(250,247,241,0.14); overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 0; background: var(--waya-mustard); transition: width 700ms var(--ease-standard); }
+  .ring-center .pmf { margin-top: 8px; font-size: 12px; color: rgba(250,247,241,0.6); }
+
+  .stage-panel { min-height: 330px; }
+  .stage-panel .n { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--waya-mustard); }
+  .stage-panel h3 { margin-top: 10px; font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em; }
+  .stage-panel p { margin-top: 12px; font-size: 17px; line-height: 1.55; color: rgba(250,247,241,0.78); max-width: 440px; }
+  .viz { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .viz .c {
+    font-family: var(--font-display); font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 10px;
+    background: rgba(250,247,241,0.08); border: 1px solid rgba(250,247,241,0.16);
+    opacity: 0; transform: translateY(8px); animation: rise 420ms var(--ease-standard) forwards;
+  }
+  .viz .c b { color: var(--waya-mustard); font-weight: 600; margin-right: 6px; }
+  .viz .bars { width: 100%; display: flex; flex-direction: column; gap: 10px; max-width: 420px; }
+  .viz .bar { display: grid; grid-template-columns: 90px 1fr 44px; gap: 12px; align-items: center; font-size: 14px; }
+  .viz .bar .t { height: 10px; border-radius: 6px; background: rgba(250,247,241,0.1); overflow: hidden; }
+  .viz .bar .t i { display: block; height: 100%; background: var(--waya-sage); width: 0; transition: width 900ms var(--ease-standard); }
+  .viz .bar.win .t i { background: var(--waya-mustard); }
+  .viz .arrow { width: 100%; font-size: 13px; color: rgba(250,247,241,0.55); }
+  .loop-ctrl { margin-top: 26px; display: flex; gap: 12px; align-items: center; font-size: 13px; color: rgba(250,247,241,0.55); }
+  .loop-ctrl button { background: none; border: 1px solid rgba(250,247,241,0.35); color: var(--waya-cream); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-family: var(--font-display); font-size: 13px; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* ---------- Risk ranking ---------- */
+  .rank-grid { margin-top: 56px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; }
+  .inputs { display: flex; flex-direction: column; gap: 14px; }
+  .doc {
+    background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 12px; padding: 16px 18px;
+    box-shadow: var(--shadow-1); font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-charcoal);
+  }
+  .doc small { display: block; margin-top: 8px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--waya-fog) 70%, transparent 70%); }
+  .doc small + small { width: 60%; }
+  .inputs .plus { text-align: center; font-family: var(--font-display); color: var(--waya-rust); font-size: 20px; }
+  .matrix { position: relative; aspect-ratio: 16 / 10; border-radius: 20px; background: var(--waya-cream); border: 1px solid var(--border-1); box-shadow: var(--shadow-1); }
+  .matrix::before, .matrix::after { content: ''; position: absolute; background: var(--border-1); }
+  .matrix::before { left: 50%; top: 18px; bottom: 18px; width: 1px; }
+  .matrix::after { top: 50%; left: 18px; right: 18px; height: 1px; }
+  .q-hot { position: absolute; right: 8px; top: 8px; width: calc(50% - 12px); height: calc(50% - 12px); border-radius: 14px; background: rgba(209,108,2,0.08); }
+  .q-hot span { position: absolute; right: 14px; top: 12px; font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--waya-rust); }
+  .axis { position: absolute; font-family: var(--font-display); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2); }
+  .axis.x { bottom: -28px; right: 0; }
+  .axis.y { top: 0; left: -10px; transform: rotate(-90deg) translateX(-100%); transform-origin: left top; }
+  .dot {
+    position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 8px;
+    transition: left 900ms var(--ease-standard), top 900ms var(--ease-standard);
+  }
+  .dot i { width: 30px; height: 30px; border-radius: 50%; background: var(--waya-fog); color: var(--waya-cream); display: flex; align-items: center; justify-content: center; font-style: normal; font-family: var(--font-display); font-weight: 700; font-size: 13px; transition: background 400ms; flex: none; }
+  .dot span { font-size: 13px; color: var(--waya-ink); white-space: nowrap; background: rgba(250,247,241,0.9); padding: 2px 6px; border-radius: 6px; }
+  .ranked .dot i { background: var(--waya-sage); }
+  .ranked .dot.top i { background: var(--waya-rust); }
+  .rank-ctrl { margin-top: 48px; text-align: center; }
+  .rank-ctrl .note { margin-top: 10px; font-size: 13px; color: var(--fg-2); }
+
+  /* ---------- Flip tiles ---------- */
+  .tiles { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tile { perspective: 900px; height: 190px; cursor: pointer; background: none; border: 0; padding: 0; text-align: left; }
+  .tile .in { position: relative; width: 100%; height: 100%; transition: transform 600ms var(--ease-standard); transform-style: preserve-3d; }
+  .tile:hover .in, .tile:focus-visible .in, .tile.flip .in { transform: rotateY(180deg); }
+  .tile .f, .tile .b { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; }
+  .tile .f { background: var(--waya-cream); border: 1px solid var(--border-1); box-shadow: var(--shadow-1); }
+  .tile .b { background: var(--waya-sage); color: var(--waya-cream); transform: rotateY(180deg); justify-content: center; font-size: 17px; line-height: 1.45; }
+  .tile svg { width: 40px; height: 40px; stroke: var(--waya-rust); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .tile h3 { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.015em; color: var(--waya-charcoal); }
+
+  @media (max-width: 960px) {
+    .loop-grid, .rank-grid { grid-template-columns: 1fr; }
+    .inputs { flex-direction: row; align-items: center; }
+    .inputs .doc { flex: 1; }
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .stage-panel { min-height: 0; }
+  }
+  @media (max-width: 640px) {
+    .tiles { grid-template-columns: 1fr; }
+    .ns-stage { height: 420px; }
+    .dot span { display: none; }
+    .bridge-weeks span { height: 34px; font-size: 10px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- =============== HERO =============== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="eyebrow">The Experiment System</div>
+      <h1>AI made building cheap. It didn't make anyone want it.</h1>
+      <p class="sub">One loop that tests your riskiest assumptions with paying customers — until the market answers.</p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
+        <a class="btn-ghost-dark" href="#loop">Watch the loop</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== NOISE VS SIGNAL =============== -->
+<section id="noise">
+  <div class="container">
+    <div class="section-eyebrow">Signal, not output</div>
+    <h2 class="section-title">More output is not more truth.</h2>
+    <div class="ns-wrap">
+      <div class="ns-toggle">
+        <div class="seg" role="group" aria-label="View">
+          <button type="button" data-mode="noise" aria-pressed="true">The AI noise</button>
+          <button type="button" data-mode="signal" aria-pressed="false">The Experiment System</button>
+        </div>
+      </div>
+      <div class="ns-stage" id="nsStage">
+        <div class="ns-caption">One riskiest assumption · One experiment · One answer from paying customers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== THE LOOP =============== -->
+<section id="loop" class="loop">
+  <div class="container">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Five layers. One loop. Repeat until PMF.</h2>
+    <div class="loop-grid">
+      <div class="ring">
+        <svg viewBox="0 0 400 400" aria-label="The experiment loop">
+          <circle class="track" cx="200" cy="200" r="160"/>
+          <circle class="lap" id="lap" cx="200" cy="200" r="160" transform="rotate(-90 200 200)"/>
+          <g id="nodes"></g>
+        </svg>
+        <div class="ring-center">
+          <div class="k">Round</div>
+          <div class="v" id="round">1</div>
+          <div class="meter"><i id="meter"></i></div>
+          <div class="pmf">PMF signal</div>
+        </div>
+      </div>
+      <div>
+        <div class="stage-panel" id="panel" aria-live="polite"></div>
+        <div class="loop-ctrl"><button type="button" id="play">Pause</button><span>Tap a stage to explore it</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== RISK RANKING =============== -->
+<section id="rank" class="bg-paper">
+  <div class="container">
+    <div class="section-eyebrow">Order of attack</div>
+    <h2 class="section-title">Test the riskiest thing first.</h2>
+    <p class="section-lead">The system reads your Business Case and Mission and Values, then ranks every assumption by risk and reward.</p>
+    <div class="rank-grid">
+      <div class="inputs">
+        <div class="doc">Business Case<small></small><small></small></div>
+        <div class="plus">+</div>
+        <div class="doc">Mission &amp; Values<small></small><small></small></div>
+      </div>
+      <div>
+        <div class="matrix" id="matrix">
+          <div class="q-hot"><span>Test first</span></div>
+          <div class="axis x">Reward →</div>
+          <div class="axis y">Risk →</div>
+        </div>
+      </div>
+    </div>
+    <div class="rank-ctrl">
+      <button class="btn-rust" type="button" id="rankBtn">Rank the assumptions</button>
+      <p class="note">Example assumptions for a B2B founder.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============== WHY IT'S DIFFERENT =============== -->
+<section id="different">
+  <div class="container">
+    <div class="section-eyebrow">Why it's different</div>
+    <h2 class="section-title">Built for focus, not for more.</h2>
+    <div class="tiles">
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><rect x="5" y="10" width="30" height="20" rx="3"/><path d="M5 16h30M11 25h6"/></svg><h3>Paying customers, not opinions</h3></div>
+        <div class="b">Validation means intent to buy — not a friendly nod.</div></div></button>
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><circle cx="14" cy="20" r="8"/><circle cx="26" cy="20" r="8"/><path d="M20 8v24"/></svg><h3>Contrarian by design</h3></div>
+        <div class="b">It pushes back on your team's echo chamber before the market does.</div></div></button>
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="22" y="6" width="12" height="12" rx="2"/><rect x="6" y="22" width="12" height="12" rx="2"/><path d="M24 28h8"/></svg><h3>A small, verified tool stack</h3></div>
+        <div class="b">Only the tools your stage needs. No subscription sprawl.</div></div></button>
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><circle cx="20" cy="21" r="13"/><path d="M20 13v8l5 4M16 4h8"/></svg><h3>Drop-dead dates</h3></div>
+        <div class="b">Every experiment has an end date and a pass or fail line.</div></div></button>
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><path d="M6 34V6M6 34h28"/><circle cx="28" cy="12" r="3"/><circle cx="14" cy="26" r="3"/><circle cx="22" cy="20" r="3"/></svg><h3>Effort vs impact, with a budget</h3></div>
+        <div class="b">We track spend and effort together, stage by stage.</div></div></button>
+      <button class="tile" type="button"><div class="in">
+        <div class="f"><svg viewBox="0 0 40 40"><path d="M20 4l4 10 10 1-8 7 3 10-9-6-9 6 3-10-8-7 10-1z"/></svg><h3>First-principles thinking</h3></div>
+        <div class="b">The same rigor investors look for when you raise.</div></div></button>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PROGRAM BRIDGE =============== -->
+<section id="program" class="bg-paper">
+  <div class="container">
+    <div class="section-eyebrow">Where you run it</div>
+    <h2 class="section-title">The Experiment System powers weeks 4–12 of 12 Weeks to PMF.</h2>
+    <div class="bridge-weeks" aria-hidden="true">
+      <span>W1</span><span>W2</span><span>W3</span><span class="exp">W4</span><span class="exp">W5</span><span class="exp">W6</span><span class="exp">W7</span><span class="exp">W8</span><span class="exp">W9</span><span class="exp">W10</span><span class="exp">W11</span><span class="exp">W12</span>
+    </div>
+    <div class="bridge-legend"><span>Ikigai · Business Case · Mission &amp; Values</span><b>The Experiment System</b></div>
+    <div class="section-cta"><a class="learn" href="/pre-pmf-mcp/cohort/">See the full 12-week curriculum →</a></div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>Stop generating. Start finding out.</h2>
+  <p>Run the Experiment System on your own company with Na'ama and Vince. 5–7 founders. First program starts mid-November 2026.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn-rust" href="/pre-pmf-mcp/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
+    <a class="btn-ghost-dark" href="/pre-pmf-mcp/cohort/" style="padding: 16px 30px; font-size: 15px;">See the 12-week program</a>
+  </div>
+</section>
+
+
+<!-- =============== PROGRAM NUDGE =============== -->
+<aside class="nudge" id="nudge" aria-label="12 Weeks to PMF">
+  <span class="nudge-dot" aria-hidden="true"></span>
+  <span class="txt">Run this on your company <span class="long">· <b>12 Weeks to PMF</b> starts mid-November</span></span>
+  <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the program</a>
+  <button class="nudge-x" type="button" aria-label="Dismiss">×</button>
+</aside>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/pre-pmf-mcp/experiment-system/">The Experiment System</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=experiment-system&utm_content=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+
+
+<script>
+  // Program nudge: shows after the first screen, hides near the final CTA, dismissible.
+  (function () {
+    var n = document.getElementById('nudge'), closed = false;
+    var end = document.querySelector('.final-cta');
+    n.querySelector('.nudge-x').addEventListener('click', function () { closed = true; n.classList.remove('show'); });
+    function check() {
+      if (closed) return;
+      var past = window.scrollY > window.innerHeight * 0.8;
+      var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
+      n.classList.toggle('show', past && !atEnd);
+    }
+    window.addEventListener('scroll', check, { passive: true }); check();
+  })();
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Noise vs signal ----------
+  (function () {
+    var stage = document.getElementById('nsStage');
+    var words = ['50 landing pages','AI SDR','Another feature','Auto-posts','New AI tool','Chatbot','Generated persona','Survey bot','10 ad variants','Pitch deck v14','Growth hack','Copy rewrite','Trend report','Feature request','Competitor clone','Waitlist','AI website','Newsletter'];
+    var keep = { 'Generated persona': 'Who: your ICP', '10 ad variants': 'One experiment', 'Feature request': 'Intent to buy' };
+    var chips = words.map(function (w) {
+      var c = document.createElement('span'); c.className = 'ns-chip'; c.textContent = w; c.dataset.w = w;
+      stage.appendChild(c); return c;
+    });
+    var mode = 'noise', timer;
+    function place() {
+      var W = stage.clientWidth, H = stage.clientHeight;
+      chips.forEach(function (c) {
+        if (mode === 'signal' && keep[c.dataset.w]) return;
+        var x = Math.random() * (W - c.offsetWidth - 20) + 10, y = Math.random() * (H - 90) + 14;
+        c.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + (Math.random() * 10 - 5) + 'deg)';
+      });
+    }
+    function signal() {
+      var W = stage.clientWidth, H = stage.clientHeight, k = 0, ks = Object.keys(keep);
+      var gap = 16, widths = [];
+      chips.forEach(function (c) {
+        if (keep[c.dataset.w]) { c.textContent = keep[c.dataset.w]; c.classList.add('keep'); c.style.opacity = 1; widths.push(c); }
+        else { c.style.opacity = 0; }
+      });
+      var narrow = W < 560;
+      var total = widths.reduce(function (s, c) { return s + c.offsetWidth; }, 0) + gap * (widths.length - 1);
+      var x = (W - total) / 2;
+      widths.forEach(function (c, i) {
+        if (narrow) c.style.transform = 'translate(' + (W - c.offsetWidth) / 2 + 'px,' + (H / 2 - 90 + i * 54) + 'px)';
+        else { c.style.transform = 'translate(' + x + 'px,' + (H / 2 - 30) + 'px)'; x += c.offsetWidth + gap; }
+      });
+    }
+    function set(m) {
+      mode = m; stage.classList.toggle('signal', m === 'signal');
+      document.querySelectorAll('.ns-toggle button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mode === m); });
+      clearInterval(timer);
+      if (m === 'noise') {
+        chips.forEach(function (c) { c.textContent = c.dataset.w; c.classList.remove('keep'); c.style.opacity = 1; });
+        place(); if (!reduce) timer = setInterval(place, 1400);
+      } else signal();
+    }
+    document.querySelectorAll('.ns-toggle button').forEach(function (b) { b.addEventListener('click', function () { set(b.dataset.mode); }); });
+    set('noise');
+    // Auto-switch to the signal view the first time the widget is seen, so the point lands without a click.
+    var seen = false;
+    new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting && !seen) { seen = true; setTimeout(function () { if (mode === 'noise') set('signal'); }, 2600); }
+    }, { threshold: 0.6 }).observe(stage);
+  })();
+
+  // ---------- The loop ----------
+  (function () {
+    var stages = [
+      { k: 'Define', h: 'Crystallize what you believe.', p: 'Four core assumptions about your customer, written down so they can be proven wrong.',
+        viz: '<span class="c"><b>Who</b>Ideal customer</span><span class="c"><b>Why</b>Value proposition</span><span class="c"><b>What</b>User experience</span><span class="c"><b>How</b>Distribution</span>' },
+      { k: 'Build', h: 'Spin up what the test needs.', p: 'The platform builds the pages, campaigns, and tools that put each assumption in front of real customers.',
+        viz: '<span class="c">Landing pages</span><span class="c">Social campaigns</span><span class="c">Email</span><span class="c">SEO / AEO</span><span class="c">Ads</span><span class="c">In-person testing</span>' },
+      { k: 'Learn', h: 'Every conversation becomes evidence.', p: 'Your workspace captures customer calls and chats, extracts what was said, and checks it against your assumptions.',
+        viz: '<span class="c">Zoom</span><span class="c">Claude</span><span class="c">ChatGPT</span><span class="c">Google Docs</span><span class="arrow">↓ learnings extracted · assumptions updated</span>' },
+      { k: 'Track', h: 'See which experiments earn the build.', p: 'Product and marketing experiments side by side, so you only build what matters.',
+        viz: '<div class="bars"><div class="bar win"><span>Exp. A</span><div class="t"><i data-w="78"></i></div><span>78%</span></div><div class="bar"><span>Exp. B</span><div class="t"><i data-w="34"></i></div><span>34%</span></div><div class="bar"><span>Exp. C</span><div class="t"><i data-w="52"></i></div><span>52%</span></div></div>' },
+      { k: 'Analyze', h: 'Design the next round.', p: 'Assumptions, engagement, and feedback come together to decide what to test next.',
+        viz: '<span class="c"><b>Keep</b>Exp. A</span><span class="c"><b>Kill</b>Exp. B</span><span class="c"><b>Pivot</b>Exp. C</span><span class="arrow">↻ back to Define, sharper</span>' }
+    ];
+    var g = document.getElementById('nodes'), panel = document.getElementById('panel');
+    var lap = document.getElementById('lap'), C = 2 * Math.PI * 160;
+    lap.style.strokeDasharray = C; lap.style.strokeDashoffset = C;
+    stages.forEach(function (s, i) {
+      var a = (i / stages.length) * 2 * Math.PI - Math.PI / 2, x = 200 + 160 * Math.cos(a), y = 200 + 160 * Math.sin(a);
+      var n = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      n.setAttribute('class', 'node'); n.setAttribute('tabindex', '0'); n.setAttribute('role', 'button'); n.setAttribute('aria-label', s.k);
+      n.innerHTML = '<circle cx="' + x + '" cy="' + y + '" r="42"/><text x="' + x + '" y="' + y + '">' + s.k + '</text>';
+      n.addEventListener('click', function () { stop(); show(i); });
+      n.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); show(i); } });
+      g.appendChild(n);
+    });
+    var cur = -1, round = 1, timer, playing = false;
+    var signal = [12, 38, 66, 88];
+    function show(i) {
+      if (i === 0 && cur === stages.length - 1) round = Math.min(round + 1, 4);
+      cur = i;
+      g.querySelectorAll('.node').forEach(function (n, j) { n.classList.toggle('on', j === i); });
+      lap.style.strokeDashoffset = C * (1 - (i + 1) / stages.length);
+      document.getElementById('round').textContent = round;
+      document.getElementById('meter').style.width = signal[round - 1] * ((i + 1) / stages.length) + '%';
+      var s = stages[i];
+      panel.innerHTML = '<div class="n">Layer ' + (i + 1) + ' · ' + s.k + '</div><h3>' + s.h + '</h3><p>' + s.p + '</p><div class="viz">' + s.viz + '</div>';
+      panel.querySelectorAll('.viz .c').forEach(function (c, j) { c.style.animationDelay = j * 90 + 'ms'; });
+      setTimeout(function () { panel.querySelectorAll('.t i').forEach(function (b) { b.style.width = b.dataset.w + '%'; }); }, 60);
+    }
+    function next() { show((cur + 1) % stages.length); if (round === 4 && cur === stages.length - 1) stop(); }
+    function stop() { playing = false; clearInterval(timer); document.getElementById('play').textContent = 'Play'; }
+    function play() { playing = true; clearInterval(timer); timer = setInterval(next, 3600); document.getElementById('play').textContent = 'Pause'; }
+    document.getElementById('play').addEventListener('click', function () {
+      if (playing) stop(); else { if (round === 4 && cur === stages.length - 1) { round = 1; cur = -1; } play(); next(); }
+    });
+    show(0);
+    var started = false;
+    document.getElementById('play').addEventListener('click', function () { started = true; });
+    if (reduce) document.getElementById('play').textContent = 'Play';
+    else new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting && !started) { started = true; play(); }
+    }, { threshold: 0.4 }).observe(document.getElementById('loop'));
+  })();
+
+  // ---------- Risk ranking ----------
+  (function () {
+    var m = document.getElementById('matrix');
+    var items = [
+      { t: 'Founders will pay for this', s: [22, 30], e: [82, 18], r: 1 },
+      { t: 'LinkedIn reaches our ICP', s: [62, 70], e: [70, 34], r: 2 },
+      { t: 'Ops leads feel this pain weekly', s: [40, 52], e: [60, 26], r: 3 },
+      { t: 'Onboarding under 10 minutes', s: [75, 40], e: [30, 72], r: 4 },
+      { t: 'Mission resonates with buyers', s: [30, 80], e: [38, 60], r: 5 },
+      { t: 'Teams switch from spreadsheets', s: [80, 22], e: [22, 82], r: 6 }
+    ];
+    items.forEach(function (it) {
+      var d = document.createElement('div'); d.className = 'dot' + (it.r <= 2 ? ' top' : '');
+      d.innerHTML = '<i>?</i><span>' + it.t + '</span>';
+      d.style.left = it.s[0] + '%'; d.style.top = it.s[1] + '%';
+      m.appendChild(d); it.el = d;
+    });
+    var btn = document.getElementById('rankBtn'), ranked = false;
+    btn.addEventListener('click', function () {
+      ranked = !ranked; m.classList.toggle('ranked', ranked);
+      items.forEach(function (it) {
+        var p = ranked ? it.e : it.s;
+        it.el.style.left = p[0] + '%'; it.el.style.top = p[1] + '%';
+        it.el.querySelector('i').textContent = ranked ? it.r : '?';
+      });
+      btn.textContent = ranked ? 'Shuffle them back' : 'Rank the assumptions';
+    });
+  })();
+
+  // Tap-to-flip for touch devices.
+  document.querySelectorAll('.tile').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('flip'); }); });
+
+</script>
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>
