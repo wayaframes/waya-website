@@ -250,14 +250,16 @@
 
   /* ---------- Fusion overrides ---------- */
   .sn-hero h1 { font-size: min(54px, calc((100vw - 64px) / 10)); max-width: 760px; }
-  .sn-hero h1 em { white-space: nowrap; }
-  .sn-hero .h1-next {
-    margin-top: 18px; font-family: var(--font-display); font-weight: 600;
-    font-size: min(30px, calc((100vw - 64px) / 16)); line-height: 1.2; letter-spacing: -0.02em;
-    color: var(--waya-mustard); white-space: nowrap;
-  }
-  @media (max-width: 640px) { .sn-hero .h1-next { white-space: normal; } }
-  .sn-hero .sub { color: rgba(250,247,241,0.85); }
+  /* Second headline line: smaller so the whole sentence sits on one line under line one. */
+  .sn-hero h1 .l2 { display: block; margin-top: 14px; font-size: 0.56em; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; }
+  @media (max-width: 640px) { .sn-hero h1 .l2 { white-space: normal; font-size: 0.66em; } }
+  /* Flipping word: cheap → easy → fast. Every word sits in the same grid cell so the line never reflows. */
+  .flip { display: inline-grid; vertical-align: bottom; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; color: var(--waya-mustard); }
+  .flip .w { grid-area: 1 / 1; transform: translateY(105%); opacity: 0; transition: transform 520ms var(--ease-standard), opacity 520ms var(--ease-standard); }
+  .flip .w.on { transform: none; opacity: 1; }
+  .flip .w.out { transform: translateY(-105%); opacity: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sn-hero .sub { color: rgba(250,247,241,0.85); max-width: 680px; }
   .lab-hero { background: var(--waya-paper); border-bottom: 0; padding: 104px 32px; }
   .lab-hero h2 { font-family: var(--font-display); font-weight: 700; font-size: min(48px, calc((100vw - 64px) / 11)); line-height: 1.06; letter-spacing: -0.025em; color: var(--waya-charcoal); text-wrap: balance; }
   .lab-hero .section-eyebrow { text-align: left; }
@@ -279,7 +281,6 @@
   }
   @media (max-width: 640px) {
     .lab-hero { padding: 72px 20px; }
-    .sn-hero h1 br { display: none; }
     .brow { grid-template-columns: 1fr 64px 70px; gap: 10px; }
     .tiles { grid-template-columns: 1fr; }
     .dot span { display: none; }
@@ -324,9 +325,9 @@
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="inner">
     <div class="eyebrow">The Waya Experiment System</div>
-    <h1>AI made building cheap.<br>It didn't make anyone <em>want it.</em></h1>
-    <p class="h1-next">It's your job to find who wants your product.</p>
-    <p class="sub">Test your riskiest assumptions until you get repeat paying customers.</p>
+    <h1>AI made building <span class="sr-only">cheap, easy, and fast.</span><span class="flip" id="flip" aria-hidden="true"><span class="w on">cheap.</span><span class="w">easy.</span><span class="w">fast.</span></span>
+      <span class="l2">It's your job to find who pays for your product.</span></h1>
+    <p class="sub">A structured methodology to help you find your product-market fit.</p>
     <div class="hero-cta">
       <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
       <a class="btn-ghost-dark" href="#lab">See how</a>
@@ -351,24 +352,6 @@
       <div class="board-h"><span>Experiment board · Week 6</span><span class="live">Live</span></div>
       <div id="board"></div>
     </div>
-  </div>
-</section>
-
-<!-- =============== TOOL PILE =============== -->
-<section id="tools">
-  <div class="container">
-    <div class="section-eyebrow">Focus</div>
-    <h2 class="section-title">Fewer tools. Sharper focus.</h2>
-    <div class="switch">
-      <span class="off" id="offLbl">Typical founder stack</span>
-      <button type="button" role="switch" aria-checked="false" id="stackSwitch" aria-label="Show the Experiment System stack"></button>
-      <span id="onLbl">With the Experiment System</span>
-    </div>
-    <div class="pile-wrap">
-      <div class="pile" id="pile"></div>
-      <div class="count"><div class="num" id="toolNum">16</div><div class="lbl">tools to pay for and learn</div></div>
-    </div>
-    <p class="illus">Illustrative stack. We pick the verified tools your stage needs, together.</p>
   </div>
 </section>
 
@@ -406,6 +389,24 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- =============== TOOL PILE =============== -->
+<section id="tools">
+  <div class="container">
+    <div class="section-eyebrow">Focus</div>
+    <h2 class="section-title">Fewer tools. Sharper focus.</h2>
+    <div class="switch">
+      <span class="off" id="offLbl">Typical founder stack</span>
+      <button type="button" role="switch" aria-checked="false" id="stackSwitch" aria-label="Show the Experiment System stack"></button>
+      <span id="onLbl">With the Experiment System</span>
+    </div>
+    <div class="pile-wrap">
+      <div class="pile" id="pile"></div>
+      <div class="count"><div class="num" id="toolNum">16</div><div class="lbl">tools to pay for and learn</div></div>
+    </div>
+    <p class="illus">Illustrative stack. We pick the verified tools your stage needs, together.</p>
   </div>
 </section>
 
@@ -569,6 +570,19 @@
     window.addEventListener('scroll', check, { passive: true }); check();
   })();
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Hero word flip: cheap → easy → fast ----------
+  (function () {
+    var ws = document.querySelectorAll('#flip .w'), i = 0;
+    if (reduce) return;
+    setInterval(function () {
+      var cur = ws[i], nx = ws[(i + 1) % ws.length];
+      cur.classList.remove('on'); cur.classList.add('out');
+      nx.classList.remove('out'); nx.classList.add('on');
+      setTimeout(function () { cur.classList.remove('out'); }, 560);
+      i = (i + 1) % ws.length;
+    }, 2400);
+  })();
 
   // ---------- Particle field: noise that settles into a signal wave ----------
   (function () {
