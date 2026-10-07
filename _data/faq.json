@@ -503,5 +503,89 @@
         "When you've hit the ceiling of what you can solve alone. When you're the bottleneck and you know it. When you need a founder who's been in the trenches to help you navigate a critical transition — a scale-up, a pivot, the chaos in between. And when your VCs are pushing you to hire an expensive COO, but you're not there yet."
       ]
     }
+  ],
+  "experiment-system": [
+    {
+      "q": "What is the Waya Experiment System?",
+      "a": [
+        "A system for finding product-market fit through structured experiments. You define your core assumptions — who your customer is, why they buy, what they experience, and how you reach them. Waya builds the tests, learns from your customer conversations, tracks every experiment, and uses the results to design the next round, until a strong PMF signal appears."
+      ]
+    },
+    {
+      "q": "Who is it for?",
+      "a": [
+        "Solo founders and small teams of two to five people moving from an idea to their first paying customers. You don't need traffic, and you don't need to write code."
+      ]
+    },
+    {
+      "q": "Is it software or a service?",
+      "a": [
+        "Both. The platform runs the experiment loop. A Waya facilitator guides you through each stage and works with you on budget, resources, and effort-versus-impact decisions."
+      ]
+    },
+    {
+      "q": "I don't have traffic yet. Can I still run experiments?",
+      "a": [
+        "Yes — that's exactly what it's built for. Early experiments run on outreach, conversations, landing pages, and small campaigns, and learn from what customers say and do, including whether they'll pay."
+      ]
+    },
+    {
+      "q": "How is Waya different from experimentation platforms like PostHog or Optimizely?",
+      "a": [
+        "Those platforms tell you which variant won, for a product that already has users and enough traffic for statistics. Waya works before that: it tells you which assumption to test, builds the test, and learns from real customers.",
+        "Once you have a product and steady traffic, that's the moment to add one of those platforms. Waya comes before them, not instead of them."
+      ]
+    },
+    {
+      "q": "Couldn't I do this with ChatGPT or Claude and a few free tools?",
+      "a": [
+        "Parts of it. Most founders who try end up with scattered notes, too many subscriptions, and assumptions that never get tested. Waya gives you a structured method, one record of assumptions and evidence, a team that pushes back, and a deliberately small tool stack. An AI summary or a simulated customer response never counts as validation."
+      ]
+    },
+    {
+      "q": "How do I know what to test first?",
+      "a": [
+        "Waya reads your Business Case and your Mission and Values, maps your assumptions, and ranks them by risk and reward. You test the assumption that would sink the business if it's wrong before you spend on anything else."
+      ]
+    },
+    {
+      "q": "How does Waya keep me from wasting time and money?",
+      "a": [
+        "Before anything launches, each experiment gets an hours cap, a cash cap, a deadline, and an agreed definition of success. Hours and cash are tracked separately, planned against actual, and experiments testing the same assumption share one budget.",
+        "Waya reuses the tools you already pay for, flags a new subscription only when a test truly needs it, and asks for your approval before any additional paid commitment."
+      ]
+    },
+    {
+      "q": "How do I know the results aren't just what I hoped to see?",
+      "a": [
+        "You define success, failure, and inconclusive before the experiment runs, so the goalposts can't move. Stated interest is kept separate from real behavior like payment, and every conclusion links back to the customer evidence behind it.",
+        "Each experiment ends in one of four decisions — continue, change, pause, or stop — with the evidence and cost behind it."
+      ]
+    },
+    {
+      "q": "What counts as a PMF signal?",
+      "a": [
+        "A ladder of evidence, each rung with a pass bar you set in advance: problem (customers describe the pain unprompted), demand (they sign up or book a call), commitment (a pre-order, letter of intent, or paid pilot), product love (at least 40% of active users would be “very disappointed” without it), and retention (usage holds over time).",
+        "You have a strong signal when commitment, product love, and retention pass for one clearly defined customer profile."
+      ]
+    },
+    {
+      "q": "How much of the work is done for me?",
+      "a": [
+        "Waya builds the test assets — landing pages, interview guides, and copy for email, social, and ads — and runs approved campaigns inside your existing tools, with one consistent message and tracking setup. You approve publishing, outreach, and any spending before it happens. And it builds only what the test needs: if a landing page or a paid pilot can answer the question, you don't build the full product first."
+      ]
+    },
+    {
+      "q": "Will this help me raise money?",
+      "a": [
+        "It prepares you for it. Investors want evidence, not opinions. Waya gives you a record of the assumptions you tested, what customers said, intent-to-buy signals, and how your strategy changed as a result."
+      ]
+    },
+    {
+      "q": "How do I get access?",
+      "a": [
+        "We currently run the Experiment System only inside 12 Weeks to PMF, where it powers weeks 4–12. Seats are limited to 5–7 founders per cohort."
+      ]
+    }
   ]
 }
