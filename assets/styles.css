@@ -528,6 +528,49 @@ footer ul a:hover { color: var(--waya-mustard); }
   padding-top: 24px; border-top: 1px solid rgba(250,247,241,0.12);
   text-align: center; font-size: 13px; color: rgba(250,247,241,0.55);
 }
+.foot-legal {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px;
+  margin-bottom: 14px; font-size: 13.5px;
+}
+.foot-legal a { color: rgba(250,247,241,0.78); }
+.foot-legal a:hover { color: var(--waya-mustard); }
+
+/* ---------- Legal pages (privacy, terms, data handling, support) ---------- */
+.legal-head { padding: 96px 32px 40px; background: var(--waya-paper); }
+.legal-head .container, .legal-doc .container { max-width: 760px; }
+.legal-head h1 {
+  font-family: var(--font-display); font-weight: 600; font-size: 46px;
+  line-height: 1.1; letter-spacing: -0.01em; color: var(--waya-ink);
+}
+.legal-updated { margin-top: 14px; font-size: 14px; color: var(--fg-2); }
+.legal-doc { padding: 48px 32px 104px; }
+.legal-doc h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: 26px;
+  line-height: 1.25; margin: 48px 0 14px; color: var(--waya-ink);
+}
+.legal-doc h3 {
+  font-family: var(--font-display); font-weight: 600; font-size: 19px;
+  line-height: 1.3; margin: 32px 0 10px; color: var(--waya-ink);
+}
+.legal-doc p, .legal-doc li { font-size: 16.5px; line-height: 1.7; color: var(--fg-1); }
+.legal-doc p + p, .legal-doc ul + p, .legal-doc .table-wrap + p { margin-top: 14px; }
+.legal-doc ul { margin: 14px 0 14px 22px; }
+.legal-doc li + li { margin-top: 8px; }
+.legal-doc a { color: var(--waya-rust); text-decoration: underline; text-underline-offset: 2px; }
+.legal-doc a:hover { color: var(--waya-ink); }
+.legal-doc .table-wrap { overflow-x: auto; margin: 18px 0; }
+.legal-doc table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.legal-doc th, .legal-doc td {
+  text-align: left; vertical-align: top; padding: 10px 12px;
+  border-bottom: 1px solid var(--border-1); line-height: 1.55;
+}
+.legal-doc th { font-family: var(--font-display); font-weight: 600; background: var(--waya-paper); }
+@media (max-width: 960px) {
+  .legal-head { padding: 64px 24px 28px; }
+  .legal-head h1 { font-size: 34px; }
+  .legal-doc { padding: 32px 24px 76px; }
+  .legal-doc h2 { font-size: 23px; margin-top: 40px; }
+}
 
 /* ---------- Responsive (shared) ---------- */
 @media (max-width: 960px) {

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>How Waya Handles Your Data – Waya</title>
+<meta name="description" content="What Waya stores from your sessions, where it lives, who can see it, how it is protected, and how to get it out or deleted.">
+<link rel="canonical" href="https://www.wayaframes.com/data-handling/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="How Waya Handles Your Data – Waya">
+<meta property="og:description" content="What Waya stores from your sessions, where it lives, who can see it, how it is protected, and how to get it out or deleted.">
+<meta property="og:url" content="https://www.wayaframes.com/data-handling/">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=10">
+<script defer src="/assets/analytics.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "How Waya Handles Your Data – Waya",
+  "url": "https://www.wayaframes.com/data-handling/",
+  "description": "What Waya stores from your sessions, where it lives, who can see it, how it is protected, and how to get it out or deleted.",
+  "dateModified": "2026-10-08",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Waya",
+    "url": "https://www.wayaframes.com/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=wayaframes&utm_medium=landing_page&utm_campaign=data-handling&utm_content=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="legal-head">
+  <div class="container">
+    <h1>How Waya Handles Your Data</h1>
+    <p class="legal-updated">Last updated: October 8, 2026</p>
+  </div>
+</section>
+
+<section class="legal-doc">
+  <div class="container">
+<p>When you work through a Waya session, you are handing us your business's inner workings — problem statements, root causes, business cases. This page says plainly what we store, where it lives, who can see it, and how it is protected, so you can decide whether to trust us with it. The legal version is the <a href="/privacy-policy/">Privacy Policy</a>; nothing here contradicts it.</p>
+<h2>What we store</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Category</th><th>What it actually is</th></tr></thead>
+<tbody>
+<tr><td>Account</td><td>Your email address and an identifier from our sign-in provider.</td></tr>
+<tr><td>Session content</td><td>The notes you provide at each methodology step, kept <strong>verbatim</strong> — from business methodologies (problem statements, root causes, gap lists, business cases) and from personal methodologies like Ikigai (your reflections about yourself) — plus the confirmations you approve at checkpoints and the close-out record of each session.</td></tr>
+<tr><td>Operational data</td><td>Timestamps, which step was called, response times, which AI app you connected with and its declared capabilities, session tokens, and security flags from abuse detection.</td></tr>
+<tr><td>Request logs</td><td>Standard server logs at our hosting providers (IP address, request path, status).</td></tr>
+</tbody></table></div>
+<p>We store session content verbatim because that is what lets you resume a session and carry prior work into later ones — it is your work product, kept for you.</p>
+<h2>What we don't do</h2>
+<ul>
+<li>We <strong>never train AI models on your content</strong>. The AI you talk to is your own client, under your agreement with its provider — we don't operate it.</li>
+<li>We don't sell your data, share it for advertising, or show ads.</li>
+<li>We don't move your content anywhere except the systems listed below.</li>
+</ul>
+<h2>Where it lives and who can reach it</h2>
+<p>Everything above lives in two production databases — one for Waya OS and one for Waya Pre-PMF — both PostgreSQL, hosted by Supabase in the United States. Access is deliberately narrow:</p>
+<ul>
+<li><strong>There is no public path in.</strong> The server, and the Waya team through the database console, are the only ways to reach the databases. Row-level security is enabled with no other access paths — anonymous and authenticated database roles hold no grants, so there is no public API key or client role that can read your content.</li>
+<li>Application hosting is Vercel and sign-in is WorkOS. When our team reviews session records, it sometimes uses AI tools, only under business terms that bar the provider from training on our data. The website runs separately. The <a href="/privacy-policy/">Privacy Policy</a> lists the providers we use to run the services and the website.</li>
+</ul>
+<p><strong>Humans on the Waya team can read session records</strong> — including your notes — when reviewing how a run went, sometimes with the help of AI tools, in order to improve the methodology serving. That review is internal, limited to the team, and is disclosed in the Privacy Policy rather than buried here.</p>
+<h2>How it is protected</h2>
+<ul>
+<li><strong>Encryption in transit</strong> (TLS) and <strong>at rest</strong> (database-level encryption).</li>
+<li><strong>Separated environments</strong> — staging and production are distinct deployments with distinct databases; we do not test against production data.</li>
+<li><strong>Change management</strong> — every change to the system ships through a reviewed pull request; the full history is version-controlled.</li>
+<li><strong>Audit trail</strong> — every methodology call is logged with its timestamp and outcome.</li>
+<li><strong>Abuse detection</strong> — automated flagging of scraping patterns.</li>
+</ul>
+<p>We operate these controls in the spirit of SOC 2. <strong>We do not hold a SOC 2 certification or other third-party attestation</strong>, and we won't imply otherwise; if that changes, this page will say so.</p>
+<h2>Getting your data out — or gone</h2>
+<p>Email <strong><a href="mailto:info@wayaframes.com">info@wayaframes.com</a></strong> and we will, within 30 days of verifying the request:</p>
+<ul>
+<li><strong>Export</strong>: hand you a machine-readable copy of everything keyed to your account — account record, sessions, every note, every close-out.</li>
+<li><strong>Delete</strong>: erase your account and everything keyed to it, including your identity at our sign-in provider. Residual copies in encrypted backups expire on a rolling schedule within a further 30 days.</li>
+</ul>
+<p>Retention is simple: your content is kept for the life of your account, and deletion happens when you ask. There is no hidden longer copy.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <h5>About us</h5>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/pre-pmf-mcp/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="https://substack.com/@themessymiddlefiles" aria-label="Substack">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 8.88H1.46V6.16h21.08v2.72zM1.46 10.81V24L12 18.11 22.54 24V10.81H1.46zM22.54 0H1.46v2.72h21.08V0z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <nav class="foot-legal" aria-label="Legal">
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/terms-of-service/">Terms of Service</a>
+      <a href="/data-handling/">How We Handle Your Data</a>
+      <a href="/support/">Support</a>
+    </nav>
+    <p>© Copyright 2026 – WayaFrames – All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>

@@ -17,6 +17,10 @@
 - [Product Market Fit Program](https://www.wayaframes.com/pre-pmf-mcp/cohort/): The Product Market Fit Program: 12 weeks that set you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.
 - [4 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 4 weeks to increase your margins: Lean AI for mission-driven operators. Find what is hurting your margin, fix the root cause with A3 thinking, and keep the method running inside your AI assistant.
 - [Free Planning Guide – The Plan That Reaches The Work | Waya](https://www.wayaframes.com/planning-guide/): A free 90-minute system for turning quarterly objectives into tasks your team actually works on. Six steps, four traps, four real examples from our own work.
+- [Privacy Policy](https://www.wayaframes.com/privacy-policy/): What Waya collects through its services and website, why, who processes it on our behalf, how long we keep it, and how to exercise your rights.
+- [Terms of Service](https://www.wayaframes.com/terms-of-service/): The terms that govern your use of Waya's services, Waya OS and Waya Pre-PMF, and the website at wayaframes.com.
+- [How Waya Handles Your Data](https://www.wayaframes.com/data-handling/): What Waya stores from your sessions, where it lives, who can see it, how it is protected, and how to get it out or deleted.
+- [Support](https://www.wayaframes.com/support/): How to get help with Waya's services, and how to ask for a copy, a correction, or deletion of your data.
 
 ## Frequently asked questions
 
