@@ -69,46 +69,46 @@
 
 <section class="legal-doc">
   <div class="container">
-<p>When you work through a Waya session, you are handing us your business's inner workings — problem statements, root causes, business cases. This page says plainly what we store, where it lives, who can see it, and how it is protected, so you can decide whether to trust us with it. The legal version is the <a href="/privacy-policy/">Privacy Policy</a>; nothing here contradicts it.</p>
+<p>This page describes what Waya stores from your sessions, where it is stored, who can access it, how it is protected, and how to get a copy or have it deleted. The <a href="/privacy-policy/">Privacy Policy</a> is the governing document, and this page is consistent with it.</p>
 <h2>What we store</h2>
 <div class="table-wrap"><table>
-<thead><tr><th>Category</th><th>What it actually is</th></tr></thead>
+<thead><tr><th>Category</th><th>What it is</th></tr></thead>
 <tbody>
 <tr><td>Account</td><td>Your email address and an identifier from our sign-in provider.</td></tr>
-<tr><td>Session content</td><td>The notes you provide at each methodology step, kept <strong>verbatim</strong> — from business methodologies (problem statements, root causes, gap lists, business cases) and from personal methodologies like Ikigai (your reflections about yourself) — plus the confirmations you approve at checkpoints and the close-out record of each session.</td></tr>
+<tr><td>Session content</td><td>The notes you provide at each methodology step, stored <strong>verbatim</strong>: from business methodologies (problem statements, root causes, gap lists, business cases) and from personal methodologies like Ikigai (your reflections about yourself). Also the confirmations you approve at checkpoints and the close-out record of each session.</td></tr>
 <tr><td>Operational data</td><td>Timestamps, which step was called, response times, which AI app you connected with and its declared capabilities, session tokens, and security flags from abuse detection.</td></tr>
 <tr><td>Request logs</td><td>Standard server logs at our hosting providers (IP address, request path, status).</td></tr>
 </tbody></table></div>
-<p>We store session content verbatim because that is what lets you resume a session and carry prior work into later ones — it is your work product, kept for you.</p>
+<p>We store session content verbatim so you can resume a session and carry prior work into later ones.</p>
 <h2>What we don't do</h2>
 <ul>
-<li>We <strong>never train AI models on your content</strong>. The AI you talk to is your own client, under your agreement with its provider — we don't operate it.</li>
+<li>We <strong>never train AI models on your content</strong>. The AI assistant you use is your own client, under your agreement with its provider; we don't operate it.</li>
 <li>We don't sell your data, share it for advertising, or show ads.</li>
 <li>We don't move your content anywhere except the systems listed below.</li>
 </ul>
-<h2>Where it lives and who can reach it</h2>
-<p>Everything above lives in two production databases — one for Waya OS and one for Waya Pre-PMF — both PostgreSQL, hosted by Supabase in the United States. Access is deliberately narrow:</p>
+<h2>Where it is stored and who can access it</h2>
+<p>Everything above is stored in two production PostgreSQL databases, one for Waya OS and one for Waya Pre-PMF, hosted by Supabase in the United States. Access is limited:</p>
 <ul>
-<li><strong>There is no public path in.</strong> The server, and the Waya team through the database console, are the only ways to reach the databases. Row-level security is enabled with no other access paths — anonymous and authenticated database roles hold no grants, so there is no public API key or client role that can read your content.</li>
+<li><strong>There is no public access path.</strong> Only the server, and the Waya team through the database console, can reach the databases. Row-level security is enabled, and the anonymous and authenticated database roles hold no grants, so no public API key or client role can read your content.</li>
 <li>Application hosting is Vercel and sign-in is WorkOS. When our team reviews session records, it sometimes uses AI tools, only under business terms that bar the provider from training on our data. The website runs separately. The <a href="/privacy-policy/">Privacy Policy</a> lists the providers we use to run the services and the website.</li>
 </ul>
-<p><strong>Humans on the Waya team can read session records</strong> — including your notes — when reviewing how a run went, sometimes with the help of AI tools, in order to improve the methodology serving. That review is internal, limited to the team, and is disclosed in the Privacy Policy rather than buried here.</p>
+<p><strong>People on the Waya team can read session records</strong>, including your notes, when they review how a session went, sometimes with the help of AI tools, to improve the methodology. This review is internal and limited to our team, and the Privacy Policy describes it.</p>
 <h2>How it is protected</h2>
 <ul>
-<li><strong>Encryption in transit</strong> (TLS) and <strong>at rest</strong> (database-level encryption).</li>
-<li><strong>Separated environments</strong> — staging and production are distinct deployments with distinct databases; we do not test against production data.</li>
-<li><strong>Change management</strong> — every change to the system ships through a reviewed pull request; the full history is version-controlled.</li>
-<li><strong>Audit trail</strong> — every methodology call is logged with its timestamp and outcome.</li>
-<li><strong>Abuse detection</strong> — automated flagging of scraping patterns.</li>
+<li><strong>Encryption</strong> in transit (TLS) and at rest (database-level encryption).</li>
+<li><strong>Separate environments:</strong> staging and production are distinct deployments with distinct databases, and we do not test against production data.</li>
+<li><strong>Change management:</strong> every change ships through a reviewed pull request, and the full history is version-controlled.</li>
+<li><strong>Audit trail:</strong> every methodology call is logged with its timestamp and outcome.</li>
+<li><strong>Abuse detection:</strong> automated flagging of scraping patterns.</li>
 </ul>
-<p>We operate these controls in the spirit of SOC 2. <strong>We do not hold a SOC 2 certification or other third-party attestation</strong>, and we won't imply otherwise; if that changes, this page will say so.</p>
-<h2>Getting your data out — or gone</h2>
-<p>Email <strong><a href="mailto:info@wayaframes.com">info@wayaframes.com</a></strong> and we will, within 30 days of verifying the request:</p>
+<p>We model these controls on SOC 2. <strong>We do not hold a SOC 2 certification or any other third-party attestation</strong>; if that changes, we will update this page.</p>
+<h2>Getting a copy of your data, or deleting it</h2>
+<p>Email <strong><a href="mailto:info@wayaframes.com">info@wayaframes.com</a></strong> and, within 30 days of verifying the request, we will:</p>
 <ul>
-<li><strong>Export</strong>: hand you a machine-readable copy of everything keyed to your account — account record, sessions, every note, every close-out.</li>
-<li><strong>Delete</strong>: erase your account and everything keyed to it, including your identity at our sign-in provider. Residual copies in encrypted backups expire on a rolling schedule within a further 30 days.</li>
+<li><strong>Export:</strong> send you a machine-readable copy of everything keyed to your account, including your account record, sessions, notes, and close-out records.</li>
+<li><strong>Delete:</strong> erase your account and everything keyed to it, including your identity at our sign-in provider. Residual copies in encrypted backups expire on a rolling schedule within a further 30 days.</li>
 </ul>
-<p>Retention is simple: your content is kept for the life of your account, and deletion happens when you ask. There is no hidden longer copy.</p>
+<p>We keep your content for the life of your account and delete it when you ask. Apart from those backups, we keep no other copies.</p>
   </div>
 </section>
 
