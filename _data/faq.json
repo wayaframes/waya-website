@@ -508,19 +508,19 @@
     {
       "q": "What is the Waya Experiment System?",
       "a": [
-        "A system for finding product-market fit through structured experiments. You define your core assumptions — who your customer is, why they buy, what they experience, and how you reach them. Waya builds the tests, learns from your customer conversations, tracks every experiment, and uses the results to design the next round, until a strong PMF signal appears."
+        "A system for finding product-market fit through structured experiments. You define your core assumptions — who your customer is, why they buy, what they experience, and how you reach them. Waya designs the tests with you, learns from your customer conversations, tracks every experiment, and uses the results to design the next round, until a strong PMF signal appears."
       ]
     },
     {
       "q": "Who is it for?",
       "a": [
-        "Solo founders and small teams of two to five people moving from an idea to their first paying customers. You don't need traffic, and you don't need to write code."
+        "Solo founders and small teams of two to five people moving from an idea to their first paying customers. You don't need traffic, and most tests don't need any code."
       ]
     },
     {
       "q": "Is it software or a service?",
       "a": [
-        "Both. The platform runs the experiment loop. A Waya facilitator guides you through each stage and works with you on budget, resources, and effort-versus-impact decisions."
+        "Both. The platform runs the experiment loop. A Waya facilitator guides you through each stage and works with you on budget and resources."
       ]
     },
     {
@@ -532,7 +532,7 @@
     {
       "q": "How is Waya different from experimentation platforms like PostHog or Optimizely?",
       "a": [
-        "Those platforms tell you which variant won, for a product that already has users and enough traffic for statistics. Waya works before that: it tells you which assumption to test, builds the test, and learns from real customers.",
+        "Those platforms tell you which variant won, for a product that already has users and enough traffic for statistics. Waya works before that: it tells you which assumption to test, designs the test with you, and learns from real customers.",
         "Once you have a product and steady traffic, that's the moment to add one of those platforms. Waya comes before them, not instead of them."
       ]
     },
@@ -545,7 +545,7 @@
     {
       "q": "How do I know what to test first?",
       "a": [
-        "Waya reads your Business Case and your Mission and Values, maps your assumptions, and ranks them by risk and reward. You test the assumption that would sink the business if it's wrong before you spend on anything else."
+        "Waya reads your Business Case and your Mission and Values, maps your assumptions, and ranks them by risk. You test the assumption that would sink the business if it's wrong before you spend on anything else."
       ]
     },
     {
@@ -559,7 +559,7 @@
       "q": "How do I know the results aren't just what I hoped to see?",
       "a": [
         "You define success, failure, and inconclusive before the experiment runs, so the goalposts can't move. Stated interest is kept separate from real behavior like payment, and every conclusion links back to the customer evidence behind it.",
-        "Each experiment ends in one of four decisions — continue, change, pause, or stop — with the evidence and cost behind it."
+        "Each assumption ends accepted, rejected, or inconclusive, with the evidence and cost behind it."
       ]
     },
     {
