@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Experiment System – Waya</title>
-<meta name="description" content="The Experiment System finds product-market fit by testing your riskiest assumptions with paying customers — signal, not more AI output. Run it in the 12 Weeks to PMF program.">
+<title>Waya Experiment System – Waya</title>
+<meta name="description" content="Waya Experiment System finds product-market fit by testing your riskiest assumptions with paying customers — signal, not more AI output. Run it in the 12 Weeks to PMF program.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://www.wayaframes.com/experiment-system/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Waya">
-<meta property="og:title" content="The Experiment System – Waya">
+<meta property="og:title" content="Waya Experiment System – Waya">
 <meta property="og:url" content="https://www.wayaframes.com/experiment-system/">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=9">
@@ -54,9 +54,9 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
   /* ---------- Particle hero ---------- */
-  .sn-hero { position: relative; background: var(--waya-ink); color: var(--waya-cream); padding: 0; min-height: 640px; overflow: hidden; display: flex; align-items: center; }
+  .sn-hero { position: relative; background: var(--waya-ink); color: var(--waya-cream); padding: 0; min-height: 0; overflow: hidden; display: flex; align-items: flex-start; }
   .sn-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .sn-hero .inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; padding: 120px 32px; width: 100%; }
+  .sn-hero .inner { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; padding: 120px 32px 90px; width: 100%; }  /* bottom padding sets the gap to the Noise/Signal legend: about a quarter of what it was */
   .sn-hero .eyebrow { color: var(--waya-mustard); }
   .sn-hero h1 { font-family: var(--font-display); font-weight: 700; font-size: min(76px, calc((100vw - 64px) / 9)); line-height: 1.02; letter-spacing: -0.03em; max-width: 720px; }
   .sn-hero h1 em { font-style: normal; color: var(--waya-mustard); }
@@ -108,12 +108,12 @@
   .pill.test { background: rgba(234,182,47,0.22); color: #8a6408; }
 
 
-  /* ---------- The loop: five layers in a row, with a return arrow back to Define ---------- */
+  /* ---------- The loop: four layers in a row, with a return arrow back to Define ---------- */
   .loop { background: var(--waya-charcoal); color: var(--waya-cream); }
   .loop .section-title { color: var(--waya-cream); }
   .loop .section-eyebrow { color: var(--waya-mustard); }
-  .layers { list-style: none; margin: 60px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; position: relative; }
-  .layers::before { content: ''; position: absolute; top: 27px; left: 10%; right: 10%; height: 2px; background: rgba(250,247,241,0.16); }
+  .layers { list-style: none; margin: 60px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
+  .layers::before { content: ''; position: absolute; top: 27px; left: 12.5%; right: 12.5%; height: 2px; background: rgba(250,247,241,0.16); }
   .layers li { position: relative; text-align: center; padding: 0 6px; opacity: 0; transform: translateY(12px); transition: opacity 500ms var(--ease-standard), transform 500ms var(--ease-standard); transition-delay: calc(var(--i) * 140ms); }
   .layers.in li { opacity: 1; transform: none; }
   .layers .n { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--waya-charcoal); border: 2px solid var(--waya-mustard); font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--waya-mustard); }
@@ -187,6 +187,35 @@
   .cmp-head div { font-family: var(--font-display); font-size: 12px !important; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
   .cmp-head div:last-child { background: var(--waya-sage) !important; color: var(--waya-cream) !important; }
 
+
+  /* ---------- Sam's story: the explanation video, light on dark ---------- */
+  .story { background: var(--waya-cream); padding: 40px 32px 72px; }
+  .story .inner { max-width: 1140px; margin: 0 auto; }
+  .story .section-eyebrow { text-align: left; }
+  .story-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+  .story-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; color: var(--waya-charcoal); margin: 0; }
+  .story-head p { margin: 0; font-size: 15px; color: var(--fg-2); }
+  .video-card { position: relative; border-radius: 22px; overflow: hidden; background: var(--waya-ink); box-shadow: var(--shadow-3); aspect-ratio: 16 / 9; }
+  .video-card video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .video-card.portrait { aspect-ratio: 9 / 16; max-width: 420px; margin: 0 auto; }
+  .vplay { position: absolute; inset: 0; width: 100%; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: linear-gradient(180deg, rgba(31,36,34,0.05) 0%, rgba(31,36,34,0.35) 100%); color: var(--waya-cream); font-family: var(--font-display); transition: background var(--dur-base) var(--ease-standard); }
+  .vplay:hover, .vplay:focus-visible { background: linear-gradient(180deg, rgba(31,36,34,0.12) 0%, rgba(31,36,34,0.45) 100%); outline: 0; }
+  .vplay b { width: 84px; height: 84px; border-radius: 50%; background: var(--waya-mustard); display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(31,36,34,0.35); animation: vplay-breathe 2.8s ease-in-out infinite; }
+  .vplay b::after { content: ''; margin-left: 7px; border-left: 26px solid var(--waya-charcoal); border-top: 16px solid transparent; border-bottom: 16px solid transparent; }
+  .vplay span { font-size: 16px; font-weight: 600; letter-spacing: 0.02em; text-shadow: 0 2px 12px rgba(31,36,34,0.6); }
+  .vplay small { font-family: var(--font-body); font-size: 13px; opacity: 0.85; text-shadow: 0 2px 12px rgba(31,36,34,0.6); }
+  .vplay[hidden] { display: none; }
+  @keyframes vplay-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @media (prefers-reduced-motion: reduce) { .vplay b { animation: none; } }
+
+  /* ---------- PMF banner: dark green over the sage mountains ---------- */
+  .pmf-band { position: relative; text-align: center; padding: 104px 32px; color: var(--waya-cream);
+    background-image: linear-gradient(rgba(28,42,35,0.82), rgba(28,42,35,0.82)), url('/assets/images/hero/mountain-sage.png');
+    background-size: cover; background-position: center; }
+  .pmf-band h2 { font-family: var(--font-display); font-weight: 700; font-size: min(40px, calc((100vw - 64px) / 14)); line-height: 1.15; letter-spacing: -0.02em; max-width: 900px; margin: 0 auto; text-wrap: balance; color: var(--waya-cream); }
+  .pmf-band p { margin: 22px auto 0; font-size: 19px; line-height: 1.6; max-width: 820px; color: rgba(250,247,241,0.92); text-wrap: pretty; }
+  .pmf-band p b { color: var(--waya-mustard); font-weight: 600; }
+  @media (max-width: 640px) { .story { padding: 40px 20px 56px; } .video-card { border-radius: 16px; } .pmf-band { padding: 72px 20px; } }
 
   /* ---------- Fusion overrides ---------- */
   .sn-hero h1 { font-size: min(54px, calc((100vw - 64px) / 10)); max-width: 760px; }
@@ -283,12 +312,36 @@
   <div class="sn-legend"><span><i style="background:rgba(250,247,241,0.4)"></i>Noise</span><span><i style="background:var(--waya-mustard)"></i>Signal</span></div>
 </section>
 
+<!-- =============== SAM'S STORY (the explanation video) =============== -->
+<section class="story" id="story" aria-labelledby="story-title">
+  <div class="inner">
+    <div class="story-head">
+      <div>
+        <div class="section-eyebrow">Watch · 2 minutes</div>
+        <h2 id="story-title">How one founder went from sixteen tools to twelve paying customers.</h2>
+      </div>
+      <p>Sam's story, and the method behind it.</p>
+    </div>
+    <div class="video-card" id="videoCard">
+      <video id="storyVideo" controls playsinline preload="metadata" poster="/assets/video/waya-experiment-program-poster.jpg" aria-label="The Waya Experiment Program: Sam's story">
+        <source src="/assets/video/waya-experiment-program.mp4" type="video/mp4">
+      </video>
+      <button class="vplay" id="vplay" type="button" aria-label="Play the video"><b></b><span>Watch Sam's story</span><small>2 min · sound on</small></button>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PMF BANNER =============== -->
+<section class="pmf-band" aria-label="Why product-market fit">
+  <h2>Reaching product-market fit is the early-stage founder's number one objective.</h2>
+  <p>Waya helps you get there with a methodology <b>repeatedly proven</b> over decades of work in Silicon Valley.</p>
+</section>
+
 <!-- =============== EVERYONE HAS AI (live board, from C) =============== -->
 <section class="lab-hero" id="lab">
   <div class="grid">
     <div>
       <div class="section-eyebrow">Answers, not output</div>
-      <h2><span class="ln">Everyone has AI.</span><span class="ln">Few know what to build for paying customers.</span></h2>
       <p class="sub">Test assumptions with real customers, read the evidence, and build only what they'll pay for.</p>
       <div class="hero-cta">
         <a class="btn-rust" href="#loop">See how it works</a>
@@ -307,16 +360,15 @@
 <section id="loop" class="loop">
   <div class="container">
     <div class="section-eyebrow">How it works</div>
-    <h2 class="section-title">Five layers. One loop. Sharper every round.</h2>
+    <h2 class="section-title">Four layers. One loop. Sharper every round.</h2>
     <ol class="layers">
       <li style="--i:0"><span class="n">1</span><h3>Define</h3><p>Write down what you believe.</p></li>
       <li style="--i:1"><span class="n">2</span><h3>Build</h3><p>Put it in front of customers.</p></li>
-      <li style="--i:2"><span class="n">3</span><h3>Learn</h3><p>Every conversation becomes evidence.</p></li>
-      <li style="--i:3"><span class="n">4</span><h3>Track</h3><p>Measure each result against the pass line you set before the test.</p></li>
-      <li style="--i:4"><span class="n">5</span><h3>Analyze</h3><p>Accept, reject, or rewrite the belief, then run the next round.</p></li>
+      <li style="--i:2"><span class="n">3</span><h3>Track</h3><p>Measure each result against the pass line you set before the test.</p></li>
+      <li style="--i:3"><span class="n">4</span><h3>Analyze</h3><p>Accept, reject, or rewrite the belief, then run the next round.</p></li>
     </ol>
     <div class="loop-back" aria-hidden="true">
-      <svg viewBox="0 0 1000 60" preserveAspectRatio="none"><path d="M900 4 V30 Q900 46 884 46 H116 Q100 46 100 30 V12"/><path class="hd" d="M92 18 L100 6 L108 18"/></svg>
+      <svg viewBox="0 0 1000 60" preserveAspectRatio="none"><path d="M875 4 V30 Q875 46 859 46 H141 Q125 46 125 30 V12"/><path class="hd" d="M117 18 L125 6 L133 18"/></svg>
       <span>Next round, sharper</span>
     </div>
   </div>
@@ -390,9 +442,9 @@
         <div class="b">The same rigor investors look for when you raise.</div></div></button>
     </div>
 
-    <h3 class="cmp-title">AI tools build. Waya helps you find the true signal.</h3>
+    <h3 class="cmp-title">Waya Experiment Program applies real-world expertise to AI, building smarter, not faster.</h3>
     <div class="cmp">
-      <div class="cmp-row cmp-head"><div>Generic AI tools</div><div>The Experiment System</div></div>
+      <div class="cmp-row cmp-head"><div>Generic AI tools</div><div>Waya Experiment System</div></div>
       <div class="cmp-row"><div>Generate more pages, posts, and features</div><div>Test the riskiest assumption first</div></div>
       <div class="cmp-row"><div>Agree with whatever you ask</div><div>Contrarian by design</div></div>
       <div class="cmp-row"><div>Opinions and likes as validation</div><div>Paying customers as validation</div></div>
@@ -412,7 +464,7 @@
     <div class="bridge-weeks" aria-hidden="true">
       <span>W1</span><span>W2</span><span>W3</span><span class="exp">W4</span><span class="exp">W5</span><span class="exp">W6</span><span class="exp">W7</span><span class="exp">W8</span><span class="exp">W9</span><span class="exp">W10</span><span class="exp">W11</span><span class="exp">W12</span>
     </div>
-    <div class="bridge-legend"><span>Personality assessment · Business Case · Mission &amp; Values</span><b>The Experiment System</b></div>
+    <div class="bridge-legend"><span>Personality assessment · Business Case · Mission &amp; Values</span><b>Waya Experiment System</b></div>
     <div class="section-cta"><a class="learn" href="/pre-pmf-mcp/cohort/">See the full 12-week curriculum →</a></div>
   </div>
 </section>
@@ -718,6 +770,19 @@
     if (reduce) frame(); else requestAnimationFrame(frame);
   })();
 
+  // ---------- Sam's story: play button; phones get the portrait cut ----------
+  (function () {
+    var v = document.getElementById('storyVideo'), btn = document.getElementById('vplay'), card = document.getElementById('videoCard');
+    if (!v || !btn) return;
+    if (window.matchMedia('(max-width: 640px)').matches) {
+      v.querySelector('source').src = '/assets/video/waya-experiment-program-mobile.mp4';
+      v.removeAttribute('poster'); card.classList.add('portrait'); v.load();
+    }
+    btn.addEventListener('click', function () { btn.hidden = true; v.play(); });
+    v.addEventListener('play', function () { btn.hidden = true; });
+    v.addEventListener('ended', function () { btn.hidden = false; });
+  })();
+
   // ---------- Tool pile ----------
   (function () {
     var tools = ['AI website builder','AI copywriter','AI SDR','Chatbot','CRM','Survey tool','Analytics','Social scheduler','Ad manager','Email platform','Call transcription','AI note taker','Persona generator','Pitch deck AI','Project tracker','Landing page builder'];
@@ -759,7 +824,7 @@
     else new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { fill(); o.disconnect(); } }, { threshold: 0.5 }).observe(b);
   })();
 
-  // ---------- The loop: reveal the five layers in order ----------
+  // ---------- The loop: reveal the four layers in order ----------
   (function () {
     var l = document.querySelector('.layers');
     if (reduce) { l.classList.add('in'); return; }
