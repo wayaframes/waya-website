@@ -180,7 +180,8 @@ window.buildCycle = function buildCycle(ctx) {
     path.setAttribute('d', `M${t.cx} ${PILL_Y + 44} L${ex} ${ey}`); path.setAttribute('fill', 'none'); path.setAttribute('stroke', '#B8BBB6'); path.setAttribute('stroke-width', '2.5'); path.setAttribute('stroke-linecap', 'round');
     wire.appendChild(path);
     const L = path.getTotalLength(); path.style.strokeDasharray = L;
-    tw(path, [{ strokeDashoffset: L }, { strokeDashoffset: 0 }], T(B.integrate + 0.4 + i * 0.1), 0.6, 'ease-out');
+    // all six lines are fully drawn by integrate+0.95, so a frame at integrate+1 shows every tool wired
+    tw(path, [{ strokeDashoffset: L }, { strokeDashoffset: 0 }], T(B.integrate + 0.25 + i * 0.05), 0.45, 'ease-out');
     track(path, [[T(B.integrate + 1.6), { stroke: '#B8BBB6' }], [T(B.integrate + 1.9), { stroke: '#EAB62F' }], [T(B.integrate + 2.4), { stroke: '#B8BBB6' }]]);
     t.path = path; t.el = p;
     return p;

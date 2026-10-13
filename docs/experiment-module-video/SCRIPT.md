@@ -1,6 +1,10 @@
-# 12 weeks to fundable product-market fit — promo video script (draft 8, 2026-10-13)
+# 12 weeks to fundable product-market fit — promo video script (draft 9, 2026-10-13)
 
-**Length:** 3:14, voiced. Pain 0–39 s, the program 39–79 s, the demo and the experiment cycle 79–186 s, the close to 194 s.
+**Length:** 2:51, voiced. Pain 0–23 s, the program 23–53 s, the demo and the experiment cycle 53–162 s, the close to 171 s.
+**Draft 9 changes (Oren, 2026-10-13):** 24 s cut. One merged opening line, the pile in two seconds, two seconds per screen;
+the program line and its caption shortened, the highlights as three concise, spaced bullets, and the About-page photo of
+Na'ama and Vince in the left tile when they are named; the customer testimonial held 1.5 s longer with a half-second fade.
+The cycle module's connectors now finish drawing before the pulse.
 **Draft 8 changes (Oren, 2026-10-13):** the program highlights are three bullets; the guidance is explained to start with the
 business case; the Tracker shows the finished case from the business-case scene on; at Define the loop ring takes the left
 panel and an experiment tracker (rounds 1 to 4, the loop steps under each) takes the right, logging the assumptions; after
