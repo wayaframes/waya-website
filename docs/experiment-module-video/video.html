@@ -69,6 +69,26 @@
   .tracker { position:absolute; left:1420px; top:110px; width:440px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
   .tracker img { display:block; width:100%; height:auto; }
   .tracker .lbl { position:absolute; left:0; right:0; top:0; padding:10px 16px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:14px; letter-spacing:.14em; text-transform:uppercase; }
+  .tracker img + img { position:absolute; left:0; top:0; opacity:0; }
+  /* the experiment tracker: rounds 1 to 4, the loop steps under each */
+  .xtrk { position:absolute; left:1420px; top:110px; width:440px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; font-family:var(--fb); }
+  .xtrk .lbl { padding:10px 16px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:14px; letter-spacing:.14em; text-transform:uppercase; }
+  .xtrk .rnd { padding:12px 16px 10px; border-bottom:1px solid rgba(56,63,59,.1); font-family:var(--fd); font-weight:700; font-size:17px; color:var(--charcoal); display:flex; align-items:center; gap:10px; }
+  .xtrk .rnd span { margin-left:auto; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); }
+  .xtrk .rnd.dim { color:var(--fog); }
+  .xtrk .st { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 30px; font-size:15px; color:var(--charcoal); border-bottom:1px solid rgba(56,63,59,.06); }
+  .xtrk .st i { width:18px; height:18px; border-radius:50%; border:2px solid var(--fog); flex:none; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-style:normal; font-weight:700; }
+  .xtrk .st.on i { border-color:var(--mustard); background:var(--mustard); color:var(--charcoal); }
+  .xtrk .st.done i { border-color:var(--sage); background:var(--sage); color:#fff; }
+  .xtrk .st small { margin-left:auto; font-family:var(--fd); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--stone); }
+  .xtrk .log { padding:6px 16px 12px 58px; font-size:14px; line-height:1.5; color:var(--stone); opacity:0; }
+  .xtrk .log b { color:var(--charcoal); font-weight:600; }
+  /* the loop ring, in the left panel */
+  .loop { position:absolute; left:60px; top:150px; width:520px; height:520px; opacity:0; }
+  .loop .inner { position:absolute; left:0; top:0; width:820px; height:820px; transform:scale(.634); transform-origin:0 0; }
+  .loop .rlab { position:absolute; left:0; top:-70px; font-family:var(--fd); font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream); background:var(--charcoal); padding:10px 18px; border-radius:999px; white-space:nowrap; }
+  .node { position:absolute; width:96px; height:96px; margin:-48px 0 0 -48px; border-radius:50%; background:var(--cream); border:3px solid var(--mustard); color:var(--charcoal); font-family:var(--fd); font-weight:700; font-size:26px; display:flex; align-items:center; justify-content:center; }
+  .nlab { position:absolute; font-family:var(--fd); font-weight:700; font-size:40px; letter-spacing:-.02em; color:var(--charcoal); white-space:nowrap; }
   .program { position:absolute; left:590px; top:110px; width:1270px; opacity:0; }
   .program .eyebrow { font-family:var(--fd); font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--rust); }
   .program h1 { margin:14px 0 0; font-family:var(--fd); font-weight:700; font-size:72px; line-height:1.02; letter-spacing:-.03em; color:var(--charcoal); }
@@ -76,6 +96,11 @@
   .program p { margin:28px 0 0; font-size:27px; line-height:1.5; color:var(--charcoal); max-width:1100px; }
   .program p b { color:var(--rust); font-weight:600; }
   .program .who { margin-top:34px; display:flex; gap:18px; opacity:0; }
+  .program ul { list-style:none; margin:34px 0 0; padding:0; display:flex; flex-direction:column; gap:18px; max-width:1180px; }
+  .program li { position:relative; padding-left:54px; font-size:25px; line-height:1.45; color:var(--charcoal); opacity:0; }
+  .program li::before { content:''; position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:50%; background:var(--mustard); }
+  .program li::after { content:''; position:absolute; left:11px; top:18px; width:8px; height:14px; border:solid var(--charcoal); border-width:0 3px 3px 0; transform:rotate(45deg); }
+  .program li b { color:var(--rust); font-weight:600; }
   .program .who div { background:#fff; border:1px solid rgba(56,63,59,.14); border-radius:16px; padding:16px 20px; font-size:19px; color:var(--charcoal); box-shadow:0 12px 30px rgba(31,36,34,.08); }
   .program .who b { display:block; font-family:var(--fd); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
   .tools { position:absolute; left:590px; top:110px; width:780px; opacity:0; }
@@ -139,25 +164,56 @@
       <div class="eyebrow">The Waya program</div>
       <h1>12 weeks to <em>fundable</em><br>product-market fit.</h1>
       <p>Hands-on guidance by founders and operators who built successful multi-million-dollar companies, for a highly selected group of <b>mission-driven founders</b>.</p>
-      <div class="who" id="who">
-        <div><b>Your coaches</b>Na'ama Moran and Vincent Matranga</div>
-        <div><b>Built</b>Several companies, including Cheetah · scaled to $150M ARR</div>
-        <div><b>Every week</b>A one-to-one hour, for twelve weeks</div>
-      </div>
+      <ul>
+        <li id="b1">You will be guided by <b>Na'ama and Vince</b>, who built several companies, including Cheetah Technologies, which scaled to $150M ARR.</li>
+        <li id="b2">You will have <b>12 one-to-one meetings</b> with Na'ama and Vince, and <b>8 group meetings</b> with other founders, to share and learn about assumption prioritization and experiment execution.</li>
+        <li id="b3">At the end of the program you will have <b>all the tools you need to reach PMF</b>, and you will be ready for investor calls.</li>
+      </ul>
     </div>
   </section>
 
   <!-- ================= THE FRAME: Na'ama left, Claude centre, the Tracker right ================= -->
   <section class="scene" id="sF" style="background:var(--cream)">
     <div class="tile" id="naamaF"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip2" muted playsinline preload="auto"></video></div></div>
-    <div class="tracker" id="trk"><img src="artifacts/tracker.png" alt=""><div class="lbl">The Waya Tracker</div></div>
+    <div class="tracker" id="trk"><img src="artifacts/tracker.png" alt=""><img id="trkDone" src="artifacts/register.png" alt=""><div class="lbl">The Waya Tracker</div></div>
+    <div class="xtrk" id="xtrk">
+      <div class="lbl">Experiment tracker</div>
+      <div class="rnd">Round 1 <span id="r1s">in progress</span></div>
+      <div class="st on" id="x1d"><i>1</i>Define <small id="x1dl">logging</small></div>
+      <div class="log" id="x1log"><b>6 assumptions logged</b> · H1 H2 H3 H4 H15 H17<br>Two experiments · pass lines set · kill date day 14</div>
+      <div class="st" id="x1b"><i>2</i>Build</div>
+      <div class="st" id="x1t"><i>3</i>Track</div>
+      <div class="st" id="x1a"><i>4</i>Analyze <small id="x1al"></small></div>
+      <div class="rnd" id="r2h">Round 2 <span id="r2s">next</span></div>
+      <div class="st" id="x2d" style="display:none"><i>1</i>Define <small>re-ranking the ledger</small></div>
+      <div class="rnd dim">Round 3 <span>later</span></div>
+      <div class="rnd dim" style="border:0">Round 4 <span>later</span></div>
+    </div>
+    <div class="loop" id="loop">
+      <div class="rlab" id="rlab">Round 1</div>
+      <div class="inner">
+        <svg class="abs" style="left:0; top:0; width:820px; height:820px;" viewBox="0 0 820 820">
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#EAB62F"/></marker></defs>
+          <g id="arcs">
+            <path d="M410 180 A230 230 0 0 1 640 410" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M640 410 A230 230 0 0 1 410 640" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M410 640 A230 230 0 0 1 180 410" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M180 410 A230 230 0 0 1 410 180" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 12" marker-end="url(#arr)"/>
+          </g>
+          <text x="222" y="222" font-family="Space Grotesk" font-size="15" font-weight="700" letter-spacing="2" fill="#8a6408" transform="rotate(-45 222 222)">NEXT ROUND</text>
+        </svg>
+        <div class="node" id="n1" style="left:410px; top:180px;">1</div>
+        <div class="node" id="n2" style="left:640px; top:410px;">2</div>
+        <div class="node" id="n3" style="left:410px; top:640px;">3</div>
+        <div class="node" id="n4" style="left:180px; top:410px;">4</div>
+        <div class="nlab" id="l1" style="left:410px; top:84px; transform:translateX(-50%);">Define</div>
+        <div class="nlab" id="l2" style="left:705px; top:388px;">Build</div>
+        <div class="nlab" id="l3" style="left:410px; top:696px; transform:translateX(-50%);">Track</div>
+        <div class="nlab" id="l4" style="left:115px; top:388px; transform:translateX(-100%);">Analyze</div>
+      </div>
+    </div>
 
     <div class="screen" id="scrClaude"><img src="artifacts/claude-chat.png" alt=""><div class="cap">Claude · with the Waya Pre-PMF connector</div></div>
-    <div class="tools" id="tools">
-      <h2>Waya connects<br>AI-native tools.</h2>
-      <p>Only the ones this round needs. The rest wait until a test calls for them.</p>
-      <div class="grid" id="toolsGrid"></div>
-    </div>
     <div class="screen" id="scrCase"><img src="artifacts/claude-case.png" alt=""><div class="cap">The business case · one hard question at a time</div></div>
     <div class="quote" id="quote">“Waya makes me think about <em>my</em> company.<br>I don't let AI slop think for me.”<small>— Sam</small></div>
     <!-- The Waya experiment cycle: one 780x880 box. The integrator places #cycleStage absolutely at
@@ -416,7 +472,7 @@
   const ROUND1 = ['HubSpot', 'Mailchimp', 'Typeform', 'Calendly'];
 
   // ================= THE PAIN 0–39 =================
-  // Timed to the voiced lines (render/vo.mjs prints the sheet) and, from 100.6 s, to the cycle module's beats.
+  // Timed to the voiced lines (render/vo.mjs prints the sheet) and, from T0, to the cycle module's beats.
   const sA = $('sA'); show(sA, 0, 39.2, 0.01, 0.8);
   track($('cal'), [[1.0, { opacity: 0 }], [1.6, { opacity: 1 }], [13.6, { opacity: 1 }], [14.3, { opacity: 0 }]]);
   tw($('cal'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 1.0, 0.8);
@@ -425,7 +481,6 @@
   [['doc1', 3.8], ['doc2', 4.2], ['doc3', 4.6]].forEach(([id, s]) => { const el = $(id), b = el.style.transform; track(el, [[s, { opacity: 0 }], [s + 0.3, { opacity: 1 }], [13.6, { opacity: 1 }], [14.3, { opacity: 0 }]]); tw(el, [{ transform: b + ' translateY(-40px)' }, { transform: b + ' translateY(0)' }], s, 0.5, POP); });
   track($('name'), [[8.4, { opacity: 0 }], [9.1, { opacity: 1 }], [13.8, { opacity: 1 }], [14.5, { opacity: 0 }]]);
   tw($('name'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 8.4, 0.8);
-  // the pile: logo pills rain in; a tool counter and a dollar counter climb
   const POS = [[880, 400, -4], [1180, 400, 3], [1440, 420, -3], [930, 500, 4], [1240, 500, -4], [1500, 520, 3], [880, 600, -3], [1170, 600, 4], [1460, 620, -5], [950, 700, 3], [1260, 700, -3], [1560, 720, 4], [900, 800, -4], [1210, 800, 2], [1500, 820, -4], [1080, 900, 3]];
   const land = [];
   MANIFEST.slice(0, 16).forEach((t, i) => {
@@ -436,55 +491,87 @@
   show($('counter'), 15.3, 20.6, 0.4, 0.4);
   JS.push(t => { let n = 0, d = 0; for (const [l, p] of land) if (t >= l) { n++; d += p; } $('counter').querySelector('.n').textContent = n; $('counter').querySelector('.d').textContent = '$' + d.toLocaleString(); });
   track($('pile'), [[20.0, { opacity: 1, filter: 'blur(0px)' }], [20.9, { opacity: 0.1, filter: 'blur(2px)' }], [34.4, { opacity: 0.1, filter: 'blur(2px)' }], [35.2, { opacity: 0, filter: 'blur(2px)' }]]);
-  // three real screens, one at a time
   function shot(id, toastId, s, e) { track($(id), [[s, { opacity: 0 }], [s + 0.5, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.4, { opacity: 0 }]]); tw($(id), [{ transform: 'translateY(24px) scale(.97)' }, { transform: 'translateY(0) scale(1)' }], s, 0.8); inout($(toastId), s + 1.2, e, 12); }
   shot('shotLanding', 'toastLanding', 20.8, 25.0); shot('shotSurvey', 'toastSurvey', 25.6, 29.8); shot('shotChat', 'toastChat', 30.4, 34.6);
   tw($('samCold'), [{ opacity: 1 }, { opacity: 0 }], 34.8, 0.5, 'linear');
   track($('samHands'), [[34.8, { opacity: 0 }], [35.3, { opacity: 1 }]]);
   rise($('h4'), 35.6, 0.9, 24);
 
-  // ================= THE PROGRAM 39–70 =================
+  // ================= THE PROGRAM 39–77 =================
   const stage = $('stage');
   tw(stage, [{ backgroundColor: '#121517' }, { backgroundColor: '#FAF7F1' }], 38.6, 2.0, 'linear');
-  const sB = $('sB'); show(sB, 39.2, 70.0, 0.7, 0.5);
+  const sB = $('sB'); show(sB, 39.2, 79.2, 0.7, 0.5);
   const nb = $('naamaB'); fadeIn(nb, 39.6, 0.5);
   tw(nb, [{ transform: 'scale(.9) translateY(24px)' }, { transform: 'scale(1) translateY(0)' }], 39.6, 0.8, 'cubic-bezier(.2,1.2,.4,1)');
-  // Na'ama's first clip plays in her tile once it lands (assets/naama-1.mp4); the still shows until the file exists
   clip($('naamaClip1'), 'assets/naama-1.mp4', 40.4, 6.0);
   rise($('prog'), 41.0, 0.9, 24);
-  rise($('who'), 57.0, 0.9, 20);
+  rise($('b1'), 55.6, 0.7, 14); rise($('b2'), 63.2, 0.7, 14); rise($('b3'), 71.2, 0.7, 14);
 
-  // ================= THE FRAME 70–162 =================
-  const sF = $('sF'); show(sF, 69.6, 162.6, 0.6, 0.5);
-  track($('naamaF'), [[69.8, { opacity: 0 }], [70.3, { opacity: 1 }], [94.2, { opacity: 1 }], [94.8, { opacity: 0.07 }], [99.6, { opacity: 0.07 }], [100.2, { opacity: 1 }]]);
-  track($('trk'), [[70.4, { opacity: 0 }], [70.9, { opacity: 1 }], [94.2, { opacity: 1 }], [94.8, { opacity: 0.07 }], [99.6, { opacity: 0.07 }], [100.2, { opacity: 1 }]]);
-  tw($('trk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], 70.4, 0.8);
-  // centre: Claude, then the tools, then the business case, then the quote, then the cycle, then the customer
-  inout($('scrClaude'), 70.2, 77.6, 24);
-  inout($('tools'), 78.2, 85.6, 24);
-  MANIFEST.slice(0, 16).forEach((t, i) => { const p = pillEl(t); $('toolsGrid').appendChild(p); if (ROUND1.includes(t.name)) tw(p, [{ backgroundColor: '#ffffff', color: '#383F3B' }, { backgroundColor: '#383F3B', color: '#FAF7F1' }], 81.0 + i * 0.05, 0.4, 'linear'); else tw(p, [{ opacity: 1 }, { opacity: 0.3 }], 81.2 + i * 0.04, 0.5, 'linear'); });
-  inout($('scrCase'), 86.2, 93.8, 24);
-  track($('quote'), [[94.6, { opacity: 0 }], [95.3, { opacity: 1 }], [99.0, { opacity: 1 }], [99.6, { opacity: 0 }]]);
-  tw($('quote'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 94.6, 1.0);
-  // the experiment cycle (cycle/cycle.js), in the centre column. Beats from T0: define 12.6, build 16.6,
-  // integrate 19.2, campaigns 22.4, track 30.0, analyze 36.4, nextDefine 42.2, nextRound 46.4, end 49.6
-  const T0 = 100.6;
-  let CYCLE = { end: T0 + 49.6, beats: {} };
-  track($('cycleStage'), [[T0 - 0.2, { opacity: 0 }], [T0 + 0.4, { opacity: 1 }], [153.8, { opacity: 1 }], [154.4, { opacity: 0 }]]);
-  if (window.buildCycle) { try { CYCLE = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0 }); } catch (e) { console.error('cycle failed', e); } }
+  // ================= THE FRAME 77–175 =================
+  const sF = $('sF'); show(sF, 78.8, 184.0, 0.6, 0.5);
+  // Na'ama: in the left column until the loop takes it at Define; back at the round-two Define
+  track($('naamaF'), [[79.0, { opacity: 0 }], [79.5, { opacity: 1 }], [99.4, { opacity: 1 }], [100.0, { opacity: 0.07 }], [104.8, { opacity: 0.07 }], [105.4, { opacity: 1 }], [118.2, { opacity: 1 }], [118.8, { opacity: 0 }], [161.2, { opacity: 0 }], [161.9, { opacity: 1 }]]);
+  // the Tracker: the fresh business case, then the finished one from the business-case scene on; away during the open layout
+  track($('trk'), [[79.6, { opacity: 0 }], [80.1, { opacity: 1 }], [99.4, { opacity: 1 }], [100.0, { opacity: 0.07 }], [104.8, { opacity: 0.07 }], [105.4, { opacity: 1 }], [118.2, { opacity: 1 }], [118.8, { opacity: 0 }]]);
+  tw($('trk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], 79.6, 0.8);
+  track($('trkDone'), [[91.8, { opacity: 0 }], [92.6, { opacity: 1 }]]);
+  // the experiment tracker: Round 1 · Define at the Define beat, away for the open layout, back at round two
+  track($('xtrk'), [[119.0, { opacity: 0 }], [119.6, { opacity: 1 }], [132.0, { opacity: 1 }], [132.6, { opacity: 0 }], [161.2, { opacity: 0 }], [161.9, { opacity: 1 }]]);
+  tw($('xtrk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], 119.0, 0.8);
+  fadeIn($('x1log'), 120.8, 0.5);
+  JS.push(t => {
+    const done = t >= 161.2;
+    $('x1d').className = 'st ' + (done ? 'done' : 'on'); $('x1dl').textContent = done ? '' : 'logging';
+    for (const id of ['x1b', 'x1t', 'x1a']) $(id).className = 'st ' + (done ? 'done' : '');
+    $('x1al').textContent = done ? 'reviewed with Na\'ama' : '';
+    $('r1s').textContent = done ? 'complete' : 'in progress';
+    $('r2h').className = 'rnd' + (done ? '' : ' dim'); $('r2s').textContent = done ? 'in progress' : 'next';
+    $('x2d').style.display = done ? 'flex' : 'none'; $('x2d').className = 'st on';
+  });
+  // centre: Claude with the connector, then the business case, then the quote, then the cycle, then the customer
+  inout($('scrClaude'), 79.4, 91.0, 24);
+  inout($('scrCase'), 91.8, 98.8, 24);
+  track($('quote'), [[99.8, { opacity: 0 }], [100.5, { opacity: 1 }], [104.2, { opacity: 1 }], [104.8, { opacity: 0 }]]);
+  tw($('quote'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 99.8, 1.0);
+  // the experiment cycle (cycle/cycle.js) in the centre column. Beats from T0: group 7.8, define 12.6,
+  // then build 16.6 + hold.afterDefine, integrate +2.6, campaigns +5.8, track +13.4, analyze +19.8,
+  // nextDefine +25.6 + hold.beforeNextDefine, nextRound +4.2, end +7.4
+  const T0 = 105.8, HOLD = { afterDefine: 11.8, beforeNextDefine: 1.8 };
+  const B = { define: T0 + 12.6, build: T0 + 16.6 + HOLD.afterDefine };
+  B.track = B.build + 13.4; B.analyze = B.build + 19.8; B.nextDefine = B.build + 25.6 + HOLD.beforeNextDefine; B.nextRound = B.nextDefine + 4.2; B.end = B.nextDefine + 7.4;
+  let CYCLE = { end: B.end, beats: B };
+  const cs = $('cycleStage');
+  track(cs, [[T0 - 0.2, { opacity: 0 }], [T0 + 0.4, { opacity: 1 }], [B.end + 8.6, { opacity: 1 }], [B.end + 9.2, { opacity: 0 }]]);
+  // the open layout: when the tracker leaves, the box grows into the right two thirds; back to the column at round two
+  track(cs, [[132.4, { transform: 'translate(0px, 0px) scale(1)', easing: EASE }], [133.4, { transform: 'translate(261px, -54px) scale(1.1)' }], [B.nextDefine - 0.6, { transform: 'translate(261px, -54px) scale(1.1)', easing: EASE }], [B.nextDefine + 0.4, { transform: 'translate(0px, 0px) scale(1)' }]]);
+  if (window.buildCycle) { try { CYCLE = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0, hold: HOLD }); } catch (e) { console.error('cycle failed', e); } }
   window.__CYCLE = CYCLE;
-  // Na'ama's second clip, at the next-round Define (assets/naama-2.mp4)
-  clip($('naamaClip2'), 'assets/naama-2.mp4', 142.8, 6.0);
+  // the loop ring, left: in at Define, lit per chapter, a quick spin at the next round, out when Na'ama returns
+  const nodes = ['n1', 'n2', 'n3', 'n4'].map($), labs = ['l1', 'l2', 'l3', 'l4'].map($);
+  track($('loop'), [[B.define, { opacity: 0 }], [B.define + 0.6, { opacity: 1 }], [B.nextDefine - 0.4, { opacity: 1 }], [B.nextDefine + 0.2, { opacity: 0 }]]);
+  tw($('loop'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], B.define, 0.8);
+  const LIT = [[B.define + 0.4, B.build - 0.75], [B.build, B.track - 0.3], [B.track, B.analyze - 0.3], [B.analyze, B.nextDefine - 0.6]];
+  nodes.forEach((n, i) => {
+    const [ls, le] = LIT[i];
+    track(n, [[ls, { backgroundColor: '#FAF7F1', transform: 'scale(1)' }], [ls + 0.3, { backgroundColor: '#EAB62F', transform: 'scale(1.18)' }], [le - 0.3, { backgroundColor: '#EAB62F', transform: 'scale(1.18)' }], [le, { backgroundColor: '#FAF7F1', transform: 'scale(1)' }]]);
+    const base = labs[i].style.transform || '';
+    track(labs[i], [[ls, { color: '#383F3B', transform: base + ' scale(1)' }], [ls + 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le - 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le, { color: '#383F3B', transform: base + ' scale(1)' }]]);
+  });
+  $('arcs').style.transformOrigin = '410px 410px'; $('arcs').style.transformBox = 'view-box';
+  // Na'ama's second clip, at the round-two Define (assets/naama-2.mp4)
+  clip($('naamaClip2'), 'assets/naama-2.mp4', B.nextDefine + 0.2, 6.0);
   // the customer
-  inout($('cust'), 154.8, 162.0, 24);
-  rise($('cq1'), 156.2, 0.6, 12); rise($('cq2'), 158.4, 0.6, 12);
+  const CU = B.end + 9.6;
+  inout($('cust'), CU, CU + 7.2, 24);
+  rise($('cq1'), CU + 1.4, 0.6, 12); rise($('cq2'), CU + 3.6, 0.6, 12);
 
-  // ================= CLOSE 162–170.5 =================
-  const sZ = $('sZ'); show(sZ, 162.4, 170.5, 0.8, 0.01);
-  riseKeep($('logo'), 163.0, 0.9, 16, 'translateX(-50%)');
-  rise($('hZ1'), 163.6, 0.8, 20); rise($('hZ2'), 164.5, 0.9, 24); rise($('hZ3'), 165.6, 0.8, 16);
+  // ================= CLOSE =================
+  const CZ = CU + 7.6;
+  const sZ = $('sZ'); show(sZ, CZ, CZ + 8.1, 0.8, 0.01);
+  riseKeep($('logo'), CZ + 0.6, 0.9, 16, 'translateX(-50%)');
+  rise($('hZ1'), CZ + 1.2, 0.8, 20); rise($('hZ2'), CZ + 2.1, 0.9, 24); rise($('hZ3'), CZ + 3.2, 0.8, 16);
 
-  // ================= CUES: the voiceover ================= (vo.mjs reads this list)
+  // ================= CUES: the voiceover ================= (vo.mjs reads this list; the cycle cues are placed on the beats)
   const CAPS = [
     [0.8, 8.2, 'Meet Sam. He\'s 32, with a newborn son, and he spends his Sundays building client reports when he wants to be with his boy.'],
     [8.6, 13.9, 'On the side, he\'s building Critical Character: a role-playing game that teaches kids to think.'],
@@ -493,27 +580,26 @@
     [25.8, 28.1, 'A survey three family members answered.'],
     [30.6, 32.7, 'A chatbot that loved every idea.'],
     [35.8, 37.7, 'Six months. No customer.'],
-    [47.0, 59.1, 'Then Sam joined 12 weeks to fundable product-market fit: hands-on guidance by founders and operators who built successful multi-million-dollar companies, for a highly selected group of mission-driven founders.'],
-    [59.6, 69.4, 'Na\'ama and Vince built several companies, including Cheetah, which scaled to 150 million dollars in ARR. Every week, Sam gets a one-to-one hour with them.'],
-    [70.8, 79.2, 'The guidance runs inside Sam\'s own AI assistant, Claude here, or ChatGPT, Grok or Gemini, with the Waya Tracker beside it.'],
-    [78.8, 85.9, 'Waya connects the AI-native tools each round needs, and only those, even though Sam isn\'t a technical founder.'],
-    [86.8, 92.8, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
-    [101.2, 112.0, 'The business case ends with Sam\'s assumptions. Waya ranks them by effort and risk, and by the stage of the company: the early ones go into round one, the rest wait in the assumption ledger.'],
-    [113.4, 118.4, 'Define groups them into two experiments: one for the infrastructure, one for the market.'],
-    [117.6, 121.7, 'Build picks the tools each experiment needs, and Waya wires them in.'],
-    [123.1, 128.9, 'The copy and content flow into those tools, the campaigns go live, and customer interviews get booked.'],
-    [130.8, 135.8, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
-    [137.2, 143.6, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
-    [143.1, 148.5, 'Then the next Define brings the ledger back, re-ranks it, and Sam confirms the priorities.'],
-    [148.9, 153.3, 'This repeats through the program until a clear product-market-fit signal appears.'],
-    [155.2, 161.5, 'Round after round, until paying customers confirm the signal. Twelve pods, and Sam has his Sundays back.'],
-    [163.4, 168.2, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
+    [42.0, 55.2, 'Then Sam joined the Waya program called 12 weeks to fundable product-market fit: hands-on guidance by founders and operators who built successful multi-million-dollar companies, for a highly selected group of mission-driven founders.'],
+    [55.6, 76.8, 'You\'ll be guided by Na\'ama and Vince, who built several companies, including Cheetah Technologies, which scaled to 150 million dollars in ARR. You\'ll have twelve one-to-one meetings with them, and eight group meetings with other founders, on assumption prioritization and experiment execution. And at the end, you\'ll have every tool you need to reach product-market fit, ready for investor calls.'],
+    [80.0, 91.2, 'The guidance runs inside Sam\'s own AI assistant, Claude here, or ChatGPT, Grok or Gemini. It starts with the business case: that\'s where the business and product assumptions are defined.'],
+    [92.2, 98.6, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
+    [106.4, 118.4, 'The Waya expert and the experiment system helped Sam prioritize the assumptions: by effort and risk, and by the stage of the company. The early ones go into round one; the rest wait in the assumption ledger.'],
+    [118.8, 131.8, 'Define groups them into two experiments: one for the infrastructure, one for the market. Every step is logged in the experiment tracker, round by round, and at the end of each round, Sam and Na\'ama review it together.'],
+    [134.4, 142.2, 'Build picks each experiment\'s tools. Waya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
+    [142.6, 147.4, 'Copy and content flow into them, campaigns go live, and interviews get booked.'],
+    [147.8, 152.9, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
+    [154.2, 161.1, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
+    [161.8, 173.2, 'At the end of the round, the Waya expert and Sam review the results together and define the next round: the ledger comes back, re-ranks, and Sam confirms the priorities.'],
+    [173.4, 177.9, 'This repeats through the program until a clear product-market-fit signal appears.'],
+    [179.0, 185.4, 'Round after round, until paying customers confirm the signal. Twelve pods, and Sam has his Sundays back.'],
+    [187.4, 192.3, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
   ];
   const cap = $('cap');
   if (CAPTIONS) JS.push(t => { const c = CAPS.find(([a, b]) => t >= a && t < b); if (c) { cap.textContent = c[2]; cap.style.opacity = 1; } else cap.style.opacity = 0; });
 
   // ================= clock =================
-  const DUR = 170.5;
+  const DUR = 194.5;
   function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
   addEventListener('resize', scale); scale();
   if (params.get('ui') === '0') document.querySelector('.scrub').style.display = 'none';

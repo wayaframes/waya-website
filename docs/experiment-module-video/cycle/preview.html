@@ -246,7 +246,9 @@
   }
 
   // ---- the module, at T0 = 0 ----
-  const cycle = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0: 0 });
+  // ?holdA=2&holdB=3 previews the integrator's frozen pauses (after Define, before Define · round 2)
+  const hold = { afterDefine: parseFloat(params.get('holdA')) || 0, beforeNextDefine: parseFloat(params.get('holdB')) || 0 };
+  const cycle = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0: 0, hold });
   const DUR = cycle.end;
   window.__beats = cycle.beats;
   const beatList = Object.entries(cycle.beats).map(([k, v]) => `${k} ${v.toFixed(1)}`).join('  ·  ');

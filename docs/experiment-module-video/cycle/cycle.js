@@ -16,9 +16,15 @@ window.buildCycle = function buildCycle(ctx) {
   const el = (cls, html, parent) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; (parent || S).appendChild(d); return d; };
 
   // ================= the schedule (seconds from T0) =================
+  // ctx.hold = { afterDefine, beforeNextDefine } (seconds, default 0): frozen pauses inserted after
+  // the Define chapter settles (before the Build chip) and after Analyze settles (before the
+  // "Define · round 2" chip). Every beat from Build on shifts by afterDefine; nextDefine, nextRound
+  // and end shift by afterDefine + beforeNextDefine.
+  const hold = ctx.hold || {};
+  const HA = Math.max(0, +hold.afterDefine || 0), HB = Math.max(0, +hold.beforeNextDefine || 0);
   const B = {
-    open: 0.0, lift: 1.8, matrix: 4.4, sort: 7.8, define: 12.6, build: 16.6, integrate: 19.2,
-    campaigns: 22.4, track: 30.0, analyze: 36.4, nextDefine: 42.2, nextRound: 46.4, end: 49.6,
+    open: 0.0, lift: 1.8, matrix: 4.4, sort: 7.8, define: 12.6, build: 16.6 + HA, integrate: 19.2 + HA,
+    campaigns: 22.4 + HA, track: 30.0 + HA, analyze: 36.4 + HA, nextDefine: 42.2 + HA + HB, nextRound: 46.4 + HA + HB, end: 49.6 + HA + HB,
   };
 
   // ================= the hypotheses =================
@@ -122,8 +128,8 @@ window.buildCycle = function buildCycle(ctx) {
   tw(round1, [{ transform: 'translateY(10px)' }, { transform: 'translateY(0)' }], T(B.sort + 1.4), 0.7);
   const ledger = q('#cyLedger'), lframe = q('#cyLedgerFrame');
   op(lframe, [[B.sort + 1.5, 0], [B.sort + 2.0, 1]]);
-  // the ledger container: 35% while the round runs, forward again for round 2
-  op(ledger, [[B.sort + 3.6, 1], [B.sort + 4.2, 0.35], [B.nextDefine + 0.2, 0.35], [B.nextDefine + 0.8, 1]]);
+  // the ledger container: fades away once the sort is done (gone by 12.0), returns for round 2
+  op(ledger, [[B.sort + 3.6, 1], [B.sort + 4.2, 0], [B.nextDefine + 0.2, 0], [B.nextDefine + 0.8, 1]]);
   track(ledger, [[T(B.nextDefine + 0.2), { transform: 'translateY(0px)', easing: EASE }], [T(B.nextDefine + 1.2), { transform: 'translateY(-420px)' }]]);
   tw(lframe, [{ height: '102px' }, { height: '230px' }], T(B.nextDefine + 0.4), 0.8);
 

@@ -1,6 +1,12 @@
-# 12 weeks to fundable product-market fit — promo video script (draft 7, 2026-10-13)
+# 12 weeks to fundable product-market fit — promo video script (draft 8, 2026-10-13)
 
-**Length:** 2:50, voiced. Pain 0–39 s, the program and the demo 39–162 s, the close to 170 s.
+**Length:** 3:14, voiced. Pain 0–39 s, the program 39–79 s, the demo and the experiment cycle 79–186 s, the close to 194 s.
+**Draft 8 changes (Oren, 2026-10-13):** the program highlights are three bullets; the guidance is explained to start with the
+business case; the Tracker shows the finished case from the business-case scene on; at Define the loop ring takes the left
+panel and an experiment tracker (rounds 1 to 4, the loop steps under each) takes the right, logging the assumptions; after
+the tracking line the tracker leaves and the cycle grows into the right two thirds for Build, Track and Analyze; at the end
+of the round Na'ama and the tracker return and the voice explains the review and the next round. The separate tools scene
+is folded into the Build line. The 7-second silence after the program title is gone.
 **Story:** Sam, 32, a new dad who spends his Sundays on client reports and wants to be with his son. On the side he is
 building Critical Character, a role-playing game that teaches kids to think, sold to learning pods and homeschool co-ops.
 Sixteen AI tools, a landing page nobody visited, a survey three family members answered, a chatbot that loved every idea.
