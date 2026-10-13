@@ -63,13 +63,18 @@ Every CTA button and link must use the canonical booking URL for its service (se
 SKILL.md). Flag any URL that points to the wrong service slug, a deprecated URL,
 or a generic URL where a service-specific URL should be used.
 
-**3.2 — UTM parameter completeness**
-Every booking URL must carry all four UTM parameters. Flag any URL missing
-`utm_source`, `utm_medium`, `utm_campaign`, or `utm_content`. Flag any `utm_content`
-value that doesn't match the button's location (e.g., hero button using `footer`).
+**3.2 — Website buttons carry only utm_button**
+Every booking URL on a site page must be `<live root>?utm_button=<placement>` and nothing
+else. Flag any `utm_source`, `utm_medium`, `utm_campaign` or `utm_content` hardcoded on a
+website button (the engine in `assets/analytics.js` supplies those from the inbound link).
+Placement values come from `website_buttons.allowed` in `_data/utm.json`; underscores,
+never hyphens (`final_cta`, not `final-cta`).
 
-**3.3 — UTM campaign value present**
-`utm_campaign` must have a non-empty value. Flag `utm_campaign=` or `utm_campaign=%20`.
+**3.3 — Page declares its product**
+Every template page has one `window.WAYA_ATTR_DEFAULTS = {...}` line in `<head>` whose
+`utm_campaign` starts with an active product token from `_data/utm.json`. Flag a missing
+line, a token that is not in the file, or a token still marked proposed.
+`python scripts/check_utm.py` performs 3.1 to 3.3 mechanically; quote its output.
 
 **3.4 — Internal link accuracy**
 Every internal link (`href` pointing to `/page/`) must resolve to a page that actually
@@ -270,8 +275,8 @@ against adjacent links. Flag CTAs that render small, thin, or tightly packed at 
 which is on phones.
 
 **8.12 — Placement is measurable**
-Every CTA's `utm_content` must name its placement (`nav`, `hero`, `challenge`,
-`pullquote`, `final_cta`, `footer`) so analytics can tell which placements actually
+Every CTA's `utm_button` must name its placement (`nav`, `hero`, `challenge`,
+`pullquote`, `final_cta`, `footer`, ...) so analytics can tell which placements actually
 drive bookings (tag correctness is checked in 3.2 — here confirm the placement value
 is meaningful and distinct per location, not `hero` on every button). Without this you
 can't tell an underperforming placement from a well-placed one.

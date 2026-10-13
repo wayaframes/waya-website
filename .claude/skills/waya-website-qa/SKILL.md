@@ -59,18 +59,12 @@ Load that file before writing the report.
 | Operations Audit | Operations audit, Ops Audit (as a heading — abbreviation is fine in body copy only) |
 | Expert Network | expert network, Expert network |
 
-### Canonical booking URLs (flag any deviation)
-- Fundraising Narrative: `https://api.leadconnectorhq.com/widget/bookings/fundraising-narrative`
-- Data Room Preparation: `https://api.leadconnectorhq.com/widget/bookings/dataroom-preparation`
-- Financial Model Preparation: `https://api.leadconnectorhq.com/widget/bookings/financial-model-preparation`
-- All other CTAs: `https://api.leadconnectorhq.com/widget/bookings/waya-consultation`
-
-### Canonical UTM structure (flag missing or malformed params)
-Every booking URL must have:
-- `utm_source=wayaframes`
-- `utm_medium=landing_page`
-- `utm_campaign=<value>` — must be present, any non-empty value is acceptable
-- `utm_content=<location>` — must be one of: `nav`, `hero`, `challenge`, `pullquote`, `final_cta`, `footer`
+### Canonical booking roots and UTM rules
+The reference definition is `_data/utm.json` in this repo. Read it; do not rely on this section.
+- Live booking roots are the entries under `roots` with `"status": "live"` (as of 2026-10-12: `waya-consultation`, `ops-intro-call`). Any other root slug is a CRITICAL finding.
+- Website buttons carry **only** `utm_button=<placement>` with a value from `website_buttons.allowed`. A button that hardcodes `utm_source`, `utm_medium`, `utm_campaign` or `utm_content` is a CRITICAL finding (it overrides the real campaign; the engine in `assets/analytics.js` fills those in).
+- Each page declares `window.WAYA_ATTR_DEFAULTS` with a `utm_campaign` of the form `<product>_<audience>_<period>` using a product token from `products`.
+- Run `python scripts/check_utm.py` and report its failures verbatim instead of re-deriving them.
 
 ### Canonical footer structure (4 columns, left to right)
 1. Logo + caption: "We have walked the path, faced the storms, and know how critical a guide can be."
