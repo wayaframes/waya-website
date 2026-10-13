@@ -506,7 +506,7 @@
   ],
   "experiment-system": [
     {
-      "q": "What is the Waya Experiment System?",
+      "q": "What is the Waya Experiments Platform?",
       "a": [
         "A system for finding product-market fit through structured experiments. You define your core assumptions — who your customer is, why they buy, what they experience, and how you reach them. Waya designs the tests with you, learns from your customer conversations, tracks every experiment, and uses the results to design the next round, until a strong PMF signal appears."
       ]
@@ -545,7 +545,7 @@
     {
       "q": "How do I know what to test first?",
       "a": [
-        "Waya reads your Business Case and your Mission and Values, maps your assumptions, and ranks them by risk. You test the assumption that would sink the business if it's wrong before you spend on anything else."
+        "Waya reads your Business Case and your Mission and Values, pulls your core business assumptions, and ranks them by impact vs. effort. You start with the high-impact, low-effort tests, the lowest-hanging fruit, before you spend on anything else."
       ]
     },
     {
@@ -584,7 +584,7 @@
     {
       "q": "How do I get access?",
       "a": [
-        "We currently run the Experiment System only inside 12 Weeks to PMF, where it powers weeks 4–12. Seats are limited to 5–7 founders per cohort."
+        "We currently run the Experiments Platform only inside 12 Weeks to PMF, where it powers weeks 4–12. Seats are limited to 5–7 founders per cohort."
       ]
     }
   ]
