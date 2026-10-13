@@ -359,7 +359,7 @@
       ]
     }
   ],
-  "pre-pmf-mcp-cohort": [
+  "experiment-platform-cohort": [
     {
       "q": "Who is this program for?",
       "a": [
@@ -504,7 +504,7 @@
       ]
     }
   ],
-  "experiment-system": [
+  "experiment-platform-detail": [
     {
       "q": "What is the Waya Experiments Platform?",
       "a": [
