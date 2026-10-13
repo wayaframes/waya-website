@@ -1,21 +1,23 @@
 """Composes and synthesizes the soundtrack for video.html, then writes out/music.wav (48 kHz stereo).
 
-Shape, in seconds of the film (draft 5 timeline):
-  0–28.6   dark: D minor drone, a slow pulse, a sparse minor arpeggio, a tick that creeps in with the pile
-  28.6–30.6 the lift: a riser, then the key turns to F major as the screen warms
-  30.6–84   bright and steady: pad chords, a soft pluck, light kick
-  84–116    the loop: bass, snare, hats and a lead line come in one by one
-  116–125   crescendo: Sam on the call with Dana, everything in, a crash on the cut
-  125–end   calm: pads and a slow arpeggio for the last two cards, then fade
+Shape, in seconds of the film (draft 12 timeline):
+  0–25.4   dark: D minor drone, a slow pulse, a sparse minor arpeggio, a tick that creeps in with the pile (12.4)
+  23.2–27  the lift: a riser, then the key turns to F major as the screen warms
+  27–56.3  bright and steady: pad chords, a soft pluck, light kick (the program page)
+  56.3–86.9 the demo frame: bass and hats join
+  86.9–116.4 the cycle: snare and the lead line come in
+  116.4–149.9 the loop in full
+  149.9–156.1 crescendo: the customer card, everything in, a crash on the cut
+  156.1–end calm: pads and a slow arpeggio for the close, then fade
 
-Pure numpy/scipy, no samples. Run:  python music.py [--dur 131.5]
+Pure numpy/scipy, no samples. Run:  python music.py [--dur 164.6]
 """
 import sys, numpy as np
 from scipy.signal import lfilter
 from scipy.io import wavfile
 
 SR = 48000
-DUR = float(sys.argv[sys.argv.index('--dur') + 1]) if '--dur' in sys.argv else 131.5
+DUR = float(sys.argv[sys.argv.index('--dur') + 1]) if '--dur' in sys.argv else 164.6
 BPM = 100.0
 BEAT = 60.0 / BPM
 BAR = 4 * BEAT
@@ -100,25 +102,25 @@ def riser(dur):
     tone = np.sin(2 * np.pi * np.cumsum(110 * 2 ** (t / dur * 1.5)) / SR) * 0.25
     return (out * 0.35 + tone) * (t / dur) ** 1.6 * 0.5
 
-# ---------- the dark opening: 0–28.6 ----------
+# ---------- the dark opening: 0–25.4 ----------
 D2, D3, F3, A3, C4, Eb3 = note(38), note(50), note(53), note(57), note(60), note(51)
-n = int(25.6 * SR); t = t_axis(n)
+n = int(26.2 * SR); t = t_axis(n)
 drone = lp(saw(D2, n) + 0.7 * saw(D2 * 2, n, 0.003) + 0.4 * saw(D2 * 1.5, n, -0.002), 260, 2)
 drone *= (0.6 + 0.4 * np.sin(2 * np.pi * 0.11 * t)) * env(n, 0.25, 0.5, 1, 1.2)
-drone *= np.clip(0.55 + t / 25.6 * 0.6, 0, 1.1)                    # tension climbs
+drone *= np.clip(0.55 + t / 26.2 * 0.6, 0, 1.1)                    # tension climbs
 add(L, R, drone, 0, gain=0.32); add(L, R, drone, 0, gain=0.32)
-for b in np.arange(0.15, 24.4, 1.2):                                # slow heartbeat pulse, from the first frame
+for b in np.arange(0.15, 25.0, 1.2):                                # slow heartbeat pulse, from the first frame
     add(L, R, kick(0.45 + 0.3 * b / 23), b)
-for s in np.arange(1.0, 23.1, 1.8):                                 # sparse minor arpeggio, higher as it tightens
+for s in np.arange(1.0, 23.7, 1.8):                                 # sparse minor arpeggio, higher as it tightens
     f = [D3, F3, A3, C4][int(rng.integers(0, 4))]
     if rng.random() < 0.18: f = Eb3                                  # the sour note
     add(L, R, pluck(f, 0.9, 0.5 + 0.3 * s / 22), s + rng.uniform(-0.15, 0.15), pan=rng.uniform(-0.5, 0.5))
-for s in np.arange(11.2, 24.6, BEAT / 2):                           # a tick creeps in with the pile
-    add(L, R, tick(0.25 + 0.5 * (s - 11.2) / 13), s, pan=0.35 * np.sin(s * 3))
-add(L, R, riser(2.6), 22.6)
+for s in np.arange(12.4, 25.2, BEAT / 2):                           # a tick creeps in with the pile
+    add(L, R, tick(0.25 + 0.5 * (s - 12.4) / 13), s, pan=0.35 * np.sin(s * 3))
+add(L, R, riser(2.6), 23.2)
 
-# ---------- the bright section: F major, 30.6 onwards ----------
-BRIGHT = 26.4
+# ---------- the bright section: F major, 27 onwards ----------
+BRIGHT = 27.0
 F3n, A3n, C4n, E4n, G4n, Bb3n, D4n = note(53), note(57), note(60), note(64), note(67), note(58), note(62)
 CHORDS = [  # (name, pad notes (midi), bass midi)
     ('F', [53, 57, 60, 65], 41), ('C', [52, 55, 60, 64], 36), ('Dm', [50, 53, 57, 62], 38), ('Bb', [50, 53, 58, 65], 34),
@@ -126,25 +128,25 @@ CHORDS = [  # (name, pad notes (midi), bass midi)
 PENTA = [65, 67, 69, 72, 74, 77, 79, 81]  # F pentatonic from F4
 MOTIF = [[69, 72, 74, 72, 69, 67, 65, None], [69, 72, 74, 77, 74, 72, 69, None]]
 
-def section(t):  # layer plan by film time
-    if t < 55: return dict(pad=1, pluck=1, kick=0.5, bass=0, snare=0, hat=0, lead=0, vol=1.05)
-    if t < 87: return dict(pad=1, pluck=1, kick=0.7, bass=0.8, snare=0, hat=0.5, lead=0, vol=1.15)
-    if t < 121: return dict(pad=1, pluck=1, kick=0.9, bass=1, snare=0.7, hat=0.8, lead=0.9, vol=1.25)
-    if t < 160.2: return dict(pad=1, pluck=1, kick=1, bass=1, snare=0.9, hat=1, lead=1, vol=1.4)
-    if t < 169.8: return dict(pad=1.1, pluck=1, kick=1, bass=1, snare=1, hat=1, lead=1.2, vol=1.7)   # crescendo
+def section(t):  # layer plan by film time (F 56.3, T0 86.9, B.campaigns 116.4, CU 150.3, CZ 156.5)
+    if t < 56.3: return dict(pad=1, pluck=1, kick=0.5, bass=0, snare=0, hat=0, lead=0, vol=1.05)
+    if t < 86.9: return dict(pad=1, pluck=1, kick=0.7, bass=0.8, snare=0, hat=0.5, lead=0, vol=1.15)
+    if t < 116.4: return dict(pad=1, pluck=1, kick=0.9, bass=1, snare=0.7, hat=0.8, lead=0.9, vol=1.25)
+    if t < 149.9: return dict(pad=1, pluck=1, kick=1, bass=1, snare=0.9, hat=1, lead=1, vol=1.4)
+    if t < 156.1: return dict(pad=1.1, pluck=1, kick=1, bass=1, snare=1, hat=1, lead=1.2, vol=1.7)   # crescendo
     return dict(pad=0.7, pluck=0.45, kick=0, bass=0, snare=0, hat=0, lead=0, vol=0.5)               # calm
 
 bar_i = 0; t0 = BRIGHT
 while t0 < DUR:
     S = section(t0); ch = CHORDS[bar_i % 4]
-    calm = t0 >= 169.8
+    calm = t0 >= 156.1
     # crescendo cadence: last two bars before the calm resolve IV–V–I
-    if 160.2 <= t0 < 169.8:
+    if 149.9 <= t0 < 156.1:
         ch = [('Bb', [50, 53, 58, 65], 34), ('C', [52, 55, 60, 64], 36), ('F', [53, 57, 60, 65], 41), ('F', [53, 57, 60, 65], 41)][bar_i % 4]
     if calm: ch = ('F', [53, 57, 60, 65], 41)
     v = S['vol']
     for m in ch[1]:
-        add(L, R, pad(note(m), BAR, S['pad'] * v, cutoff=700 if t0 < 55 else 1100 if t0 < 160 else 1500), t0, pan=rng.uniform(-0.3, 0.3))
+        add(L, R, pad(note(m), BAR, S['pad'] * v, cutoff=700 if t0 < 56.3 else 1100 if t0 < 149.9 else 1500), t0, pan=rng.uniform(-0.3, 0.3))
     if S['bass']:
         for k in range(4): add(L, R, bass(note(ch[2]), BEAT * 0.9, S['bass'] * v), t0 + k * BEAT)
     if S['pluck']:
@@ -154,22 +156,22 @@ while t0 < DUR:
             add(L, R, pluck(note(m), 0.5, S['pluck'] * v * (0.9 if k % 2 == 0 else 0.6)), t0 + k * (BEAT / 2 if not calm else BEAT), pan=0.4 * np.sin(k))
     if S['kick']:
         for k in [0, 2]: add(L, R, kick(S['kick'] * v), t0 + k * BEAT)
-        if t0 >= 121: add(L, R, kick(S['kick'] * v * 0.7), t0 + 3.5 * BEAT)
+        if t0 >= 116.4: add(L, R, kick(S['kick'] * v * 0.7), t0 + 3.5 * BEAT)
     if S['snare']:
         for k in [1, 3]: add(L, R, snare(S['snare'] * v), t0 + k * BEAT)
     if S['hat']:
-        div = BEAT / 2 if t0 < 121 else BEAT / 4
-        for k in np.arange(0, BAR, div): add(L, R, hat(S['hat'] * v * (1 if (k / div) % 2 == 0 else 0.6), 0.05 if t0 < 160 else 0.08), t0 + k, pan=0.25)
+        div = BEAT / 2 if t0 < 116.4 else BEAT / 4
+        for k in np.arange(0, BAR, div): add(L, R, hat(S['hat'] * v * (1 if (k / div) % 2 == 0 else 0.6), 0.05 if t0 < 149.9 else 0.08), t0 + k, pan=0.25)
     if S['lead']:
         mot = MOTIF[bar_i % 2]
-        up = 12 if t0 >= 160.2 else 0
+        up = 12 if t0 >= 149.9 else 0
         for k, m in enumerate(mot):
             if m is None: continue
             add(L, R, lead(note(m + up), BEAT / 2 * 0.95, S['lead'] * v), t0 + k * BEAT / 2, pan=-0.15)
     t0 += BAR; bar_i += 1
 
-add(L, R, crash(1.0), 160.4)
-add(L, R, riser(1.8), 158.6)        # into the cut
+add(L, R, crash(1.0), 150.1)
+add(L, R, riser(1.8), 148.3)        # into the cut
 
 # ---------- reverb (Schroeder), master ----------
 def reverb(x, mix=0.22):
@@ -181,10 +183,10 @@ def reverb(x, mix=0.22):
     return x * (1 - mix) + y * mix * 0.25
 L = reverb(L); R = reverb(R)
 L = lp(hp(L, 35), 12000); R = lp(hp(R, 35), 12000)
-# master fade: in over 1 s, out over the last 3 s; and the calm: settle to 40% across the cut at 125 s
+# master fade: in over 1 s, out over the last 3 s; and the calm: settle to 40% across the cut to the close at 156.5 s
 fade = np.ones(N); fi = int(0.12 * SR); fo = int(3.0 * SR)
 fade[:fi] = np.linspace(0, 1, fi); fade[-fo:] = np.linspace(1, 0, fo)
-c0, c1 = int(169.4 * SR), int(171.4 * SR)
+c0, c1 = int(155.7 * SR), int(157.7 * SR)
 if c1 < N:
     fade[c0:c1] *= np.linspace(1, 0.4, c1 - c0); fade[c1:] *= 0.4
 L *= fade; R *= fade

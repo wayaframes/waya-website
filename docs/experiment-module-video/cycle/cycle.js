@@ -24,7 +24,7 @@ window.buildCycle = function buildCycle(ctx) {
   const HA = Math.max(0, +hold.afterDefine || 0), HB = Math.max(0, +hold.beforeNextDefine || 0);
   const B = {
     open: 0.0, lift: 1.8, matrix: 4.4, sort: 7.8, define: 12.6, build: 16.6 + HA, integrate: 19.2 + HA,
-    campaigns: 22.4 + HA, track: 30.0 + HA, analyze: 36.4 + HA, nextDefine: 42.2 + HA + HB, nextRound: 46.4 + HA + HB, end: 49.6 + HA + HB,
+    campaigns: 24.7 + HA, track: 31.0 + HA, analyze: 36.4 + HA, nextDefine: 42.2 + HA + HB, nextRound: 46.4 + HA + HB, end: 49.6 + HA + HB,
   };
 
   // ================= the hypotheses =================
