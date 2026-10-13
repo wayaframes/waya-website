@@ -102,23 +102,23 @@ def riser(dur):
 
 # ---------- the dark opening: 0–28.6 ----------
 D2, D3, F3, A3, C4, Eb3 = note(38), note(50), note(53), note(57), note(60), note(51)
-n = int(24.0 * SR); t = t_axis(n)
+n = int(25.6 * SR); t = t_axis(n)
 drone = lp(saw(D2, n) + 0.7 * saw(D2 * 2, n, 0.003) + 0.4 * saw(D2 * 1.5, n, -0.002), 260, 2)
 drone *= (0.6 + 0.4 * np.sin(2 * np.pi * 0.11 * t)) * env(n, 0.25, 0.5, 1, 1.2)
-drone *= np.clip(0.55 + t / 24.0 * 0.6, 0, 1.1)                    # tension climbs
+drone *= np.clip(0.55 + t / 25.6 * 0.6, 0, 1.1)                    # tension climbs
 add(L, R, drone, 0, gain=0.32); add(L, R, drone, 0, gain=0.32)
-for b in np.arange(0.15, 22.8, 1.2):                                # slow heartbeat pulse, from the first frame
+for b in np.arange(0.15, 24.4, 1.2):                                # slow heartbeat pulse, from the first frame
     add(L, R, kick(0.45 + 0.3 * b / 23), b)
-for s in np.arange(1.0, 21.5, 1.8):                                 # sparse minor arpeggio, higher as it tightens
+for s in np.arange(1.0, 23.1, 1.8):                                 # sparse minor arpeggio, higher as it tightens
     f = [D3, F3, A3, C4][int(rng.integers(0, 4))]
     if rng.random() < 0.18: f = Eb3                                  # the sour note
     add(L, R, pluck(f, 0.9, 0.5 + 0.3 * s / 22), s + rng.uniform(-0.15, 0.15), pan=rng.uniform(-0.5, 0.5))
-for s in np.arange(9.8, 23.0, BEAT / 2):                           # a tick creeps in with the pile
-    add(L, R, tick(0.25 + 0.5 * (s - 9.8) / 13), s, pan=0.35 * np.sin(s * 3))
-add(L, R, riser(2.6), 21.0)
+for s in np.arange(11.2, 24.6, BEAT / 2):                           # a tick creeps in with the pile
+    add(L, R, tick(0.25 + 0.5 * (s - 11.2) / 13), s, pan=0.35 * np.sin(s * 3))
+add(L, R, riser(2.6), 22.6)
 
 # ---------- the bright section: F major, 30.6 onwards ----------
-BRIGHT = 24.8
+BRIGHT = 26.4
 F3n, A3n, C4n, E4n, G4n, Bb3n, D4n = note(53), note(57), note(60), note(64), note(67), note(58), note(62)
 CHORDS = [  # (name, pad notes (midi), bass midi)
     ('F', [53, 57, 60, 65], 41), ('C', [52, 55, 60, 64], 36), ('Dm', [50, 53, 57, 62], 38), ('Bb', [50, 53, 58, 65], 34),
@@ -127,24 +127,24 @@ PENTA = [65, 67, 69, 72, 74, 77, 79, 81]  # F pentatonic from F4
 MOTIF = [[69, 72, 74, 72, 69, 67, 65, None], [69, 72, 74, 77, 74, 72, 69, None]]
 
 def section(t):  # layer plan by film time
-    if t < 53: return dict(pad=1, pluck=1, kick=0.5, bass=0, snare=0, hat=0, lead=0, vol=1.05)
-    if t < 80: return dict(pad=1, pluck=1, kick=0.7, bass=0.8, snare=0, hat=0.5, lead=0, vol=1.15)
-    if t < 114: return dict(pad=1, pluck=1, kick=0.9, bass=1, snare=0.7, hat=0.8, lead=0.9, vol=1.25)
-    if t < 153.2: return dict(pad=1, pluck=1, kick=1, bass=1, snare=0.9, hat=1, lead=1, vol=1.4)
-    if t < 162.8: return dict(pad=1.1, pluck=1, kick=1, bass=1, snare=1, hat=1, lead=1.2, vol=1.7)   # crescendo
+    if t < 55: return dict(pad=1, pluck=1, kick=0.5, bass=0, snare=0, hat=0, lead=0, vol=1.05)
+    if t < 87: return dict(pad=1, pluck=1, kick=0.7, bass=0.8, snare=0, hat=0.5, lead=0, vol=1.15)
+    if t < 121: return dict(pad=1, pluck=1, kick=0.9, bass=1, snare=0.7, hat=0.8, lead=0.9, vol=1.25)
+    if t < 160.2: return dict(pad=1, pluck=1, kick=1, bass=1, snare=0.9, hat=1, lead=1, vol=1.4)
+    if t < 169.8: return dict(pad=1.1, pluck=1, kick=1, bass=1, snare=1, hat=1, lead=1.2, vol=1.7)   # crescendo
     return dict(pad=0.7, pluck=0.45, kick=0, bass=0, snare=0, hat=0, lead=0, vol=0.5)               # calm
 
 bar_i = 0; t0 = BRIGHT
 while t0 < DUR:
     S = section(t0); ch = CHORDS[bar_i % 4]
-    calm = t0 >= 162.8
+    calm = t0 >= 169.8
     # crescendo cadence: last two bars before the calm resolve IV–V–I
-    if 153.2 <= t0 < 162.8:
+    if 160.2 <= t0 < 169.8:
         ch = [('Bb', [50, 53, 58, 65], 34), ('C', [52, 55, 60, 64], 36), ('F', [53, 57, 60, 65], 41), ('F', [53, 57, 60, 65], 41)][bar_i % 4]
     if calm: ch = ('F', [53, 57, 60, 65], 41)
     v = S['vol']
     for m in ch[1]:
-        add(L, R, pad(note(m), BAR, S['pad'] * v, cutoff=700 if t0 < 53 else 1100 if t0 < 153 else 1500), t0, pan=rng.uniform(-0.3, 0.3))
+        add(L, R, pad(note(m), BAR, S['pad'] * v, cutoff=700 if t0 < 55 else 1100 if t0 < 160 else 1500), t0, pan=rng.uniform(-0.3, 0.3))
     if S['bass']:
         for k in range(4): add(L, R, bass(note(ch[2]), BEAT * 0.9, S['bass'] * v), t0 + k * BEAT)
     if S['pluck']:
@@ -154,22 +154,22 @@ while t0 < DUR:
             add(L, R, pluck(note(m), 0.5, S['pluck'] * v * (0.9 if k % 2 == 0 else 0.6)), t0 + k * (BEAT / 2 if not calm else BEAT), pan=0.4 * np.sin(k))
     if S['kick']:
         for k in [0, 2]: add(L, R, kick(S['kick'] * v), t0 + k * BEAT)
-        if t0 >= 114: add(L, R, kick(S['kick'] * v * 0.7), t0 + 3.5 * BEAT)
+        if t0 >= 121: add(L, R, kick(S['kick'] * v * 0.7), t0 + 3.5 * BEAT)
     if S['snare']:
         for k in [1, 3]: add(L, R, snare(S['snare'] * v), t0 + k * BEAT)
     if S['hat']:
-        div = BEAT / 2 if t0 < 114 else BEAT / 4
-        for k in np.arange(0, BAR, div): add(L, R, hat(S['hat'] * v * (1 if (k / div) % 2 == 0 else 0.6), 0.05 if t0 < 153 else 0.08), t0 + k, pan=0.25)
+        div = BEAT / 2 if t0 < 121 else BEAT / 4
+        for k in np.arange(0, BAR, div): add(L, R, hat(S['hat'] * v * (1 if (k / div) % 2 == 0 else 0.6), 0.05 if t0 < 160 else 0.08), t0 + k, pan=0.25)
     if S['lead']:
         mot = MOTIF[bar_i % 2]
-        up = 12 if t0 >= 153.2 else 0
+        up = 12 if t0 >= 160.2 else 0
         for k, m in enumerate(mot):
             if m is None: continue
             add(L, R, lead(note(m + up), BEAT / 2 * 0.95, S['lead'] * v), t0 + k * BEAT / 2, pan=-0.15)
     t0 += BAR; bar_i += 1
 
-add(L, R, crash(1.0), 153.4)
-add(L, R, riser(1.8), 151.6)        # into the cut
+add(L, R, crash(1.0), 160.4)
+add(L, R, riser(1.8), 158.6)        # into the cut
 
 # ---------- reverb (Schroeder), master ----------
 def reverb(x, mix=0.22):
@@ -184,7 +184,7 @@ L = lp(hp(L, 35), 12000); R = lp(hp(R, 35), 12000)
 # master fade: in over 1 s, out over the last 3 s; and the calm: settle to 40% across the cut at 125 s
 fade = np.ones(N); fi = int(0.12 * SR); fo = int(3.0 * SR)
 fade[:fi] = np.linspace(0, 1, fi); fade[-fo:] = np.linspace(1, 0, fo)
-c0, c1 = int(162.4 * SR), int(164.4 * SR)
+c0, c1 = int(169.4 * SR), int(171.4 * SR)
 if c1 < N:
     fade[c0:c1] *= np.linspace(1, 0.4, c1 - c0); fade[c1:] *= 0.4
 L *= fade; R *= fade

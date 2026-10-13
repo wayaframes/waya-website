@@ -1,4 +1,4 @@
-# 12 weeks to fundable product-market fit — promo video script (draft 10, 2026-10-13)
+# 12 weeks to fundable product-market fit — promo video script (draft 11, 2026-10-13)
 
 **Length:** 2:51, voiced. Pain 0–23 s, the program 23–53 s, the demo and the experiment cycle 53–162 s, the close to 171 s.
 **Draft 9 changes (Oren, 2026-10-13):** 24 s cut. One merged opening line, the pile in two seconds, two seconds per screen;
@@ -10,6 +10,11 @@ working. The program title spans the page, Na'ama's muted clip (cropped square o
 it, then the About-page photo of the two coaches; the three bullets sit beside the tile down to 80% of the page. The voice
 says WEIGH-ya: the lines spell the name "Wayya", the spelling Oren picked from five samples, because the voice service
 ignores phonetic markup. The on-screen word is unchanged.
+**Draft 11 changes (Oren, 2026-10-13):** the tool pile starts on "he signed up for everything"; "a game called Critical
+Character"; the program page shows the About-page photo of Na'ama and Vince, her video comes in at the demo at the same
+560 px size and leaves at the quote; the ranking line introduces the Experiment Platform (the name everywhere now) as the
+phase of continuous improvement until PMF; Na'ama is voiced "Nah-ah-mah" per docs/pronunciation-spec.md's fallback for
+engines without phonemes.
 **Draft 8 changes (Oren, 2026-10-13):** the program highlights are three bullets; the guidance is explained to start with the
 business case; the Tracker shows the finished case from the business-case scene on; at Define the loop ring takes the left
 panel and an experiment tracker (rounds 1 to 4, the loop steps under each) takes the right, logging the assumptions; after

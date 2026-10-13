@@ -16,6 +16,7 @@ const { chromium } = require('playwright-core');
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 ? args[i + 1] : d; };
 const BOX = args.includes('--box');
+const CT = opt('ct', '');   // --ct '<css transform>' applies the integrator's container transform to the box
 const HOLD = opt('hold', '0,0').split(',').map(Number);   // --hold afterDefine,beforeNextDefine (seconds)
 const TAG = HOLD[0] || HOLD[1] ? `hold-${HOLD[0]}-${HOLD[1]}-` : '';
 const outDir = resolve(here, 'out'); mkdirSync(outDir, { recursive: true });
@@ -35,7 +36,7 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true, args:
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 page.on('pageerror', e => console.error('page error:', e.message));
 page.on('console', m => { if (m.type() === 'error') console.error('console:', m.text()); });
-await page.goto(pathToFileURL(previewPath).href + `?autoplay=0&ui=0&holdA=${HOLD[0] || 0}&holdB=${HOLD[1] || 0}`, { waitUntil: 'load' });
+await page.goto(pathToFileURL(previewPath).href + `?autoplay=0&ui=0&holdA=${HOLD[0] || 0}&holdB=${HOLD[1] || 0}&ct=${encodeURIComponent(CT)}`, { waitUntil: 'load' });
 await page.evaluate(() => window.__ready);
 await page.waitForTimeout(300);
 const DUR = await page.evaluate(() => window.__DUR);
@@ -47,7 +48,7 @@ const times = opt('times', null) ? opt('times').split(',').map(Number)
 for (const t of times) {
   await page.evaluate(t => window.__seek(t), t);
   await page.waitForTimeout(60);
-  const file = resolve(outDir, `still-${TAG}${t.toFixed(1)}.png`);
+  const file = resolve(outDir, `still-${CT ? "ct-" : ""}${TAG}${t.toFixed(1)}.png`);
   await page.screenshot({ path: file, type: 'png', clip: BOX ? { x: 560, y: 90, width: 800, height: 900 } : undefined });
   console.log('wrote', file);
 }

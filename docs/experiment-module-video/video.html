@@ -63,7 +63,7 @@
   .tile .body { position:absolute; inset:52px 0 0 0; background:var(--mint); }
   .tile .body img, .tile .body video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
   .tile .body video { display:none; object-position:center 58%; }   /* the clip is square; keep her face centred in the wide tile */
-  .screen { position:absolute; left:590px; top:110px; width:780px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .screen { position:absolute; left:620px; top:110px; width:780px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
   .screen img { display:block; width:100%; height:auto; }
   .screen .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 18px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:15px; letter-spacing:.06em; }
   .tracker { position:absolute; left:1420px; top:110px; width:440px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
@@ -111,7 +111,7 @@
   .quote { position:absolute; left:0; right:0; top:360px; text-align:center; padding:0 220px; font-family:var(--fd); font-weight:700; font-size:72px; line-height:1.15; letter-spacing:-.025em; color:var(--charcoal); opacity:0; }
   .quote em { font-style:normal; color:var(--rust); }
   .quote small { display:block; margin-top:26px; font-family:var(--fb); font-weight:500; font-size:26px; color:var(--stone); letter-spacing:0; }
-  .cust { position:absolute; left:590px; top:110px; width:780px; border-radius:22px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 24px 70px rgba(31,36,34,.14); overflow:hidden; opacity:0; }
+  .cust { position:absolute; left:620px; top:110px; width:780px; border-radius:22px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 24px 70px rgba(31,36,34,.14); overflow:hidden; opacity:0; }
   .cust .bar { height:52px; background:var(--sage); color:var(--cream); font-family:var(--fd); font-weight:600; font-size:19px; display:flex; align-items:center; padding:0 18px; gap:10px; }
   .cust .bar i { width:12px; height:12px; border-radius:50%; background:#5fd38a; box-shadow:0 0 0 4px rgba(95,211,138,.25); }
   .cust .bar span { margin-left:auto; font-weight:500; opacity:.8; }
@@ -119,7 +119,7 @@
   .cust .face svg { width:100%; height:100%; }
   .cust .q { padding:18px 24px; border-top:1px solid rgba(56,63,59,.1); font-size:22px; line-height:1.45; color:var(--ink); opacity:0; }
   .cust .q small { display:block; font-family:var(--fd); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); margin-bottom:4px; }
-  #stage #cycleStage { left:590px; top:110px; opacity:0; }
+  #stage #cycleStage { left:620px; top:110px; opacity:0; }
   #cap { position:absolute; left:50%; bottom:40px; transform:translateX(-50%); max-width:1600px; font-family:var(--fb); font-weight:500; font-size:30px; line-height:1.3; color:var(--cream); background:rgba(31,36,34,.86); padding:12px 28px; border-radius:14px; text-align:center; opacity:0; white-space:nowrap; }
   .scrub { position:fixed; left:0; right:0; bottom:0; height:6px; background:rgba(255,255,255,.08); z-index:10; }
   .scrub i { display:block; height:100%; width:0; background:var(--mustard); }
@@ -159,7 +159,7 @@
 
   <!-- ================= THE PROGRAM ================= -->
   <section class="scene" id="sB">
-    <div class="tile" id="naamaB" style="left:90px; top:350px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip1" muted playsinline preload="auto"></video><img id="duo" src="../../assets/images/about/our-story.jpg" alt="" style="opacity:0; object-position:center 42%; transform:scale(1.75); transform-origin:50% 42%;"></div></div>
+    <div class="tile" id="naamaB" style="left:90px; top:350px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama &amp; Vince · your coaches <span>1:1 · every week</span></div><div class="body"><img id="duo" src="../../assets/images/about/our-story.jpg" alt="" style="object-position:center 42%; transform:scale(1.75); transform-origin:50% 42%;"></div></div>
     <div class="program" id="prog">
       <div class="eyebrow">The Waya program</div>
       <h1>12 weeks to <em>fundable</em> product-market fit.</h1>
@@ -174,10 +174,10 @@
 
   <!-- ================= THE FRAME: Na'ama left, Claude centre, the Tracker right ================= -->
   <section class="scene" id="sF" style="background:var(--cream)">
-    <div class="tile" id="naamaF"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip2" muted playsinline preload="auto"></video></div></div>
+    <div class="tile" id="naamaF" style="left:30px; top:150px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip2" muted playsinline preload="auto"></video></div></div>
     <div class="tracker" id="trk"><img src="artifacts/tracker.png" alt=""><img id="trkDone" src="artifacts/register.png" alt=""><div class="lbl">The Waya Tracker</div></div>
     <div class="xtrk" id="xtrk">
-      <div class="lbl">Experiment tracker</div>
+      <div class="lbl">Experiment Platform · tracker</div>
       <div class="rnd">Round 1 <span id="r1s">in progress</span></div>
       <div class="st on" id="x1d"><i>1</i>Define <small id="x1dl">logging</small></div>
       <div class="log" id="x1log"><b>6 assumptions logged</b> · H1 H2 H3 H4 H15 H17<br>Two experiments · pass lines set · kill date day 14</div>
@@ -258,15 +258,17 @@
   #cycleStage .ledger .lframe .lab { left:24px; top:18px; color:#383F3B; }
 
   /* chips: one per beat, same spot */
-  #cycleStage .chip { position:absolute; left:30px; top:34px; height:40px; padding:0 18px; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
+  #cycleStage .chip { position:absolute; left:30px; top:34px; margin:0; height:40px; padding:0 18px; border:0; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
   #cycleStage .chip i { width:10px; height:10px; border-radius:50%; background:#383F3B; }
 
   /* d. tools */
-  #cycleStage .pill { position:absolute; left:0; top:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
+  #cycleStage .pill { position:absolute; left:0; top:0; margin:0; padding:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
   #cycleStage .pill .ok { display:inline-flex; width:0; overflow:hidden; color:#6A9D8A; font-size:14px; }
   #cycleStage .pill .built { position:absolute; left:50%; top:100%; margin-top:6px; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
   #cycleStage .wire { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; pointer-events:none; }
-  #cycleStage .node { position:absolute; left:352px; top:538px; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
+  /* the host page has global .node/.pill/.chip/.tile/.tk/.meter/.prog rules: every property the
+     module relies on is set here explicitly so nothing leaks in (the node's margin did, once) */
+  #cycleStage .node { position:absolute; left:352px; top:538px; margin:0; padding:0; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
 
   /* e. copy and interviews */
   #cycleStage .snip { position:absolute; left:0; top:0; padding:6px 12px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 8px 22px rgba(31,36,34,.12); font-size:15px; font-weight:500; color:#383F3B; white-space:nowrap; opacity:0; }
@@ -280,20 +282,21 @@
   #cycleStage .crow .n span { font-weight:500; color:#6B6F6C; }
   #cycleStage .crow .l { position:absolute; left:0; top:36px; font-size:15px; color:#6B6F6C; white-space:nowrap; opacity:0; }
   #cycleStage .crow .l::before { content:'↳ '; color:#6A9D8A; }
-  #cycleStage .meter { position:absolute; left:24px; width:212px; }
+  #cycleStage .meter { position:absolute; left:24px; width:212px; height:auto; margin:0; padding:0; background:none; border-radius:0; overflow:visible; }
   #cycleStage .meter .ml { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; }
   #cycleStage .meter .mb { position:relative; margin-top:8px; height:14px; border-radius:7px; background:#F4F1EA; }
   #cycleStage .meter .mb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:7px; }
   #cycleStage .kill { position:absolute; width:3px; background:#383F3B; border-radius:2px; opacity:0; }
   #cycleStage .killlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; }
-  #cycleStage .prog { position:absolute; left:24px; width:212px; }
+  #cycleStage .prog { position:absolute; left:24px; width:212px; display:block; margin:0; padding:0; }
+  #cycleStage .prog .pl span { position:static; flex:none; height:auto; background:none; overflow:visible; }
   #cycleStage .prog .pl { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
   #cycleStage .prog .pb { position:relative; margin-top:8px; height:8px; border-radius:4px; background:#F4F1EA; overflow:hidden; }
   #cycleStage .prog .pb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:4px; background:#383F3B; }
 
   /* g. dashboard */
-  #cycleStage .tile { position:absolute; width:330px; height:118px; border-radius:16px; background:#F4F1EA; padding:16px 18px; opacity:0; }
-  #cycleStage .tile .tk { font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .tile { position:absolute; width:330px; height:118px; margin:0; border:0; border-radius:16px; background:#F4F1EA; box-shadow:none; overflow:visible; padding:16px 18px; opacity:0; }
+  #cycleStage .tile .tk { display:block; padding:0; border:0; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
   #cycleStage .tile .tt { margin-top:6px; font-size:15px; font-weight:500; color:#1F2422; white-space:nowrap; }
   #cycleStage .pillst { position:absolute; left:18px; bottom:14px; width:140px; height:30px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-radius:999px; }
   #cycleStage .pillst span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:999px; opacity:0; }
@@ -473,7 +476,7 @@
 
   // ================= THE PAIN 0–23 =================
   // Tight: one merged opening line, the pile in two seconds, two seconds per screen.
-  const sA = $('sA'); show(sA, 0, 23.2, 0.01, 0.6);
+  const sA = $('sA'); show(sA, 0, 24.8, 0.01, 0.6);
   track($('cal'), [[0.8, { opacity: 0 }], [1.3, { opacity: 1 }], [8.6, { opacity: 1 }], [9.2, { opacity: 0 }]]);
   tw($('cal'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 0.8, 0.7);
   track($('nursery'), [[1.6, { opacity: 0 }], [2.1, { opacity: 1 }], [8.6, { opacity: 1 }], [9.2, { opacity: 0 }]]);
@@ -485,38 +488,37 @@
   const land = [];
   MANIFEST.slice(0, 16).forEach((t, i) => {
     const el = pillEl(t); const [x, y, r] = POS[i]; el.style.left = x + 'px'; el.style.top = y + 'px'; $('pile').appendChild(el);
-    const s = 9.8 + i * 0.12; land.push([s + 0.4, PRICES[t.name] || 29]);
+    const s = 11.2 + i * 0.12; land.push([s + 0.4, PRICES[t.name] || 29]);
     tw(el, [{ opacity: 0, transform: `translateY(-420px) rotate(${r * 3}deg)` }, { opacity: 1, transform: `translateY(-380px) rotate(${r * 3}deg)`, offset: 0.08 }, { opacity: 1, transform: `translateY(0) rotate(${r}deg)` }], s, 0.45, 'cubic-bezier(.5,0,1,.6)');
   });
-  show($('counter'), 10.0, 13.4, 0.3, 0.3);
+  show($('counter'), 11.4, 15.0, 0.3, 0.3);
   JS.push(t => { let n = 0, d = 0; for (const [l, p] of land) if (t >= l) { n++; d += p; } $('counter').querySelector('.n').textContent = n; $('counter').querySelector('.d').textContent = '$' + d.toLocaleString(); });
-  track($('pile'), [[12.9, { opacity: 1, filter: 'blur(0px)' }], [13.5, { opacity: 0.1, filter: 'blur(2px)' }], [20.0, { opacity: 0.1, filter: 'blur(2px)' }], [20.6, { opacity: 0, filter: 'blur(2px)' }]]);
+  track($('pile'), [[14.5, { opacity: 1, filter: 'blur(0px)' }], [15.1, { opacity: 0.1, filter: 'blur(2px)' }], [21.6, { opacity: 0.1, filter: 'blur(2px)' }], [22.2, { opacity: 0, filter: 'blur(2px)' }]]);
   function shot(id, toastId, s, e) { track($(id), [[s, { opacity: 0 }], [s + 0.35, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.25, { opacity: 0 }]]); tw($(id), [{ transform: 'translateY(24px) scale(.97)' }, { transform: 'translateY(0) scale(1)' }], s, 0.6); inout($(toastId), s + 0.7, e, 12); }
-  shot('shotLanding', 'toastLanding', 13.4, 15.5); shot('shotSurvey', 'toastSurvey', 15.8, 17.9); shot('shotChat', 'toastChat', 18.2, 20.2);
-  tw($('samCold'), [{ opacity: 1 }, { opacity: 0 }], 20.2, 0.4, 'linear');
-  track($('samHands'), [[20.2, { opacity: 0 }], [20.6, { opacity: 1 }]]);
-  rise($('h4'), 20.6, 0.7, 24);
+  shot('shotLanding', 'toastLanding', 15.0, 17.1); shot('shotSurvey', 'toastSurvey', 17.4, 19.5); shot('shotChat', 'toastChat', 19.8, 21.8);
+  tw($('samCold'), [{ opacity: 1 }, { opacity: 0 }], 21.8, 0.4, 'linear');
+  track($('samHands'), [[21.8, { opacity: 0 }], [22.2, { opacity: 1 }]]);
+  rise($('h4'), 22.2, 0.7, 24);
 
   // ================= THE PROGRAM 23–53 =================
   const stage = $('stage');
-  tw(stage, [{ backgroundColor: '#121517' }, { backgroundColor: '#FAF7F1' }], 22.8, 1.8, 'linear');
-  const sB = $('sB'); show(sB, 23.2, 53.8, 0.7, 0.5);
-  const nb = $('naamaB'); fadeIn(nb, 23.6, 0.5);
-  tw(nb, [{ transform: 'scale(.9) translateY(24px)' }, { transform: 'scale(1) translateY(0)' }], 23.6, 0.8, 'cubic-bezier(.2,1.2,.4,1)');
-  clip($('naamaClip1'), 'assets/naama-1.mp4', [[23.6, 53.8]], 12.8);
-  rise($('prog'), 25.0, 0.9, 24);
+  tw(stage, [{ backgroundColor: '#121517' }, { backgroundColor: '#FAF7F1' }], 24.4, 1.8, 'linear');
+  const sB = $('sB'); show(sB, 24.8, 55.4, 0.7, 0.5);
+  const nb = $('naamaB'); fadeIn(nb, 25.2, 0.5);
+  tw(nb, [{ transform: 'scale(.9) translateY(24px)' }, { transform: 'scale(1) translateY(0)' }], 25.2, 0.8, 'cubic-bezier(.2,1.2,.4,1)');
+  rise($('prog'), 26.6, 0.9, 24);
   // when the voice names Na'ama and Vince, the left tile shows them together (the About page photo)
-  rise($('b1'), 37.0, 0.7, 14); rise($('b2'), 42.6, 0.7, 14); rise($('b3'), 47.6, 0.7, 14);
+  rise($('b1'), 39.4, 0.7, 14); rise($('b2'), 45.0, 0.7, 14); rise($('b3'), 50.0, 0.7, 14);
 
   // ================= THE FRAME 53–162 =================
-  const F = 53.4;
-  const sF = $('sF'); show(sF, F, 162.4, 0.6, 0.5);
-  const T0 = F + 27.0, HOLD = { afterDefine: 11.8, beforeNextDefine: 1.8 };
+  const F = 55.4;
+  const sF = $('sF'); show(sF, F, 164.4, 0.6, 0.5);
+  const T0 = F + 32.0, HOLD = { afterDefine: 11.8, beforeNextDefine: 1.8 };
   const B = { define: T0 + 12.6, build: T0 + 16.6 + HOLD.afterDefine };
   B.track = B.build + 13.4; B.analyze = B.build + 19.8; B.nextDefine = B.build + 25.6 + HOLD.beforeNextDefine; B.nextRound = B.nextDefine + 4.2; B.end = B.nextDefine + 7.4;
   const Q = T0 - 6.4;                       // the quote window starts here; the dim runs Q-0.4 .. Q+5.6
   // Na'ama: in the left column until the loop takes it at Define; back at the round-two Define
-  track($('naamaF'), [[F + 0.2, { opacity: 0 }], [F + 0.7, { opacity: 1 }], [Q - 0.4, { opacity: 1 }], [Q + 0.2, { opacity: 0.07 }], [Q + 5.0, { opacity: 0.07 }], [Q + 5.6, { opacity: 1 }], [B.define - 0.2, { opacity: 1 }], [B.define + 0.4, { opacity: 0 }], [B.nextDefine - 0.4, { opacity: 0 }], [B.nextDefine + 0.3, { opacity: 1 }]]);
+  track($('naamaF'), [[F + 0.2, { opacity: 0 }], [F + 0.7, { opacity: 1 }], [Q - 0.4, { opacity: 1 }], [Q + 0.2, { opacity: 0 }], [B.nextDefine - 0.4, { opacity: 0 }], [B.nextDefine + 0.3, { opacity: 1 }]]);
   // the Tracker: the fresh business case, then the finished one from the business-case scene on
   track($('trk'), [[F + 0.8, { opacity: 0 }], [F + 1.3, { opacity: 1 }], [Q - 0.4, { opacity: 1 }], [Q + 0.2, { opacity: 0.07 }], [Q + 5.0, { opacity: 0.07 }], [Q + 5.6, { opacity: 1 }], [B.define - 0.2, { opacity: 1 }], [B.define + 0.4, { opacity: 0 }]]);
   tw($('trk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], F + 0.8, 0.8);
@@ -560,7 +562,7 @@
     track(labs[i], [[ls, { color: '#383F3B', transform: base + ' scale(1)' }], [ls + 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le - 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le, { color: '#383F3B', transform: base + ' scale(1)' }]]);
   });
   $('arcs').style.transformOrigin = '410px 410px'; $('arcs').style.transformBox = 'view-box';
-  clip($('naamaClip2'), 'assets/naama-1.mp4', [[F + 0.2, B.define + 0.4], [B.nextDefine - 0.4, 162.4]], 12.8);
+  clip($('naamaClip2'), 'assets/naama-1.mp4', [[F + 0.2, Q + 0.2], [B.nextDefine - 0.4, 164.4]], 12.8);
   // the customer: held, then a half-second fade
   const CU = B.end + 9.6;
   track($('cust'), [[CU, { opacity: 0 }], [CU + 0.45, { opacity: 1 }], [CU + 9.0, { opacity: 1 }], [CU + 9.5, { opacity: 0 }]]);
@@ -575,32 +577,32 @@
 
   // ================= CUES: the voiceover ================= (vo.mjs reads this list; the cycle cues sit on the beats)
   const CAPS = [
-    [0.6, 9.9, 'Meet Sam, 43. He wants to play with his ten-year-old son, but his Sundays go to client reports. On the side: Critical Character, a game that teaches kids to think.'],
-    [10.2, 11.6, 'He signed up for everything.'],
-    [13.6, 15.4, 'A landing page nobody visited.'],
-    [15.9, 17.8, 'A survey three family members answered.'],
-    [18.4, 20.1, 'A chatbot that loved every idea.'],
-    [20.8, 22.8, 'Six months. No customer.'],
-    [25.6, 35.4, 'Then Sam joined the Wayya program, 12 weeks to fundable product-market fit: hands-on guidance from founders who built multi-million-dollar companies, for a selected group of mission-driven founders.'],
-    [36.2, 52.4, 'You\'ll be guided by Na\'ama and Vince, who built several companies, including Cheetah, which scaled to 150 million in ARR: twelve one-to-one meetings, eight group sessions with other founders, and at the end, every tool you need to reach product-market fit and face investors.'],
-    [54.6, 65.8, 'The guidance runs inside Sam\'s own AI assistant, Claude here, or ChatGPT, Grok or Gemini. It starts with the business case: that\'s where the business and product assumptions are defined.'],
-    [66.8, 73.2, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
-    [81.0, 93.0, 'The Wayya expert and the experiment system helped Sam prioritize the assumptions: by effort and risk, and by the stage of the company. The early ones go into round one; the rest wait in the assumption ledger.'],
-    [93.4, 106.4, 'Define groups them into two experiments: one for the infrastructure, one for the market. Every step is logged in the experiment tracker, round by round, and at the end of each round, Sam and Na\'ama review it together.'],
-    [109.0, 117.0, 'Build picks each experiment\'s tools. Wayya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
-    [117.2, 122.1, 'Copy and content flow into them, campaigns go live, and interviews get booked.'],
-    [122.4, 127.5, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
-    [128.8, 135.8, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
-    [136.4, 147.8, 'At the end of the round, the Wayya expert and Sam review the results together and define the next round: the ledger comes back, re-ranks, and Sam confirms the priorities.'],
-    [148.0, 152.5, 'This repeats through the program until a clear product-market-fit signal appears.'],
-    [153.6, 160.1, 'Round after round, until paying customers confirm the signal. Twelve pods, and Sam has his Sundays back.'],
-    [163.8, 168.8, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
+    [0.6, 9.9, 'Meet Sam, 43. He wants to play with his ten-year-old son, but his Sundays go to client reports. On the side, he\'s building a game called Critical Character, that teaches kids to think.'],
+    [11.0, 12.4, 'He signed up for everything.'],
+    [15.2, 17.0, 'A landing page nobody visited.'],
+    [17.5, 19.4, 'A survey three family members answered.'],
+    [20.0, 21.7, 'A chatbot that loved every idea.'],
+    [22.4, 24.4, 'Six months. No customer.'],
+    [27.2, 37.0, 'Then Sam joined the Wayya program, 12 weeks to fundable product-market fit: hands-on guidance from founders who built multi-million-dollar companies, for a selected group of mission-driven founders.'],
+    [38.8, 55.0, 'You\'ll be guided by Nah-ah-mah and Vince, who built several companies, including Cheetah, which scaled to 150 million in ARR: twelve one-to-one meetings, eight group sessions with other founders, and at the end, every tool you need to reach product-market fit and face investors.'],
+    [56.6, 67.8, 'The guidance runs inside Sam\'s own AI assistant, Claude here, or ChatGPT, Grok or Gemini. It starts with the business case: that\'s where the business and product assumptions are defined.'],
+    [68.8, 75.2, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
+    [83.0, 100.0, 'Now the Experiment Platform takes over. With a Wayya expert, the assumptions from the business case are ranked on an effort-versus-risk matrix. The early ones go into round one; the rest wait in the ledger. This is the phase of continuous improvement, round after round, until product-market fit.'],
+    [100.2, 113.4, 'Define groups them into two experiments: one for the infrastructure, one for the market. Every step is logged in the Experiment Platform\'s tracker, round by round, and at the end of each round, Sam and Nah-ah-mah review it together.'],
+    [116.0, 124.0, 'Build picks each experiment\'s tools. Wayya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
+    [124.2, 129.1, 'Copy and content flow into them, campaigns go live, and interviews get booked.'],
+    [129.4, 134.5, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
+    [135.8, 142.8, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
+    [143.4, 154.8, 'At the end of the round, Nah-ah-mah and Sam review the results together and define the next round: the ledger comes back, re-ranks, and Sam confirms the priorities.'],
+    [155.0, 159.5, 'This repeats through the program until a clear product-market-fit signal appears.'],
+    [160.6, 167.1, 'Round after round, until paying customers confirm the signal. Twelve pods, and Sam has his Sundays back.'],
+    [170.8, 175.8, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
   ];
   const cap = $('cap');
   if (CAPTIONS) JS.push(t => { const c = CAPS.find(([a, b]) => t >= a && t < b); if (c) { cap.textContent = c[2]; cap.style.opacity = 1; } else cap.style.opacity = 0; });
 
   // ================= clock =================
-  const DUR = 170.8;
+  const DUR = 177.8;
   function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
   addEventListener('resize', scale); scale();
   if (params.get('ui') === '0') document.querySelector('.scrub').style.display = 'none';

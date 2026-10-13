@@ -161,9 +161,13 @@ window.buildCycle = function buildCycle(ctx) {
   ];
   const PILL_Y = 418, ROW_Y = 100, NODE = [390, 576], NODE_R = 38;
   const wire = q('#cyWire'), node = q('#cyNode');
+  // the connector geometry assumes the node's box is exactly at left/top 352,538 (centre 390,576) and
+  // each pill's box at t.x/PILL_Y with width t.w: pin those inline so a host page's global .node/.pill
+  // rules (video.html has both, with a margin and a padding) cannot shift them
+  Object.assign(node.style, { left: '352px', top: '538px', width: '76px', height: '76px', margin: '0', padding: '0' });
   const pills = TOOLS.map((t, i) => {
     const p = el('pill', `<span class="ok">✓</span>${t.n}<span class="built">built</span>`, q('#cyPills'));
-    p.style.width = t.w + 'px';
+    Object.assign(p.style, { width: t.w + 'px', height: '44px', left: '0', top: '0', margin: '0', padding: '0' });
     t.cx = t.x + t.w / 2; t.cy = PILL_Y + 22;
     const s = B.build + 0.3 + i * 0.12, m = B.track + 0.1 + i * 0.05, f = B.analyze + 0.3 + i * 0.05;
     move(p, [[s, t.x, PILL_Y, 0.6, POP], [s + 0.5, t.x, PILL_Y, 1], [m, t.x, PILL_Y, 1, EASE], [m + 0.9, t.tx, ROW_Y, 1], [f, t.tx, ROW_Y, 1, 'cubic-bezier(.5,0,.2,1)'], [f + 0.8, 390 - t.w / 2, 365, 0.2]]);

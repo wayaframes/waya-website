@@ -40,15 +40,17 @@
   #cycleStage .ledger .lframe .lab { left:24px; top:18px; color:#383F3B; }
 
   /* chips: one per beat, same spot */
-  #cycleStage .chip { position:absolute; left:30px; top:34px; height:40px; padding:0 18px; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
+  #cycleStage .chip { position:absolute; left:30px; top:34px; margin:0; height:40px; padding:0 18px; border:0; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
   #cycleStage .chip i { width:10px; height:10px; border-radius:50%; background:#383F3B; }
 
   /* d. tools */
-  #cycleStage .pill { position:absolute; left:0; top:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
+  #cycleStage .pill { position:absolute; left:0; top:0; margin:0; padding:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
   #cycleStage .pill .ok { display:inline-flex; width:0; overflow:hidden; color:#6A9D8A; font-size:14px; }
   #cycleStage .pill .built { position:absolute; left:50%; top:100%; margin-top:6px; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
   #cycleStage .wire { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; pointer-events:none; }
-  #cycleStage .node { position:absolute; left:352px; top:538px; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
+  /* the host page has global .node/.pill/.chip/.tile/.tk/.meter/.prog rules: every property the
+     module relies on is set here explicitly so nothing leaks in (the node's margin did, once) */
+  #cycleStage .node { position:absolute; left:352px; top:538px; margin:0; padding:0; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
 
   /* e. copy and interviews */
   #cycleStage .snip { position:absolute; left:0; top:0; padding:6px 12px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 8px 22px rgba(31,36,34,.12); font-size:15px; font-weight:500; color:#383F3B; white-space:nowrap; opacity:0; }
@@ -62,20 +64,21 @@
   #cycleStage .crow .n span { font-weight:500; color:#6B6F6C; }
   #cycleStage .crow .l { position:absolute; left:0; top:36px; font-size:15px; color:#6B6F6C; white-space:nowrap; opacity:0; }
   #cycleStage .crow .l::before { content:'↳ '; color:#6A9D8A; }
-  #cycleStage .meter { position:absolute; left:24px; width:212px; }
+  #cycleStage .meter { position:absolute; left:24px; width:212px; height:auto; margin:0; padding:0; background:none; border-radius:0; overflow:visible; }
   #cycleStage .meter .ml { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; }
   #cycleStage .meter .mb { position:relative; margin-top:8px; height:14px; border-radius:7px; background:#F4F1EA; }
   #cycleStage .meter .mb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:7px; }
   #cycleStage .kill { position:absolute; width:3px; background:#383F3B; border-radius:2px; opacity:0; }
   #cycleStage .killlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; }
-  #cycleStage .prog { position:absolute; left:24px; width:212px; }
+  #cycleStage .prog { position:absolute; left:24px; width:212px; display:block; margin:0; padding:0; }
+  #cycleStage .prog .pl span { position:static; flex:none; height:auto; background:none; overflow:visible; }
   #cycleStage .prog .pl { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
   #cycleStage .prog .pb { position:relative; margin-top:8px; height:8px; border-radius:4px; background:#F4F1EA; overflow:hidden; }
   #cycleStage .prog .pb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:4px; background:#383F3B; }
 
   /* g. dashboard */
-  #cycleStage .tile { position:absolute; width:330px; height:118px; border-radius:16px; background:#F4F1EA; padding:16px 18px; opacity:0; }
-  #cycleStage .tile .tk { font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .tile { position:absolute; width:330px; height:118px; margin:0; border:0; border-radius:16px; background:#F4F1EA; box-shadow:none; overflow:visible; padding:16px 18px; opacity:0; }
+  #cycleStage .tile .tk { display:block; padding:0; border:0; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
   #cycleStage .tile .tt { margin-top:6px; font-size:15px; font-weight:500; color:#1F2422; white-space:nowrap; }
   #cycleStage .pillst { position:absolute; left:18px; bottom:14px; width:140px; height:30px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-radius:999px; }
   #cycleStage .pillst span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:999px; opacity:0; }
