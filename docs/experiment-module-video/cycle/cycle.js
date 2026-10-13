@@ -16,15 +16,20 @@ window.buildCycle = function buildCycle(ctx) {
   const el = (cls, html, parent) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; (parent || S).appendChild(d); return d; };
 
   // ================= the schedule (seconds from T0) =================
-  // ctx.hold = { afterDefine, beforeNextDefine } (seconds, default 0): frozen pauses inserted after
-  // the Define chapter settles (before the Build chip) and after Analyze settles (before the
-  // "Define · round 2" chip). Every beat from Build on shifts by afterDefine; nextDefine, nextRound
-  // and end shift by afterDefine + beforeNextDefine.
+  // ctx.hold = { afterDefine, beforeNextDefine, beforeConfirm } (seconds, default 0): frozen pauses
+  // inserted after the Define chapter settles (before the Build chip), after Analyze settles (before
+  // the "Define · round 2" chip), and after the re-rank settles (before the founder's ticks). Every
+  // beat from Build on shifts by afterDefine; nextDefine shifts by afterDefine + beforeNextDefine;
+  // nextRound and end by all three.
+  // ctx.review (seconds from T0, optional): a review pass over the Round 1 dashboard, one tile
+  // tinted after another, while the founder and the coach go through the results before nextDefine.
+  // ctx.chipEnd (seconds after end, default 0): how long the "Define · round 2" chip stays past B.end.
+  // ctx.ringPulse (seconds from T0, or a list of them, optional): soft pulses of the Round 2 ring (scale and a mustard glow), 0.8 s each.
   const hold = ctx.hold || {};
-  const HA = Math.max(0, +hold.afterDefine || 0), HB = Math.max(0, +hold.beforeNextDefine || 0);
+  const HA = Math.max(0, +hold.afterDefine || 0), HB = Math.max(0, +hold.beforeNextDefine || 0), HC = Math.max(0, +hold.beforeConfirm || 0);
   const B = {
     open: 0.0, lift: 1.8, matrix: 4.4, sort: 7.8, define: 12.6, build: 16.6 + HA, integrate: 19.2 + HA,
-    campaigns: 24.7 + HA, track: 31.0 + HA, analyze: 36.4 + HA, nextDefine: 42.2 + HA + HB, nextRound: 46.4 + HA + HB, end: 49.6 + HA + HB,
+    campaigns: 24.7 + HA, track: 31.0 + HA, analyze: 36.4 + HA, nextDefine: 42.2 + HA + HB, nextRound: 46.4 + HA + HB + HC, end: 49.6 + HA + HB + HC,
   };
 
   // ================= the hypotheses =================
@@ -82,8 +87,8 @@ window.buildCycle = function buildCycle(ctx) {
       const col = colPts[h.id];
       pts.push([col[0][0], sx, sy, 1, EASE]);
       col.forEach(([t, x, y], k) => { pts.push([k === 0 ? t + 0.8 : t, x, y, 1, EASE]); });
-      // the founder's tick, after the ranking settles
-      const tk = c.querySelector('.tick'), ts = B.nextDefine + 3.5 + order.indexOf(h.id) * 0.2;
+      // the founder's tick, after the ranking settles (and the beforeConfirm hold)
+      const tk = c.querySelector('.tick'), ts = B.nextDefine + 3.5 + HC + order.indexOf(h.id) * 0.2;
       op(tk, [[ts, 0], [ts + 0.4, 1]]);
       tw(tk, [{ transform: 'translateX(-6px)' }, { transform: 'translateX(0)' }], T(ts), 0.5, POP);
     } else {
@@ -96,8 +101,8 @@ window.buildCycle = function buildCycle(ctx) {
     op(c, o);
     // the stage tag, only while the cards are sorted
     const tag = c.querySelector('.tag');
-    op(tag, [[B.sort + i * 0.1, 0], [B.sort + i * 0.1 + 0.35, 1], [B.sort + 2.8, 1], [B.sort + 3.1, 0]]);
-    tw(tag, [{ transform: 'translateY(6px)' }, { transform: 'translateY(0)' }], T(B.sort + i * 0.1), 0.5, POP);
+    op(tag, [[B.sort - 0.5 + i * 0.1, 0], [B.sort - 0.5 + i * 0.1 + 0.35, 1], [B.sort + 2.8, 1], [B.sort + 3.1, 0]]);
+    tw(tag, [{ transform: 'translateY(6px)' }, { transform: 'translateY(0)' }], T(B.sort - 0.5 + i * 0.1), 0.5, POP);
   }
 
   // ================= a. the register (0–4.4) =================
@@ -143,7 +148,7 @@ window.buildCycle = function buildCycle(ctx) {
   chip('#cyChipBuild', B.build, B.track - 0.2);
   chip('#cyChipTrack', B.track, B.analyze - 0.2);
   chip('#cyChipAnalyze', B.analyze, B.nextDefine - 0.2);
-  chip('#cyChipDefine2', B.nextDefine, B.end);
+  chip('#cyChipDefine2', B.nextDefine, B.end + Math.max(0, +ctx.chipEnd || 0));
 
   // ================= c. define (13–17.4): two experiments =================
   for (const [id, s] of [['#cyExpInf', 0.5], ['#cyExpMkt', 0.6]]) {
@@ -169,7 +174,7 @@ window.buildCycle = function buildCycle(ctx) {
     const p = el('pill', `<span class="ok">✓</span>${t.n}<span class="built">built</span>`, q('#cyPills'));
     Object.assign(p.style, { width: t.w + 'px', height: '44px', left: '0', top: '0', margin: '0', padding: '0' });
     t.cx = t.x + t.w / 2; t.cy = PILL_Y + 22;
-    const s = B.build + 0.3 + i * 0.12, m = B.track + 0.1 + i * 0.05, f = B.analyze + 0.3 + i * 0.05;
+    const s = B.build + 0.9 + i * 0.12, m = B.track + 0.1 + i * 0.05, f = B.analyze + 0.3 + i * 0.05;   // + 0.9: after the host's open-layout growth (build − 0.2 … + 0.8)
     move(p, [[s, t.x, PILL_Y, 0.6, POP], [s + 0.5, t.x, PILL_Y, 1], [m, t.x, PILL_Y, 1, EASE], [m + 0.9, t.tx, ROW_Y, 1], [f, t.tx, ROW_Y, 1, 'cubic-bezier(.5,0,.2,1)'], [f + 0.8, 390 - t.w / 2, 365, 0.2]]);
     op(p, [[s, 0], [s + 0.3, 1], [f + 0.4, 1], [f + 0.8, 0]]);
     // the "campaign built" state, as each tool's copy arrives: a check slides in, the pill turns mint
@@ -274,6 +279,14 @@ window.buildCycle = function buildCycle(ctx) {
     tw(st[1], [{ opacity: 0, transform: 'rotateX(-90deg)' }, { opacity: 1, transform: 'rotateX(0deg)' }], T(f + 0.28), 0.3, 'ease-out');
   });
   rise(q('#cyLearn'), T(B.analyze + 4.4), 0.6, 8);
+  // the review pass: each result tile tints in turn (0.5 s apart) while the results are gone through
+  if (ctx.review != null) {
+    const tiles = S.querySelectorAll('#cyTiles .tile');
+    tiles.forEach((tile, i) => {
+      const r = ctx.review + i * 0.5;
+      track(tile, [[T(r), { backgroundColor: '#F4F1EA' }], [T(r + 0.15), { backgroundColor: 'rgba(234,182,47,.34)' }], [T(r + 0.4), { backgroundColor: 'rgba(234,182,47,.34)' }], [T(r + 0.65), { backgroundColor: '#F4F1EA' }]]);
+    });
+  }
 
   // ================= h. define · round 2 (43): the ledger comes forward, re-ranks, is confirmed =================
   // (the "later" cards' column, swaps and ticks are scheduled in the card loop above)
@@ -285,6 +298,12 @@ window.buildCycle = function buildCycle(ctx) {
   const r2 = q('#cyRound2');
   op(r2, [[B.nextRound, 0], [B.nextRound + 0.4, 1]]);
   track(r2, [[T(B.nextRound), { transform: 'translateX(-50%) scale(.7)', easing: POP }], [T(B.nextRound + 0.6), { transform: 'translateX(-50%) scale(1)' }]]);
+  if (ctx.ringPulse != null) {   // soft pulses of the ring, about its centre (390, 650): each scale 1 → 1.06 → 1 over 0.8 s with the integrate pulse's glow; one track per property
+    const rs = q('#cyRing'), ps = (Array.isArray(ctx.ringPulse) ? ctx.ringPulse : [ctx.ringPulse]).slice().sort((a, b) => a - b); rs.style.transformOrigin = '390px 650px';
+    const glow0 = 'drop-shadow(0 0 0 rgba(234,182,47,0))', glow1 = 'drop-shadow(0 0 12px rgba(234,182,47,.75))';
+    track(rs, ps.flatMap((p) => [[T(p), { transform: 'scale(1)', easing: 'ease-in-out' }], [T(p + 0.4), { transform: 'scale(1.06)', easing: 'ease-in-out' }], [T(p + 0.8), { transform: 'scale(1)' }]]));
+    track(rs, ps.flatMap((p) => [[T(p), { filter: glow0, easing: 'ease-out' }], [T(p + 0.4), { filter: glow1, easing: 'ease-in' }], [T(p + 0.9), { filter: glow0 }]]));
+  }
 
   return {
     end: T(B.end),
