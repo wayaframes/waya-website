@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product Market Fit Program: 12 Weeks to PMF – Waya</title>
+<meta name="description" content="The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.">
+<link rel="canonical" href="https://www.wayaframes.com/experiment-platform/cohort/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="Product Market Fit Program: 12 Weeks to PMF – Waya">
+<meta property="og:description" content="The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.">
+<meta property="og:url" content="https://www.wayaframes.com/experiment-platform/cohort/">
+<meta property="og:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sage mountain range under a pale sky, the Waya hero image">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Product Market Fit Program: 12 Weeks to PMF – Waya">
+<meta name="twitter:description" content="The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.">
+<meta name="twitter:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=9">
+<script>window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: 'pmf_direct_2026q4' };</script>
+<script defer src="/assets/analytics.js"></script>
+
+<!--
+  ==========================================================================
+  ASSUMPTIONS SURFACED FOR REVIEW (Oren):
+  1. HERO IMAGE: uses /assets/images/hero/mountain-sage.jpg (sage/green tone),
+     matching the treatment on pre-pmf-mcp, scale-up-program, data-room-preparation,
+     and operations-audit.
+  2. APPLY / PAY FLOW: every "Apply for the Program" button links to /experiment-platform/apply/,
+     which embeds the GHL order form (form id LXcmFPl3FRQJ88JoJBnf). After
+     PAYMENT, configure the GHL order form to redirect to the /welcome/ page
+     (its "what to expect + MCP setup + experiment tools" overview). The
+     welcome page links out to the existing MCP setup guide at
+     /lean-ai/setup/.
+  3. Price ($3,000 for the 12 weeks) is no longer shown on-page (the
+     "investment" block was removed) — it is only disclosed at checkout via
+     the GHL order form on /apply/. Seats capped at 5–7.
+  4. Start date: second week of November 2026. Work-exchange / scholarship
+     seats are handled privately and are intentionally NOT advertised here.
+  5. No real named testimonial yet.
+  ==========================================================================
+-->
+
+<style>
+  :root{ --border-2: rgba(56,63,59,0.28); --shadow-2: 0 4px 14px rgba(31,36,34,0.08),0 1px 2px rgba(31,36,34,0.05); --waya-white:#FFFFFF; }
+
+  /* ---------- Hero (page-specific additions to the shared hero) ---------- */
+  .hero h1 { font-size: min(68px, calc((100vw - 72px) / 14.5)); }
+  .hero h1 .h1-line { display: block; white-space: nowrap; }
+  .hero-meta {
+    margin-top: 34px; display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(250,247,241,0.78);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 8px; }
+  .hero-meta span::before { content: '▸'; color: var(--waya-mustard); font-size: 11px; }
+
+  /* ---------- Curriculum (spread-out module rows) ---------- */
+  .curriculum { background: var(--waya-paper); }
+  .module-stack { margin-top: 64px; border-top: 1px solid var(--border-1); }
+  .module-row {
+    display: grid; grid-template-columns: 260px 1fr;
+    gap: 64px; align-items: start;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border-1);
+    position: relative;
+  }
+  .module-aside { position: relative; display: flex; flex-direction: column; gap: 14px; }
+  .ghost-num {
+    position: absolute; top: -20px; right: 8px;
+    font-family: var(--font-display); font-weight: 700; font-size: 108px;
+    line-height: 1; letter-spacing: -0.04em;
+    color: var(--waya-charcoal); opacity: 0.06; pointer-events: none;
+  }
+  /* Icons drop in FLAT — no colored circle wrapper, no filters. They are already the badge. */
+  .module-aside .icon img { width: 88px; height: 88px; position: relative; }
+  .module-tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .module-week {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; letter-spacing: -0.01em;
+    color: var(--waya-charcoal);
+    border-left: 3px solid var(--waya-mustard); padding-left: 12px;
+  }
+  .module-main { max-width: 640px; }
+  .module-main h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 30px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal); margin-bottom: 16px;
+  }
+  .module-main .lede {
+    font-family: var(--font-body);
+    font-size: 16.5px; line-height: 1.62;
+    color: var(--fg-2); margin-bottom: 26px;
+  }
+  .module-main .process-label {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-stone); margin-bottom: 14px;
+  }
+  .module-main ol { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 12px; }
+  .module-main ol li {
+    counter-increment: step;
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.55; color: var(--waya-ink);
+    padding-left: 34px; position: relative;
+  }
+  .module-main ol li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--waya-mint); color: var(--waya-charcoal);
+    font-family: var(--font-display); font-weight: 600; font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ---------- Timeline (12-week arc) ---------- */
+  .timeline { margin-top: 56px; border-top: 1px solid var(--border-1); }
+  .week-row {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .week-marker { display: flex; flex-direction: column; gap: 6px; }
+  .week-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--waya-rust);
+  }
+  .week-phase {
+    font-family: var(--font-body); font-size: 13px;
+    color: var(--fg-2);
+  }
+  .week-body h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal); margin-bottom: 10px;
+  }
+  .week-body p {
+    font-family: var(--font-body); font-size: 15.5px;
+    line-height: 1.6; color: var(--fg-2); max-width: 640px;
+  }
+  .week-body .homework {
+    margin-top: 12px;
+    font-family: var(--font-body); font-size: 14px;
+    color: var(--waya-ink);
+    border-left: 2px solid var(--waya-mustard);
+    padding-left: 14px;
+  }
+  .week-body .homework strong {
+    font-family: var(--font-display); font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    font-size: 11px; color: var(--waya-stone);
+    display: block; margin-bottom: 4px;
+  }
+
+  /* ---------- Build / outcomes cards ---------- */
+  .build { background: var(--waya-paper); }
+  .build-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .build-card {
+    background: var(--waya-cream);
+    border: 1px solid var(--border-1);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-1);
+  }
+  .build-card h3 {
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 20px;
+    line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--waya-charcoal);
+    margin-bottom: 12px;
+  }
+  .build-card p {
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.55;
+    color: var(--fg-2);
+  }
+
+  /* ---------- Format / how the program runs ---------- */
+  .format-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .format-card {
+    border: 1px solid var(--border-1);
+    border-radius: 18px;
+    padding: 40px;
+    background: var(--waya-cream);
+    box-shadow: var(--shadow-1);
+    /* Subgrid so the tag, title, text and each bullet line up across both cards. */
+    display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0;
+  }
+  .format-card .tag {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--waya-rust);
+    margin-bottom: 16px;
+  }
+  .format-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 28px;
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--waya-charcoal);
+    margin-bottom: 14px;
+  }
+  .format-card p {
+    font-family: var(--font-body);
+    font-size: 16px; line-height: 1.6;
+    color: var(--fg-2);
+  }
+  .format-card .detail { display: contents; }
+  .format-card .detail span { margin-top: 10px; }
+  .format-card .detail span:first-child { margin-top: 20px; }
+  .format-card .detail span {
+    font-family: var(--font-body); font-size: 14.5px;
+    color: var(--waya-ink); padding-left: 20px; position: relative;
+  }
+  .format-card .detail span::before {
+    content: '▸'; position: absolute; left: 0; top: 2px;
+    color: var(--waya-sage); font-size: 12px;
+  }
+
+  /* ---------- Pull-quote band ---------- */
+  .pullquote-band {
+    background: var(--waya-charcoal);
+    padding: 120px 32px;
+    text-align: center;
+  }
+  .pullquote-band blockquote {
+    max-width: 920px; margin: 0 auto;
+    font-family: var(--font-display);
+    font-weight: 500; font-size: 38px;
+    line-height: 1.25; letter-spacing: -0.02em;
+    color: var(--waya-cream);
+    text-wrap: balance;
+  }
+  .pullquote-band .attribution {
+    margin-top: 28px; color: rgba(250,247,241,0.65);
+    font-family: var(--font-body); font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .pullquote-band .section-cta { margin-top: 44px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero h1 { font-size: min(44px, calc((100vw - 72px) / 14.5)); }
+    .module-row { grid-template-columns: 1fr; gap: 24px; padding: 44px 0; }
+    .module-aside { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .ghost-num { display: none; }
+    .module-main h3 { font-size: 25px; }
+    .build-grid { grid-template-columns: 1fr; }
+    .format-grid { grid-template-columns: 1fr; }
+    .week-row { grid-template-columns: 1fr; gap: 14px; }
+    .pullquote-band { padding: 88px 28px; }
+    .pullquote-band blockquote { font-size: 26px; }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Who is this program for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week. The program is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the weekly commitment look like?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two touchpoints a week: one group session with everyone in the program on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Waya OS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the program walks you through running it against your own company."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why start with Ikigai, business case, and mission and values instead of just running experiments?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because those three are what make an experiment worth running and keep you honest about the result. Without them, founders test the wrong things and misread the answers. The base is the information layer; the experiments run against it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who runs the sessions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Na'ama and Vince. One leads the weekly group session; one of them takes your private hour each week. Both are operators who have built, scaled, and rebuilt companies — you are working with founders, not a curriculum on autopilot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What will I actually have built by the end?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the program. The point is a working machine, not a deck."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost, and when does it start?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$3,000 for the full 12-week program. The first program starts the second week of November 2026. Seats are limited and filled by application."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I join?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "@id": "https://www.wayaframes.com/experiment-platform/cohort/#course",
+  "name": "Product Market Fit Program",
+  "description": "The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.",
+  "url": "https://www.wayaframes.com/experiment-platform/cohort/",
+  "provider": {
+    "@type": "Organization",
+    "@id": "https://www.wayaframes.com/#organization",
+    "name": "Waya"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "12 weeks"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "3000",
+    "priceCurrency": "USD",
+    "url": "https://www.wayaframes.com/experiment-platform/apply/"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- =============== NAV =============== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" width="104" height="30" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/experiment-platform/cohort/">12 Weeks to PMF</a>
+          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_button=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =============== HERO =============== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1><span class="h1-line">12 weeks to product-market fit</span> <span class="h1-line">for mission driven founders.</span></h1>
+      <p class="sub">
+        Hands on program guided by successful founders to go from mission and vision to proven product-market fit and a fundable business plan.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-rust" href="/experiment-platform/apply/">Apply for the Program</a>
+        <a class="btn-ghost-dark" href="#curriculum">See the curriculum</a>
+      </div>
+      <div class="hero-meta">
+        <span>5–7 founders per cohort</span>
+        <span>First program starts mid-November 2026</span>
+        <span>2 sessions per week</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== CURRICULUM (the four modules) =============== -->
+<section id="curriculum" class="curriculum">
+  <div class="container">
+    <div class="section-eyebrow">The Curriculum</div>
+    <h2 class="section-title">Four modules. Twelve weeks. The base your experiments run against.</h2>
+    <p class="section-lead">
+      Ikigai, the business case, and mission and values are not a warm-up — they are the information layer every experiment is measured against. The experiments platform is the engine that turns that base into revenue and learning.
+    </p>
+
+    <div class="module-stack">
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">01</span>
+          <div class="icon"><img src="/assets/icons/north-star-badge.png" width="1024" height="1024" loading="lazy" alt="North star mark"></div>
+          <div class="module-tag">Module One</div>
+          <div class="module-week">Week 1</div>
+        </div>
+        <div class="module-main">
+          <h3>Find your founder-startup fit</h3>
+          <p class="lede">
+            Personality assessment to identify what drives you and where you do your best work, to help you focus on the idea that fits your mission in life.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Run a personality assessment and life planning session with a life coach.</li>
+            <li>Map the four intersections — passion, profession, mission, vocation.</li>
+            <li>Test the company against the map: is this the right thing, built by the right founder.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">02</span>
+          <div class="icon"><img src="/assets/icons/goal.png" width="950" height="937" loading="lazy" alt="Goal mark"></div>
+          <div class="module-tag">Module Two</div>
+          <div class="module-week">Week 2</div>
+        </div>
+        <div class="module-main">
+          <h3>Build a fundable business case</h3>
+          <p class="lede">
+            Why this company should exist, why now and how it makes money.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Build an investor-ready business case from first principles with an experienced business coach.</li>
+            <li>Identify your differentiated market positioning.</li>
+            <li>Build the revenue model and capital requirements — how the business makes money and the resources it takes.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">03</span>
+          <div class="icon"><img src="/assets/icons/core-values.png" width="900" height="901" loading="lazy" alt="Core values mark"></div>
+          <div class="module-tag">Module Three</div>
+          <div class="module-week">Week 3</div>
+        </div>
+        <div class="module-main">
+          <h3>Mission and values</h3>
+          <p class="lede">
+            The purpose behind your business, and the values that guide how you run it.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Define the mission statement that becomes your north star.</li>
+            <li>Define the values as behaviors — what they look like on a hard day.</li>
+            <li>Use the values as the filter for what you say yes and no to in the experiment phase.</li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="module-row">
+        <div class="module-aside">
+          <span class="ghost-num" aria-hidden="true">04</span>
+          <div class="icon"><img src="/assets/icons/process-optimization.png" width="185" height="184" loading="lazy" alt="Process mark"></div>
+          <div class="module-tag">Module Four</div>
+          <div class="module-week">Weeks 4–12</div>
+        </div>
+        <div class="module-main">
+          <h3>The experiments platform</h3>
+          <p class="lede">
+            Build a machine that runs marketing and product experiments in parallel. Identify ideal customer profile, value proposition, pricing, and go-to-market channels.
+          </p>
+          <div class="process-label">The process</div>
+          <ol>
+            <li>Design experiments from core assumptions. Rank them by risk. Assign pass or fail criteria.</li>
+            <li>Automate your marketing infrastructure. Personas, campaigns, and landing pages.</li>
+            <li>Turn every customer conversation into product and marketing insights that help you iterate quickly until you reach product-market fit.</li>
+          </ol>
+          <a class="learn" href="/experiment-platform/detail/" style="display: inline-block; margin-top: 22px;">See how the Experiments Platform works →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============== HOW THE PROGRAM RUNS =============== -->
+<section id="format">
+  <div class="container">
+    <div class="section-eyebrow">How It Runs</div>
+    <h2 class="section-title">Selected intimate group.<br>Mission-driven founders.<br>Run by successful founders.</h2>
+
+    <div class="format-grid">
+      <article class="format-card">
+        <div class="tag">Every week · Group</div>
+        <h3>The group session</h3>
+        <p>A weekly group session on the Waya OS modules. Learn the method and from each other's experiments.</p>
+        <div class="detail">
+          <span>Led by founders who scaled from $0 to $150M in revenue</span>
+          <span>Module walk-throughs and live Q&amp;A</span>
+          <span>Shared learning across the program</span>
+        </div>
+      </article>
+
+      <article class="format-card">
+        <div class="tag">Every week · Private</div>
+        <h3>Your coaching hour</h3>
+        <p>One private hour each week, dedicated to your company and your specific path to product-market fit.</p>
+        <div class="detail">
+          <span>One-on-one with Na'ama or Vince</span>
+          <span>Your experiments, your pipeline, your revenue</span>
+          <span>Direct accountability, with weekly homework assignments</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PULL-QUOTE BAND =============== -->
+<section class="pullquote-band">
+  <blockquote>
+    Full experiment and marketing automation suite to reach product-market fit.
+  </blockquote>
+  <div class="section-cta"><a class="btn-rust" href="/experiment-platform/apply/">Apply for the Program</a></div>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="section-eyebrow">Frequently Asked</div>
+    <h2 class="section-title" style="margin-bottom: 8px;">Common questions about the Product Market Fit Program</h2>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Who is this program for?</summary>
+        <div class="answer">
+          <p>Founders before product-market fit who are ready to stop guessing and start testing. You do not need a finished product or revenue — you need a company you are serious about and the willingness to talk to customers every week.</p>
+          <p>The program is deliberately small, 5 to 7 founders, so both the group session and your private hour stay high-signal.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does the weekly commitment look like?</summary>
+        <div class="answer">
+          <p>Two touchpoints a week: one group session with everyone in the program on the Waya OS modules, and one private hour on your specific path to PMF. Between sessions you run experiments, talk to customers, and build out your infrastructure — expect real work outside the calls.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is Waya OS?</summary>
+        <div class="answer">
+          <p>Waya OS is the founder operating system you set up during the program — the Ikigai, business case, mission and values, and experiment modules, delivered as guided facilitation inside your workspace. The method supplies the structure; the program walks you through running it against your own company.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Why start with Ikigai, business case, and mission and values instead of just running experiments?</summary>
+        <div class="answer">
+          <p>Because those three are what make an experiment worth running and keep you honest about the result. Without them, founders test the wrong things and misread the answers. The base is the information layer; the experiments run against it.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Who runs the sessions?</summary>
+        <div class="answer">
+          <p>Na'ama and Vince. One leads the weekly group session; one of them takes your private hour each week. Both are operators who have built, scaled, and rebuilt companies — you are working with founders, not a curriculum on autopilot.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What will I actually have built by the end?</summary>
+        <div class="answer">
+          <p>A running reach-out engine — personas, campaigns, outreach, and a live website — a knowledge base that captures every customer conversation, booked calls and revenue, and an experiment loop you keep running after the program. The point is a working machine, not a deck.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does it cost, and when does it start?</summary>
+        <div class="answer">
+          <p>$3,000 for the full 12-week program. The first program starts the second week of November 2026. Seats are limited and filled by application.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I join?</summary>
+        <div class="answer">
+          <p>Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section class="final-cta">
+  <h2>The market will answer. The question is whether you are running the experiment that asks.</h2>
+  <p>Apply for the first Product Market Fit Program. We will talk through where you are, what you are building, and whether this is the right twelve weeks for you.</p>
+  <div class="section-cta" style="margin-top: 40px;">
+    <a class="btn-rust" href="/experiment-platform/apply/" style="padding: 16px 30px; font-size: 15px;">Apply for the Program</a>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" width="125" height="36" loading="lazy" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <p class="foot-heading">About us</p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="foot-heading">Services</p>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/experiment-platform/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_button=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">© Copyright 2026 – WayaFrames – All rights reserved.</div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>

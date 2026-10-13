@@ -4,23 +4,24 @@
 
 ## Pages
 
-- [Waya – The Operating System for Mission-Driven Founders](https://www.wayaframes.com/): Waya builds the operations, finance, people systems, and governance behind mission-driven companies. Data room preparation, financial model preparation, fundraising narrative, operations audits, and scale-up workshops — built by the founders who scaled Cheetah to $150M.
-- [About Us](https://www.wayaframes.com/about-us/): We are Na'ama Moran and Vincent Matranga, founders of Cheetah — scaled to $150M, rebuilt after COVID. Meet the Waya expert network: curated operators in finance, HR, AI transformation, executive search, and customer experience.
-- [Scale Up Program](https://www.wayaframes.com/scale-up-program/): Navigating a high-stakes scale up is easier with a partner who has scaled before. A Hoshin workshop followed by 3–6 months of embedded implementation — the Waya Scale Up Program turns chaos into structured growth.
-- [Fundraising Narrative](https://www.wayaframes.com/fundraising-narrative/): A working session that builds the story you raise on. Your product and team can be great, financials stellar — but investors give money to founders who communicate their story clearly.
-- [Data Room Preparation](https://www.wayaframes.com/data-room-preparation/): Make sure your data room doesn't slow down your next raise. Waya reviews where you're at against what investors expect at your stage, fills the gaps, and delivers a due-diligence-ready data room.
-- [Financial Model Preparation](https://www.wayaframes.com/financial-model-prep/): Your financial model isn't just a checkbox for your next fundraise. It tells you the key levers of the business and how to measure them. Waya builds an investor-ready model tied to your operations.
+- [The Operating System for Mission-Driven Founders – Waya](https://www.wayaframes.com/): Waya builds the operations, finance, people systems, and governance behind mission-driven companies — built by the founders who scaled Cheetah to $150M.
+- [About Us](https://www.wayaframes.com/about-us/): Na'ama Moran and Vincent Matranga, founders of Cheetah — scaled to $150M, rebuilt after COVID — and the Waya expert network of operators in finance, HR, and AI.
+- [Scale Up Program](https://www.wayaframes.com/scale-up-program/): A Hoshin workshop plus 3–6 months of embedded implementation: the Waya Scale Up Program turns chaos into structured growth with a partner who has scaled before.
+- [Fundraising Narrative](https://www.wayaframes.com/fundraising-narrative/): A working session that builds the story you raise on. Product, team, and financials matter, but investors fund founders who communicate their story clearly.
+- [Data Room Preparation](https://www.wayaframes.com/data-room-preparation/): Don't let your data room slow your next raise. Waya reviews it against what investors expect at your stage, fills the gaps, and delivers it due-diligence-ready.
+- [Financial Model Preparation](https://www.wayaframes.com/financial-model-prep/): Your financial model isn't just a fundraising checkbox: it shows the key levers of the business. Waya builds an investor-ready model tied to your operations.
 - [Operations Audit](https://www.wayaframes.com/operations-audit/): Discover the key constraint holding back your business. A one-hour deep dive with an actionable report and three WayaFrames to start unblocking it today.
 - [Case Studies](https://www.wayaframes.com/case-studies/): Eight operations case studies from the Waya team: what was wrong, what caused it, what we changed, and what it did to margin and operations.
-- [Lean AI](https://www.wayaframes.com/lean-ai/): Lean AI is an MCP server that puts WayaFrames problem solving inside your AI assistant. Describe a problem and it works through A3 thinking with you: define the gap, find the root causes, and test a fix.
+- [Lean AI](https://www.wayaframes.com/lean-ai/): Lean AI is an MCP server that puts WayaFrames problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.
 - [Set Up Lean AI](https://www.wayaframes.com/lean-ai/setup/): Install the Waya MCP in Claude in about five minutes. Choose your variant, Claude plan, and environment, then connect the Wayaframes to your AI assistant.
-- [Product Market Fit Program](https://www.wayaframes.com/pre-pmf-mcp/cohort/): The Product Market Fit Program: 12 weeks that set you up to find your product-market fit — turn your expertise into a company with real traction, with experiments running every week until the market answers.
-- [4 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 4 weeks to increase your margins: Lean AI for mission-driven operators. Find what is hurting your margin, fix the root cause with A3 thinking, and keep the method running inside your AI assistant.
-- [Free Planning Guide – The Plan That Reaches The Work | Waya](https://www.wayaframes.com/planning-guide/): A free 90-minute system for turning quarterly objectives into tasks your team actually works on. Six steps, four traps, four real examples from our own work.
+- [Product Market Fit Program](https://www.wayaframes.com/experiment-platform/cohort/): The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.
+- [The Waya Experiments Platform](https://www.wayaframes.com/experiment-platform/detail/): Waya Experiments Platform: find product-market fit by testing core business assumptions with paying customers, not AI output. Run it in 12 Weeks to PMF.
+- [4 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 4 weeks to increase your margins with Lean AI, for mission-driven operators. Find what is hurting your margin, fix the root cause, and keep the method running.
+- [Free Planning Guide: The Plan That Reaches The Work – Waya](https://www.wayaframes.com/planning-guide/): A free 90-minute system for turning quarterly objectives into tasks your team actually works on. Six steps, four traps, four real examples from our own work.
 
 ## Frequently asked questions
 
-### Waya – The Operating System for Mission-Driven Founders
+### The Operating System for Mission-Driven Founders – Waya
 Source: https://www.wayaframes.com/
 
 **Q: What is Waya's offering?**
@@ -254,7 +255,7 @@ A: Lean AI is in early access. Sign up below and we'll contact you about getting
 A: An AI assistant that supports MCP, such as Claude. Once Lean AI is connected, bring it a problem and the assistant opens the right WayaFrame.
 
 ### Product Market Fit Program
-Source: https://www.wayaframes.com/pre-pmf-mcp/cohort/
+Source: https://www.wayaframes.com/experiment-platform/cohort/
 
 **Q: Who is this program for?**
 
@@ -319,7 +320,7 @@ A: A clear path to increase your margins. A written A3 on your biggest margin pr
 
 A: Apply by scheduling an intro call, where we get to know you, your business, your margin challenge, and decide together whether this program is the right fit for you.
 
-### Free Planning Guide – The Plan That Reaches The Work | Waya
+### Free Planning Guide: The Plan That Reaches The Work – Waya
 Source: https://www.wayaframes.com/planning-guide/
 
 **Q: Is the guide really free?**

@@ -1,0 +1,86 @@
+{
+  "$comment": "Waya UTM reference definition. THIS FILE is the source of truth. The Notion tables (UTM Products, UTM Code Legend, UTM Placements under Waya Experiment System / Experiments V2 / Reference Tables) mirror it for humans; when they disagree, this file wins and the Notion row gets fixed. Every link that points at a booking calendar is validated against this file by scripts/check_utm.py, and built from it by scripts/utm_link.py. Do not hand-type booking links.",
+  "version": 1,
+  "updated": "2026-10-12",
+  "owner": "Oren",
+
+  "rules": {
+    "campaign_format": "<product>_<audience>_<period>",
+    "campaign_regex": "^(?P<product>[a-z0-9]+)_(?P<audience>[a-z0-9]+)_(?P<period>20[0-9]{2}q[1-4])$",
+    "campaign_example": "dataroom_yc_2026q1",
+    "period_meaning": "The quarter the campaign LAUNCHES, written YYYYqN. Not the quarter it ends.",
+    "value_charset_regex": "^[a-z0-9_]+$",
+    "value_charset_note": "Lowercase letters, digits and underscore only. The single exception is the variant letter in a utm_content code (E1VA, P0VB).",
+    "one_question_mark": true,
+    "params_before_fragment": true,
+    "no_duplicate_params": true,
+    "website_context": "Buttons on www.wayaframes.com carry ONLY utm_button. The passthrough engine in assets/analytics.js stores the utm_* values of the link that brought the visitor and appends them to every booking link at click time. Hardcoding source/medium/campaign/content on a website button overrides the real campaign and is a validation failure.",
+    "campaign_context": "Links placed in emails, posts, ads and campaign landing pages carry source, medium, campaign, content and optionally term. Undecided intent (general feed link, cold ads) books waya-consultation; declared intent (a product-targeted sequence, a product landing page, an owner's personal link) may book the product or owner calendar listed under roots.",
+    "tokens_are_forever": "A retired token or root is never deleted from this file and never reused for a different product; PostHog and GHL history still join on it."
+  },
+
+  "roots": {
+    "waya-consultation": { "url": "https://api.leadconnectorhq.com/widget/bookings/waya-consultation", "status": "live", "owner": "Na'ama", "verified": "2026-10-12", "note": "Generic consultation. Default root for every website button and every campaign-context link." },
+    "ops-intro-call": { "url": "https://api.leadconnectorhq.com/widget/bookings/ops-intro-call", "status": "live", "owner": "Vince", "verified": "2026-10-12", "note": "Vince's single calendar for all ops calls (opsaudit, probottleneck, lean-ai cohort)." },
+    "dataroom-preparation": { "url": "https://api.leadconnectorhq.com/widget/bookings/dataroom-preparation", "status": "retired", "retired_on": "2026-10-12", "note": "Returned 404 at the booking provider. Website buttons repointed to waya-consultation." },
+    "financial-model-preparation": { "url": "https://api.leadconnectorhq.com/widget/bookings/financial-model-preparation", "status": "retired", "retired_on": "2026-10-12", "note": "Returned 404 at the booking provider. Website buttons repointed to waya-consultation." },
+    "fundraising-narrative": { "url": "https://api.leadconnectorhq.com/widget/bookings/fundraising-narrative", "status": "retired", "retired_on": "2026-10-12", "note": "Returned 404 at the booking provider. Website buttons repointed to waya-consultation." },
+    "ops-audit-intro-call": { "url": "https://api.leadconnectorhq.com/widget/bookings/ops-audit-intro-call", "status": "retired", "retired_on": "2026-09-11", "note": "Calendar renamed to ops-intro-call. A renamed GHL slug does not redirect." }
+  },
+
+  "products": {
+    "consultation": { "name": "Waya Consultation (generic)", "status": "active", "root_website": "waya-consultation", "ghl_routing": "unverified", "default_audience": "founders", "default_term": "founder_undecided", "pages": ["/", "/about-us/", "/case-studies/", "/planning-guide/"], "aliases": ["consultation", "intro call", "discovery call", "book a call", "general consultation", "LI feed link"] },
+    "dataroom":     { "name": "Data Room Preparation", "status": "active", "root_website": "waya-consultation", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/data-room-preparation/"], "aliases": ["data room", "dataroom prep", "DD prep", "due diligence prep", "investor data room"] },
+    "model":        { "name": "Financial Model Preparation", "status": "active", "root_website": "waya-consultation", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/financial-model-prep/"], "aliases": ["model", "financial model", "financial modeling", "the model"] },
+    "narrative":    { "name": "Fundraising Narrative", "status": "active", "root_website": "waya-consultation", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/fundraising-narrative/"], "aliases": ["narrative", "fundraising narrative", "pitch narrative", "story"] },
+    "opsaudit":     { "name": "Ops Audit Intro Call", "status": "active", "root_website": "ops-intro-call", "ghl_routing": "unverified", "default_audience": null, "default_term": null, "pages": ["/operations-audit/"], "aliases": ["ops audit", "operations audit", "audit intro call"] },
+    "scaleup":      { "name": "Scale Up Program", "status": "proposed", "root_website": "waya-consultation", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/scale-up-program/"], "aliases": ["scale up", "scale-up program", "hoshin workshop"], "note": "PROPOSED 2026-10-12: the site has carried utm_campaign=scale-up-program for months with no token in the taxonomy. Confirm the token, then flip to active." },
+    "pmf":          { "name": "Product Market Fit Program (12 Weeks to PMF)", "status": "proposed", "root_website": "waya-consultation", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/experiment-platform/cohort/", "/experiment-platform/detail/", "/experiment-platform/apply/", "/experiment-platform/welcome/"], "aliases": ["12 weeks to PMF", "PMF program", "PMF experiment workshop", "experiment system", "Pre PMF MCP"], "note": "PROPOSED 2026-10-12: replaces the token-less 'Pre PMF MCP' row in Notion. The site used utm_campaign=pre-pmf-cohort and experiment-system. Confirm the token, then flip to active." },
+    "leanai":       { "name": "4 Weeks to Higher Margins (Lean AI)", "status": "proposed", "root_website": "ops-intro-call", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": ["/lean-ai/", "/lean-ai/cohort/", "/lean-ai/setup/"], "aliases": ["lean ai", "4 weeks to higher margins", "margins program", "Waya OS"], "note": "PROPOSED 2026-10-12: the site used utm_campaign=lean-ai-cohort. Confirm the token, then flip to active." },
+    "probottleneck": { "name": "Pro Workshop: Bottleneck", "status": "proposed", "root_website": "ops-intro-call", "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": [], "aliases": ["Pro workshop Bottleneck", "bottleneck workshop", "bottleneck diagnosis", "Pro Bottleneck"] },
+    "proplanning":  { "name": "Pro Workshop: Planning", "status": "proposed", "root_website": null, "ghl_routing": "not_configured", "default_audience": null, "default_term": null, "pages": [], "aliases": ["Pro workshop Planning", "planning workshop", "Pro Planning"] }
+  },
+
+  "mediums": {
+    "ce":  { "meaning": "Cold email", "status": "active", "used_with": "Apollo outbound sequences" },
+    "so":  { "meaning": "Social organic", "status": "active", "used_with": "LinkedIn organic posts", "note": "Approved 4 Sep 2026. The Notion Code Legend still lists 'social'; 'so' is the code." },
+    "cpc": { "meaning": "Cost per click (paid search or paid social)", "status": "active", "used_with": "Google, LinkedIn, Meta ads" },
+    "qre": { "meaning": "Quiz result email", "status": "active", "used_with": "Quiz funnel follow-up from GHL" },
+    "ghe": { "meaning": "GHL email (nurture, cohort, transactional)", "status": "proposed", "used_with": "GHL workflow emails", "note": "PROPOSED 2026-10-12: the welcome email uses utm_medium=email, which is a banned descriptive string. Confirm this code." },
+    "web": { "meaning": "Direct or organic visit to www.wayaframes.com with no inbound campaign", "status": "proposed", "used_with": "WAYA_ATTR_DEFAULTS on website pages", "note": "PROPOSED 2026-10-12: needed so a direct visitor still routes in GHL once website buttons stop hardcoding utm_medium." },
+    "wfe": { "meaning": null, "status": "to_confirm", "used_with": null, "note": "In use somewhere; expansion never documented." },
+    "social":      { "meaning": "Social organic (descriptive form)", "status": "retired", "retired_on": "2026-10-12", "note": "Superseded by 'so'." },
+    "social_paid": { "meaning": "Social ads (descriptive form)", "status": "retired", "retired_on": "2026-10-12", "note": "Superseded by 'cpc'." },
+    "email":       { "meaning": "Descriptive form, banned", "status": "retired", "retired_on": "2026-10-12", "note": "Use 'ghe' (proposed) or 'ce'." },
+    "landing_page": { "meaning": "Legacy website scheme", "status": "retired", "retired_on": "2026-10-12", "note": "Was hardcoded on every website button. Website buttons carry utm_button only." }
+  },
+
+  "content_patterns": [
+    { "regex": "^E[0-9]+V[A-Z]$", "meaning": "Email step <n>, variant <letter>", "status": "active", "used_with": "Apollo and GHL email sequences", "example": "E1VA" },
+    { "regex": "^P[1-9][0-9]*V[A-Z]$", "meaning": "Post <n>, variant <letter>", "status": "proposed", "used_with": "LinkedIn organic posts", "example": "P1VA" },
+    { "regex": "^P0V[A-Z]$", "meaning": "Evergreen link not tied to a numbered post, variant <letter>", "status": "proposed", "used_with": "LinkedIn organic, general consultation link", "example": "P0VA" }
+  ],
+
+  "placements": [
+    { "placement": "Apollo cold email", "context": "campaign", "source": "apollo", "medium": "ce", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "active" },
+    { "placement": "LinkedIn organic post", "context": "campaign", "source": "linkedin", "medium": "so", "content_pattern": "^P[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "active", "note": "A promoted post is a different placement (medium cpc), not the same one with budget." },
+    { "placement": "Paid search or paid social ad", "context": "campaign", "source": "google|linkedin|meta", "medium": "cpc", "content_pattern": null, "root": "waya-consultation", "status": "proposed" },
+    { "placement": "Quiz result email", "context": "campaign", "source": "ghl", "medium": "qre", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "proposed" },
+    { "placement": "GHL workflow email", "context": "campaign", "source": "ghl", "medium": "ghe", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "proposed" },
+    { "placement": "Website product page button", "context": "website", "source": "wayaframes", "medium": "web", "content_pattern": null, "root": "product root_website from products", "status": "active", "note": "Buttons hardcode utm_button only. The engine fills the rest." }
+  ],
+
+  "website_buttons": {
+    "param": "utm_button",
+    "allowed": ["nav", "hero", "challenge", "pricing", "pullquote", "path", "who", "faq", "final_cta", "footer"],
+    "note": "nav, hero, challenge, pricing, final_cta, footer come from Notion. pullquote, path, who, faq were added 2026-10-12 from the site inventory; confirm or fold them into the Notion six. Use underscores, never hyphens (final_cta, not final-cta).",
+    "defaults_global": "window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: '<product>_direct_<period>' }",
+    "defaults_note": "A direct visitor with no inbound campaign still needs a campaign so GHL can route on the product token. The engine applies these only when nothing was captured from an inbound link."
+  },
+
+  "legacy_schemes_found_2026_10_12": [
+    "utm_source=wayaframes&utm_medium=landing_page&utm_campaign=<page-slug>&utm_content=<location> on 41 buttons",
+    "utm_source=<page-slug>&utm_content=nav on 6 buttons (lean-ai, lean-ai/setup, case-studies, pre-pmf-mcp)",
+    "button_mapping.txt grammar (utm_button=email_button, utm_medium=cold_email); file deleted"
+  ]
+}

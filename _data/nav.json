@@ -34,7 +34,7 @@
         },
         {
           "label": "12 Weeks to PMF",
-          "href": "/pre-pmf-mcp/cohort/"
+          "href": "/experiment-platform/cohort/"
         },
         {
           "label": "4 Weeks to Higher Margins",
@@ -47,10 +47,8 @@
     "label": "Schedule a Call",
     "href": "https://api.leadconnectorhq.com/widget/bookings/waya-consultation",
     "utm": {
-      "utm_source": "wayaframes",
-      "utm_medium": "landing_page",
-      "utm_campaign": "<page-slug>",
-      "utm_content": "<button-location>"
+      "utm_button": "nav",
+      "_rule": "Website buttons carry only utm_button; see _data/utm.json. The engine in assets/analytics.js adds source/medium/campaign/content/term from the inbound link or from the page's WAYA_ATTR_DEFAULTS."
     }
   },
   "footer_services": [
@@ -79,10 +77,6 @@
     {
       "platform": "youtube",
       "href": "https://www.youtube.com/@Waya-Frames"
-    },
-    {
-      "platform": "substack",
-      "href": "https://substack.com/@themessymiddlefiles"
     }
   ]
 }

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Critical Character — a role-playing game that teaches kids to think</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --night:#1b1230; --plum:#2c1b4d; --gold:#f2b641; --parchment:#f6efe3; --ink:#241a33; --mute:#6f6684; --teal:#2fb3a3; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; }
+  body { font-family:'Inter', system-ui, sans-serif; color:var(--ink); background:var(--parchment); }
+  /* a browser window around the page, so the screenshot reads as a real site */
+  .chrome { background:#e8e6ee; border-bottom:1px solid #d3d0dc; height:44px; display:flex; align-items:center; padding:0 14px; gap:10px; }
+  .chrome i { width:12px; height:12px; border-radius:50%; background:#d9d6e2; }
+  .chrome i:nth-child(1){ background:#ff5f57 } .chrome i:nth-child(2){ background:#febc2e } .chrome i:nth-child(3){ background:#28c840 }
+  .chrome .url { margin-left:14px; flex:1; max-width:720px; height:28px; border-radius:8px; background:#fff; border:1px solid #d3d0dc; display:flex; align-items:center; padding:0 12px; font-size:13px; color:#555; gap:8px; }
+  .chrome .url b { color:#2a9d4c; font-weight:600; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 64px; background:var(--parchment); }
+  .logo { display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-weight:700; font-size:22px; color:var(--night); }
+  .logo .d20 { width:34px; height:34px; }
+  nav ul { list-style:none; display:flex; gap:28px; margin:0; padding:0; font-size:14px; font-weight:500; color:var(--mute); }
+  nav .cta { background:var(--night); color:#fff; padding:10px 18px; border-radius:10px; font-size:14px; font-weight:600; }
+  .hero { background:radial-gradient(1200px 500px at 70% -10%, #4a2d7a 0%, var(--plum) 45%, var(--night) 100%); color:#fff; padding:72px 64px 80px; display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:center; }
+  .hero h1 { font-family:'Fraunces', serif; font-weight:700; font-size:54px; line-height:1.05; letter-spacing:-0.02em; margin:0; }
+  .hero h1 em { font-style:normal; color:var(--gold); }
+  .hero p { font-size:19px; line-height:1.55; color:rgba(255,255,255,.82); max-width:520px; margin:22px 0 0; }
+  .hero .row { display:flex; gap:12px; margin-top:30px; align-items:center; }
+  .btn { display:inline-block; padding:14px 22px; border-radius:12px; font-weight:600; font-size:15px; }
+  .btn.gold { background:var(--gold); color:var(--night); }
+  .btn.ghost { border:1px solid rgba(255,255,255,.35); color:#fff; }
+  .hero small { display:block; margin-top:14px; font-size:13px; color:rgba(255,255,255,.6); }
+  .card { background:#fff; color:var(--ink); border-radius:18px; padding:22px; box-shadow:0 30px 80px rgba(0,0,0,.35); transform:rotate(-2deg); }
+  .card .h { font-family:'Fraunces', serif; font-weight:700; font-size:20px; display:flex; justify-content:space-between; align-items:center; }
+  .card .h span { font-family:'Inter'; font-size:12px; font-weight:600; color:var(--teal); background:rgba(47,179,163,.12); padding:4px 10px; border-radius:999px; }
+  .sheet { margin-top:14px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .stat { background:var(--parchment); border-radius:12px; padding:12px; }
+  .stat b { display:block; font-family:'Fraunces', serif; font-size:26px; }
+  .stat span { font-size:12px; color:var(--mute); }
+  .quest { margin-top:14px; padding:14px; border:1px dashed #d8d1e6; border-radius:12px; font-size:14px; line-height:1.5; }
+  .quest b { color:var(--plum); }
+  .strip { padding:28px 64px; display:flex; gap:40px; align-items:center; justify-content:center; color:var(--mute); font-size:13px; font-weight:500; border-bottom:1px solid #e6dfd2; }
+  .strip span::before { content:'✦ '; color:var(--gold); }
+  .how { padding:72px 64px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .how h2 { grid-column:1/-1; font-family:'Fraunces', serif; font-size:36px; margin:0 0 6px; letter-spacing:-0.02em; }
+  .step { background:#fff; border-radius:16px; padding:24px; border:1px solid #ece6da; }
+  .step b { display:inline-flex; width:34px; height:34px; border-radius:50%; background:var(--night); color:var(--gold); align-items:center; justify-content:center; font-family:'Fraunces', serif; font-size:18px; }
+  .step h3 { margin:14px 0 8px; font-size:18px; }
+  .step p { margin:0; font-size:15px; line-height:1.55; color:var(--mute); }
+</style>
+</head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><b>🔒</b> criticalcharacter.com</div></div>
+<nav>
+  <div class="logo"><svg class="d20" viewBox="0 0 40 40"><polygon points="20,2 37,11 37,29 20,38 3,29 3,11" fill="#2c1b4d"/><polygon points="20,2 37,11 20,20 3,11" fill="#4a2d7a"/><polygon points="20,20 37,11 37,29" fill="#3a2563"/><polygon points="20,20 3,11 3,29" fill="#3a2563"/><text x="20" y="31" text-anchor="middle" font-family="Fraunces, serif" font-size="12" font-weight="700" fill="#f2b641">20</text></svg>Critical Character</div>
+  <ul><li>How it works</li><li>For co-ops</li><li>Pricing</li><li>Stories</li></ul>
+  <a class="cta">Start a pod</a>
+</nav>
+<section class="hero">
+  <div>
+    <h1>The role-playing game that teaches kids to <em>think like heroes.</em></h1>
+    <p>A tabletop adventure for learning pods and homeschool co-ops. Kids 9 to 14 solve real problems in math, science and writing to move the story forward. No screens. No prep for parents.</p>
+    <div class="row"><a class="btn gold">Start a pod · $200 per semester</a><a class="btn ghost">Watch a session</a></div>
+    <small>First campaign ships January. Pods of 3 to 5 kids. One parent runs the game.</small>
+  </div>
+  <div class="card">
+    <div class="h">Maya the Cartographer <span>Level 3</span></div>
+    <div class="sheet"><div class="stat"><b>14</b><span>Logic</span></div><div class="stat"><b>11</b><span>Curiosity</span></div><div class="stat"><b>16</b><span>Grit</span></div></div>
+    <div class="quest"><b>Quest 7 · The Flooded Mill.</b> The river rises 3 cm an hour. The mill door is 42 cm above the water. How long before the party must leave, and what do you carry?</div>
+  </div>
+</section>
+<div class="strip"><span>Built by a dad and his 11-year-old</span><span>Aligned to Common Core math &amp; NGSS</span><span>Runs in 60 minutes a week</span></div>
+<section class="how">
+  <h2>How a pod plays</h2>
+  <div class="step"><b>1</b><h3>Gather a pod</h3><p>Three to five kids of a similar age, a kitchen table, and one parent willing to read aloud.</p></div>
+  <div class="step"><b>2</b><h3>Open the campaign</h3><p>Each week's quest arrives with the parent's script, the puzzles, and the answer key. Zero prep.</p></div>
+  <div class="step"><b>3</b><h3>Level up for real</h3><p>Every solved puzzle levels a character. Every skill maps to a standard the kids are learning in school.</p></div>
+</section>
+</body>
+</html>

@@ -1,0 +1,18 @@
+[
+  { "category": "Website / app builder", "name": "Lovable", "file": "assets/logos/lovable.svg", "mono": false, "source": "https://lovable.dev/favicon.svg" },
+  { "category": "AI copywriter", "name": "Jasper", "file": "assets/logos/jasper.png", "mono": false, "source": "https://www.google.com/s2/favicons?domain=jasper.ai&sz=256" },
+  { "category": "AI SDR", "name": "11x", "file": "assets/logos/11x.png", "mono": false, "source": "https://www.google.com/s2/favicons?domain=11x.ai&sz=256" },
+  { "category": "Chatbot", "name": "Intercom", "file": "assets/logos/intercom.svg", "mono": true, "source": "https://cdn.simpleicons.org/intercom" },
+  { "category": "CRM", "name": "HubSpot", "file": "assets/logos/hubspot.svg", "mono": true, "source": "https://cdn.simpleicons.org/hubspot" },
+  { "category": "Survey tool", "name": "Typeform", "file": "assets/logos/typeform.png", "mono": false, "source": "https://www.google.com/s2/favicons?domain=typeform.com&sz=256" },
+  { "category": "Analytics", "name": "Mixpanel", "file": "assets/logos/mixpanel.svg", "mono": true, "source": "https://cdn.simpleicons.org/mixpanel" },
+  { "category": "Social scheduler", "name": "Buffer", "file": "assets/logos/buffer.svg", "mono": true, "source": "https://cdn.simpleicons.org/buffer" },
+  { "category": "Ad manager", "name": "Meta Ads", "file": "assets/logos/meta.svg", "mono": true, "source": "https://cdn.simpleicons.org/meta" },
+  { "category": "Email platform", "name": "Mailchimp", "file": "assets/logos/mailchimp.svg", "mono": true, "source": "https://cdn.simpleicons.org/mailchimp" },
+  { "category": "Call transcription", "name": "Otter.ai", "file": "assets/logos/otter.png", "mono": false, "source": "https://www.google.com/s2/favicons?domain=otter.ai&sz=256" },
+  { "category": "AI note taker", "name": "Granola", "file": "assets/logos/granola.png", "mono": false, "source": "https://www.google.com/s2/favicons?domain=granola.ai&sz=256" },
+  { "category": "Pitch deck AI", "name": "Gamma", "file": "assets/logos/gamma.png", "mono": false, "source": "https://github.com/gamma-app.png?size=512" },
+  { "category": "Project tracker", "name": "Notion", "file": "assets/logos/notion.svg", "mono": true, "source": "https://cdn.simpleicons.org/notion" },
+  { "category": "Landing page builder", "name": "Framer", "file": "assets/logos/framer.svg", "mono": true, "source": "https://cdn.simpleicons.org/framer" },
+  { "category": "Scheduling", "name": "Calendly", "file": "assets/logos/calendly.svg", "mono": true, "source": "https://cdn.simpleicons.org/calendly" }
+]

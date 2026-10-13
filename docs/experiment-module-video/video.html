@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>12 weeks to fundable PMF — promo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('../../assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 500; src: url('../../assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 600; src: url('../../assets/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 700; src: url('../../assets/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 400; src: url('../../assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 500; src: url('../../assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 600; src: url('../../assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 700; src: url('../../assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2'); }
+  :root {
+    --cream:#FAF7F1; --paper:#F4F1EA; --charcoal:#383F3B; --ink:#1F2422; --stone:#6B6F6C; --fog:#B8BBB6;
+    --mint:#D3E9E0; --rust:#D16C02; --tan:#D0AE89; --mustard:#EAB62F; --sage:#6A9D8A;
+    --cold:#121517; --cold2:#1b2125; --cold3:#262e33;
+    --fd:'Space Grotesk', system-ui, sans-serif; --fb:'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+  #wrap { position:fixed; inset:0; overflow:hidden; }
+  #stage { position:absolute; left:50%; top:50%; width:1920px; height:1080px; overflow:hidden; background:var(--cold); font-family:var(--fb); color:var(--ink); transform-origin:center center; transform:translate(-50%, -50%) scale(1); }
+  .scene { position:absolute; inset:0; opacity:0; }
+  .abs { position:absolute; }
+
+  /* ---- the pain, cold ---- */
+  .counter { position:absolute; right:90px; top:60px; text-align:right; font-family:var(--fd); color:var(--cream); opacity:0; }
+  .counter .n { font-size:120px; font-weight:700; line-height:1; letter-spacing:-.04em; color:var(--rust); }
+  .counter .l { font-size:28px; font-weight:500; color:var(--fog); margin-top:4px; }
+  .counter .d { margin-top:22px; font-size:64px; font-weight:700; letter-spacing:-.03em; color:var(--mustard); line-height:1; }
+  .counter .dl { font-size:22px; color:var(--fog); margin-top:4px; }
+  .pill { position:absolute; display:inline-flex; align-items:center; gap:10px; height:46px; padding:0 18px 0 11px; border-radius:12px; background:var(--cold3); border:1px solid rgba(184,187,182,.18); color:var(--fog); font-family:var(--fd); font-weight:500; font-size:21px; white-space:nowrap; opacity:0; }
+  .pill .lg { width:26px; height:26px; flex:none; display:flex; align-items:center; justify-content:center; color:inherit; }
+  .pill .lg img { width:26px; height:26px; object-fit:contain; border-radius:6px; }
+  .pill .lg svg { width:24px; height:24px; }
+  .shot { position:absolute; border-radius:14px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.5); border:1px solid rgba(184,187,182,.18); background:#000; opacity:0; }
+  .shot img { display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
+  .toast { position:absolute; background:var(--cold2); border:1px solid rgba(184,187,182,.2); color:var(--cream); border-radius:12px; padding:14px 18px; font-family:var(--fd); font-size:20px; box-shadow:0 20px 50px rgba(0,0,0,.45); opacity:0; }
+  .toast b { color:var(--rust); font-size:34px; margin-right:8px; vertical-align:-4px; }
+  .cal { position:absolute; width:300px; border-radius:18px; background:var(--cold2); border:1px solid rgba(184,187,182,.16); overflow:hidden; opacity:0; }
+  .cal .ch { background:#7a2e2e; color:var(--cream); font-family:var(--fd); font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; padding:12px 18px; }
+  .cal .ch.m { background:#2E4237; }
+  .cal .cb { padding:18px 18px 20px; color:var(--cream); font-family:var(--fd); }
+  .cal .cb b { display:block; font-size:44px; font-weight:700; letter-spacing:-.02em; }
+  .cal .cb span { display:block; margin-top:4px; font-size:17px; color:var(--fog); font-family:var(--fb); }
+  .doc { position:absolute; width:220px; height:150px; border-radius:10px; background:var(--cold2); border:1px solid rgba(184,187,182,.2); opacity:0; }
+  .doc::before { content:''; position:absolute; left:18px; right:18px; top:20px; height:10px; border-radius:5px; background:rgba(184,187,182,.35); }
+  .doc::after { content:''; position:absolute; left:18px; width:60%; top:44px; height:8px; border-radius:4px; background:rgba(184,187,182,.2); box-shadow:0 20px 0 rgba(184,187,182,.2), 0 40px 0 rgba(184,187,182,.2), 0 60px 0 rgba(184,187,182,.2); }
+  .doc i { position:absolute; left:18px; bottom:14px; font-style:normal; font-family:var(--fd); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--fog); }
+  .headline { position:absolute; font-family:var(--fd); font-weight:700; letter-spacing:-.03em; line-height:1.05; opacity:0; }
+  .namecard { position:absolute; opacity:0; }
+  .namecard b { display:block; font-family:var(--fd); font-size:54px; font-weight:700; letter-spacing:-.03em; color:var(--cream); line-height:1.05; }
+  .namecard span { display:block; margin-top:14px; font-size:25px; line-height:1.45; color:var(--fog); }
+  .namecard em { font-style:normal; color:var(--mustard); }
+
+  /* ---- the frame: Na'ama left, Claude centre, the Tracker right ---- */
+  .tile { position:absolute; left:90px; top:140px; width:440px; height:314px; border-radius:22px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 24px 70px rgba(31,36,34,.18); overflow:hidden; opacity:0; }
+  .tile .bar { position:absolute; left:0; right:0; top:0; height:52px; z-index:2; background:var(--charcoal); color:var(--cream); font-family:var(--fd); font-weight:600; font-size:19px; display:flex; align-items:center; padding:0 18px; gap:10px; }
+  .tile .bar i { width:12px; height:12px; border-radius:50%; background:#5fd38a; box-shadow:0 0 0 4px rgba(95,211,138,.25); flex:none; }
+  .tile .bar span { margin-left:auto; font-weight:500; opacity:.7; white-space:nowrap; }
+  .tile .body { position:absolute; inset:52px 0 0 0; background:var(--mint); }
+  .tile .body img, .tile .body video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+  .tile .body video { display:none; object-position:center 58%; }   /* the clip is square; keep her face centred in the wide tile */
+  .screen { position:absolute; left:620px; top:140px; width:780px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .screen img { display:block; width:100%; height:auto; }
+  .screen .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 18px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:15px; letter-spacing:.06em; }
+  .tracker { position:absolute; left:1420px; top:140px; width:440px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .tracker img { display:block; width:100%; height:auto; }
+  .tracker .lbl { position:absolute; left:0; right:0; top:0; padding:10px 16px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:14px; letter-spacing:.14em; text-transform:uppercase; }
+  .tracker img + img { position:absolute; left:0; top:0; opacity:0; }
+  /* the experiment tracker: rounds 1 to 4, the loop steps under each */
+  .xtrk { position:absolute; left:1420px; top:140px; width:440px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; font-family:var(--fb); }
+  .xtrk .lbl { padding:10px 16px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:14px; letter-spacing:.14em; text-transform:uppercase; }
+  .xtrk .rnd { padding:12px 16px 10px; border-bottom:1px solid rgba(56,63,59,.1); font-family:var(--fd); font-weight:700; font-size:17px; color:var(--charcoal); display:flex; align-items:center; gap:10px; }
+  .xtrk .rnd span { margin-left:auto; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); }
+  .xtrk .rnd.dim { color:var(--fog); }
+  .xtrk .st { display:flex; align-items:center; gap:10px; padding:8px 16px 8px 30px; font-size:15px; color:var(--charcoal); border-bottom:1px solid rgba(56,63,59,.06); }
+  .xtrk .st i { width:18px; height:18px; border-radius:50%; border:2px solid var(--fog); flex:none; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-style:normal; font-weight:700; }
+  .xtrk .st.on i { border-color:var(--mustard); background:var(--mustard); color:var(--charcoal); }
+  .xtrk .st.done i { border-color:var(--sage); background:var(--sage); color:#fff; }
+  .xtrk .st small { margin-left:auto; font-family:var(--fd); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--stone); }
+  .xtrk .log { padding:6px 16px 12px 58px; font-size:14px; line-height:1.5; color:var(--stone); opacity:0; overflow:hidden; }
+  .xtrk .log b { color:var(--charcoal); font-weight:600; }
+  /* the loop ring, in the left panel */
+  .loop { position:absolute; left:60px; top:140px; width:520px; height:520px; opacity:0; }
+  .loop .inner { position:absolute; left:0; top:0; width:820px; height:820px; transform:scale(.634); transform-origin:0 0; }
+  .loop .rlab { position:absolute; left:0; top:-70px; font-family:var(--fd); font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream); background:var(--charcoal); padding:10px 18px; border-radius:999px; white-space:nowrap; }
+  .node { position:absolute; width:96px; height:96px; margin:-48px 0 0 -48px; border-radius:50%; background:var(--cream); border:3px solid var(--mustard); color:var(--charcoal); font-family:var(--fd); font-weight:700; font-size:26px; display:flex; align-items:center; justify-content:center; }
+  .nlab { position:absolute; font-family:var(--fd); font-weight:700; font-size:40px; letter-spacing:-.02em; color:var(--charcoal); white-space:nowrap; }
+  .program { position:absolute; left:90px; top:90px; width:1740px; opacity:0; }
+  .program .eyebrow { font-family:var(--fd); font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--rust); }
+  .program h1 { margin:14px 0 0; font-family:var(--fd); font-weight:700; font-size:76px; line-height:1.02; letter-spacing:-.03em; color:var(--charcoal); white-space:nowrap; }
+  .program h1 em { font-style:normal; color:var(--rust); }
+  .program p { margin:22px 0 0; font-size:27px; line-height:1.5; color:var(--charcoal); max-width:1500px; }
+  .program p b { color:var(--rust); font-weight:600; }
+  .program .who { margin-top:34px; display:flex; gap:18px; opacity:0; }
+  .bul { position:absolute; left:720px; top:350px; width:1120px; list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:150px; }
+  .bul li { position:relative; padding-left:58px; font-size:31px; line-height:1.4; color:var(--charcoal); opacity:0; }
+  .bul li::before { content:''; position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:50%; background:var(--mustard); }
+  .bul li::after { content:''; position:absolute; left:11px; top:18px; width:8px; height:14px; border:solid var(--charcoal); border-width:0 3px 3px 0; transform:rotate(45deg); }
+  .bul li b { color:var(--rust); font-weight:600; }
+  .program .who div { background:#fff; border:1px solid rgba(56,63,59,.14); border-radius:16px; padding:16px 20px; font-size:19px; color:var(--charcoal); box-shadow:0 12px 30px rgba(31,36,34,.08); }
+  .program .who b { display:block; font-family:var(--fd); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
+  .tools { position:absolute; left:590px; top:110px; width:780px; opacity:0; }
+  .tools h2 { margin:0; font-family:var(--fd); font-weight:700; font-size:50px; line-height:1.05; letter-spacing:-.03em; color:var(--charcoal); }
+  .tools p { margin:14px 0 0; font-size:21px; color:var(--stone); }
+  .tools .grid { margin-top:30px; display:flex; flex-wrap:wrap; gap:12px; }
+  .tools .pill { position:static; opacity:1; background:#fff; border-color:rgba(56,63,59,.14); color:var(--charcoal); }
+  .quote { position:absolute; left:0; right:0; top:360px; text-align:center; padding:0 220px; font-family:var(--fd); font-weight:700; font-size:72px; line-height:1.15; letter-spacing:-.025em; color:var(--charcoal); opacity:0; }
+  .quote em { font-style:normal; color:var(--rust); }
+  /* the section titles over the demo frame: centred, headline style; the platform title larger, centred on the stage */
+  .stitle { position:absolute; left:0; right:0; top:48px; text-align:center; font-family:var(--fd); font-weight:700; font-size:56px; line-height:1.05; letter-spacing:-.03em; color:var(--charcoal); white-space:nowrap; opacity:0; }
+  .stitle.big { top:452px; font-size:84px; }
+  .quote small { display:block; margin-top:26px; font-family:var(--fb); font-weight:500; font-size:26px; color:var(--stone); letter-spacing:0; }
+  .cust { position:absolute; left:620px; top:140px; width:780px; border-radius:22px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 24px 70px rgba(31,36,34,.14); overflow:hidden; opacity:0; }
+  .cust .bar { height:52px; background:var(--sage); color:var(--cream); font-family:var(--fd); font-weight:600; font-size:19px; display:flex; align-items:center; padding:0 18px; gap:10px; }
+  .cust .bar i { width:12px; height:12px; border-radius:50%; background:#5fd38a; box-shadow:0 0 0 4px rgba(95,211,138,.25); }
+  .cust .bar span { margin-left:auto; font-weight:500; opacity:.8; }
+  .cust .face { height:300px; background:var(--paper); }
+  .cust .face svg { width:100%; height:100%; }
+  .cust .q { padding:18px 24px; border-top:1px solid rgba(56,63,59,.1); font-size:22px; line-height:1.45; color:var(--ink); opacity:0; }
+  .cust .q small { display:block; font-family:var(--fd); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--sage); margin-bottom:4px; }
+  #stage #cycleStage { left:620px; top:140px; opacity:0; }
+  #cap { position:absolute; left:50%; bottom:40px; transform:translateX(-50%); max-width:1600px; font-family:var(--fb); font-weight:500; font-size:30px; line-height:1.3; color:var(--cream); background:rgba(31,36,34,.86); padding:12px 28px; border-radius:14px; text-align:center; opacity:0; white-space:nowrap; }
+  .scrub { position:fixed; left:0; right:0; bottom:0; height:6px; background:rgba(255,255,255,.08); z-index:10; }
+  .scrub i { display:block; height:100%; width:0; background:var(--mustard); }
+  #start { position:fixed; inset:0; z-index:20; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(31,36,34,.72); color:var(--cream); font-family:var(--fd); cursor:pointer; }
+  #start[hidden] { display:none; }
+  #start b { width:120px; height:120px; border-radius:50%; background:var(--mustard); display:flex; align-items:center; justify-content:center; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+  #start b::after { content:''; margin-left:10px; border-left:38px solid var(--charcoal); border-top:24px solid transparent; border-bottom:24px solid transparent; }
+  #start span { font-size:22px; font-weight:600; letter-spacing:.02em; }
+  #start small { font-family:var(--fb); font-size:15px; opacity:.7; }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+
+  <!-- ================= THE PAIN ================= -->
+  <section class="scene" id="sA">
+    <div id="samCold" class="abs" style="left:140px; top:330px; width:720px; height:620px;"></div>
+    <div id="samHands" class="abs" style="left:140px; top:330px; width:720px; height:620px; opacity:0;"></div>
+    <div class="cal" id="cal" style="left:1000px; top:170px;"><div class="ch">Sunday</div><div class="cb"><b>11:40 pm</b><span>Client reports · due Monday 9 am</span></div></div>
+    <div class="cal" id="nursery" style="left:1340px; top:170px;"><div class="ch m">Noah, 10</div><div class="cb"><b>“Dad?”</b><span>Wants to play · it's Sunday</span></div></div>
+    <div class="doc" id="doc1" style="left:1000px; top:430px; transform:rotate(-4deg);"><i>Client report · 1</i></div>
+    <div class="doc" id="doc2" style="left:1040px; top:470px; transform:rotate(2deg);"><i>Client report · 2</i></div>
+    <div class="doc" id="doc3" style="left:1080px; top:510px; transform:rotate(-1deg);"><i>Client report · 3</i></div>
+    <div class="namecard" id="name" style="left:1000px; top:700px; width:820px;"><b>Sam, 43</b><span>Wants to play with his ten-year-old son. Spends his Sundays on client reports instead.<br>On the side, building <em>Critical Character</em>: a role-playing game that teaches kids to think critically.</span></div>
+
+    <div id="pile"></div>
+    <div class="counter" id="counter"><div class="n">0</div><div class="l">tools</div><div class="d">$0</div><div class="dl">a month</div></div>
+
+    <div class="shot" id="shotLanding" style="left:960px; top:170px; width:860px; height:538px;"><img src="artifacts/landing.png" alt=""></div>
+    <div class="toast" id="toastLanding" style="left:960px; top:760px;"><b>0</b> visitors this week · Analytics</div>
+    <div class="shot" id="shotSurvey" style="left:960px; top:170px; width:860px; height:538px;"><img src="artifacts/survey.png" alt=""></div>
+    <div class="toast" id="toastSurvey" style="left:960px; top:760px;"><b>3</b> responses · Mom, Alex, and his old boss</div>
+    <div class="shot" id="shotChat" style="left:960px; top:170px; width:860px; height:538px;"><img src="artifacts/chatgpt.png" alt=""></div>
+    <div class="toast" id="toastChat" style="left:960px; top:760px;"><b>🚀</b> “Great idea! This could be huge.”</div>
+    <div class="headline" id="h4" style="left:1000px; top:400px; width:800px; font-size:100px; color:var(--cream);">Six months.<br>No customer.</div>
+  </section>
+
+  <!-- ================= THE PROGRAM ================= -->
+  <section class="scene" id="sB">
+    <div class="tile" id="naamaB" style="left:90px; top:350px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama &amp; Vince · your coaches <span>1:1 · every week</span></div><div class="body"><img id="duo" src="../../assets/images/about/our-story.jpg" alt="" style="object-position:center 50%; transform:scale(3); transform-origin:43.5% 42%;"></div></div>
+    <div class="program" id="prog">
+      <div class="eyebrow">The Waya program</div>
+      <h1>12 weeks to <em>fundable</em> product-market fit.</h1>
+      <p>Hands-on guidance from operators who built $100M+ companies, for a selected group of <b>mission-driven founders</b>.</p>
+    </div>
+    <ul class="bul">
+      <li id="b1">Guided by <b>Na'ama and Vince</b> · Cheetah, scaled to $150M revenue</li>
+      <li id="b2"><b>12 one-to-one meetings</b> · 8 group sessions with other founders</li>
+      <li id="b3">Leave with <b>the Waya Experiment Platform</b> · ready for investors</li>
+    </ul>
+  </section>
+
+  <!-- ================= THE FRAME: Na'ama left, Claude centre, the Tracker right ================= -->
+  <section class="scene" id="sF" style="background:var(--cream)">
+    <div class="tile" id="naamaF" style="left:30px; top:140px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip2" muted playsinline preload="auto"></video></div></div>
+    <div class="tracker" id="trk"><img src="artifacts/tracker.png" alt=""><img id="trkDone" src="artifacts/register.png" alt=""><div class="lbl">The Waya Tracker</div></div>
+    <div class="xtrk" id="xtrk">
+      <div class="lbl">Experiment Platform · tracker</div>
+      <div class="rnd">Round 1 <span id="r1s">in progress</span></div>
+      <div class="st on" id="x1d"><i>1</i>Define <small id="x1dl">logging</small></div>
+      <div class="log" id="x1log"><b>6 assumptions logged</b> · H1 H2 H3 H4 H15 H17<br>Two experiments · pass lines set · kill date day 14</div>
+      <div class="st" id="x1b"><i>2</i>Build</div>
+      <div class="st" id="x1t"><i>3</i>Track</div>
+      <div class="st" id="x1a"><i>4</i>Analyze <small id="x1al"></small></div>
+      <div class="rnd" id="r2h">Round 2 <span id="r2s">next</span></div>
+      <div class="st" id="x2d" style="display:none"><i>1</i>Define <small>re-ranking the ledger</small></div>
+      <div class="rnd dim">Round 3 <span>later</span></div>
+      <div class="rnd dim" style="border:0">Round 4 <span>later</span></div>
+    </div>
+    <div class="loop" id="loop">
+      <div class="rlab" id="rlab">Round 1</div>
+      <div class="inner">
+        <svg class="abs" style="left:0; top:0; width:820px; height:820px;" viewBox="0 0 820 820">
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#EAB62F"/></marker></defs>
+          <g id="arcs">
+            <path d="M410 180 A230 230 0 0 1 640 410" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M640 410 A230 230 0 0 1 410 640" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M410 640 A230 230 0 0 1 180 410" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+            <path d="M180 410 A230 230 0 0 1 410 180" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 12" marker-end="url(#arr)"/>
+          </g>
+          <text x="222" y="222" font-family="Space Grotesk" font-size="15" font-weight="700" letter-spacing="2" fill="#8a6408" transform="rotate(-45 222 222)">NEXT ROUND</text>
+        </svg>
+        <div class="node" id="n1" style="left:410px; top:180px;">1</div>
+        <div class="node" id="n2" style="left:640px; top:410px;">2</div>
+        <div class="node" id="n3" style="left:410px; top:640px;">3</div>
+        <div class="node" id="n4" style="left:180px; top:410px;">4</div>
+        <div class="nlab" id="l1" style="left:410px; top:84px; transform:translateX(-50%);">Define</div>
+        <div class="nlab" id="l2" style="left:705px; top:388px;">Build</div>
+        <div class="nlab" id="l3" style="left:410px; top:696px; transform:translateX(-50%);">Track</div>
+        <div class="nlab" id="l4" style="left:115px; top:388px; transform:translateX(-100%);">Analyze</div>
+      </div>
+    </div>
+
+    <div class="stitle" id="t1">Hands-on guidance</div>
+    <div class="stitle" id="t2">Business case</div>
+    <div class="stitle big" id="t3">Waya Experiment Platform</div>
+    <div class="screen" id="scrClaude"><img src="artifacts/claude-chat.png" alt=""><div class="cap">Claude · with the Waya Pre-PMF connector</div></div>
+    <div class="screen" id="scrCase"><img src="artifacts/claude-case.png" alt=""><div class="cap">The business case · one hard question at a time</div></div>
+    <div class="quote" id="quote">“Waya makes me think about <em>my</em> company.<br>I don't let AI slop think for me.”<small>— Sam</small></div>
+    <!-- The Waya experiment cycle: one 780x880 box. The integrator places #cycleStage absolutely at
+     left:590px top:110px inside the 1920x1080 stage. Everything inside is positioned relative to it.
+     Dynamic pieces (hypothesis cards, tool pills, connectors, avatars, dashboard tiles) are built by
+     cycle.js at load; the static frames live here. -->
+<style>
+  #cycleStage { position:absolute; width:780px; height:880px; overflow:visible; font-family:'Plus Jakarta Sans', system-ui, sans-serif; color:#1F2422; }
+  #cycleStage * { box-sizing:border-box; }
+  #cycleStage .fd { font-family:'Space Grotesk', system-ui, sans-serif; }
+  #cycleStage .abs { position:absolute; }
+  #cycleStage .lab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+
+  /* a. the register screenshot */
+  #cycleStage .shot { position:absolute; left:0; top:0; width:780px; height:880px; border-radius:20px; overflow:hidden; border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  #cycleStage .shot img { display:block; width:780px; height:880px; }
+  #cycleStage .shot::after { content:''; position:absolute; inset:0; background:rgba(250,247,241,.42); }
+  #cycleStage .shotlab { position:absolute; right:22px; top:22px; padding:8px 14px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; box-shadow:0 8px 24px rgba(31,36,34,.08); }
+
+  /* hypothesis cards: left/top 0, driven by transform (translate + scale, origin top-left) */
+  #cycleStage .hyp { position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:8px; padding:0 14px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); white-space:nowrap; font-size:15px; font-weight:500; color:#1F2422; transform-origin:0 0; opacity:0; }
+  #cycleStage .hyp b { font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:15px; color:#6B6F6C; }
+  #cycleStage .hyp .tag { position:absolute; left:calc(100% + 8px); top:9px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:4px 9px; border-radius:999px; background:#F4F1EA; color:#6B6F6C; opacity:0; }
+  #cycleStage .hyp .tag.now { background:rgba(234,182,47,.28); color:#8a6408; }
+  #cycleStage .hyp .tick { position:absolute; left:calc(100% + 12px); top:7px; display:flex; align-items:center; gap:8px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
+  #cycleStage .hyp .tick i { width:26px; height:26px; border-radius:50%; background:#D3E9E0; color:#6A9D8A; display:inline-flex; align-items:center; justify-content:center; font-style:normal; font-size:14px; }
+
+  /* b. the matrix */
+  #cycleStage .matrix { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; }
+  #cycleStage .axlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; letter-spacing:.06em; color:#6B6F6C; white-space:nowrap; opacity:0; }
+
+  /* frames: white cards */
+  #cycleStage .frame { position:absolute; border-radius:20px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 20px 50px rgba(31,36,34,.10); opacity:0; }
+  #cycleStage .frame .fh { position:absolute; left:24px; top:18px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:19px; font-weight:700; color:#383F3B; white-space:nowrap; }
+  #cycleStage .frame .fx { position:absolute; right:24px; top:22px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .frame .ln { position:absolute; left:24px; right:24px; font-size:15px; line-height:1.3; color:#6B6F6C; opacity:0; }
+  #cycleStage .frame .ln b { color:#383F3B; font-weight:600; }
+
+  /* the assumption ledger: a container (opacity + transform) holding a frame and the "later" cards */
+  #cycleStage .ledger { position:absolute; left:30px; top:748px; width:720px; height:102px; overflow:visible; transform-origin:50% 50%; }
+  #cycleStage .ledger .lframe { position:absolute; left:0; top:0; width:720px; height:102px; border-radius:20px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 20px 50px rgba(31,36,34,.10); opacity:0; }
+  #cycleStage .ledger .lframe .lab { left:24px; top:18px; color:#383F3B; }
+
+  /* chips: one per beat, same spot */
+  #cycleStage .chip { position:absolute; left:30px; top:34px; margin:0; height:40px; padding:0 18px; border:0; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
+  #cycleStage .chip i { width:10px; height:10px; border-radius:50%; background:#383F3B; }
+
+  /* d. tools */
+  #cycleStage .pill { position:absolute; left:0; top:0; margin:0; padding:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
+  #cycleStage .pill .ok { display:inline-flex; width:0; overflow:hidden; color:#6A9D8A; font-size:14px; }
+  #cycleStage .pill .built { position:absolute; left:50%; top:100%; margin-top:6px; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
+  #cycleStage .wire { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; pointer-events:none; }
+  /* the host page has global .node/.pill/.chip/.tile/.tk/.meter/.prog rules: every property the
+     module relies on is set here explicitly so nothing leaks in (the node's margin did, once) */
+  #cycleStage .node { position:absolute; left:352px; top:538px; margin:0; padding:0; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
+
+  /* e. copy and interviews */
+  #cycleStage .snip { position:absolute; left:0; top:0; padding:6px 12px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 8px 22px rgba(31,36,34,.12); font-size:15px; font-weight:500; color:#383F3B; white-space:nowrap; opacity:0; }
+  #cycleStage .avatar { position:absolute; left:0; top:0; width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%; background:#6A9D8A; color:#fff; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 6px 14px rgba(31,36,34,.18); opacity:0; }
+  #cycleStage .big { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:44px; letter-spacing:-.03em; line-height:1; color:#383F3B; }
+  #cycleStage .copyln { position:absolute; left:24px; font-size:15px; color:#383F3B; white-space:nowrap; }
+
+  /* f. track */
+  #cycleStage .crow { position:absolute; left:24px; right:24px; height:66px; border-bottom:1px solid rgba(56,63,59,.1); opacity:0; }
+  #cycleStage .crow .n { position:absolute; left:0; top:12px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:16px; font-weight:600; color:#383F3B; white-space:nowrap; }
+  #cycleStage .crow .n span { font-weight:500; color:#6B6F6C; }
+  #cycleStage .crow .l { position:absolute; left:0; top:36px; font-size:15px; color:#6B6F6C; white-space:nowrap; opacity:0; }
+  #cycleStage .crow .l::before { content:'↳ '; color:#6A9D8A; }
+  #cycleStage .meter { position:absolute; left:24px; width:212px; height:auto; margin:0; padding:0; background:none; border-radius:0; overflow:visible; }
+  #cycleStage .meter .ml { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; }
+  #cycleStage .meter .mb { position:relative; margin-top:8px; height:14px; border-radius:7px; background:#F4F1EA; }
+  #cycleStage .meter .mb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:7px; }
+  #cycleStage .kill { position:absolute; width:3px; background:#383F3B; border-radius:2px; opacity:0; }
+  #cycleStage .killlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; }
+  #cycleStage .prog { position:absolute; left:24px; width:212px; display:block; margin:0; padding:0; }
+  #cycleStage .prog .pl span { position:static; flex:none; height:auto; background:none; overflow:visible; }
+  #cycleStage .prog .pl { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .prog .pb { position:relative; margin-top:8px; height:8px; border-radius:4px; background:#F4F1EA; overflow:hidden; }
+  #cycleStage .prog .pb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:4px; background:#383F3B; }
+
+  /* g. dashboard */
+  #cycleStage .tile { position:absolute; width:330px; height:118px; margin:0; border:0; border-radius:16px; background:#F4F1EA; box-shadow:none; overflow:visible; padding:16px 18px; opacity:0; }
+  #cycleStage .tile .tk { display:block; padding:0; border:0; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .tile .tt { margin-top:6px; font-size:15px; font-weight:500; color:#1F2422; white-space:nowrap; }
+  #cycleStage .pillst { position:absolute; left:18px; bottom:14px; width:140px; height:30px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-radius:999px; }
+  #cycleStage .pillst span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:999px; opacity:0; }
+  #cycleStage .pillst .t { background:rgba(234,182,47,.3); color:#8a6408; }
+  #cycleStage .pillst .acc { background:#D3E9E0; color:#3f7a65; }
+  #cycleStage .pillst .rej { background:rgba(209,108,2,.16); color:#D16C02; }
+  #cycleStage .pillst .inc { background:#fff; color:#6B6F6C; border:1px solid rgba(56,63,59,.14); }
+
+  /* h. round 2 */
+  #cycleStage .round { position:absolute; left:50%; top:0; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:#FAF7F1; background:#383F3B; padding:12px 20px; border-radius:999px; white-space:nowrap; opacity:0; }
+</style>
+
+<div id="cycleStage">
+  <!-- a. the business case register -->
+  <div class="shot" id="cyShot"><img src="cycle/assets/register.png" alt=""></div>
+  <div class="shotlab" id="cyShotLab">Business case · Hypothesis register</div>
+
+  <!-- b. the effort x risk matrix -->
+  <svg class="matrix" id="cyMatrix" viewBox="0 0 780 880">
+    <rect id="cyQuad" x="415" y="130" width="325" height="255" rx="14" fill="#EAB62F" opacity="0"/>
+    <path id="cyAxX" d="M90 640 H740" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round"/>
+    <path id="cyAxY" d="M90 640 V130" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round"/>
+    <path id="cyAxXa" d="M732 634 L740 640 L732 646" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="cyAxYa" d="M84 138 L90 130 L96 138" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+  </svg>
+  <div class="axlab" id="cyLabX" style="left:690px; top:652px;">Effort</div>
+  <div class="axlab" id="cyLabY" style="left:104px; top:124px;">Risk</div>
+
+  <!-- b. round 1 -->
+  <div class="frame" id="cyRound1" style="left:30px; top:100px; width:720px; height:204px;"><div class="fh">Round 1</div><div class="fx">now</div></div>
+
+  <!-- c. two experiments -->
+  <div class="frame" id="cyExpInf" style="left:30px; top:100px; width:350px; height:300px;">
+    <div class="fh">Infrastructure experiment</div>
+    <div class="ln" id="cyInfT" style="top:204px;"><b>Tests</b> · can parents run a pod without us in the room?</div>
+    <div class="ln" id="cyInfP" style="top:248px;"><b>Pass</b> · 3 of 5 pods run a session on their own.</div>
+  </div>
+  <div class="frame" id="cyExpMkt" style="left:400px; top:100px; width:350px; height:300px;">
+    <div class="fh">Marketing experiment</div>
+    <div class="ln" id="cyMktT" style="top:204px;"><b>Tests</b> · will co-op leaders pay before January?</div>
+    <div class="ln" id="cyMktP" style="top:248px;"><b>Pass</b> · 4 pods paid by the kill date.</div>
+  </div>
+
+  <!-- chips -->
+  <div class="chip" id="cyChipDefine"><i></i>Define</div>
+  <div class="chip" id="cyChipBuild"><i></i>Build</div>
+  <div class="chip" id="cyChipTrack"><i></i>Track</div>
+  <div class="chip" id="cyChipAnalyze"><i></i>Analyze</div>
+  <div class="chip" id="cyChipDefine2"><i></i>Define · round 2</div>
+
+  <!-- d. tools wire into Waya -->
+  <svg class="wire" id="cyWire" viewBox="0 0 780 880"></svg>
+  <div id="cySnips"></div>
+  <div class="node" id="cyNode">Waya</div>
+  <div id="cyPills"></div>
+
+  <!-- e. copy flows in, interviews come out -->
+  <div class="frame" id="cyCopy" style="left:30px; top:636px; width:300px; height:96px;">
+    <div class="lab" style="left:24px; top:18px; color:#383F3B;">Copy &amp; content</div>
+    <div class="copyln" style="top:42px;">“Run a pod this semester”</div>
+    <div class="copyln" style="top:64px; color:#6B6F6C;">landing page · email · survey questions</div>
+  </div>
+  <div class="frame" id="cyInt" style="left:450px; top:636px; width:300px; height:96px;">
+    <div class="lab" style="left:24px; top:18px; color:#383F3B;">Customer interviews booked</div>
+    <div class="big" id="cyIntN" style="left:24px; top:40px;">0</div>
+  </div>
+  <div id="cyAvatars"></div>
+
+  <!-- f. track -->
+  <div class="frame" id="cyCRM" style="left:30px; top:160px; width:440px; height:470px;">
+    <div class="fh">CRM · conversations</div><div class="fx">live</div>
+    <div id="cyRows"></div>
+  </div>
+  <div class="frame" id="cyMet" style="left:490px; top:160px; width:260px; height:470px;">
+    <div class="fh">Live metrics</div>
+    <div class="meter" id="cyM1" style="top:72px;"><div class="ml"><span>Reply rate</span><em id="cyM1v" style="font-style:normal; color:#6A9D8A;">0%</em></div><div class="mb"><i style="background:#6A9D8A;"></i></div></div>
+    <div class="meter" id="cyM2" style="top:148px;"><div class="ml"><span>Pods paying $200</span><em id="cyM2v" style="font-style:normal; color:#D16C02;">0</em></div><div class="mb"><i style="background:#D16C02;"></i></div></div>
+    <div class="meter" id="cyM3" style="top:224px;"><div class="ml"><span>Parents run a session</span><em id="cyM3v" style="font-style:normal; color:#8a6408;">0</em></div><div class="mb"><i style="background:#EAB62F;"></i></div></div>
+    <div class="kill" id="cyKill" style="left:150px; top:98px; height:188px;"></div>
+    <div class="killlab" id="cyKillLab" style="left:120px; top:294px;">▲ kill date</div>
+    <div class="prog" id="cyProg" style="top:352px;"><div class="pl"><span>Day 9 of 14</span><span>kill date</span></div><div class="pb"><i></i></div></div>
+  </div>
+
+  <!-- g. the round 1 dashboard -->
+  <div class="frame" id="cyDash" style="left:30px; top:100px; width:720px; height:570px; transform-origin:50% 50%;">
+    <div class="fh">Round 1 dashboard</div><div class="fx">6 assumptions · 2 experiments</div>
+    <div id="cyTiles"></div>
+    <div class="ln" id="cyLearn" style="top:522px; font-size:17px;"><b>learnings</b> → product refinement doc</div>
+  </div>
+
+  <!-- b/h. the assumption ledger: slim at the bottom, then forward for round 2 -->
+  <div class="ledger" id="cyLedger">
+    <div class="lframe" id="cyLedgerFrame"><div class="lab">Assumption ledger · later</div></div>
+    <div id="cyLater"></div>
+  </div>
+
+  <!-- h. round 2 -->
+  <svg class="wire" id="cyRing" viewBox="0 0 780 880">
+    <path id="cyRingPath" d="M390 580 A70 70 0 1 1 345 596.4" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+    <path id="cyRingArrow" d="M329 599.2 L345 596.4 L339.5 611.4" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+  </svg>
+  <div class="round" id="cyRound2" style="top:630px;">Round 2</div>
+</div>
+
+    <div class="cust" id="cust">
+      <div class="bar"><i></i>Dana · co-op leader, 4 pods <span>paying · semester 1</span></div>
+      <div class="face" id="custFace"></div>
+      <div class="q" id="cq1"><small>On the first session</small>“We ran Quest 7 on Tuesday. The kids asked if they could do another one on Thursday.”</div>
+      <div class="q" id="cq2"><small>On the price</small>“Two hundred a semester for four kids? That's less than one tutoring hour each. I paid the same day.”</div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSE ================= -->
+  <section class="scene" id="sZ" style="background:var(--charcoal)">
+    <img id="logo" src="../../assets/logos/waya-logo-cream.png" alt="Waya" class="abs" style="left:50%; top:230px; height:100px; transform:translateX(-50%); opacity:0;">
+    <div class="headline" id="hZ1" style="left:0; right:0; top:400px; text-align:center; font-size:58px; color:var(--cream);">12 weeks to fundable product-market fit</div>
+    <div class="headline" id="hZ2" style="left:0; right:0; top:520px; text-align:center; font-size:96px; color:var(--mustard);">Stop guessing.<br>Start experimenting.</div>
+    <div class="headline" id="hZ3" style="left:0; right:0; top:820px; text-align:center; font-size:30px; font-weight:500; color:rgba(250,247,241,.75); font-family:var(--fb);">12 weeks · mission-driven founders · starts mid-November 2026 · <span style="color:var(--cream); font-weight:600;">wayaframes.com</span></div>
+  </section>
+
+  <div id="cap"></div>
+  <audio id="snd" src="render/out/audio-final.m4a" preload="auto"></audio>
+</div></div>
+<div class="scrub"><i id="scrubfill"></i></div>
+<div id="start" hidden><b></b><span>Play with sound</span><small>space pauses · R restarts · ←/→ skip 5 s</small></div>
+
+<script src="assets/logos/manifest.js"></script>
+<script src="cycle/cycle.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const CAPTIONS = params.get('cap') !== '0';
+  const EASE = 'cubic-bezier(.2,.7,.2,1)', POP = 'cubic-bezier(.2,1.4,.4,1)';
+  const A = [], JS = [], CLIPS = [];
+  const W = 1920, H = 1080;
+
+  // ---- helpers (one animation per property per element; see track) ----
+  function tw(el, kf, start, dur, easing = EASE) { const a = el.animate(kf, { delay: start * 1000, duration: Math.max(dur, 0.001) * 1000, fill: 'both', easing }); a.pause(); A.push(a); return a; }
+  function show(el, start, end, fi = 0.35, fo = 0.35) { const d = end - start; tw(el, [{ opacity: 0, offset: 0 }, { opacity: 1, offset: Math.min(fi / d, 1) }, { opacity: 1, offset: Math.max(1 - fo / d, 0) }, { opacity: 0, offset: 1 }], start, d, 'linear'); }
+  function fadeIn(el, start, dur = 0.4) { tw(el, [{ opacity: 0 }, { opacity: 1 }], start, dur, 'linear'); }
+  function rise(el, start, dur = 0.6, dy = 30) { fadeIn(el, start, dur * 0.8); tw(el, [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], start, dur); }
+  function riseKeep(el, start, dur, dy, base) { fadeIn(el, start, dur * 0.8); tw(el, [{ transform: `${base} translateY(${dy}px)` }, { transform: `${base} translateY(0)` }], start, dur); }
+  function track(el, pts) { const t0 = pts[0][0], t1 = pts[pts.length - 1][0], d = Math.max(t1 - t0, 0.001); return tw(el, pts.map(([t, v]) => ({ ...v, offset: Math.min(1, Math.max(0, (t - t0) / d)) })), t0, d, 'linear'); }
+  function inout(el, s, e, dy = 18) { track(el, [[s, { opacity: 0 }], [s + 0.45, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.35, { opacity: 0 }]]); tw(el, [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], s, 0.6); }
+  // a short video clip inside a tile: plays from `start`, the still shows before and after; absent file = still only
+  function clip(videoEl, src, windows, maxDur) { if (!src) return null; const c = { el: videoEl, windows, len: maxDur, ready: false }; videoEl.addEventListener('loadedmetadata', () => { c.len = videoEl.duration || maxDur; c.ready = true; }); videoEl.addEventListener('error', () => { c.ready = false; }); videoEl.src = src; videoEl.loop = true; CLIPS.push(c); return c; }
+
+  // ---- Sam, line-drawn ----
+  function sam(pose, c) {
+    const w = 7;
+    const head = (x, y, tilt = 0) => `<g transform="rotate(${tilt} ${x} ${y})"><circle cx="${x}" cy="${y}" r="40" fill="none" stroke="${c}" stroke-width="${w}"/><path d="M${x - 24} ${y - 30} q24 -22 48 0" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/></g>`;
+    const desk = `<path d="M40 420 H680" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/><path d="M90 420 V560 M630 420 V560" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+    const laptop = (x) => `<path d="M${x} 420 l14 -96 h190 l-14 96 z" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round"/><path d="M${x - 10} 420 h224" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+    const chair = `<path d="M330 560 V470 M300 560 H360" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+    const line = d => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    let fig = '';
+    if (pose === 'lean') fig = head(330, 190, 14) + line('M330 232 C330 300 350 340 370 400') + line('M340 285 L430 350 L470 335') + line('M340 285 L290 350 L330 385') + laptop(400);
+    else if (pose === 'hands') fig = head(330, 230, 0) + line('M330 272 C330 320 330 360 330 410') + line('M330 320 L250 300 L280 230') + line('M330 320 L410 300 L380 230') + laptop(400);
+    return `<svg viewBox="0 0 720 600" width="100%" height="100%">${desk}${chair}${fig}</svg>`;
+  }
+  $('samCold').innerHTML = sam('lean', '#B8BBB6'); $('samHands').innerHTML = sam('hands', '#B8BBB6');
+  $('custFace').innerHTML = `<svg viewBox="0 0 780 300"><rect width="780" height="300" fill="#F4F1EA"/><circle cx="390" cy="118" r="54" fill="none" stroke="#383F3B" stroke-width="7"/><path d="M354 126 q36 30 72 0" fill="none" stroke="#383F3B" stroke-width="6" stroke-linecap="round"/><path d="M348 94 q42 -42 84 0" fill="none" stroke="#383F3B" stroke-width="7" stroke-linecap="round"/><path d="M300 300 q10 -88 90 -88 q80 0 90 88" fill="none" stroke="#383F3B" stroke-width="7"/></svg>`;
+
+  // ---- tools: logo pills from assets/logos/manifest.js (inline SVG for single-colour marks, images for the rest) ----
+  const MANIFEST = window.TOOLS_MANIFEST || [{ name: 'Lovable' }, { name: 'Jasper' }, { name: '11x' }, { name: 'Intercom' }, { name: 'HubSpot' }, { name: 'Typeform' }, { name: 'Mixpanel' }, { name: 'Buffer' }, { name: 'Meta Ads' }, { name: 'Mailchimp' }, { name: 'Otter.ai' }, { name: 'Granola' }, { name: 'Gamma' }, { name: 'Notion' }, { name: 'Framer' }, { name: 'Calendly' }];
+  const PRICES = { Lovable: 25, Jasper: 49, '11x': 499, Intercom: 99, HubSpot: 45, Typeform: 29, Mixpanel: 28, Buffer: 15, 'Meta Ads': 300, Mailchimp: 20, 'Otter.ai': 17, Granola: 18, Gamma: 20, Notion: 12, Framer: 30, Calendly: 12 };
+  function pillEl(t) {
+    const p = document.createElement('div'); p.className = 'pill';
+    const lg = document.createElement('span'); lg.className = 'lg';
+    if (t.svg) lg.innerHTML = t.svg;
+    else if (t.file) { const im = document.createElement('img'); im.src = t.file; im.alt = ''; lg.appendChild(im); }
+    else { lg.textContent = '◆'; lg.style.color = 'var(--mustard)'; }
+    p.appendChild(lg); p.appendChild(document.createTextNode(t.name)); return p;
+  }
+  const ROUND1 = ['HubSpot', 'Mailchimp', 'Typeform', 'Calendly'];
+
+  // ================= THE PAIN 0–25.4 =================
+  // Tight: one merged opening line, the pile on "signed up", two seconds per screen.
+  const sA = $('sA'); show(sA, 0, 26.35, 0.01, 0.6);
+  track($('cal'), [[0.8, { opacity: 0 }], [1.3, { opacity: 1 }], [8.6, { opacity: 1 }], [9.2, { opacity: 0 }]]);
+  tw($('cal'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 0.8, 0.7);
+  track($('nursery'), [[1.6, { opacity: 0 }], [2.1, { opacity: 1 }], [8.6, { opacity: 1 }], [9.2, { opacity: 0 }]]);
+  tw($('nursery'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 1.6, 0.7);
+  [['doc1', 2.4], ['doc2', 2.7], ['doc3', 3.0]].forEach(([id, s]) => { const el = $(id), b = el.style.transform; track(el, [[s, { opacity: 0 }], [s + 0.3, { opacity: 1 }], [8.6, { opacity: 1 }], [9.2, { opacity: 0 }]]); tw(el, [{ transform: b + ' translateY(-40px)' }, { transform: b + ' translateY(0)' }], s, 0.5, POP); });
+  // the name card stays until the opening line ends; the pile lands on "signed up"
+  const P = 12.4;                                  // "To build it, he signed up for many AI apps": the pile starts here
+  track($('name'), [[4.2, { opacity: 0 }], [4.8, { opacity: 1 }], [P - 0.8, { opacity: 1 }], [P - 0.2, { opacity: 0 }]]);
+  tw($('name'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], 4.2, 0.7);
+  const POS = [[880, 400, -4], [1180, 400, 3], [1440, 420, -3], [930, 500, 4], [1240, 500, -4], [1500, 520, 3], [880, 600, -3], [1170, 600, 4], [1460, 620, -5], [950, 700, 3], [1260, 700, -3], [1560, 720, 4], [900, 800, -4], [1210, 800, 2], [1500, 820, -4], [1080, 900, 3]];
+  const land = [];
+  MANIFEST.slice(0, 16).forEach((t, i) => {
+    const el = pillEl(t); const [x, y, r] = POS[i]; el.style.left = x + 'px'; el.style.top = y + 'px'; $('pile').appendChild(el);
+    const s = P + i * 0.12; land.push([s + 0.4, PRICES[t.name] || 29]);
+    tw(el, [{ opacity: 0, transform: `translateY(-420px) rotate(${r * 3}deg)` }, { opacity: 1, transform: `translateY(-380px) rotate(${r * 3}deg)`, offset: 0.08 }, { opacity: 1, transform: `translateY(0) rotate(${r}deg)` }], s, 0.45, 'cubic-bezier(.5,0,1,.6)');
+  });
+  // the three screens, each on its line
+  const S1 = 15.5, S2 = 18.55, S3 = 21.25, S4 = 23.75;   // landing ("The results:" line, 2.6 s), survey, chatbot, "Six months"
+  show($('counter'), P + 0.2, S1 - 0.4, 0.3, 0.3);
+  JS.push(t => { let n = 0, d = 0; for (const [l, p] of land) if (t >= l) { n++; d += p; } $('counter').querySelector('.n').textContent = n; $('counter').querySelector('.d').textContent = '$' + d.toLocaleString(); });
+  track($('pile'), [[S1 - 0.7, { opacity: 1, filter: 'blur(0px)' }], [S1 - 0.1, { opacity: 0.1, filter: 'blur(2px)' }], [S4 - 0.8, { opacity: 0.1, filter: 'blur(2px)' }], [S4 - 0.2, { opacity: 0, filter: 'blur(2px)' }]]);
+  function shot(id, toastId, s, e) { track($(id), [[s, { opacity: 0 }], [s + 0.35, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.25, { opacity: 0 }]]); tw($(id), [{ transform: 'translateY(24px) scale(.97)' }, { transform: 'translateY(0) scale(1)' }], s, 0.6); inout($(toastId), s + 0.7, e, 12); }
+  shot('shotLanding', 'toastLanding', S1 - 0.2, S2 - 0.4); shot('shotSurvey', 'toastSurvey', S2 - 0.2, S3 - 0.4); shot('shotChat', 'toastChat', S3 - 0.2, S4 - 0.5);
+  tw($('samCold'), [{ opacity: 1 }, { opacity: 0 }], S4 - 0.6, 0.4, 'linear');
+  track($('samHands'), [[S4 - 0.6, { opacity: 0 }], [S4 - 0.2, { opacity: 1 }]]);
+  rise($('h4'), S4 - 0.2, 0.7, 24);
+
+  // ================= THE PROGRAM 26.35–59.5 =================
+  const stage = $('stage');
+  tw(stage, [{ backgroundColor: '#121517' }, { backgroundColor: '#FAF7F1' }], 25.95, 1.0, 'linear');
+  const F = 59.5;                                  // the demo frame starts here (the program line ends at 59.04)
+  const sB = $('sB'); show(sB, 26.35, F, 0.7, 0.5);
+  // the title rises as the cream arrives, on its own; the coaches' photo (the About-page one) when the voice names Na'ama and Vince
+  rise($('prog'), 27.15, 0.9, 24);
+  const L7 = 40.25;                               // "You'll be guided by Na'ama and Vince": the coaches' photo arrives with the line
+  const nb = $('naamaB'); fadeIn(nb, L7, 0.5);
+  tw(nb, [{ transform: 'scale(.9) translateY(24px)' }, { transform: 'scale(1) translateY(0)' }], L7, 0.8, 'cubic-bezier(.2,1.2,.4,1)');
+  // the bullets rise as the voice reaches them: "guided by" (+0.6), "twelve one-to-one meetings" (+8.5), "the Wayya Experiment Platform" (+13.5)
+  rise($('b1'), L7 + 0.6, 0.7, 14); rise($('b2'), L7 + 8.5, 0.7, 14); rise($('b3'), L7 + 13.5, 0.7, 14);
+
+  // ================= THE FRAME 59.5–159.7 =================
+  // every demo moment: a section title on top, the widgets top-aligned at y=140 under it
+  const L8 = F + 1.2, L9 = 70.1, L10 = 75.0;     // hands-on, the business case (after half a second of silence), "Together…"
+  const Q = 81.4;                                  // the quote: 2.5 s on screen, then the platform title alone
+  const PT = Q + 2.5, L11 = 84.9;                // the platform title, alone for 1.0 s; the platform line (the ring comes in with it)
+  // the cycle module: the register is up and the cards lift off it under "the assumptions from the business case" (88.9–90.5),
+  // the matrix is drawn before "effort-versus-risk matrix" (~91.9–93.0); the round-one / ledger line is laid on the sort (94.9)
+  const T0 = 87.0, HOLD = { afterDefine: 4.8, beforeNextDefine: 7.3, beforeConfirm: 1.6 };   // beforeNextDefine: the "Define · round 2" chip lands on "define the next round"; beforeConfirm: the ticks wait for "confirm the priorities"
+  const B = { define: T0 + 12.6, build: T0 + 16.6 + HOLD.afterDefine };
+  B.track = B.build + 14.4; B.analyze = B.build + 19.8; B.nextDefine = B.build + 25.6 + HOLD.beforeNextDefine; B.nextRound = B.nextDefine + 4.2 + HOLD.beforeConfirm; B.end = B.nextDefine + 7.4 + HOLD.beforeConfirm;
+  const NR = 136.65, RP = 148.8;                  // the next-round line: 1.8 s after the Analyze line's audio ends (128.2 + 6.65); "This repeats…": Na'ama's tile leaves here
+  const CU = B.end + 3.2, CZ = CU + 6.2;           // the customer card rises as the module fades (0.4 s overlap); the close begins 0.3 s into the card's fade
+  const sF = $('sF'); show(sF, F, CZ + 0.5, 0.6, 0.5);
+  // the section titles: "Hands-on guidance", then "Business case"; the platform title centred alone, then slid right as the ring arrives
+  track($('t1'), [[F + 0.3, { opacity: 0 }], [F + 0.8, { opacity: 1 }], [L9 - 0.6, { opacity: 1 }], [L9 - 0.2, { opacity: 0 }]]);
+  tw($('t1'), [{ transform: 'translateY(16px)' }, { transform: 'translateY(0)' }], F + 0.3, 0.7);
+  track($('t2'), [[L9 - 0.2, { opacity: 0 }], [L9 + 0.3, { opacity: 1 }], [Q - 0.6, { opacity: 1 }], [Q - 0.2, { opacity: 0 }]]);
+  tw($('t2'), [{ transform: 'translateY(16px)' }, { transform: 'translateY(0)' }], L9 - 0.2, 0.7);
+  track($('t3'), [[PT, { opacity: 0 }], [PT + 0.5, { opacity: 1 }], [T0 - 0.4, { opacity: 1 }], [T0 + 0.2, { opacity: 0 }]]);
+  track($('t3'), [[PT, { transform: 'translate(0px, 20px)', easing: EASE }], [PT + 0.7, { transform: 'translate(0px, 0px)' }], [L11, { transform: 'translate(0px, 0px)', easing: EASE }], [L11 + 0.8, { transform: 'translate(280px, 0px)' }]]);
+  // Na'ama: in the left column until the quote; back as the next-round line starts; out (0.5 s) as "This repeats…" starts, and stays out through the customer card
+  track($('naamaF'), [[F + 0.2, { opacity: 0 }], [F + 0.7, { opacity: 1 }], [Q - 0.5, { opacity: 1 }], [Q, { opacity: 0 }], [NR, { opacity: 0 }], [NR + 0.7, { opacity: 1 }], [RP, { opacity: 1 }], [RP + 0.5, { opacity: 0 }]]);
+  // the Tracker: the fresh business case, then the finished one from the business-case line on; gone at the quote
+  track($('trk'), [[F + 0.8, { opacity: 0 }], [F + 1.3, { opacity: 1 }], [Q - 0.5, { opacity: 1 }], [Q, { opacity: 0 }]]);
+  tw($('trk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], F + 0.8, 0.8);
+  track($('trkDone'), [[L9 - 0.2, { opacity: 0 }], [L9 + 0.4, { opacity: 1 }]]);
+  // the experiment tracker: Round 1 · Define at the Define beat, away for the open layout, back (Round 1 complete) as the next-round line starts
+  const XT = B.define + 5.0, XO = B.build - 0.6;   // in on "Every step" (104.6), its log line under "is logged" (106.4), out as the Define line ends (107.8); the open layout grows under "Build picks…"
+  track($('xtrk'), [[XT, { opacity: 0 }], [XT + 0.6, { opacity: 1 }], [XO, { opacity: 1 }], [XO + 0.6, { opacity: 0 }], [NR, { opacity: 0 }], [NR + 0.7, { opacity: 1 }], [CU + 5.9, { opacity: 1 }], [CU + 6.4, { opacity: 0 }]]);
+  tw($('xtrk'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0)' }], XT, 0.8);
+  // the log line lands on "logged" (XT + 1.2); until then it takes no height, so the tracker shows no blank gap
+  fadeIn($('x1log'), XT + 1.2, 0.5);
+  tw($('x1log'), [{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }, { maxHeight: '80px', paddingTop: '6px', paddingBottom: '12px' }], XT + 1.2, 0.5);
+  JS.push(t => {
+    const done = t >= NR;
+    $('x1d').className = 'st ' + (done ? 'done' : 'on'); $('x1dl').textContent = done ? '' : 'logging';
+    for (const id of ['x1b', 'x1t', 'x1a']) $(id).className = 'st ' + (done ? 'done' : '');
+    $('x1al').textContent = done ? 'reviewed with Na\'ama' : '';
+    $('r1s').textContent = done ? 'complete' : 'in progress';
+    $('r2h').className = 'rnd' + (done ? '' : ' dim'); $('r2s').textContent = done ? 'in progress' : 'next';
+    $('x2d').style.display = done ? 'flex' : 'none'; $('x2d').className = 'st on';
+  });
+  // centre: Claude with the connector, then the business case, then the quote, then the cycle, then the customer
+  inout($('scrClaude'), F + 0.6, L9 - 0.6, 24);
+  inout($('scrCase'), L9 - 0.2, Q - 0.6, 24);
+  track($('quote'), [[Q, { opacity: 0 }], [Q + 0.5, { opacity: 1 }], [Q + 2.0, { opacity: 1 }], [Q + 2.5, { opacity: 0 }]]);
+  tw($('quote'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], Q, 0.8);
+  // the experiment cycle (cycle/cycle.js) in the centre column; beats per the module's formula with the holds
+  let CYCLE = { end: B.end, beats: B };
+  const cs = $('cycleStage');
+  track(cs, [[T0 - 0.2, { opacity: 0 }], [T0 + 0.4, { opacity: 1 }], [B.end + 3.0, { opacity: 1 }], [B.end + 3.6, { opacity: 0 }]]);
+  // the open layout: when the tracker leaves, the box grows into the right two thirds (its top stays at y=140); back to the column as the next-round line starts, the dashboard reviewed there
+  track(cs, [[XO + 0.4, { transform: 'translate(0px, 0px) scale(1)', easing: EASE }], [XO + 1.4, { transform: 'translate(250px, 35.2px) scale(1.08)' }], [NR, { transform: 'translate(250px, 35.2px) scale(1.08)', easing: EASE }], [NR + 1.0, { transform: 'translate(0px, 0px) scale(1)' }]]);
+  if (window.buildCycle) { try { CYCLE = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0, hold: HOLD, review: NR + 1.25 - T0, chipEnd: 3.0, ringPulse: [RP + 1.6 - T0, RP + 3.2 - T0] }); } catch (e) { console.error('cycle failed', e); } }
+  window.__CYCLE = CYCLE;
+  // the loop ring, left: in with the platform title, lit per chapter, out when Na'ama returns
+  const nodes = ['n1', 'n2', 'n3', 'n4'].map($), labs = ['l1', 'l2', 'l3', 'l4'].map($);
+  track($('loop'), [[L11, { opacity: 0 }], [L11 + 0.6, { opacity: 1 }], [NR, { opacity: 1 }], [NR + 0.6, { opacity: 0 }]]);
+  tw($('loop'), [{ transform: 'translateY(20px)' }, { transform: 'translateY(0)' }], L11, 0.8);
+  const LIT = [[B.define + 0.4, B.build - 0.75], [B.build, B.track - 0.3], [B.track, B.analyze - 0.3], [B.analyze, NR - 0.2]];
+  nodes.forEach((n, i) => {
+    const [ls, le] = LIT[i];
+    track(n, [[ls, { backgroundColor: '#FAF7F1', transform: 'scale(1)' }], [ls + 0.3, { backgroundColor: '#EAB62F', transform: 'scale(1.18)' }], [le - 0.3, { backgroundColor: '#EAB62F', transform: 'scale(1.18)' }], [le, { backgroundColor: '#FAF7F1', transform: 'scale(1)' }]]);
+    const base = labs[i].style.transform || '';
+    track(labs[i], [[ls, { color: '#383F3B', transform: base + ' scale(1)' }], [ls + 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le - 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le, { color: '#383F3B', transform: base + ' scale(1)' }]]);
+  });
+  $('arcs').style.transformOrigin = '410px 410px'; $('arcs').style.transformBox = 'view-box';
+  clip($('naamaClip2'), 'assets/naama-1.mp4', [[F + 0.2, Q], [NR, RP + 0.5]], 12.8);
+  // the customer: held while its line plays, then a half-second fade into the close
+  track($('cust'), [[CU, { opacity: 0 }], [CU + 0.45, { opacity: 1 }], [CU + 5.9, { opacity: 1 }], [CU + 6.4, { opacity: 0 }]]);
+  tw($('cust'), [{ transform: 'translateY(24px)' }, { transform: 'translateY(0)' }], CU, 0.6);
+  rise($('cq1'), CU + 0.7, 0.6, 12); rise($('cq2'), CU + 2.6, 0.6, 12);
+
+  // ================= CLOSE =================
+  const sZ = $('sZ'); show(sZ, CZ, CZ + 8.1, 0.5, 0.01);
+  riseKeep($('logo'), CZ + 0.2, 0.9, 16, 'translateX(-50%)');
+  rise($('hZ1'), CZ + 0.7, 0.8, 20); rise($('hZ2'), CZ + 1.6, 0.9, 24); rise($('hZ3'), CZ + 2.7, 0.8, 16);
+
+  // ================= CUES: the voiceover ================= (vo.mjs reads this list; the cycle cues sit on the beats)
+  const CAPS = [
+    [0.6, 12.3, 'Meet Sam, 43. He wants to play with his ten-year-old son, but his Sundays go to client reports. On the side, he\'s building a game called Critical Character, that teaches kids to think critically.'],
+    [12.4, 15.4, 'To build it, he signed up for many AI apps.'],
+    [15.5, 18.45, 'The results: a landing page with no visits.'],
+    [18.55, 21.15, 'A survey three family members answered.'],
+    [21.25, 23.65, 'A chatbot that loved every idea.'],
+    [23.75, 26.31, 'Six months. No customer.'],
+    [28.75, 40.15, 'Then Sam joined the Wayya program, 12 weeks to fundable product-market fit: hands-on guidance from founders who built multi-million-dollar companies, for a selected group of mission-driven founders.'],
+    [40.25, 59.83, 'You\'ll be guided by Nah-ah-mah and Vince, who built several companies, including Cheetah, which scaled to 150 million in revenue. You will get twelve one-to-one meetings, eight group sessions with other founders, and at the end, the Wayya Experiment Platform that will help you reach product-market fit and be ready to face investors.'],
+    [60.7, 70.0, 'You\'ll be guided by a Wayya expert, hands-on, and it runs inside your own AI assistant: Claude, ChatGPT, Grok or Gemini.'],
+    [70.1, 74.9, 'It starts with the business case: that\'s where the business and product assumptions are defined.'],
+    [75.0, 81.67, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
+    [84.9, 93.3, 'Now the Wayya Experiment Platform takes over. With a Wayya expert, the assumptions from the business case are ranked on an effort-versus-risk matrix.'],
+    [94.9, 98.6, 'The early ones go into round one; the rest wait in the ledger.'],
+    [99.6, 108.3, 'Define groups them into two experiments: one for the infrastructure, one for the market. Every step is logged in the Experiment Platform\'s tracker.'],
+    [108.4, 116.4, 'Build picks each experiment\'s tools. Wayya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
+    [116.5, 121.8, 'Copy and content flow into them, campaigns go live, and interviews get booked.'],
+    [122.8, 128.1, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
+    [128.2, 135.2, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
+    [136.65, 147.6, 'At the end of the round, Nah-ah-mah and Sam review the results together and define the next round: the ledger comes back and re-ranks, and Sam works with the Wayya expert to confirm the priorities.'],
+    [148.8, 153.9, 'This repeats through the program until a clear product-market-fit signal appears.'],
+    [154.3, 159.0, 'Until paying customers confirm the signal. And Sam has his Sundays back.'],
+    [160.9, 166.4, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
+  ];
+  const cap = $('cap');
+  if (CAPTIONS) JS.push(t => { const c = CAPS.find(([a, b]) => t >= a && t < b); if (c) { cap.textContent = c[2]; cap.style.opacity = 1; } else cap.style.opacity = 0; });
+
+  // ================= clock =================
+  const DUR = 167.8;
+  function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
+  addEventListener('resize', scale); scale();
+  if (params.get('ui') === '0') document.querySelector('.scrub').style.display = 'none';
+  const snd = $('snd'); const SOUND = params.get('audio') !== '0' && params.get('ui') !== '0';
+  if (!SOUND) snd.removeAttribute('src');
+  let playing = false, t0 = 0, raf = 0;
+  function clipsAt(t, seeking) {
+    const waits = [];
+    for (const c of CLIPS) {
+      const w = c.ready && c.windows.find(([a, b]) => t >= a && t < b);
+      c.el.style.display = w ? 'block' : 'none';
+      if (!w) { if (!c.el.paused) c.el.pause(); continue; }
+      const want = (t - w[0]) % c.len;                      // loops for as long as the window lasts
+      if (seeking) { if (Math.abs(c.el.currentTime - want) > 0.02) waits.push(new Promise(r => { c.el.addEventListener('seeked', r, { once: true }); c.el.currentTime = want; })); }
+      else if (c.el.paused) { c.el.currentTime = want; c.el.play().catch(() => {}); }
+    }
+    return Promise.all(waits);
+  }
+  function apply(t) { for (const fn of JS) fn(t); $('scrubfill').style.width = (t / DUR * 100) + '%'; }
+  function seek(t) { t = Math.max(0, Math.min(DUR, t)); for (const a of A) { a.pause(); a.currentTime = t * 1000; } apply(t); if (SOUND) { try { snd.currentTime = t; } catch (e) {} } return clipsAt(t, true).then(() => t); }
+  function play(from = 0) {
+    seek(from); playing = true; t0 = performance.now() - from * 1000;
+    for (const a of A) a.play();
+    if (SOUND) { snd.currentTime = from; snd.play().catch(() => {}); }
+    const loop = () => { if (!playing) return; const t = (performance.now() - t0) / 1000; apply(t); clipsAt(t, false); if (t >= DUR) { playing = false; seek(DUR); return; } raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+  }
+  function pause() { playing = false; cancelAnimationFrame(raf); if (SOUND) snd.pause(); seek((performance.now() - t0) / 1000); }
+  setInterval(() => { if (playing && SOUND && !snd.paused) { const d = snd.currentTime - (performance.now() - t0) / 1000; if (Math.abs(d) > 0.08) t0 -= d * 1000; } }, 2000);
+  window.__seek = seek; window.__play = play; window.__pause = pause; window.__DUR = DUR;
+  window.__ready = document.fonts.ready.then(() => new Promise(r => setTimeout(r, 300))).then(() => true);
+  document.addEventListener('keydown', e => {
+    const now = () => playing ? (performance.now() - t0) / 1000 : (SOUND ? snd.currentTime : 0);
+    if (e.key === ' ') { e.preventDefault(); playing ? pause() : play(now()); }
+    if (e.key === 'r') play(0);
+    if (e.key === 'ArrowRight') play(Math.min(DUR, now() + 5));
+    if (e.key === 'ArrowLeft') play(Math.max(0, now() - 5));
+  });
+  $('start').addEventListener('click', () => { $('start').hidden = true; play(0); });
+  document.fonts.ready.then(() => {
+    if (params.has('t')) seek(parseFloat(params.get('t')) || 0);
+    else if (params.get('autoplay') === '0') seek(0);
+    else if (SOUND) { seek(0); $('start').hidden = false; }
+    else play(0);
+  });
+})();
+</script>
+</body>
+</html>

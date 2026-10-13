@@ -11,16 +11,16 @@
 /radical-change-program/        /scale-up-program/         301
 
 # Pre-PMF program moved off the Waya OS (Pro) URLs (301)
-/waya-os-mcp/cohort/    /pre-pmf-mcp/cohort/    301
-/waya-os-mcp/cohort     /pre-pmf-mcp/cohort/    301
-/waya-os-mcp/apply/     /pre-pmf-mcp/apply/     301
-/waya-os-mcp/apply      /pre-pmf-mcp/apply/     301
-/waya-os-mcp/welcome/   /pre-pmf-mcp/welcome/   301
-/waya-os-mcp/welcome    /pre-pmf-mcp/welcome/   301
+/waya-os-mcp/cohort/    /experiment-platform/cohort/    301
+/waya-os-mcp/cohort     /experiment-platform/cohort/    301
+/waya-os-mcp/apply/     /experiment-platform/apply/     301
+/waya-os-mcp/apply      /experiment-platform/apply/     301
+/waya-os-mcp/welcome/   /experiment-platform/welcome/   301
+/waya-os-mcp/welcome    /experiment-platform/welcome/   301
 
 # Self-serve signup retired (301)
-/pre-pmf-mcp/get-started/   /pre-pmf-mcp/cohort/   301
-/pre-pmf-mcp/get-started    /pre-pmf-mcp/cohort/   301
+/pre-pmf-mcp/get-started/   /experiment-platform/cohort/   301
+/pre-pmf-mcp/get-started    /experiment-platform/cohort/   301
 
 # Waya OS renamed to Lean AI (301)
 /waya-os-mcp/              /lean-ai/              301
@@ -30,5 +30,28 @@
 /waya-os-mcp/setup/app/    /lean-ai/setup/app/    301
 
 # Pre-PMF MCP page retired; the 12-week program page replaces it (301)
-/pre-pmf-mcp/    /pre-pmf-mcp/cohort/    301
-/pre-pmf-mcp     /pre-pmf-mcp/cohort/    301
+/pre-pmf-mcp/    /experiment-platform/cohort/    301
+/pre-pmf-mcp     /experiment-platform/cohort/    301
+
+# Program pages moved under /experiment-platform/ (301)
+/pre-pmf-mcp/cohort/     /experiment-platform/cohort/     301
+/pre-pmf-mcp/cohort      /experiment-platform/cohort/     301
+/pre-pmf-mcp/apply/      /experiment-platform/apply/      301
+/pre-pmf-mcp/apply       /experiment-platform/apply/      301
+/pre-pmf-mcp/welcome/    /experiment-platform/welcome/    301
+/pre-pmf-mcp/welcome     /experiment-platform/welcome/    301
+/experiment-system/      /experiment-platform/detail/     301
+/experiment-system       /experiment-platform/detail/     301
+/experiment-platform/    /experiment-platform/detail/     301
+/experiment-platform     /experiment-platform/detail/     301
+
+# Internal files that live in the repo but must not be readable on the public
+# site. Cloudflare Pages has no exclude list without a build step, and its
+# _redirects rules are evaluated before static assets, so these send the
+# reader to the home page. Keep this list in sync with docs/WEBSITE-CHECKLIST.md.
+/docs/*        /    301
+/scripts/*     /    301
+/_data/*       /    301
+/.claude/*     /    301
+/.github/*     /    301
+/.gitignore    /    301

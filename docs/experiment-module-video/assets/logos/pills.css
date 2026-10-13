@@ -1,0 +1,54 @@
+/* Tool pills: a small logo on the left, the tool name on the right.
+   Mono marks (single-colour SVGs) are drawn through a CSS mask so the
+   pill decides their colour. Full-colour marks are plain <img>s. */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px 0 10px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #262e33;
+  color: #B8BBB6;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.pill .mark {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Full-colour mark: the image as is, fitted into the 24px box. */
+.pill img.mark {
+  object-fit: contain;
+}
+
+/* Mono mark, inlined as <svg class="mark" fill="currentColor">: takes the text colour. */
+.pill svg.mark {
+  fill: currentColor;
+}
+
+/* Mono mark via CSS mask (alternative when the page is served over http(s);
+   Chrome refuses masks loaded from file://). Usage:
+   <span class="mark mono" style="--mark:url(hubspot.svg)"></span> */
+.pill .mark.mono {
+  background-color: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+
+/* Light variant */
+.pill.light {
+  background: #FAF7F1;
+  border-color: rgba(56, 63, 59, .14);
+  color: #383F3B;
+}

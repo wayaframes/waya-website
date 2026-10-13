@@ -39,19 +39,20 @@ one page is not a fix on the others. Shared `assets/styles.css` and vanilla
 `assets/nav.js`. Security headers live in `_headers`. `robots.txt` + `sitemap.xml` at
 root. CTAs are plain `<a>` links to `leadconnectorhq.com` booking widgets. Preview with
 `python3 -m http.server` (never `file://` — relative/root paths and nav.js break).
-Branches: `main` → www.wayaframes.com, `staging` → staging.wayaframes.com.
+Branches: `main` → www.wayaframes.com, `staging` → https://staging.waya-website.pages.dev/ (Cloudflare Access).
 
 ## How to run this audit
 
 ### 1. Scope it
-- Whole site (default): every `index.html` under the repo root (currently 10 pages).
+- Whole site (default): every `index.html` under the repo root plus `404.html` (19 pages as of 2026-10-12).
 - One page / one aspect: honour exactly what the user asked, using the same method.
 - List the pages you're auditing back to the user before starting so scope is explicit.
 
 ### 2. Read the real files — statically first
 For each page in scope, read the HTML. Also read the shared inputs once:
-`_headers`, `robots.txt`, `sitemap.xml`, `assets/styles.css`, `assets/nav.js`,
-`_data/schema.json`, `_data/nav.json`. Never audit from memory of "how the site
+`_headers`, `_redirects`, `robots.txt`, `sitemap.xml`, `assets/styles.css`, `assets/nav.js`,
+`assets/analytics.js`, `_data/schema.json`, `_data/nav.json`, `_data/utm.json`. Run
+`python scripts/check_utm.py` for the link/UTM area and quote its output. Never audit from memory of "how the site
 usually looks" — recent commits change `<head>`, JSON-LD, and CTAs.
 
 ### 3. Then verify dynamically — serve and drive the browser
@@ -105,12 +106,12 @@ it matters, and the fix — followed by a single prioritised action list.
    URLs, descriptions, prices) and `_data/schema.json`; it's server-rendered in `<head>`
    (not JS-injected) so crawlers/LLMs read it; `robots.txt` allows it and the page is in
    the sitemap. Flag pages with **no** JSON-LD (e.g. `about-us`, `waya-os-mcp/setup`).
-6. **PostHog analytics** — is the snippet present and initialised with a key, does it
-   actually send events (verify in the browser network log), is autocapture + the
-   `cta_schedule_call_clicked` conversion event wired, and is it consent-gated? **As of
-   now PostHog is NOT installed** — only the design spec at
-   `docs/superpowers/specs/2026-09-08-posthog-integration-design.md` exists. If still
-   absent, that is the finding; reference the spec for the intended Phase 1 build.
+6. **PostHog analytics** — `assets/analytics.js` is loaded on every page (consent-gated,
+   key live since 2026-09). Verify the tag is present on EVERY page including funnel pages,
+   that events leave the browser (`performance.getEntriesByType('resource')` shows
+   `us.i.posthog.com/i/v0/e/` with status 200 after granting consent in localStorage), and
+   that `cta_schedule_call_clicked` carries `location` from `utm_button` plus the `utm_*`
+   attribution properties. The verification recipe is in `docs/WEBSITE-CHECKLIST.md` §7.
 7. **Everything else (best practices)** — performance (Core Web Vitals, render-blocking
    assets, cache headers in `_headers`, font loading), accessibility beyond contrast
    (landmarks, focus states, `aria` on interactive nav, skip link), a 404 page, favicon,

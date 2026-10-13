@@ -16,6 +16,76 @@
     try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {}
   }
 
+  /* ---- Attribution passthrough engine (reference: _data/utm.json) ----
+     Website buttons carry only utm_button. This block remembers the utm_*
+     values of the link that brought the visitor (first touch wins, last touch
+     kept separately) and appends them to every booking link at click time.
+     Direct visitors get window.WAYA_ATTR_DEFAULTS, set per page, so GHL can
+     still route on the product token. Runs before consent: no cookies, no
+     network, first-party localStorage only. */
+  var ATTR_KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var FIRST_KEY  = 'waya_attr_first';
+  var LAST_KEY   = 'waya_attr_last';
+
+  function readStore(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  function writeStore(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+  function inboundAttribution() {
+    var q = parseQuery(location.href), out = {}, any = false;
+    ATTR_KEYS.forEach(function (k) { if (q[k]) { out[k] = q[k]; any = true; } });
+    if (!any && document.referrer) {                      // organic / social referral with no UTMs
+      try {
+        var host = new URL(document.referrer).hostname.replace(/^www\./, '');
+        if (host && host !== location.hostname.replace(/^www\./, '')) {
+          out = { utm_source: host.split('.')[0], utm_medium: 'referral' }; any = true;
+        }
+      } catch (e) {}
+    }
+    return any ? out : null;
+  }
+
+  function captureAttribution() {
+    var inbound = inboundAttribution();
+    if (inbound) {
+      inbound.ts = Date.now();
+      if (!readStore(FIRST_KEY)) writeStore(FIRST_KEY, inbound);
+      writeStore(LAST_KEY, inbound);
+    }
+  }
+
+  function currentAttribution() {
+    var first = readStore(FIRST_KEY), last = readStore(LAST_KEY);
+    var base = first || last || window.WAYA_ATTR_DEFAULTS || {};
+    var out = {};
+    ATTR_KEYS.forEach(function (k) { if (base[k]) out[k] = String(base[k]); });
+    return out;
+  }
+
+  function decorateBookingLink(a) {
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('leadconnectorhq.com/widget/bookings/') === -1) return href;
+    var attr = currentAttribution();
+    var parts = href.split('#'), base = parts[0], frag = parts[1] ? '#' + parts[1] : '';
+    var qs = base.split('?'), path = qs[0], existing = qs[1] ? qs[1].split('&') : [];
+    var keep = existing.filter(function (kv) {           // page-level params (utm_button) stay
+      var k = kv.split('=')[0];
+      return ATTR_KEYS.indexOf(k) === -1;
+    });
+    ATTR_KEYS.forEach(function (k) { if (attr[k]) keep.push(k + '=' + encodeURIComponent(attr[k])); });
+    var out = path + (keep.length ? '?' + keep.join('&') : '') + frag;
+    a.setAttribute('href', out);
+    return out;
+  }
+
+  captureAttribution();
+  document.addEventListener('click', function (e) {       // capture phase: runs before analytics' own listener
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (a) decorateBookingLink(a);
+  }, true);
+  document.addEventListener('DOMContentLoaded', function () {   // also decorate statically for copy-link / middle-click
+    Array.prototype.forEach.call(document.querySelectorAll('a[href*="leadconnectorhq.com/widget/bookings/"]'), decorateBookingLink);
+  });
+
   /* ---- Load PostHog and initialise (called only on consent) ---- */
   function loadPostHog() {
     if (window.__wayaPHLoaded) return;
@@ -44,8 +114,11 @@
     '/data-room-preparation/': 'data-room-preparation',
     '/financial-model-prep/':  'financial-model-prep',
     '/operations-audit/':      'operations-audit',
+    '/lean-ai/cohort/':        'lean-ai-cohort',
     '/lean-ai/':               'lean-ai',
-    '/pre-pmf-mcp/':           'pre-pmf-mcp'
+    '/experiment-platform/':        'experiment-platform',
+    '/case-studies/':          'case-studies',
+    '/planning-guide/':        'planning-guide'
   };
 
   function parseQuery(href) {
@@ -89,9 +162,15 @@
 
       if (href.indexOf('leadconnectorhq.com') !== -1) {         // CTA → booking widget
         var u = parseQuery(href);
+        var attr = currentAttribution();
         ph.capture('cta_schedule_call_clicked', {
-          location: u.utm_content || null,
+          location: u.utm_button || u.utm_content || null,
           service:  bookingService(href),
+          utm_source: attr.utm_source || null,
+          utm_medium: attr.utm_medium || null,
+          utm_campaign: attr.utm_campaign || null,
+          utm_content: attr.utm_content || null,
+          utm_term: attr.utm_term || null,
           href: href
         });
         return;
