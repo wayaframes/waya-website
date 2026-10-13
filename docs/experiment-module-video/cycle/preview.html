@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- base: paths resolve from the video folder, as they will inside video.html -->
+<base href="../">
+<title>The Waya experiment cycle — module preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('../../assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 500; src: url('../../assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 600; src: url('../../assets/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 700; src: url('../../assets/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 400; src: url('../../assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 500; src: url('../../assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 600; src: url('../../assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 700; src: url('../../assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2'); }
+  html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+  #wrap { position:fixed; inset:0; overflow:hidden; }
+  #stage { position:absolute; left:50%; top:50%; width:1920px; height:1080px; overflow:hidden; background:#FAF7F1; font-family:'Plus Jakarta Sans', system-ui, sans-serif; color:#1F2422; transform-origin:center center; transform:translate(-50%, -50%) scale(1); }
+  /* where the integrator places the box; the preview centres it instead (590,110 in the video) */
+  #cycleStage { left:570px; top:100px; }
+  .scrub { position:fixed; left:0; right:0; bottom:0; height:6px; background:rgba(255,255,255,.08); z-index:10; }
+  .scrub i { display:block; height:100%; width:0; background:#EAB62F; }
+  #hud { position:fixed; left:12px; bottom:14px; z-index:10; font:13px/1.4 system-ui, sans-serif; color:rgba(255,255,255,.7); white-space:pre; }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+<!-- cycle-markup:start (synced from cycle-markup.html by stills.mjs; edit the fragment, not this copy) -->
+<!-- The Waya experiment cycle: one 780x880 box. The integrator places #cycleStage absolutely at
+     left:590px top:110px inside the 1920x1080 stage. Everything inside is positioned relative to it.
+     Dynamic pieces (hypothesis cards, tool pills, connectors, avatars, dashboard tiles) are built by
+     cycle.js at load; the static frames live here. -->
+<style>
+  #cycleStage { position:absolute; width:780px; height:880px; overflow:visible; font-family:'Plus Jakarta Sans', system-ui, sans-serif; color:#1F2422; }
+  #cycleStage * { box-sizing:border-box; }
+  #cycleStage .fd { font-family:'Space Grotesk', system-ui, sans-serif; }
+  #cycleStage .abs { position:absolute; }
+  #cycleStage .lab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+
+  /* a. the register screenshot */
+  #cycleStage .shot { position:absolute; left:0; top:0; width:780px; height:880px; border-radius:20px; overflow:hidden; border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  #cycleStage .shot img { display:block; width:780px; height:880px; }
+  #cycleStage .shot::after { content:''; position:absolute; inset:0; background:rgba(250,247,241,.42); }
+  #cycleStage .shotlab { position:absolute; right:22px; top:22px; padding:8px 14px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; box-shadow:0 8px 24px rgba(31,36,34,.08); }
+
+  /* hypothesis cards: left/top 0, driven by transform (translate + scale, origin top-left) */
+  #cycleStage .hyp { position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:8px; padding:0 14px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); white-space:nowrap; font-size:15px; font-weight:500; color:#1F2422; transform-origin:0 0; opacity:0; }
+  #cycleStage .hyp b { font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:15px; color:#6B6F6C; }
+  #cycleStage .hyp .tag { position:absolute; left:calc(100% + 8px); top:9px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:4px 9px; border-radius:999px; background:#F4F1EA; color:#6B6F6C; opacity:0; }
+  #cycleStage .hyp .tag.now { background:rgba(234,182,47,.28); color:#8a6408; }
+  #cycleStage .hyp .tick { position:absolute; left:calc(100% + 12px); top:7px; display:flex; align-items:center; gap:8px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
+  #cycleStage .hyp .tick i { width:26px; height:26px; border-radius:50%; background:#D3E9E0; color:#6A9D8A; display:inline-flex; align-items:center; justify-content:center; font-style:normal; font-size:14px; }
+
+  /* b. the matrix */
+  #cycleStage .matrix { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; }
+  #cycleStage .axlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; letter-spacing:.06em; color:#6B6F6C; white-space:nowrap; opacity:0; }
+
+  /* frames: white cards */
+  #cycleStage .frame { position:absolute; border-radius:20px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 20px 50px rgba(31,36,34,.10); opacity:0; }
+  #cycleStage .frame .fh { position:absolute; left:24px; top:18px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:19px; font-weight:700; color:#383F3B; white-space:nowrap; }
+  #cycleStage .frame .fx { position:absolute; right:24px; top:22px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .frame .ln { position:absolute; left:24px; right:24px; font-size:15px; line-height:1.3; color:#6B6F6C; opacity:0; }
+  #cycleStage .frame .ln b { color:#383F3B; font-weight:600; }
+
+  /* the assumption ledger: a container (opacity + transform) holding a frame and the "later" cards */
+  #cycleStage .ledger { position:absolute; left:30px; top:748px; width:720px; height:102px; overflow:visible; transform-origin:50% 50%; }
+  #cycleStage .ledger .lframe { position:absolute; left:0; top:0; width:720px; height:102px; border-radius:20px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 20px 50px rgba(31,36,34,.10); opacity:0; }
+  #cycleStage .ledger .lframe .lab { left:24px; top:18px; color:#383F3B; }
+
+  /* chips: one per beat, same spot */
+  #cycleStage .chip { position:absolute; left:30px; top:34px; height:40px; padding:0 18px; border-radius:999px; background:#EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; font-weight:600; letter-spacing:.02em; display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:0; box-shadow:0 10px 24px rgba(234,182,47,.35); }
+  #cycleStage .chip i { width:10px; height:10px; border-radius:50%; background:#383F3B; }
+
+  /* d. tools */
+  #cycleStage .pill { position:absolute; left:0; top:0; height:44px; border-radius:12px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 10px 26px rgba(31,36,34,.10); display:flex; align-items:center; justify-content:center; gap:6px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; transform-origin:50% 50%; opacity:0; }
+  #cycleStage .pill .ok { display:inline-flex; width:0; overflow:hidden; color:#6A9D8A; font-size:14px; }
+  #cycleStage .pill .built { position:absolute; left:50%; top:100%; margin-top:6px; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6A9D8A; white-space:nowrap; opacity:0; }
+  #cycleStage .wire { position:absolute; left:0; top:0; width:780px; height:880px; overflow:visible; pointer-events:none; }
+  #cycleStage .node { position:absolute; left:352px; top:538px; width:76px; height:76px; border-radius:50%; background:#fff; border:3px solid #EAB62F; color:#383F3B; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; justify-content:center; opacity:0; box-shadow:0 0 0 0 rgba(234,182,47,0); }
+
+  /* e. copy and interviews */
+  #cycleStage .snip { position:absolute; left:0; top:0; padding:6px 12px; border-radius:999px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 8px 22px rgba(31,36,34,.12); font-size:15px; font-weight:500; color:#383F3B; white-space:nowrap; opacity:0; }
+  #cycleStage .avatar { position:absolute; left:0; top:0; width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%; background:#6A9D8A; color:#fff; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 6px 14px rgba(31,36,34,.18); opacity:0; }
+  #cycleStage .big { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:44px; letter-spacing:-.03em; line-height:1; color:#383F3B; }
+  #cycleStage .copyln { position:absolute; left:24px; font-size:15px; color:#383F3B; white-space:nowrap; }
+
+  /* f. track */
+  #cycleStage .crow { position:absolute; left:24px; right:24px; height:66px; border-bottom:1px solid rgba(56,63,59,.1); opacity:0; }
+  #cycleStage .crow .n { position:absolute; left:0; top:12px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:16px; font-weight:600; color:#383F3B; white-space:nowrap; }
+  #cycleStage .crow .n span { font-weight:500; color:#6B6F6C; }
+  #cycleStage .crow .l { position:absolute; left:0; top:36px; font-size:15px; color:#6B6F6C; white-space:nowrap; opacity:0; }
+  #cycleStage .crow .l::before { content:'↳ '; color:#6A9D8A; }
+  #cycleStage .meter { position:absolute; left:24px; width:212px; }
+  #cycleStage .meter .ml { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:15px; font-weight:600; color:#383F3B; white-space:nowrap; }
+  #cycleStage .meter .mb { position:relative; margin-top:8px; height:14px; border-radius:7px; background:#F4F1EA; }
+  #cycleStage .meter .mb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:7px; }
+  #cycleStage .kill { position:absolute; width:3px; background:#383F3B; border-radius:2px; opacity:0; }
+  #cycleStage .killlab { position:absolute; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#383F3B; white-space:nowrap; opacity:0; }
+  #cycleStage .prog { position:absolute; left:24px; width:212px; }
+  #cycleStage .prog .pl { display:flex; justify-content:space-between; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .prog .pb { position:relative; margin-top:8px; height:8px; border-radius:4px; background:#F4F1EA; overflow:hidden; }
+  #cycleStage .prog .pb i { position:absolute; left:0; top:0; bottom:0; width:0; border-radius:4px; background:#383F3B; }
+
+  /* g. dashboard */
+  #cycleStage .tile { position:absolute; width:330px; height:118px; border-radius:16px; background:#F4F1EA; padding:16px 18px; opacity:0; }
+  #cycleStage .tile .tk { font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#6B6F6C; white-space:nowrap; }
+  #cycleStage .tile .tt { margin-top:6px; font-size:15px; font-weight:500; color:#1F2422; white-space:nowrap; }
+  #cycleStage .pillst { position:absolute; left:18px; bottom:14px; width:140px; height:30px; font-family:'Space Grotesk', system-ui, sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-radius:999px; }
+  #cycleStage .pillst span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; border-radius:999px; opacity:0; }
+  #cycleStage .pillst .t { background:rgba(234,182,47,.3); color:#8a6408; }
+  #cycleStage .pillst .acc { background:#D3E9E0; color:#3f7a65; }
+  #cycleStage .pillst .rej { background:rgba(209,108,2,.16); color:#D16C02; }
+  #cycleStage .pillst .inc { background:#fff; color:#6B6F6C; border:1px solid rgba(56,63,59,.14); }
+
+  /* h. round 2 */
+  #cycleStage .round { position:absolute; left:50%; top:0; transform:translateX(-50%); font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:#FAF7F1; background:#383F3B; padding:12px 20px; border-radius:999px; white-space:nowrap; opacity:0; }
+</style>
+
+<div id="cycleStage">
+  <!-- a. the business case register -->
+  <div class="shot" id="cyShot"><img src="cycle/assets/register.png" alt=""></div>
+  <div class="shotlab" id="cyShotLab">Business case · Hypothesis register</div>
+
+  <!-- b. the effort x risk matrix -->
+  <svg class="matrix" id="cyMatrix" viewBox="0 0 780 880">
+    <rect id="cyQuad" x="415" y="130" width="325" height="255" rx="14" fill="#EAB62F" opacity="0"/>
+    <path id="cyAxX" d="M90 640 H740" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round"/>
+    <path id="cyAxY" d="M90 640 V130" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round"/>
+    <path id="cyAxXa" d="M732 634 L740 640 L732 646" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="cyAxYa" d="M84 138 L90 130 L96 138" fill="none" stroke="#B8BBB6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+  </svg>
+  <div class="axlab" id="cyLabX" style="left:690px; top:652px;">Effort</div>
+  <div class="axlab" id="cyLabY" style="left:104px; top:124px;">Risk</div>
+
+  <!-- b. round 1 -->
+  <div class="frame" id="cyRound1" style="left:30px; top:100px; width:720px; height:204px;"><div class="fh">Round 1</div><div class="fx">now</div></div>
+
+  <!-- c. two experiments -->
+  <div class="frame" id="cyExpInf" style="left:30px; top:100px; width:350px; height:300px;">
+    <div class="fh">Infrastructure experiment</div>
+    <div class="ln" id="cyInfT" style="top:204px;"><b>Tests</b> · can parents run a pod without us in the room?</div>
+    <div class="ln" id="cyInfP" style="top:248px;"><b>Pass</b> · 3 of 5 pods run a session on their own.</div>
+  </div>
+  <div class="frame" id="cyExpMkt" style="left:400px; top:100px; width:350px; height:300px;">
+    <div class="fh">Marketing experiment</div>
+    <div class="ln" id="cyMktT" style="top:204px;"><b>Tests</b> · will co-op leaders pay before January?</div>
+    <div class="ln" id="cyMktP" style="top:248px;"><b>Pass</b> · 4 pods paid by the kill date.</div>
+  </div>
+
+  <!-- chips -->
+  <div class="chip" id="cyChipDefine"><i></i>Define</div>
+  <div class="chip" id="cyChipBuild"><i></i>Build</div>
+  <div class="chip" id="cyChipTrack"><i></i>Track</div>
+  <div class="chip" id="cyChipAnalyze"><i></i>Analyze</div>
+  <div class="chip" id="cyChipDefine2"><i></i>Define · round 2</div>
+
+  <!-- d. tools wire into Waya -->
+  <svg class="wire" id="cyWire" viewBox="0 0 780 880"></svg>
+  <div id="cySnips"></div>
+  <div class="node" id="cyNode">Waya</div>
+  <div id="cyPills"></div>
+
+  <!-- e. copy flows in, interviews come out -->
+  <div class="frame" id="cyCopy" style="left:30px; top:636px; width:300px; height:96px;">
+    <div class="lab" style="left:24px; top:18px; color:#383F3B;">Copy &amp; content</div>
+    <div class="copyln" style="top:42px;">“Run a pod this semester”</div>
+    <div class="copyln" style="top:64px; color:#6B6F6C;">landing page · email · survey questions</div>
+  </div>
+  <div class="frame" id="cyInt" style="left:450px; top:636px; width:300px; height:96px;">
+    <div class="lab" style="left:24px; top:18px; color:#383F3B;">Customer interviews booked</div>
+    <div class="big" id="cyIntN" style="left:24px; top:40px;">0</div>
+  </div>
+  <div id="cyAvatars"></div>
+
+  <!-- f. track -->
+  <div class="frame" id="cyCRM" style="left:30px; top:160px; width:440px; height:470px;">
+    <div class="fh">CRM · conversations</div><div class="fx">live</div>
+    <div id="cyRows"></div>
+  </div>
+  <div class="frame" id="cyMet" style="left:490px; top:160px; width:260px; height:470px;">
+    <div class="fh">Live metrics</div>
+    <div class="meter" id="cyM1" style="top:72px;"><div class="ml"><span>Reply rate</span><em id="cyM1v" style="font-style:normal; color:#6A9D8A;">0%</em></div><div class="mb"><i style="background:#6A9D8A;"></i></div></div>
+    <div class="meter" id="cyM2" style="top:148px;"><div class="ml"><span>Pods paying $200</span><em id="cyM2v" style="font-style:normal; color:#D16C02;">0</em></div><div class="mb"><i style="background:#D16C02;"></i></div></div>
+    <div class="meter" id="cyM3" style="top:224px;"><div class="ml"><span>Parents run a session</span><em id="cyM3v" style="font-style:normal; color:#8a6408;">0</em></div><div class="mb"><i style="background:#EAB62F;"></i></div></div>
+    <div class="kill" id="cyKill" style="left:150px; top:98px; height:188px;"></div>
+    <div class="killlab" id="cyKillLab" style="left:120px; top:294px;">▲ kill date</div>
+    <div class="prog" id="cyProg" style="top:352px;"><div class="pl"><span>Day 9 of 14</span><span>kill date</span></div><div class="pb"><i></i></div></div>
+  </div>
+
+  <!-- g. the round 1 dashboard -->
+  <div class="frame" id="cyDash" style="left:30px; top:100px; width:720px; height:570px; transform-origin:50% 50%;">
+    <div class="fh">Round 1 dashboard</div><div class="fx">6 assumptions · 2 experiments</div>
+    <div id="cyTiles"></div>
+    <div class="ln" id="cyLearn" style="top:522px; font-size:17px;"><b>learnings</b> → product refinement doc</div>
+  </div>
+
+  <!-- b/h. the assumption ledger: slim at the bottom, then forward for round 2 -->
+  <div class="ledger" id="cyLedger">
+    <div class="lframe" id="cyLedgerFrame"><div class="lab">Assumption ledger · later</div></div>
+    <div id="cyLater"></div>
+  </div>
+
+  <!-- h. round 2 -->
+  <svg class="wire" id="cyRing" viewBox="0 0 780 880">
+    <path id="cyRingPath" d="M390 580 A70 70 0 1 1 345 596.4" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round"/>
+    <path id="cyRingArrow" d="M329 599.2 L345 596.4 L339.5 611.4" fill="none" stroke="#EAB62F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+  </svg>
+  <div class="round" id="cyRound2" style="top:630px;">Round 2</div>
+</div>
+<!-- cycle-markup:end -->
+</div></div>
+<div class="scrub"><i id="scrubfill"></i></div>
+<div id="hud"></div>
+<script src="cycle/cycle.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const W = 1920, H = 1080;
+  const EASE = 'cubic-bezier(.2,.7,.2,1)', POP = 'cubic-bezier(.2,1.4,.4,1)';
+  const A = [], JS = [];
+
+  // ---- helpers (verbatim from video.html) ----
+  function tw(el, kf, start, dur, easing = EASE) {
+    const a = el.animate(kf, { delay: start * 1000, duration: Math.max(dur, 0.001) * 1000, fill: 'both', easing });
+    a.pause(); A.push(a); return a;
+  }
+  function show(el, start, end, fi = 0.35, fo = 0.35) {
+    const d = end - start;
+    tw(el, [{ opacity: 0, offset: 0 }, { opacity: 1, offset: Math.min(fi / d, 1) }, { opacity: 1, offset: Math.max(1 - fo / d, 0) }, { opacity: 0, offset: 1 }], start, d, 'linear');
+  }
+  function fadeIn(el, start, dur = 0.4) { tw(el, [{ opacity: 0 }, { opacity: 1 }], start, dur, 'linear'); }
+  function rise(el, start, dur = 0.6, dy = 30) { fadeIn(el, start, dur * 0.8); tw(el, [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], start, dur); }
+  // ONE animation per property per element across the whole timeline (two that touch the same
+  // property fight: the later one's before-start fill wins). pts: [[t, {prop: value, easing?}], ...]
+  function track(el, pts) {
+    const t0 = pts[0][0], t1 = pts[pts.length - 1][0], d = Math.max(t1 - t0, 0.001);
+    return tw(el, pts.map(([t, v]) => ({ ...v, offset: Math.min(1, Math.max(0, (t - t0) / d)) })), t0, d, 'linear');
+  }
+  // in at s (rise), out at e (fade)
+  function inout(el, s, e, dy = 18) {
+    track(el, [[s, { opacity: 0 }], [s + 0.45, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.35, { opacity: 0 }]]);
+    tw(el, [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], s, 0.6);
+  }
+
+  // ---- the module, at T0 = 0 ----
+  const cycle = window.buildCycle({ $, tw, track, show, fadeIn, rise, inout, JS, POP, EASE, T0: 0 });
+  const DUR = cycle.end;
+  window.__beats = cycle.beats;
+  const beatList = Object.entries(cycle.beats).map(([k, v]) => `${k} ${v.toFixed(1)}`).join('  ·  ');
+
+  // ---- clock (as video.html) ----
+  const stage = $('stage');
+  function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
+  addEventListener('resize', scale); scale();
+  if (params.get('ui') === '0') { document.querySelector('.scrub').style.display = 'none'; $('hud').style.display = 'none'; }
+  let playing = false, t0 = 0, raf = 0;
+  function apply(t) { for (const fn of JS) fn(t); $('scrubfill').style.width = (t / DUR * 100) + '%'; $('hud').textContent = `t = ${t.toFixed(2)} s / ${DUR.toFixed(1)} s\n${beatList}`; }
+  function seek(t) { t = Math.max(0, Math.min(DUR, t)); for (const a of A) { a.pause(); a.currentTime = t * 1000; } apply(t); return t; }
+  function play(from = 0) {
+    seek(from); playing = true; t0 = performance.now() - from * 1000;
+    for (const a of A) a.play();
+    const loop = () => { if (!playing) return; const t = (performance.now() - t0) / 1000; apply(t); if (t >= DUR) { playing = false; seek(DUR); return; } raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+  }
+  function pause() { playing = false; cancelAnimationFrame(raf); seek((performance.now() - t0) / 1000); }
+  window.__seek = seek; window.__play = play; window.__pause = pause; window.__DUR = DUR;
+  window.__ready = document.fonts.ready.then(() => true);
+  document.addEventListener('keydown', e => {
+    const now = () => playing ? (performance.now() - t0) / 1000 : 0;
+    if (e.key === ' ') { e.preventDefault(); playing ? pause() : play(now()); }
+    if (e.key === 'r') play(0);
+    if (e.key === 'ArrowRight') play(Math.min(DUR, now() + 5));
+    if (e.key === 'ArrowLeft') play(Math.max(0, now() - 5));
+  });
+  document.fonts.ready.then(() => {
+    if (params.has('t')) seek(parseFloat(params.get('t')) || 0);
+    else if (params.get('autoplay') === '0') seek(0);
+    else play(0);
+  });
+})();
+</script>
+</body>
+</html>
