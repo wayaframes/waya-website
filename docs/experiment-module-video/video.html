@@ -62,7 +62,7 @@
   .tile .bar span { margin-left:auto; font-weight:500; opacity:.7; white-space:nowrap; }
   .tile .body { position:absolute; inset:52px 0 0 0; background:var(--mint); }
   .tile .body img, .tile .body video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
-  .tile .body video { display:none; }
+  .tile .body video { display:none; object-position:center 58%; }   /* the clip is square; keep her face centred in the wide tile */
   .screen { position:absolute; left:590px; top:110px; width:780px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
   .screen img { display:block; width:100%; height:auto; }
   .screen .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 18px; background:rgba(31,36,34,.86); color:var(--cream); font-family:var(--fd); font-size:15px; letter-spacing:.06em; }
@@ -89,18 +89,18 @@
   .loop .rlab { position:absolute; left:0; top:-70px; font-family:var(--fd); font-weight:700; font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:var(--cream); background:var(--charcoal); padding:10px 18px; border-radius:999px; white-space:nowrap; }
   .node { position:absolute; width:96px; height:96px; margin:-48px 0 0 -48px; border-radius:50%; background:var(--cream); border:3px solid var(--mustard); color:var(--charcoal); font-family:var(--fd); font-weight:700; font-size:26px; display:flex; align-items:center; justify-content:center; }
   .nlab { position:absolute; font-family:var(--fd); font-weight:700; font-size:40px; letter-spacing:-.02em; color:var(--charcoal); white-space:nowrap; }
-  .program { position:absolute; left:590px; top:110px; width:1270px; opacity:0; }
+  .program { position:absolute; left:90px; top:90px; width:1740px; opacity:0; }
   .program .eyebrow { font-family:var(--fd); font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--rust); }
-  .program h1 { margin:14px 0 0; font-family:var(--fd); font-weight:700; font-size:72px; line-height:1.02; letter-spacing:-.03em; color:var(--charcoal); }
+  .program h1 { margin:14px 0 0; font-family:var(--fd); font-weight:700; font-size:76px; line-height:1.02; letter-spacing:-.03em; color:var(--charcoal); white-space:nowrap; }
   .program h1 em { font-style:normal; color:var(--rust); }
-  .program p { margin:28px 0 0; font-size:27px; line-height:1.5; color:var(--charcoal); max-width:1100px; }
+  .program p { margin:22px 0 0; font-size:27px; line-height:1.5; color:var(--charcoal); max-width:1500px; }
   .program p b { color:var(--rust); font-weight:600; }
   .program .who { margin-top:34px; display:flex; gap:18px; opacity:0; }
-  .program ul { list-style:none; margin:44px 0 0; padding:0; display:flex; flex-direction:column; gap:34px; max-width:1180px; }
-  .program li { position:relative; padding-left:54px; font-size:28px; line-height:1.4; color:var(--charcoal); opacity:0; }
-  .program li::before { content:''; position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:50%; background:var(--mustard); }
-  .program li::after { content:''; position:absolute; left:11px; top:18px; width:8px; height:14px; border:solid var(--charcoal); border-width:0 3px 3px 0; transform:rotate(45deg); }
-  .program li b { color:var(--rust); font-weight:600; }
+  .bul { position:absolute; left:720px; top:350px; width:1120px; list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:150px; }
+  .bul li { position:relative; padding-left:58px; font-size:31px; line-height:1.4; color:var(--charcoal); opacity:0; }
+  .bul li::before { content:''; position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:50%; background:var(--mustard); }
+  .bul li::after { content:''; position:absolute; left:11px; top:18px; width:8px; height:14px; border:solid var(--charcoal); border-width:0 3px 3px 0; transform:rotate(45deg); }
+  .bul li b { color:var(--rust); font-weight:600; }
   .program .who div { background:#fff; border:1px solid rgba(56,63,59,.14); border-radius:16px; padding:16px 20px; font-size:19px; color:var(--charcoal); box-shadow:0 12px 30px rgba(31,36,34,.08); }
   .program .who b { display:block; font-family:var(--fd); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
   .tools { position:absolute; left:590px; top:110px; width:780px; opacity:0; }
@@ -139,11 +139,11 @@
     <div id="samCold" class="abs" style="left:140px; top:330px; width:720px; height:620px;"></div>
     <div id="samHands" class="abs" style="left:140px; top:330px; width:720px; height:620px; opacity:0;"></div>
     <div class="cal" id="cal" style="left:1000px; top:170px;"><div class="ch">Sunday</div><div class="cb"><b>11:40 pm</b><span>Client reports · due Monday 9 am</span></div></div>
-    <div class="cal" id="nursery" style="left:1340px; top:170px;"><div class="ch m">Nursery</div><div class="cb"><b>Noah</b><span>6 weeks old · asleep, finally</span></div></div>
+    <div class="cal" id="nursery" style="left:1340px; top:170px;"><div class="ch m">Noah, 10</div><div class="cb"><b>“Dad?”</b><span>Wants to play · it's Sunday</span></div></div>
     <div class="doc" id="doc1" style="left:1000px; top:430px; transform:rotate(-4deg);"><i>Client report · 1</i></div>
     <div class="doc" id="doc2" style="left:1040px; top:470px; transform:rotate(2deg);"><i>Client report · 2</i></div>
     <div class="doc" id="doc3" style="left:1080px; top:510px; transform:rotate(-1deg);"><i>Client report · 3</i></div>
-    <div class="namecard" id="name" style="left:1000px; top:700px; width:820px;"><b>Sam, 32</b><span>New dad. Runs operations at a marketing agency by day.<br>By night, building <em>Critical Character</em>: a role-playing game that teaches kids to think.</span></div>
+    <div class="namecard" id="name" style="left:1000px; top:700px; width:820px;"><b>Sam, 43</b><span>Wants to play with his ten-year-old son. Spends his Sundays on client reports instead.<br>On the side, building <em>Critical Character</em>: a role-playing game that teaches kids to think.</span></div>
 
     <div id="pile"></div>
     <div class="counter" id="counter"><div class="n">0</div><div class="l">tools</div><div class="d">$0</div><div class="dl">a month</div></div>
@@ -159,17 +159,17 @@
 
   <!-- ================= THE PROGRAM ================= -->
   <section class="scene" id="sB">
-    <div class="tile" id="naamaB" style="height:420px;"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip1" muted playsinline preload="auto"></video><img id="duo" src="../../assets/images/about/our-story.jpg" alt="" style="opacity:0; object-position:center 42%; transform:scale(1.75); transform-origin:50% 42%;"></div></div>
+    <div class="tile" id="naamaB" style="left:90px; top:350px; width:560px; height:560px;"><div class="bar"><i></i>Na'ama · your coach <span>1:1 · every week</span></div><div class="body"><img src="../../assets/images/headshots/naama-headshot.jpeg" alt=""><video id="naamaClip1" muted playsinline preload="auto"></video><img id="duo" src="../../assets/images/about/our-story.jpg" alt="" style="opacity:0; object-position:center 42%; transform:scale(1.75); transform-origin:50% 42%;"></div></div>
     <div class="program" id="prog">
       <div class="eyebrow">The Waya program</div>
-      <h1>12 weeks to <em>fundable</em><br>product-market fit.</h1>
+      <h1>12 weeks to <em>fundable</em> product-market fit.</h1>
       <p>Hands-on guidance from operators who built $100M+ companies, for a selected group of <b>mission-driven founders</b>.</p>
-      <ul>
-        <li id="b1">Guided by <b>Na'ama and Vince</b> · Cheetah, scaled to $150M ARR</li>
-        <li id="b2"><b>12 one-to-one meetings</b> · 8 group sessions with other founders</li>
-        <li id="b3">Leave with <b>the tools to reach PMF</b> · ready for investors</li>
-      </ul>
     </div>
+    <ul class="bul">
+      <li id="b1">Guided by <b>Na'ama and Vince</b> · Cheetah, scaled to $150M ARR</li>
+      <li id="b2"><b>12 one-to-one meetings</b> · 8 group sessions with other founders</li>
+      <li id="b3">Leave with <b>the tools to reach PMF</b> · ready for investors</li>
+    </ul>
   </section>
 
   <!-- ================= THE FRAME: Na'ama left, Claude centre, the Tracker right ================= -->
@@ -440,7 +440,7 @@
   function track(el, pts) { const t0 = pts[0][0], t1 = pts[pts.length - 1][0], d = Math.max(t1 - t0, 0.001); return tw(el, pts.map(([t, v]) => ({ ...v, offset: Math.min(1, Math.max(0, (t - t0) / d)) })), t0, d, 'linear'); }
   function inout(el, s, e, dy = 18) { track(el, [[s, { opacity: 0 }], [s + 0.45, { opacity: 1 }], [e, { opacity: 1 }], [e + 0.35, { opacity: 0 }]]); tw(el, [{ transform: `translateY(${dy}px)` }, { transform: 'translateY(0)' }], s, 0.6); }
   // a short video clip inside a tile: plays from `start`, the still shows before and after; absent file = still only
-  function clip(videoEl, src, start, maxDur) { if (!src) return null; const c = { el: videoEl, start, dur: maxDur, ready: false }; videoEl.addEventListener('loadedmetadata', () => { c.dur = Math.min(maxDur, videoEl.duration || maxDur); c.ready = true; }); videoEl.addEventListener('error', () => { c.ready = false; }); videoEl.src = src; CLIPS.push(c); return c; }
+  function clip(videoEl, src, windows, maxDur) { if (!src) return null; const c = { el: videoEl, windows, len: maxDur, ready: false }; videoEl.addEventListener('loadedmetadata', () => { c.len = videoEl.duration || maxDur; c.ready = true; }); videoEl.addEventListener('error', () => { c.ready = false; }); videoEl.src = src; videoEl.loop = true; CLIPS.push(c); return c; }
 
   // ---- Sam, line-drawn ----
   function sam(pose, c) {
@@ -503,10 +503,9 @@
   const sB = $('sB'); show(sB, 23.2, 53.8, 0.7, 0.5);
   const nb = $('naamaB'); fadeIn(nb, 23.6, 0.5);
   tw(nb, [{ transform: 'scale(.9) translateY(24px)' }, { transform: 'scale(1) translateY(0)' }], 23.6, 0.8, 'cubic-bezier(.2,1.2,.4,1)');
-  clip($('naamaClip1'), 'assets/naama-1.mp4', 24.4, 6.0);
+  clip($('naamaClip1'), 'assets/naama-1.mp4', [[23.6, 53.8]], 12.8);
   rise($('prog'), 25.0, 0.9, 24);
   // when the voice names Na'ama and Vince, the left tile shows them together (the About page photo)
-  track($('duo'), [[35.6, { opacity: 0 }], [36.4, { opacity: 1 }]]);
   rise($('b1'), 37.0, 0.7, 14); rise($('b2'), 42.6, 0.7, 14); rise($('b3'), 47.6, 0.7, 14);
 
   // ================= THE FRAME 53–162 =================
@@ -561,7 +560,7 @@
     track(labs[i], [[ls, { color: '#383F3B', transform: base + ' scale(1)' }], [ls + 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le - 0.3, { color: '#D16C02', transform: base + ' scale(1.12)' }], [le, { color: '#383F3B', transform: base + ' scale(1)' }]]);
   });
   $('arcs').style.transformOrigin = '410px 410px'; $('arcs').style.transformBox = 'view-box';
-  clip($('naamaClip2'), 'assets/naama-2.mp4', B.nextDefine + 0.2, 6.0);
+  clip($('naamaClip2'), 'assets/naama-1.mp4', [[F + 0.2, B.define + 0.4], [B.nextDefine - 0.4, 162.4]], 12.8);
   // the customer: held, then a half-second fade
   const CU = B.end + 9.6;
   track($('cust'), [[CU, { opacity: 0 }], [CU + 0.45, { opacity: 1 }], [CU + 9.0, { opacity: 1 }], [CU + 9.5, { opacity: 0 }]]);
@@ -576,23 +575,23 @@
 
   // ================= CUES: the voiceover ================= (vo.mjs reads this list; the cycle cues sit on the beats)
   const CAPS = [
-    [0.6, 9.9, 'Meet Sam, 32. A new dad, building client reports every Sunday instead of being with his son. On the side: Critical Character, a game that teaches kids to think.'],
+    [0.6, 9.9, 'Meet Sam, 43. He wants to play with his ten-year-old son, but his Sundays go to client reports. On the side: Critical Character, a game that teaches kids to think.'],
     [10.2, 11.6, 'He signed up for everything.'],
     [13.6, 15.4, 'A landing page nobody visited.'],
     [15.9, 17.8, 'A survey three family members answered.'],
     [18.4, 20.1, 'A chatbot that loved every idea.'],
     [20.8, 22.8, 'Six months. No customer.'],
-    [25.6, 35.4, 'Then Sam joined the Waya program, 12 weeks to fundable product-market fit: hands-on guidance from founders who built multi-million-dollar companies, for a selected group of mission-driven founders.'],
+    [25.6, 35.4, 'Then Sam joined the Wayya program, 12 weeks to fundable product-market fit: hands-on guidance from founders who built multi-million-dollar companies, for a selected group of mission-driven founders.'],
     [36.2, 52.4, 'You\'ll be guided by Na\'ama and Vince, who built several companies, including Cheetah, which scaled to 150 million in ARR: twelve one-to-one meetings, eight group sessions with other founders, and at the end, every tool you need to reach product-market fit and face investors.'],
     [54.6, 65.8, 'The guidance runs inside Sam\'s own AI assistant, Claude here, or ChatGPT, Grok or Gemini. It starts with the business case: that\'s where the business and product assumptions are defined.'],
     [66.8, 73.2, 'Together, Sam and his coach wrote the business case and the mission and values, one hard question at a time.'],
-    [81.0, 93.0, 'The Waya expert and the experiment system helped Sam prioritize the assumptions: by effort and risk, and by the stage of the company. The early ones go into round one; the rest wait in the assumption ledger.'],
+    [81.0, 93.0, 'The Wayya expert and the experiment system helped Sam prioritize the assumptions: by effort and risk, and by the stage of the company. The early ones go into round one; the rest wait in the assumption ledger.'],
     [93.4, 106.4, 'Define groups them into two experiments: one for the infrastructure, one for the market. Every step is logged in the experiment tracker, round by round, and at the end of each round, Sam and Na\'ama review it together.'],
-    [109.0, 117.0, 'Build picks each experiment\'s tools. Waya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
+    [109.0, 117.0, 'Build picks each experiment\'s tools. Wayya connects those AI-native tools, and only those, even though Sam isn\'t technical.'],
     [117.2, 122.1, 'Copy and content flow into them, campaigns go live, and interviews get booked.'],
     [122.4, 127.5, 'Track keeps every conversation in the CRM, with live metrics against the kill date.'],
     [128.8, 135.8, 'At the kill date, Analyze pulls every result into one dashboard, and the learnings go to the product refinement doc.'],
-    [136.4, 147.8, 'At the end of the round, the Waya expert and Sam review the results together and define the next round: the ledger comes back, re-ranks, and Sam confirms the priorities.'],
+    [136.4, 147.8, 'At the end of the round, the Wayya expert and Sam review the results together and define the next round: the ledger comes back, re-ranks, and Sam confirms the priorities.'],
     [148.0, 152.5, 'This repeats through the program until a clear product-market-fit signal appears.'],
     [153.6, 160.1, 'Round after round, until paying customers confirm the signal. Twelve pods, and Sam has his Sundays back.'],
     [163.8, 168.8, '12 weeks to fundable product-market fit. Stop guessing. Start experimenting.'],
@@ -611,11 +610,12 @@
   function clipsAt(t, seeking) {
     const waits = [];
     for (const c of CLIPS) {
-      const on = c.ready && t >= c.start && t < c.start + c.dur;
-      c.el.style.display = on ? 'block' : 'none';
-      if (!on) { if (!c.el.paused) c.el.pause(); continue; }
-      if (seeking) { const want = t - c.start; if (Math.abs(c.el.currentTime - want) > 0.02) waits.push(new Promise(r => { c.el.addEventListener('seeked', r, { once: true }); c.el.currentTime = want; })); }
-      else if (c.el.paused) { c.el.currentTime = t - c.start; c.el.play().catch(() => {}); }
+      const w = c.ready && c.windows.find(([a, b]) => t >= a && t < b);
+      c.el.style.display = w ? 'block' : 'none';
+      if (!w) { if (!c.el.paused) c.el.pause(); continue; }
+      const want = (t - w[0]) % c.len;                      // loops for as long as the window lasts
+      if (seeking) { if (Math.abs(c.el.currentTime - want) > 0.02) waits.push(new Promise(r => { c.el.addEventListener('seeked', r, { once: true }); c.el.currentTime = want; })); }
+      else if (c.el.paused) { c.el.currentTime = want; c.el.play().catch(() => {}); }
     }
     return Promise.all(waits);
   }

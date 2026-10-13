@@ -61,6 +61,7 @@ const CLIPREF = /clip\(\$\('[^']+'\),\s*'([^']+)',\s*([\d.]+),\s*([\d.]+)\)/g;
 for (const m of html.matchAll(CLIPREF)) {
   const file = resolve(here, '..', m[1]), start = +m[2], max = +m[3];
   if (!existsSync(file)) { console.log('clip not present yet:', m[1]); continue; }
+  if (!/Audio:/.test(spawnSync(ffmpegPath, ['-i', file], { encoding: 'utf8' }).stderr)) { console.log('clip is muted, picture only:', m[1]); continue; }
   const wav = resolve(outDir, 'vo', 'clip-' + m[1].replace(/[^a-z0-9]+/gi, '-') + '.wav');
   run(ffmpegPath, ['-y', '-i', file, '-t', String(max), '-vn', '-ar', '48000', '-ac', '2', wav]);
   const d = duration(wav);
