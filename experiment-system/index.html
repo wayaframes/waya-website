@@ -215,23 +215,30 @@
   .pmf-band h2 { font-family: var(--font-display); font-weight: 700; font-size: min(40px, calc((100vw - 64px) / 14)); line-height: 1.15; letter-spacing: -0.02em; max-width: 900px; margin: 0 auto; text-wrap: balance; color: var(--waya-cream); }
   .pmf-band p { margin: 22px auto 0; font-size: 19px; line-height: 1.6; max-width: 820px; color: rgba(250,247,241,0.92); text-wrap: pretty; }
   .pmf-band p b { color: var(--waya-mustard); font-weight: 600; }
+  .pmf-quote { margin: 32px auto 0; max-width: 820px; }
+  .pmf-quote blockquote { margin: 0; font-size: 19px; line-height: 1.6; font-style: italic; color: rgba(250,247,241,0.92); text-wrap: pretty; }
+  .pmf-quote figcaption { margin-top: 20px; display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: var(--waya-mustard); }
+  .pmf-quote figcaption img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center 20%; }
+  .pmf-quote .who { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+  .pmf-quote .credit { font-size: 11px; font-weight: 400; letter-spacing: 0; color: rgba(250,247,241,0.5); text-decoration: none; }
+  .pmf-quote .credit:hover { text-decoration: underline; }
   @media (max-width: 640px) { .story { padding: 40px 20px 56px; } .video-card { border-radius: 16px; } .pmf-band { padding: 72px 20px; } }
 
   /* ---------- Fusion overrides ---------- */
-  .sn-hero h1 { font-size: min(54px, calc((100vw - 64px) / 10)); max-width: 760px; }
-  /* Second headline line: smaller so the whole sentence sits on one line under line one. */
-  .sn-hero h1 .l2 { display: block; margin-top: 14px; font-size: 0.56em; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; }
-  @media (max-width: 640px) { .sn-hero h1 .l2 { white-space: normal; font-size: 0.66em; } }
-  /* Flipping word: cheap → easy → fast. Every word sits in the same grid cell so the line never reflows. */
-  .flip { display: inline-grid; vertical-align: bottom; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; color: var(--waya-mustard); }
-  .flip .w { grid-area: 1 / 1; transform: translateY(105%); opacity: 0; transition: transform 520ms var(--ease-standard), opacity 520ms var(--ease-standard); }
-  .flip .w.on { transform: none; opacity: 1; }
-  .flip .w.out { transform: translateY(-105%); opacity: 0; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .sn-hero .sub { color: rgba(250,247,241,0.85); max-width: 680px; }
+  .sn-hero h1 { margin-top: 0; font-size: min(54px, calc((100vw - 48px) / 18.5)); max-width: none; }
+  /* Each headline line stays on one line at every width; the font size above scales the longer line to fit. */
+  .sn-hero h1 .l1 { display: block; white-space: nowrap; }
+  .sn-hero h1 .l1 + .l1 { margin-top: 0.22em; }
+  .sn-hero h1 .hl { color: var(--waya-mustard); }
+  @media (max-width: 640px) { .sn-hero .sub { font-size: 16px; } }
+  .sn-hero .sub { color: rgba(250,247,241,0.85); max-width: 680px; text-wrap: balance; }
   .lab-hero { background: var(--waya-paper); border-bottom: 0; padding: 104px 32px; }
   .lab-hero h2 { font-family: var(--font-display); font-weight: 700; font-size: min(48px, calc((100vw - 64px) / 11)); line-height: 1.06; letter-spacing: -0.025em; color: var(--waya-charcoal); text-wrap: balance; }
   .lab-hero .section-eyebrow { text-align: left; }
+  /* Keep the long label on one line: tighter tracking, and the size scales down with its column. */
+  .lab-hero .grid > div:first-child { container-type: inline-size; }
+  .lab-hero .grid > div:first-child .section-eyebrow { white-space: nowrap; letter-spacing: 0.1em; font-size: min(15px, 2.9cqi); }
+  @media (max-width: 640px) { .lab-hero .grid > div:first-child .section-eyebrow { white-space: normal; font-size: 13px; text-wrap: balance; } }
   .lab-hero h2 .ln { display: block; }
   .lab-hero h2 .ln + .ln { margin-top: 6px; }
   .cmp-title { margin-top: 88px; font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; color: var(--waya-charcoal); text-align: center; text-wrap: balance; }
@@ -300,10 +307,9 @@
 <section class="sn-hero" id="snHero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="inner">
-    <div class="eyebrow">The Waya Experiment System</div>
-    <h1>AI made building <span class="sr-only">cheap, easy, and fast.</span><span class="flip" id="flip" aria-hidden="true"><span class="w on">cheap.</span><span class="w">easy.</span><span class="w">fast.</span></span>
-      <span class="l2">It's your job to find who pays for your product.</span></h1>
-    <p class="sub">A structured methodology to help you find your product-market fit.</p>
+    <h1><span class="l1">AI Made Building Software <span class="hl">Easy.</span></span>
+      <span class="l1">Finding Product-Market Fit Is <span class="hl">Hard.</span></span></h1>
+    <p class="sub">With Waya's Experiment System, you will find fundable product-market fit in 12&nbsp;weeks.</p>
     <div class="hero-cta">
       <a class="btn-rust" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
       <a class="btn-ghost-dark" href="#lab">See how</a>
@@ -333,16 +339,23 @@
 
 <!-- =============== PMF BANNER =============== -->
 <section class="pmf-band" aria-label="Why product-market fit">
-  <h2>Reaching product-market fit is the early-stage founder's number one objective.</h2>
-  <p>Waya helps you get there with a methodology <b>repeatedly proven</b> over decades of work in Silicon Valley.</p>
+  <h2>Reaching product-market fit is the early-stage founder's #1 objective.</h2>
+  <figure class="pmf-quote">
+    <blockquote>“The only thing that matters is getting to product/market fit; you don't have a business until you have a product that a lot of people want, and until you have that, time spent building the business around the product is pointless.”</blockquote>
+    <figcaption>
+      <img src="/assets/images/headshots/marc-andreessen.jpg" alt="Marc Andreessen" width="48" height="48" loading="lazy">
+      <span class="who">Marc Andreessen
+        <a class="credit" href="https://commons.wikimedia.org/wiki/File:Marc_Andreessen-9_(cropped).jpg" target="_blank" rel="noopener">Photo: JD Lasica, CC BY 2.0</a></span>
+    </figcaption>
+  </figure>
 </section>
 
 <!-- =============== EVERYONE HAS AI (live board, from C) =============== -->
 <section class="lab-hero" id="lab">
   <div class="grid">
     <div>
-      <div class="section-eyebrow">Answers, not output</div>
-      <p class="sub">Test assumptions with real customers, read the evidence, and build only what they'll pay for.</p>
+      <div class="section-eyebrow">Turn business assumptions into business experiments</div>
+      <p class="sub">Waya's Experiment System tests multiple business assumptions in parallel with real customers. Our continuous improvement engine iterates over the evidence data until you find the strongest PMF signal.</p>
       <div class="hero-cta">
         <a class="btn-rust" href="#loop">See how it works</a>
         <a class="btn-ghost" href="/pre-pmf-mcp/cohort/">See the 12-week program</a>
@@ -723,19 +736,6 @@
   })();
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- Hero word flip: cheap → easy → fast ----------
-  (function () {
-    var ws = document.querySelectorAll('#flip .w'), i = 0;
-    if (reduce) return;
-    setInterval(function () {
-      var cur = ws[i], nx = ws[(i + 1) % ws.length];
-      cur.classList.remove('on'); cur.classList.add('out');
-      nx.classList.remove('out'); nx.classList.add('on');
-      setTimeout(function () { cur.classList.remove('out'); }, 560);
-      i = (i + 1) % ws.length;
-    }, 2400);
-  })();
-
   // ---------- Particle field: noise that settles into a signal wave ----------
   (function () {
     var cv = document.getElementById('field'), hero = document.getElementById('snHero'), ctx = cv.getContext('2d');
@@ -756,7 +756,7 @@
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0 || p.x > 1) p.vx *= -1; if (p.y < 0 || p.y > 1) p.vy *= -1;
         var nx = p.x * W, ny = p.y * H;
-        var sx = left + p.u * (W - left - 20), sy = H * (W < 960 ? 0.94 : 0.5) + Math.sin(p.u * 12 + t * 1.4) * H * (W < 960 ? 0.035 : 0.09);
+        var sx = left + p.u * (W - left - 20), sy = H * (W < 960 ? 0.94 : 0.8) + Math.sin(p.u * 12 + t * 1.4) * H * (W < 960 ? 0.035 : 0.065);
         var k = p.sig ? order : order * 0.15;
         var x = nx + (sx - nx) * k, y = ny + (sy - ny) * k;
         ctx.beginPath(); ctx.arc(x, y, p.sig ? 2.2 : 1.5, 0, 6.283);
