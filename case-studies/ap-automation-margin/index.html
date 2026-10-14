@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=9">
-<link rel="stylesheet" href="/assets/case-studies.css?v=1">
+<link rel="stylesheet" href="/assets/case-studies.css?v=2">
 <script>window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: 'consultation_direct_2026q4' };</script>
 <script defer src="/assets/analytics.js"></script>
 <script type="application/ld+json">
@@ -169,10 +169,22 @@
 <section class="case-video">
   <div class="container">
     <div class="video-wrap">
-      <video controls playsinline preload="metadata" poster="/assets/video/restaurant-ap-margin-poster.jpg" aria-label="Video: how a restaurant AP automation company went from 20% to 70% gross margin">
+      <video controls playsinline preload="metadata" poster="/assets/video/restaurant-ap-margin-poster.jpg" aria-label="Video: how a restaurant AP automation company went from 20% to 70% gross margin"
+        data-portrait-src="/assets/video/restaurant-ap-margin-portrait.mp4" data-portrait-poster="/assets/video/restaurant-ap-margin-portrait-poster.jpg">
         <source src="/assets/video/restaurant-ap-margin.mp4" type="video/mp4">
       </video>
     </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 
