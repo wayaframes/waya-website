@@ -26,12 +26,13 @@ User-agent: Amazonbot
 User-agent: Meta-ExternalAgent
 User-agent: MistralAI-User
 User-agent: CCBot
-Allow: /
-# Internal folders; _redirects already sends them to the home page.
+# Internal folders; _redirects already sends them to the home page. These come
+# before Allow so crawlers that apply the first matching rule also skip them.
 Disallow: /docs/
 Disallow: /scripts/
 Disallow: /_data/
 Disallow: /.claude/
 Disallow: /.github/
+Allow: /
 
 Sitemap: https://www.wayaframes.com/sitemap.xml
