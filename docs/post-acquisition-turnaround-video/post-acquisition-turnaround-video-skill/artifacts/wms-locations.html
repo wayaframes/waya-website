@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="1280x760">
+<title>Location master · WMS</title>
+<link rel="stylesheet" href="wms.css">
+<style>
+  .split { display: grid; grid-template-columns: 1fr 330px; gap: 14px; flex: 1; min-height: 0; }
+  .sku { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .sku .big { font-size: 40px; font-weight: 700; color: #b3261e; line-height: 1; }
+  .sku .lbl { font-size: 12px; color: #6b7785; }
+  .sku dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 5px 12px; font-size: 12.5px; }
+  .sku dt { color: #6b7785; } .sku dd { margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(22, 1fr); gap: 2px; }
+  .grid i { height: 9px; border-radius: 1.5px; background: #e4572e; opacity: .85; }
+  .grid i.o { background: #e7eaee; }
+  .sum { display: flex; gap: 10px; }
+  .sum div { flex: 1; border: 1px solid #dde2e7; border-radius: 7px; padding: 9px 12px; }
+  .sum b { display: block; font-size: 22px; font-weight: 700; }
+  .sum span { font-size: 12px; color: #6b7785; }
+  .sum .e b { color: #b3261e; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>wms.dc01.internal/inventory/locations?zone=ALL&amp;issues=1</div></div>
+<div class="top"><div class="prod"><b>W</b>WMS</div>
+  <nav><a>Receiving</a><a class="on">Inventory</a><a>Replenishment</a><a>Slotting</a><a>Picking</a><a>Shipping</a><a>Reports</a></nav>
+  <div class="site"><em>Cheetah — DC-01</em><span>Sat Oct 22, 2022 · 06:14</span></div></div>
+<div class="sub"><h1>Location master</h1><span class="crumb">Inventory › Locations › Data quality</span>
+  <div class="r"><span class="btn">Export</span><span class="btn">Bulk edit</span><span class="btn p">Run validation</span></div></div>
+<div class="main">
+  <div class="sum">
+    <div><b>4,812</b><span>Active locations</span></div>
+    <div class="e"><b>1,137</b><span>Missing dimensions</span></div>
+    <div class="e"><b>214</b><span>Active in removed aisles</span></div>
+    <div class="e"><b>392</b><span>Temp zone mismatch</span></div>
+    <div><b>0</b><span>Wall-to-wall counts, acquired stock</span></div>
+  </div>
+  <div class="split">
+    <div class="panel" style="overflow:hidden">
+      <h3>Locations with validation errors <span>Showing 1–16 of 1,743</span></h3>
+      <table>
+        <tr><th>Location</th><th>Zone</th><th>Aisle status</th><th class="num">W × D × H (in)</th><th class="num">Max cube</th><th>Slot rule</th><th>Assigned SKU</th><th>Issue</th></tr>
+        <tr class="bad"><td class="mono">NA-41-03-C</td><td>DRY</td><td>New racking</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">100482</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr class="bad"><td class="mono">NA-41-03-D</td><td>DRY</td><td>New racking</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">100482</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr class="bad"><td class="mono">07-12-02-A</td><td>DRY</td><td><span class="tag t-mute">Removed 09/2022</span></td><td class="num">48 × 40 × 60</td><td class="num">66.7</td><td>Legacy FIFO</td><td class="mono">213077</td><td><span class="tag t-err">Aisle torn down</span></td></tr>
+        <tr class="bad"><td class="mono">07-12-03-A</td><td>DRY</td><td><span class="tag t-mute">Removed 09/2022</span></td><td class="num">48 × 40 × 60</td><td class="num">66.7</td><td>Legacy FIFO</td><td class="mono">213077</td><td><span class="tag t-err">Aisle torn down</span></td></tr>
+        <tr class="bad"><td class="mono">D-14-03-B</td><td>DRY</td><td>Existing</td><td class="num">40 × 48 × 54</td><td class="num">60.0</td><td>Legacy FIFO</td><td class="mono">330915</td><td><span class="tag t-err">Frozen SKU in dry slot</span></td></tr>
+        <tr class="bad"><td class="mono">FZ-02-01-A</td><td>FROZEN</td><td>New freezer</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">—</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr class="bad"><td class="mono">FZ-02-01-B</td><td>FROZEN</td><td>New freezer</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">—</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr><td class="mono">NA-38-01-A</td><td>DRY</td><td>New racking</td><td class="num">12 × 40 × 14</td><td class="num">3.9</td><td>Legacy FIFO</td><td class="mono">100482</td><td><span class="tag t-warn">Slot too small · 1 case fits</span></td></tr>
+        <tr><td class="mono">NA-38-01-B</td><td>DRY</td><td>New racking</td><td class="num">12 × 40 × 14</td><td class="num">3.9</td><td>Legacy FIFO</td><td class="mono">245510</td><td><span class="tag t-warn">Slot too small · 2 cases fit</span></td></tr>
+        <tr><td class="mono">C-05-02-C</td><td>COOLER</td><td>Existing</td><td class="num">40 × 48 × 54</td><td class="num">60.0</td><td>Legacy FIFO</td><td class="mono">—</td><td><span class="tag t-warn">Empty · never replenished</span></td></tr>
+        <tr class="bad"><td class="mono">NA-44-02-A</td><td>DRY</td><td>New racking</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">100482</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr class="bad"><td class="mono">08-03-01-B</td><td>DRY</td><td><span class="tag t-mute">Removed 09/2022</span></td><td class="num">48 × 40 × 60</td><td class="num">66.7</td><td>Legacy FIFO</td><td class="mono">118204</td><td><span class="tag t-err">Aisle torn down</span></td></tr>
+        <tr><td class="mono">C-05-03-A</td><td>COOLER</td><td>Existing</td><td class="num">40 × 48 × 54</td><td class="num">60.0</td><td>Legacy FIFO</td><td class="mono">—</td><td><span class="tag t-warn">Empty · never replenished</span></td></tr>
+        <tr class="bad"><td class="mono">NA-47-04-D</td><td>DRY</td><td>New racking</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">100482</td><td><span class="tag t-err">No dimensions</span></td></tr>
+        <tr><td class="mono">NA-39-02-C</td><td>DRY</td><td>New racking</td><td class="num">12 × 40 × 14</td><td class="num">3.9</td><td>Legacy FIFO</td><td class="mono">100482</td><td><span class="tag t-warn">Slot too small · 1 case fits</span></td></tr>
+        <tr class="bad"><td class="mono">FZ-03-02-A</td><td>FROZEN</td><td>New freezer</td><td class="num null">— × — × —</td><td class="num null">0</td><td class="null">none</td><td class="mono">—</td><td><span class="tag t-err">No dimensions</span></td></tr>
+      </table>
+    </div>
+    <div class="panel sku">
+      <div class="lbl">SKU 100482 · MOZZARELLA SHRED WM 4/5 LB</div>
+      <div><span class="big">886</span> <span class="lbl">locations hold this one SKU</span></div>
+      <div class="grid">
+        <!-- 22 x 8 = 176 cells; each cell ~5 locations -->
+        <i></i><i></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i>
+        <i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i>
+        <i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i>
+        <i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i>
+        <i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i>
+        <i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i class="o"></i>
+      </div>
+      <dl>
+        <dt>Zones</dt><dd>DRY, COOLER, overflow, staging</dd>
+        <dt>Aisles</dt><dd>31 of 34</dd>
+        <dt>On hand</dt><dd>1,204 cases</dd>
+        <dt>Avg / location</dt><dd>1.4 cases</dd>
+        <dt>Pick face</dt><dd class="null">not set</dd>
+        <dt>Last count</dt><dd class="null">never</dd>
+      </dl>
+      <div style="margin-top:auto"><span class="tag t-err">Consolidation rule: off</span> <span class="tag t-warn">Replen: any open slot</span></div>
+    </div>
+  </div>
+</div>
+<div class="status"><span>Connected · DC-01</span><span>Validation run 06:12</span><span>User: ops.lead</span></div>
+</body></html>

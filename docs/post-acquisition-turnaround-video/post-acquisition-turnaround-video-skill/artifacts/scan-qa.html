@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="990x600">
+<title>Pick confirmation · WMS</title>
+<link rel="stylesheet" href="wms.css">
+<style>
+  body { font-size: 14px; }
+  .top nav a { font-size: 13.5px; padding: 6px 9px; }
+  .stage { position: relative; flex: 1; min-height: 0; }
+  .under { padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; filter: saturate(.6); opacity: .55; }
+  .modal { position: absolute; left: 50%; top: 46px; transform: translateX(-50%); width: 560px; background: #fff; border-radius: 10px; box-shadow: 0 20px 60px rgba(20,30,40,.35); overflow: hidden; border: 1px solid #e3b4aa; }
+  .modal .h { background: #b3261e; color: #fff; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; letter-spacing: .02em; }
+  .modal .h svg { width: 26px; height: 26px; }
+  .modal .b { padding: 16px 18px; display: grid; grid-template-columns: 130px 1fr; gap: 9px 14px; font-size: 14px; }
+  .modal .b dt { color: #6b7785; } .modal .b dd { margin: 0; font-weight: 600; }
+  .modal .b .x { color: #b3261e; }
+  .modal .b .ok { color: #1e6b45; }
+  .modal .f { padding: 12px 18px; background: #f7f8fa; border-top: 1px solid #edf0f3; display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #4a5866; }
+  .modal .f .btn { font-size: 13px; }
+  .modal .f .r { margin-left: auto; display: flex; gap: 8px; }
+  .steps { display: flex; gap: 6px; }
+  .steps span { flex: 1; text-align: center; padding: 8px 0; border-radius: 6px; background: #e3f2ea; color: #1e6b45; font-weight: 600; font-size: 13px; }
+  .steps span.on { background: #fde8e4; color: #b3261e; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>wms.dc01.internal/picking/confirm?wave=W-3318</div></div>
+<div class="top"><div class="prod"><b>W</b>WMS</div>
+  <nav><a>Receiving</a><a class="on">Picking</a><a>Loading</a><a>Delivery</a></nav>
+  <div class="site"><em>Cheetah — DC-01</em></div></div>
+<div class="sub"><h1>Pick confirmation · Wave W-3318</h1><span class="crumb">Route 12 · stop 4 of 11</span></div>
+<div class="stage">
+  <div class="under">
+    <div class="steps"><span>Receiving ✓</span><span class="on">Picking</span><span>Loading</span><span>Delivery</span></div>
+    <table>
+      <tr><th>Line</th><th>SKU</th><th>Description</th><th>Location</th><th class="num">Qty</th><th>Scan</th></tr>
+      <tr><td>1</td><td class="mono">100482</td><td>MOZZARELLA SHRED WM 4/5 LB</td><td class="mono">NA-36-01-A</td><td class="num">4</td><td><span class="tag t-ok">Matched</span></td></tr>
+      <tr><td>2</td><td class="mono">245510</td><td>TOMATO SAUCE FCY 6/#10</td><td class="mono">NA-36-02-A</td><td class="num">2</td><td><span class="tag t-ok">Matched</span></td></tr>
+      <tr><td>3</td><td class="mono">330915</td><td>PIZZA DOUGH BALL 16 OZ FZ</td><td class="mono">FZ-01-01-B</td><td class="num">3</td><td><span class="tag t-err">Blocked</span></td></tr>
+      <tr><td>4</td><td class="mono">118204</td><td>PEPPERONI SLICED 2/12.5 LB</td><td class="mono">C-04-01-A</td><td class="num">1</td><td><span class="tag t-mute">Waiting</span></td></tr>
+      <tr><td>5</td><td class="mono">213077</td><td>FLOUR HI-GLUTEN 50 LB</td><td class="mono">NA-37-01-C</td><td class="num">2</td><td><span class="tag t-mute">Waiting</span></td></tr>
+    </table>
+  </div>
+  <div class="modal">
+    <div class="h"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#fff"/><rect x="10.6" y="5.5" width="2.8" height="9" rx="1.2" fill="#b3261e"/><circle cx="12" cy="18" r="1.6" fill="#b3261e"/></svg>QA HARD-STOP · WRONG ITEM SCANNED</div>
+    <dl class="b">
+      <dt>Expected</dt><dd class="ok">330915 · PIZZA DOUGH BALL 16 OZ FZ</dd>
+      <dt>Scanned</dt><dd class="x">330918 · PIZZA DOUGH BALL 12 OZ FZ</dd>
+      <dt>Location</dt><dd>FZ-01-01-B</dd>
+      <dt>Line</dt><dd>3 of 5 · cannot continue until resolved</dd>
+    </dl>
+    <div class="f"><span>Standard work SW-07 · picking</span><div class="r"><span class="btn">Call lead</span><span class="btn p">Rescan</span></div></div>
+  </div>
+</div>
+<div class="status"><span>Scanner RF-22 · picker 114</span><span>Hard-stops today: 6 · all resolved before loading</span></div>
+</body></html>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Line art for script lines 1-2. Groups have ids so the animation director can draw/slide them separately:
+       #main (the distributor's warehouse), #racking + #freezer + #tags (the rebuild, line 2), #acq1-3 (the three acquired distributors, line 1). -->
+  <g id="main">
+    <path d="M60 430 L60 170 L300 70 L540 170 L540 430"/>
+    <path d="M30 430 L730 430"/>
+    <path d="M250 430 L250 330 L350 330 L350 430" opacity=".6"/>
+  </g>
+  <g id="racking" stroke-width="4">
+    <path d="M100 400 L100 210"/><path d="M150 400 L150 210"/><path d="M100 250 L150 250"/><path d="M100 295 L150 295"/><path d="M100 340 L150 340"/>
+    <path d="M180 400 L180 190"/><path d="M230 400 L230 190"/><path d="M180 235 L230 235"/><path d="M180 280 L230 280"/><path d="M180 325 L230 325"/>
+    <path d="M370 400 L370 190"/><path d="M420 400 L420 190"/><path d="M370 235 L420 235"/><path d="M370 280 L420 280"/><path d="M370 325 L420 325"/>
+  </g>
+  <g id="freezer" stroke-width="4">
+    <path d="M450 400 L450 250 L515 250 L515 400"/>
+    <path d="M482 285 L482 325 M462 295 L502 315 M502 295 L462 315" stroke-width="3.5"/>
+  </g>
+  <g id="tags" stroke-width="3" opacity=".75">
+    <path d="M108 262 L120 262 M188 247 L200 247 M378 247 L390 247 M108 307 L120 307 M188 292 L200 292 M378 292 L390 292 M108 352 L120 352 M188 337 L200 337 M378 337 L390 337"/>
+  </g>
+  <g id="acq1" stroke-width="5"><path d="M566 430 L566 372 L590 358 L614 372 L614 430"/></g>
+  <g id="acq2" stroke-width="5"><path d="M628 430 L628 372 L652 358 L676 372 L676 430"/></g>
+  <g id="acq3" stroke-width="5"><path d="M690 430 L690 372 L714 358 L738 372 L738 430"/></g>
+</svg>

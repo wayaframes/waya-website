@@ -1,0 +1,82 @@
+{
+  "_note": "Cheetah turnaround (2026-10-16). Dark D-minor drone from frame 1; ticking from line 2 (go-live); DARK crescendo under the key line (30.42-34.31, held to 35.5) with the lead lowered; lift to F major on 'two tracks' (36.67); build on track one (38.6), drive on barcode checks (48.3), full on the results (52.8); bright crescendo = the peak on 'profitable' (65.46). The lens duck, calm_at, the payoff crescendo's end and dur are DERIVED from out/vo-timing.txt (block 'derive'): the duck runs from the lens line's start - 0.1 to its measured end + 0.1 at -15 dB with 0.8 s ramps (producer-approved, review fix 5), so it follows Vince's own line whatever its length. The static duck/calm_at/dur below are only the fallback when there is no timing sheet. tension_gain_db 4.5 pairs with mix.mjs's default --music -13 (review fix 6): the problem section stays where it was, the results drop 3 dB. presets drive/full vol 0.85 (were 1.25/1.4): with -13 alone the results sat only ~10 dB under the voice; this brings them to the ~14 dB target (review fix 6).",
+  "dur": 78.5,
+  "bpm": 100,
+  "tension_end": 35.9,
+  "pulse_from": 7.8,
+  "bright_at": 36.6,
+  "layers": [
+    [
+      36.6,
+      "steady"
+    ],
+    [
+      38.6,
+      "build"
+    ],
+    [
+      48.3,
+      "drive"
+    ],
+    [
+      52.8,
+      "full"
+    ]
+  ],
+  "crescendo": [
+    [
+      30.3,
+      35.6
+    ],
+    [
+      65.3,
+      66.8
+    ]
+  ],
+  "cresc_lead": 0.7,
+  "calm_at": 67.2,
+  "duck": [
+    [
+      67.34,
+      70.99,
+      -15,
+      0.8
+    ]
+  ],
+  "tension_gain_db": 4.5,
+  "fade_out": 0.5,
+  "derive": {
+    "lens_row": "the timing-sheet row tagged VINCE",
+    "duck_db": -15,
+    "duck_ramp": 0.8,
+    "duck_pad": [
+      0.1,
+      0.1
+    ],
+    "calm_before_lens": 0.24,
+    "cresc_end_before_lens": 0.64,
+    "card_hold": 2.6
+  },
+  "presets": {
+    "drive": {
+      "pad": 1,
+      "pluck": 1,
+      "kick": 0.9,
+      "bass": 1,
+      "snare": 0.7,
+      "hat": 0.8,
+      "lead": 0.9,
+      "vol": 0.85
+    },
+    "full": {
+      "pad": 1,
+      "pluck": 1,
+      "kick": 1,
+      "bass": 1,
+      "snare": 0.9,
+      "hat": 1,
+      "lead": 1,
+      "vol": 0.85
+    }
+  }
+}

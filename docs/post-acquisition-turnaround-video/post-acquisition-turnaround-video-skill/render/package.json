@@ -1,0 +1,9 @@
+{
+  "name": "waya-video-render",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "playwright-core": "^1.48.0"
+  }
+}

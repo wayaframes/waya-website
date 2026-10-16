@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Style frames</title>
+<style>
+@font-face { font-family:'Space Grotesk'; font-weight:500; src:url('../../assets/fonts/SpaceGrotesk-Medium.woff2'); }
+@font-face { font-family:'Space Grotesk'; font-weight:600; src:url('../../assets/fonts/SpaceGrotesk-SemiBold.woff2'); }
+@font-face { font-family:'Space Grotesk'; font-weight:700; src:url('../../assets/fonts/SpaceGrotesk-Bold.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:400; src:url('../../assets/fonts/PlusJakartaSans-Regular.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:500; src:url('../../assets/fonts/PlusJakartaSans-Medium.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:600; src:url('../../assets/fonts/PlusJakartaSans-SemiBold.woff2'); }
+:root{--cream:#FAF7F1;--paper:#F4F1EA;--charcoal:#383F3B;--ink:#1F2422;--stone:#6B6F6C;--fog:#B8BBB6;--mint:#D3E9E0;--rust:#D16C02;--mustard:#EAB62F;--sage:#6A9D8A;--cold:#121517;--cold2:#1b2125;--cold3:#262e33;--fd:'Space Grotesk',sans-serif;--fb:'Plus Jakarta Sans',sans-serif}
+html,body{margin:0;background:#000}
+.f{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:var(--fb);display:none}
+.f.on{display:block}
+.abs{position:absolute}
+.shot{position:absolute;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08)}
+.shot img{display:block;width:100%}
+.chip{position:absolute;background:var(--cold2);border:1px solid var(--cold3);border-radius:14px;padding:16px 22px;color:var(--cream);font-family:var(--fd);font-size:28px;font-weight:500;display:flex;gap:14px;align-items:center}
+.chip b{color:var(--rust);font-size:40px;font-weight:700}
+.stitle{position:absolute;left:0;right:0;top:48px;text-align:center;font-family:var(--fd);font-weight:700;font-size:56px;letter-spacing:-.02em;color:var(--charcoal)}
+.tile{position:absolute;left:30px;top:140px;width:560px;height:560px;border-radius:22px;background:#fff;border:1px solid rgba(56,63,59,.14);box-shadow:0 24px 70px rgba(31,36,34,.18);overflow:hidden}
+.tile .bar{position:absolute;left:0;right:0;top:0;height:52px;z-index:2;background:var(--charcoal);color:var(--cream);font-family:var(--fd);font-weight:600;font-size:19px;display:flex;align-items:center;padding:0 18px;gap:10px}
+.tile .bar i{width:12px;height:12px;border-radius:50%;background:#5fd38a;box-shadow:0 0 0 4px rgba(95,211,138,.25)}
+.tile .bar span{margin-left:auto;font-weight:500;opacity:.7}
+.tile .body{position:absolute;inset:52px 0 0 0;background:var(--mint)}
+.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.screen{position:absolute;left:620px;top:140px;width:780px;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(31,36,34,.16);border:1px solid rgba(56,63,59,.14);background:#fff}
+.screen img,.tracker img{display:block;width:100%}
+.screen .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 18px;background:rgba(31,36,34,.86);color:var(--cream);font-family:var(--fd);font-size:17px;letter-spacing:.04em}
+.tracker{position:absolute;left:1430px;top:140px;width:450px;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(31,36,34,.14);border:1px solid rgba(56,63,59,.14);background:#fff}
+.tracker .lbl{position:absolute;left:0;right:0;top:0;padding:10px 16px;background:rgba(31,36,34,.92);color:var(--cream);font-family:var(--fd);font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.key{position:absolute;left:0;right:0;top:392px;text-align:center;font-family:var(--fd);font-weight:700;font-size:76px;line-height:1.18;letter-spacing:-.025em;color:var(--cream)}
+.res{position:absolute;left:120px;top:250px;width:840px}
+.res .row>*{flex:none;white-space:nowrap}
+.res .row{display:flex;align-items:baseline;gap:22px;padding:20px 0;border-bottom:1px solid rgba(56,63,59,.12);font-family:var(--fd)}
+.res .row .n{width:310px;font-family:var(--fb);font-weight:500;font-size:28px;color:var(--stone)}
+.res .row .o{font-size:34px;font-weight:500;color:#A9ACA7;width:150px}
+.res .row .a{font-size:30px;color:var(--fog)}
+.res .row .w{font-size:52px;font-weight:700;color:var(--sage)}
+</style></head><body>
+
+<!-- 1. line 2, dark and tense: the rebuilt warehouse goes live; the real pick list ships short -->
+<section class="f" id="f1" style="background:var(--cold)">
+  <img class="abs" src="../../assets/line/warehouse.svg" style="left:80px;top:300px;width:760px">
+  <div class="abs" style="left:110px;top:200px;font-family:var(--fd);font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--fog)">FALL 2022 · CHEETAH TECHNOLOGIES</div>
+  <div class="abs" style="left:300px;top:470px;transform:rotate(-8deg);border:4px solid var(--rust);color:var(--rust);border-radius:10px;padding:8px 18px;font-family:var(--fd);font-weight:700;font-size:30px;letter-spacing:.06em;background:rgba(18,21,23,.75)">GO-LIVE · OCT 2022</div>
+  <div class="shot" style="left:900px;top:200px;width:920px"><img src="../pick-list.png"></div>
+  <div class="chip" style="left:900px;top:740px"><b>~75%</b>fill rate</div>
+</section>
+
+<!-- 2. line 8: the key line, alone -->
+<section class="f" id="f2" style="background:var(--charcoal)">
+  <div class="shot" style="left:330px;top:150px;width:1260px;opacity:.03;filter:blur(2px);box-shadow:none"><img src="../replen-log.png"></div>
+  <div class="key">The crews fixed the building <span style="color:var(--mustard)">by day</span>.<br>The system undid it <span style="color:#F08A2C">by night</span>.</div>
+</section>
+
+<!-- 3. line 11: two tracks at once, the demo frame -->
+<section class="f" id="f3" style="background:var(--cream)">
+  <div class="stitle">Two tracks, at once</div>
+  <div class="tile" data-col="l"><div class="bar"><i></i>Vince · Waya co-founder <span>the turnaround</span></div><div class="body"><video id="v" src="../../assets/expert-placeholder.mp4" muted playsinline preload="auto"></video></div></div>
+  <div class="screen" data-col="c"><img src="../slotting.png"><div class="cap">TRACK 2 · FIX THE CAUSE · fixed slots for fast movers, flexible for the rest</div></div>
+  <div class="tracker" data-col="r"><img src="../turnaround-tracker-turning.png"><div class="lbl">The turnaround tracker</div></div>
+</section>
+
+<!-- 4. line 13: results on cream, one card at a time -->
+<section class="f" id="f4" style="background:var(--cream)">
+  <div class="shot" style="left:110px;top:230px;width:900px;box-shadow:0 24px 70px rgba(31,36,34,.16);border:1px solid rgba(56,63,59,.14)"><img src="../pick-list-full.png"></div>
+  <div class="abs" style="left:1110px;top:300px;width:700px">
+    <div style="font-family:var(--fb);font-weight:600;font-size:30px;color:var(--stone);letter-spacing:.02em">Fill rate</div>
+    <div style="display:flex;align-items:baseline;gap:26px;margin-top:6px;font-family:var(--fd)"><span style="font-size:64px;font-weight:500;color:#A9ACA7">~75%</span><span style="font-size:48px;color:var(--fog)">→</span><span style="font-size:140px;font-weight:700;color:var(--sage);letter-spacing:-.03em">99%+</span></div>
+    <div style="font-size:28px;color:var(--stone);margin-top:4px">by Mar 2023</div>
+  </div>
+</section>
+<script>
+const f = new URLSearchParams(location.search).get('f') || '1';
+document.getElementById('f' + f).classList.add('on');
+window.__ready = (async () => {
+  await document.fonts.ready;
+  if (f === '3') {
+    const v = document.getElementById('v');
+    if (v.readyState < 2) await new Promise(r => v.addEventListener('loadeddata', r, { once: true }));
+    v.currentTime = 1.2; await new Promise(r => v.addEventListener('seeked', r, { once: true }));
+  }
+  return true;
+})();
+</script>
+</body></html>

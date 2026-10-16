@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="variants" content="full">
+<meta name="shoot" content="990x530">
+<title>Order SO-48213 · WMS</title>
+<link rel="stylesheet" href="wms.css">
+<style>
+  body { font-size: 14px; }
+  .top nav a { font-size: 13.5px; padding: 6px 9px; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .meta div { border: 1px solid #dde2e7; border-radius: 7px; padding: 9px 12px; }
+  .meta span { display: block; font-size: 12px; color: #6b7785; }
+  .meta b { font-size: 15px; }
+  table { font-size: 14.5px; }
+  td { padding: 12px 10px; } th { padding: 9px 10px; }
+  tr.short td { background: #fff3f0; }
+  tr.short td.desc { text-decoration: line-through; text-decoration-color: #b3261e; text-decoration-thickness: 2px; color: #7a3a30; }
+  .stamp { font-size: 15px; padding: 3px 10px; letter-spacing: .06em; }
+  .tot { display: flex; justify-content: flex-end; gap: 28px; font-size: 14.5px; padding: 4px 10px; }
+  .tot b.r { color: #b3261e; } .tot b.g { color: #1e6b45; }
+  body.full .only-short { display: none; } body:not(.full) .only-full { display: none; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>wms.dc01.internal/orders/SO-48213/pick-list</div></div>
+<div class="top"><div class="prod"><b>W</b>WMS</div>
+  <nav><a>Inventory</a><a class="on">Orders</a><a>Picking</a><a>Shipping</a></nav>
+  <div class="site"><em>Cheetah — DC-01</em></div></div>
+<div class="sub"><h1>Pick list · Order SO-48213</h1><span class="crumb">Customer #20417 · Route 12 · stop 4</span>
+  <div class="r"><span class="btn">Print</span></div></div>
+<div class="main">
+  <div class="meta">
+    <div><span>Ship date</span><b class="only-short">Thu Oct 13, 2022</b><b class="only-full">Thu Mar 16, 2023</b></div>
+    <div><span>Lines ordered</span><b>4</b></div>
+    <div><span>Lines shipped</span><b class="only-short" style="color:#b3261e">3</b><b class="only-full" style="color:#1e6b45">4</b></div>
+    <div><span>Status</span><b class="only-short" style="color:#b3261e">Shipped short</b><b class="only-full" style="color:#1e6b45">Shipped complete</b></div>
+  </div>
+  <div class="panel" style="overflow:hidden">
+    <table>
+      <tr><th>Line</th><th>SKU</th><th>Description</th><th class="num">Ordered</th><th class="num">Picked</th><th>Status</th></tr>
+      <tr><td>1</td><td class="mono">100482</td><td class="desc">MOZZARELLA SHRED WM 4/5 LB</td><td class="num">4</td><td class="num">4</td><td><span class="tag t-ok">Picked</span></td></tr>
+      <tr><td>2</td><td class="mono">245510</td><td class="desc">TOMATO SAUCE FCY 6/#10</td><td class="num">2</td><td class="num">2</td><td><span class="tag t-ok">Picked</span></td></tr>
+      <tr><td>3</td><td class="mono">118204</td><td class="desc">PEPPERONI SLICED 2/12.5 LB</td><td class="num">1</td><td class="num">1</td><td><span class="tag t-ok">Picked</span></td></tr>
+      <tr class="only-short short"><td>4</td><td class="mono">330915</td><td class="desc">PIZZA DOUGH BALL 16 OZ FZ</td><td class="num">3</td><td class="num" style="color:#b3261e;font-weight:700">0</td><td><span class="tag t-err stamp">SHORT</span></td></tr>
+      <tr class="only-full"><td>4</td><td class="mono">330915</td><td class="desc">PIZZA DOUGH BALL 16 OZ FZ</td><td class="num">3</td><td class="num">3</td><td><span class="tag t-ok">Picked</span></td></tr>
+    </table>
+  </div>
+  <div class="tot only-short"><span>Location: <b class="r">not found at pick face</b></span><span>Fill: <b class="r">3 of 4 lines</b></span></div>
+  <div class="tot only-full"><span>Scan QA: <b class="g">4 of 4 matched</b></span><span>Fill: <b class="g">4 of 4 lines</b></span></div>
+</div>
+<div class="status"><span>Connected · DC-01</span></div>
+<script>new URLSearchParams(location.search).getAll("v").forEach(c=>document.body.classList.add(c))</script>
+</body></html>

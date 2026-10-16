@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="990x660">
+<title>Slotting model · WMS</title>
+<link rel="stylesheet" href="wms.css">
+<style>
+  body { font-size: 14px; }
+  .top nav a { font-size: 13.5px; padding: 6px 9px; }
+  .wrap { display: grid; grid-template-columns: 1fr 330px; gap: 12px; flex: 1; min-height: 0; }
+  .map { padding: 12px 14px; display: flex; flex-direction: column; gap: 5px; }
+  .aisle { display: flex; align-items: center; gap: 8px; }
+  .aisle > span { width: 54px; font-size: 12px; color: #4a5866; font-family: Consolas, monospace; }
+  .aisle .cells { flex: 1; display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; }
+  .aisle .cells i { height: 16px; border-radius: 2px; background: #b9d3e8; }
+  .aisle .cells i.f { background: #1f5f93; }
+  .aisle .cells i.e { background: #eef1f4; }
+  .zone { font-size: 11.5px; font-weight: 700; color: #6b7785; letter-spacing: .06em; margin-top: 4px; }
+  .legend { display: flex; gap: 14px; font-size: 12.5px; color: #4a5866; margin-top: 10px; padding-top: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -2px; margin-right: 5px; }
+  .rules { padding: 4px 0; }
+  .rule { display: flex; gap: 10px; padding: 9px 12px; border-bottom: 1px solid #edf0f3; align-items: flex-start; }
+  .rule .n { width: 20px; height: 20px; border-radius: 50%; background: #e8f0f7; color: #1f5582; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none; }
+  .rule b { display: block; font-size: 13.5px; font-weight: 600; }
+  .rule span { font-size: 12.5px; color: #5b6774; }
+  .mode { display: flex; gap: 6px; padding: 10px 12px; }
+  .mode .chip { font-size: 12.5px; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>wms.dc01.internal/slotting/models/hybrid-v3</div></div>
+<div class="top"><div class="prod"><b>W</b>WMS</div>
+  <nav><a>Inventory</a><a>Replenishment</a><a class="on">Slotting</a><a>Picking</a></nav>
+  <div class="site"><em>Cheetah — DC-01</em></div></div>
+<div class="sub"><h1>Slotting model · Hybrid v3</h1><span class="tag t-ok">Live</span>
+  <div class="r"><span class="btn">Simulate</span><span class="btn p">Publish</span></div></div>
+<div class="main">
+  <div class="wrap">
+    <div class="panel map" id="map">
+      <div class="zone">DRY · NEW NARROW-AISLE RACKING</div>
+    </div>
+    <div class="panel">
+      <div class="mode"><span class="chip">Fixed only</span><span class="chip on">Hybrid</span><span class="chip">Dynamic only</span></div>
+      <div class="rules">
+        <div class="rule"><span class="n">1</span><div><b>Fast movers → fixed pick face</b><span>velocity A · one home slot, sized to the case</span></div></div>
+        <div class="rule"><span class="n">2</span><div><b>Everything else → dynamic</b><span>nearest open slot that fits the cube</span></div></div>
+        <div class="rule"><span class="n">3</span><div><b>Consolidate, never scatter</b><span>one SKU, one pick location</span></div></div>
+        <div class="rule"><span class="n">4</span><div><b>Zones match the new racking</b><span>dry · cooler · new freezer; old aisles retired</span></div></div>
+        <div class="rule"><span class="n">5</span><div><b>No dimensions, no slotting</b><span>a location must be measured to go live</span></div></div>
+      </div>
+      <div style="margin:10px 12px;border:1px solid #a9d6bd;background:#edf7f1;border-radius:7px;padding:9px 12px;font-size:13px">
+        <b style="display:block;font-size:13.5px">Consolidation · SKU 100482</b>
+        <span style="color:#5b6774">MOZZARELLA SHRED WM 4/5 LB</span><br>
+        <span style="color:#b3261e;text-decoration:line-through;font-weight:600">886 locations</span> &rarr; <b style="color:#1e6b45">1 pick location</b> · NA-36-01-A
+      </div>
+    </div>
+  </div>
+</div>
+<div class="status"><span>Locations measured: 4,812 / 4,812</span><span>Removed aisles retired: 214</span></div>
+<script>
+  const map = document.getElementById('map');
+  let seed = 7; const r = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const add = (name, fixedFront) => {
+    const a = document.createElement('div'); a.className = 'aisle';
+    let c = ''; for (let i = 0; i < 24; i++) { const f = i < fixedFront; c += `<i class="${f ? 'f' : (r() < .18 ? 'e' : '')}"></i>`; }
+    a.innerHTML = `<span>${name}</span><div class="cells">${c}</div>`; map.appendChild(a);
+  };
+  ['NA-36', 'NA-37', 'NA-38', 'NA-39', 'NA-40', 'NA-41', 'NA-42', 'NA-43'].forEach((n, i) => add(n, [9, 8, 8, 7, 6, 5, 4, 3][i]));
+  const z2 = document.createElement('div'); z2.className = 'zone'; z2.textContent = 'COOLER'; map.appendChild(z2);
+  ['C-04', 'C-05'].forEach((n, i) => add(n, [6, 4][i]));
+  const z3 = document.createElement('div'); z3.className = 'zone'; z3.textContent = 'NEW FREEZER'; map.appendChild(z3);
+  ['FZ-01', 'FZ-02', 'FZ-03'].forEach((n, i) => add(n, [7, 5, 3][i]));
+  const lg = document.createElement('div'); lg.className = 'legend';
+  lg.innerHTML = '<span><i style="background:#1f5f93"></i>Fixed · fast movers, near the dock</span><span><i style="background:#b9d3e8"></i>Dynamic · the rest</span><span><i style="background:#eef1f4;border:1px solid #dde2e7"></i>Open</span>';
+  map.appendChild(lg);
+</script>
+</body></html>

@@ -1,10 +1,10 @@
 # Post-acquisition turnaround: watercolor video (45 s)
 
-An earlier, silent cut of the post-acquisition turnaround case study, made on 2026-10-03. Separate from the narrated
-video in `../post-acquisition-turnaround-video/`.
+An earlier, silent cut of the post-acquisition turnaround case study, made on 2026-10-03. Its sibling, the narrated video made with
+the waya-video skill, is in `../post-acquisition-turnaround-video-skill/`.
 
-- `post-acquisition-turnaround-watercolor.mp4`: 1920x1080, 30 fps, 45 s, H.264, no audio, 14.8 MB.
-- `post-acquisition-turnaround-watercolor-poster.jpg`: the title frame (5 s).
+- `../post-acquisition-turnaround-video-watercolor.mp4`: 1920x1080, 30 fps, 45 s, H.264, no audio, 14.8 MB.
+- `../post-acquisition-turnaround-video-watercolor-poster.jpg`: the title frame (5 s).
 - `wc_video.py`: the renderer. Watercolor washes in the Waya palette, generated frame by frame with numpy and Pillow,
   encoded with the ffmpeg bundled in `imageio-ffmpeg`. The storyboard (scenes, text, timings) is the middle
   section of the file.
@@ -19,7 +19,7 @@ end card (41–45 s).
 ```bash
 pip install numpy pillow scipy imageio imageio-ffmpeg
 python wc_video.py stills 5,14,23,32,39,44
-python wc_video.py video post-acquisition-turnaround-watercolor.mp4
+python wc_video.py video ../post-acquisition-turnaround-video-watercolor.mp4
 ```
 
 Stills land next to the script (`still_*.png`, gitignored). A full render takes a few minutes.

@@ -1,0 +1,46 @@
+/* Shared shell for the warehouse-system and dashboard artifacts: a browser frame around a plain,
+   enterprise-looking web app. No vendor name, no client name: the app is just "WMS" for site DC-01. */
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: 'Segoe UI', Arial, system-ui, sans-serif; color: #1d2733; background: #fff; height: 100vh; display: flex; flex-direction: column; overflow: hidden; font-size: 13px; }
+.chrome { background: #e6e7ea; border-bottom: 1px solid #cfd2d8; height: 40px; display: flex; align-items: center; padding: 0 14px; gap: 8px; flex: none; }
+.chrome i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.chrome i:nth-child(1) { background: #ff5f57 } .chrome i:nth-child(2) { background: #febc2e } .chrome i:nth-child(3) { background: #28c840 }
+.chrome .url { margin-left: 12px; flex: 1; max-width: 640px; height: 26px; border-radius: 7px; background: #fff; border: 1px solid #cfd2d8; display: flex; align-items: center; padding: 0 10px; font-size: 12.5px; color: #555; gap: 8px; }
+.chrome .url svg { width: 11px; height: 11px; }
+
+/* the WMS app */
+.top { background: #22313f; color: #e9eef3; height: 46px; display: flex; align-items: center; padding: 0 18px; gap: 22px; flex: none; }
+.top .prod { font-weight: 700; font-size: 15px; letter-spacing: .02em; display: flex; align-items: center; gap: 9px; }
+.top .prod b { width: 22px; height: 22px; border-radius: 5px; background: #4d7ea8; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+.top nav { display: flex; gap: 4px; }
+.top nav a { padding: 6px 11px; border-radius: 5px; color: #b9c6d3; font-size: 13px; }
+.top nav a.on { background: #34495e; color: #fff; }
+.top .site { margin-left: auto; font-size: 12.5px; color: #b9c6d3; display: flex; gap: 14px; align-items: center; }
+.top .site em { font-style: normal; background: #34495e; padding: 3px 8px; border-radius: 4px; color: #fff; }
+.sub { background: #f3f5f7; border-bottom: 1px solid #dde2e7; height: 44px; display: flex; align-items: center; padding: 0 18px; gap: 12px; flex: none; }
+.sub h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.sub .crumb { color: #6b7785; font-size: 12.5px; }
+.sub .r { margin-left: auto; display: flex; gap: 8px; }
+.btn { border: 1px solid #c6ced6; background: #fff; border-radius: 5px; padding: 5px 11px; font-size: 12.5px; color: #2a3846; }
+.btn.p { background: #2f6fa3; border-color: #2f6fa3; color: #fff; }
+.main { flex: 1; min-height: 0; padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+.filters { display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: #4a5866; }
+.chip { border: 1px solid #c6ced6; border-radius: 14px; padding: 3px 10px; background: #fff; }
+.chip.on { background: #e8f0f7; border-color: #9dbbd6; color: #1f5582; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th { text-align: left; font-weight: 600; color: #4a5866; background: #f3f5f7; border-bottom: 1px solid #dde2e7; padding: 7px 9px; white-space: nowrap; }
+td { border-bottom: 1px solid #edf0f3; padding: 6px 9px; white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.mono { font-family: Consolas, 'Cascadia Mono', monospace; font-size: 12px; }
+.tag { display: inline-block; border-radius: 4px; padding: 1px 7px; font-size: 11.5px; font-weight: 600; }
+.t-err { background: #fde8e4; color: #b3261e; }
+.t-warn { background: #fff3d6; color: #8a5a00; }
+.t-ok { background: #e3f2ea; color: #1e6b45; }
+.t-mute { background: #eceff2; color: #5b6774; }
+.null { color: #b3261e; font-weight: 600; }
+tr.bad td { background: #fff7f5; }
+.panel { border: 1px solid #dde2e7; border-radius: 7px; background: #fff; }
+.panel h3 { margin: 0; font-size: 13px; font-weight: 600; padding: 9px 12px; border-bottom: 1px solid #edf0f3; display: flex; align-items: center; gap: 8px; }
+.panel h3 span { margin-left: auto; font-weight: 400; color: #6b7785; font-size: 12px; }
+.status { height: 26px; background: #f3f5f7; border-top: 1px solid #dde2e7; display: flex; align-items: center; padding: 0 18px; font-size: 11.5px; color: #6b7785; gap: 18px; flex: none; }

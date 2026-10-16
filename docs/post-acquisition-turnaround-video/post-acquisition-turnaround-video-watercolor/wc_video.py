@@ -1,6 +1,6 @@
 """Watercolor explainer for the post-acquisition turnaround case study.
 python wc_video.py stills 3,12,22,30,38,43   -> PNG stills
-python wc_video.py video post-acquisition-turnaround-watercolor.mp4  -> 45s 1080p MP4
+python wc_video.py video ../post-acquisition-turnaround-video-watercolor.mp4  -> 45s 1080p MP4
 """
 import sys, os, math
 import numpy as np

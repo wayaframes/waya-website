@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+@font-face { font-family: 'Space Grotesk'; font-weight: 700; src: url('../../assets/fonts/SpaceGrotesk-Bold.woff2'); }
+@font-face { font-family: 'Plus Jakarta Sans'; font-weight: 500; src: url('../../assets/fonts/PlusJakartaSans-Medium.woff2'); }
+html,body{margin:0;width:720px;height:720px;overflow:hidden;background:#D3E9E0}
+svg{position:absolute;inset:0}
+.t{position:absolute;left:0;right:0;text-align:center;color:#383F3B}
+.t1{top:462px;font:700 40px 'Space Grotesk';letter-spacing:-.01em}
+.t2{top:516px;font:500 22px 'Plus Jakarta Sans';opacity:.75}
+.stripe{position:absolute;left:0;right:0;top:0;height:40px;background:repeating-linear-gradient(-45deg,#EAB62F 0 22px,#383F3B 22px 44px);opacity:.9}
+.stripe.b{top:auto;bottom:0}
+</style></head><body>
+<div class="stripe" id="s1"></div><div class="stripe b" id="s2"></div>
+<svg viewBox="0 0 720 720"><g id="fig" fill="none" stroke="#383F3B" stroke-width="7" stroke-linecap="round">
+<circle id="ring" cx="360" cy="250" r="128" stroke="#6A9D8A" stroke-width="5" stroke-dasharray="14 16"/>
+<circle cx="360" cy="230" r="62"/>
+<path d="M262 392 C 270 320, 450 320, 458 392"/>
+</g></svg>
+<div class="t t1">Vince — clip to come</div>
+<div class="t t2">placeholder · swap for Oren's clip</div>
+<script>
+window.frame=(f,n)=>{const p=f/n;
+document.getElementById('ring').setAttribute('transform',`rotate(${p*360} 360 250)`);
+const y=Math.sin(p*2*Math.PI)*4;document.getElementById('fig').querySelectorAll('circle:not(#ring),path').forEach(e=>e.setAttribute('transform',`translate(0 ${y})`));
+document.getElementById('s1').style.backgroundPosition=`${p*62.2}px 0`;document.getElementById('s2').style.backgroundPosition=`${-p*62.2}px 0`;};
+</script></body></html>

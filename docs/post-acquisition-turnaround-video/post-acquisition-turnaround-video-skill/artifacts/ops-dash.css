@@ -1,0 +1,32 @@
+/* Operations dashboard (a plain BI page): the same layout before and after, so the eye compares in place. */
+.app { flex: 1; display: grid; grid-template-columns: 200px 1fr; min-height: 0; background: #f5f6f8; }
+.side { background: #fff; border-right: 1px solid #e3e6ea; padding: 16px 12px; font-size: 13px; color: #4a5866; }
+.side .brand { font-weight: 700; color: #1d2733; font-size: 14px; display: flex; gap: 8px; align-items: center; margin: 0 6px 18px; }
+.side .brand b { width: 20px; height: 20px; border-radius: 5px; background: #5b4bb7; }
+.side a { display: block; padding: 7px 8px; border-radius: 6px; }
+.side a.on { background: #eef0fb; color: #3a2f8a; font-weight: 600; }
+.side h6 { font-size: 11px; color: #8a96a3; text-transform: uppercase; letter-spacing: .06em; margin: 16px 8px 6px; }
+.body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+.hd { display: flex; align-items: center; gap: 12px; }
+.hd h1 { margin: 0; font-size: 20px; font-weight: 600; }
+.hd .pill { font-size: 12px; border: 1px solid #d6dbe1; background: #fff; border-radius: 6px; padding: 4px 10px; color: #4a5866; }
+.hd .r { margin-left: auto; display: flex; gap: 8px; }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.kpi { background: #fff; border: 1px solid #e3e6ea; border-radius: 9px; padding: 13px 15px; display: flex; flex-direction: column; gap: 4px; }
+.kpi .n { font-size: 12.5px; color: #4a5866; font-weight: 600; }
+.kpi .v { font-size: 34px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .t { font-size: 12px; color: #6b7785; }
+.kpi .d { font-size: 12px; font-weight: 600; }
+.kpi.bad { border-color: #f1b8ab; } .kpi.bad .v { color: #b3261e; } .kpi.bad .d { color: #b3261e; }
+.kpi.good { border-color: #a9d6bd; } .kpi.good .v { color: #1e6b45; } .kpi.good .d { color: #1e6b45; }
+.row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; flex: 1; min-height: 0; }
+.card { background: #fff; border: 1px solid #e3e6ea; border-radius: 9px; padding: 13px 15px; display: flex; flex-direction: column; min-height: 0; }
+.card h3 { margin: 0 0 10px; font-size: 13.5px; font-weight: 600; display: flex; } .card h3 span { margin-left: auto; font-weight: 400; color: #6b7785; font-size: 12px; }
+.card svg { flex: 1; width: 100%; }
+.alerts { display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; }
+.alerts div { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 9px 12px; border-radius: 7px; }
+.alerts div span { grid-column: 1; grid-row: 2; color: #4a5866; }
+.alerts div small { grid-column: 2; grid-row: 1; }
+.alerts .a-r { background: #fdf0ed; } .alerts .a-g { background: #edf7f1; }
+.alerts b { font-weight: 600; }
+.alerts small { color: #6b7785; white-space: nowrap; }

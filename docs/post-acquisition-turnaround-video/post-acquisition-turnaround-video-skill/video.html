@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Waya · post-acquisition turnaround</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  Post-acquisition turnaround (Cheetah Technologies). Landscape 1920x1080 only (INSTRUCTIONS #3).
+  A 1920x1080 stage; every element absolutely positioned; every motion a Web Animation created at load,
+  paused, and seeked by one clock (window.__seek). Rules that cost us whole review rounds:
+   - ONE animation per CSS property per element. Anything that changes a property more than once goes through track().
+   - The cue list (const CAPS) is the one source of truth for what is said and when. Every time below is a
+     measured word boundary from render/out/words.json, named once and derived from.
+   - Demo frame: expert widget left, the centre screen, the tracker right, all top-aligned at --frame-top. data-col marks them.
+   - THE EXPERT CLIP: one source, EXPERT_SRC. To swap the placeholder for Oren's clip change that one line to
+     'assets/expert-vince.mp4' (muted, no audio stream) and set VINCE_LENS_OFFSET (+ EXPERT_IN for the muted beats).
+-->
+<style>
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 500; src: url('assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 600; src: url('assets/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 700; src: url('assets/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 400; src: url('assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 500; src: url('assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 600; src: url('assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 700; src: url('assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2'); }
+  :root {
+    --cream:#FAF7F1; --paper:#F4F1EA; --charcoal:#383F3B; --ink:#1F2422; --stone:#6B6F6C; --fog:#B8BBB6;
+    --mint:#D3E9E0; --rust:#D16C02; --tan:#D0AE89; --mustard:#EAB62F; --sage:#6A9D8A; --night:#F08A2C;
+    --cold:#121517; --cold2:#1b2125; --cold3:#262e33; --line:#C9CCC7;
+    --fd:'Space Grotesk', system-ui, sans-serif; --fb:'Plus Jakarta Sans', system-ui, sans-serif;
+    --frame-top:140px;
+  }
+  html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+  #wrap { position:fixed; inset:0; overflow:hidden; }
+  #stage { position:absolute; left:50%; top:50%; width:1920px; height:1080px; overflow:hidden; background:var(--cold); font-family:var(--fb); color:var(--ink); transform-origin:center center; transform:translate(-50%, -50%) scale(1); }
+  .abs, .o { position:absolute; opacity:0; }
+  .abs svg { display:block; width:100%; height:auto; overflow:visible; }
+  .eyebrow { font-family:var(--fd); font-weight:700; font-size:20px; letter-spacing:.14em; color:var(--fog); text-transform:uppercase; white-space:nowrap; }
+  /* real screenshots on the dark scenes */
+  .shot { position:absolute; border-radius:16px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.08); background:#fff; opacity:0; }
+  .shot img { display:block; width:100%; height:auto; }
+  .shot.light { box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); }
+  .chip { position:absolute; background:var(--cold2); border:1px solid var(--cold3); border-radius:14px; padding:16px 22px; color:var(--cream); font-family:var(--fd); font-size:28px; font-weight:500; display:flex; gap:14px; align-items:center; white-space:nowrap; opacity:0; }
+  .chip b { color:var(--rust); font-size:40px; font-weight:700; }
+  .stamp { position:absolute; left:300px; top:470px; border:4px solid var(--rust); color:var(--rust); border-radius:10px; padding:8px 18px; font-family:var(--fd); font-weight:700; font-size:30px; letter-spacing:.06em; background:rgba(18,21,23,.75); white-space:nowrap; opacity:0; }
+  /* a mustard highlight outline, positioned in its parent's coordinates */
+  .hl { position:absolute; border:3px solid var(--mustard); border-radius:8px; box-shadow:0 0 0 5px rgba(234,182,47,.22); opacity:0; pointer-events:none; }
+  .hl.rust { border-color:var(--rust); box-shadow:0 0 0 5px rgba(209,108,2,.2); }
+  .ctr { position:absolute; left:0; right:0; text-align:center; font-family:var(--fd); font-weight:700; font-size:160px; letter-spacing:-.03em; font-variant-numeric:tabular-nums; opacity:0; }
+  .sub { position:absolute; left:0; right:0; text-align:center; font-family:var(--fb); font-size:32px; opacity:0; }
+  .stitle { position:absolute; left:0; right:0; top:48px; text-align:center; font-family:var(--fd); font-weight:700; font-size:56px; letter-spacing:-.02em; color:var(--charcoal); opacity:0; }
+  /* the expert widget: a looping muted clip (never a still), 560x560, one seat */
+  .tile { position:absolute; left:30px; top:var(--frame-top); width:560px; height:560px; border-radius:22px; background:#fff; border:1px solid rgba(56,63,59,.14); box-shadow:0 24px 70px rgba(31,36,34,.18); overflow:hidden; opacity:0; }
+  .tile .bar { position:absolute; left:0; right:0; top:0; height:52px; z-index:2; background:var(--charcoal); color:var(--cream); font-family:var(--fd); font-weight:600; font-size:19px; display:flex; align-items:center; padding:0 18px; gap:10px; white-space:nowrap; }
+  .tile .bar i { width:12px; height:12px; border-radius:50%; background:#5fd38a; box-shadow:0 0 0 4px rgba(95,211,138,.25); flex:none; }
+  .tile .bar span { margin-left:auto; font-weight:500; opacity:.7; white-space:nowrap; }
+  .tile .body { position:absolute; inset:52px 0 0 0; background:var(--mint); }
+  .tile .body video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; display:none; }
+  /* centre: real screenshots; right: the tracker */
+  .screen { position:absolute; left:620px; top:var(--frame-top); width:780px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.16); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .screen.wide { box-shadow:0 30px 80px rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.08); }
+  .screen > img { display:block; width:100%; height:auto; }
+  .screen .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 20px; background:#1F2422; color:var(--cream); font-family:var(--fd); font-size:20px; font-weight:500; letter-spacing:.02em; white-space:nowrap; }
+  .screen .cap b { font-weight:700; }
+  .tracker { position:absolute; left:1430px; top:var(--frame-top); width:450px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .tracker img { display:block; width:100%; height:auto; }
+  .tracker img.over { position:absolute; left:0; top:0; opacity:0; }
+  .tracker .lbl { position:absolute; left:0; right:0; top:0; z-index:2; padding:10px 16px; background:rgba(31,36,34,.92); color:var(--cream); font-family:var(--fd); font-size:15px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; }
+  .lane { position:absolute; left:660px; width:700px; height:110px; box-sizing:border-box; background:var(--paper); border:1px solid rgba(56,63,59,.14); border-radius:16px; display:flex; align-items:center; gap:22px; padding:0 34px; font-family:var(--fd); font-weight:700; font-size:44px; color:var(--charcoal); opacity:0; box-shadow:0 14px 40px rgba(31,36,34,.08); }
+  .lane em { font-style:normal; width:58px; height:58px; border-radius:50%; background:var(--charcoal); color:var(--cream); display:flex; align-items:center; justify-content:center; font-size:32px; }
+  .lane .ring { position:absolute; inset:-4px; border:3px solid var(--mustard); border-radius:18px; opacity:0; }
+  /* Na'ama's beat: a line drawing on paper, in the centre seat */
+  /* every centre screen of the demo frame ends at y 700, level with the widget (image top-aligned, caption at the bottom) */
+  #count, #naama, #slot, #scan, #std { height:560px; background:#fff; }
+  #naama { background:var(--paper); }
+  #slot > img { height:500px; object-fit:cover; object-position:top; }   /* drop the shot's footer line, which the caption bar would cut */
+  #naama .nm { position:absolute; left:34px; top:28px; font-family:var(--fd); }
+  #naama .nm b { display:block; font-size:44px; font-weight:700; color:var(--charcoal); letter-spacing:-.02em; }
+  #naama .nm span { display:block; font-family:var(--fb); font-size:24px; color:var(--stone); margin-top:2px; }
+  #naama svg { position:absolute; left:0; top:84px; width:780px; height:418px; }
+  #naama .z { font-family:var(--fd); font-weight:700; fill:var(--stone); }
+  /* results */
+  .res { position:absolute; left:1110px; top:300px; width:760px; opacity:0; }
+  .res .lb { font-family:var(--fb); font-weight:600; font-size:30px; color:var(--stone); letter-spacing:.02em; }
+  .res .row { display:flex; align-items:baseline; gap:26px; margin-top:6px; font-family:var(--fd); white-space:nowrap; }
+  .res .old { font-size:64px; font-weight:500; color:#A9ACA7; }
+  .res .ar { font-size:48px; color:var(--fog); }
+  .res .new { font-size:140px; font-weight:700; color:var(--sage); letter-spacing:-.03em; display:inline-block; opacity:0; }
+  .res .sb { font-size:28px; color:var(--stone); margin-top:4px; opacity:0; }
+  /* key line and payoff */
+  .key { position:absolute; left:0; right:0; text-align:center; font-family:var(--fd); font-weight:700; font-size:76px; line-height:1.18; letter-spacing:-.025em; color:var(--cream); opacity:0; white-space:nowrap; }
+  /* the lens */
+  .lens { position:absolute; top:240px; width:520px; height:260px; box-sizing:border-box; background:var(--paper); border:1px solid rgba(56,63,59,.14); border-radius:20px; box-shadow:0 18px 50px rgba(31,36,34,.10); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0; }
+  .lens b { font-family:var(--fd); font-weight:700; font-size:56px; color:var(--charcoal); letter-spacing:-.02em; }
+  .lens span { font-family:var(--fb); font-size:26px; color:var(--stone); }
+  /* the close */
+  .btn { font-family:var(--fd); font-weight:700; font-size:30px; padding:22px 40px; border-radius:14px; white-space:nowrap; opacity:0; }
+  .btn.primary { background:var(--rust); color:var(--cream); box-shadow:0 14px 40px rgba(209,108,2,.35); }
+  .btn.secondary { border:2px solid var(--cream); color:var(--cream); padding:20px 38px; }
+  #cap { position:absolute; left:50%; bottom:40px; transform:translateX(-50%); max-width:1600px; font-family:var(--fb); font-weight:500; font-size:30px; line-height:1.3; color:var(--cream); background:rgba(31,36,34,.86); padding:12px 28px; border-radius:14px; text-align:center; opacity:0; white-space:nowrap; z-index:50; }
+  .scrub { position:fixed; left:0; right:0; bottom:0; height:6px; background:rgba(255,255,255,.08); z-index:10; }
+  .scrub i { display:block; height:100%; width:0; background:var(--mustard); }
+  #start { position:fixed; inset:0; z-index:20; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(31,36,34,.72); color:var(--cream); font-family:var(--fd); cursor:pointer; }
+  #start[hidden] { display:none; }
+  #start b { width:120px; height:120px; border-radius:50%; background:var(--mustard); display:flex; align-items:center; justify-content:center; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+  #start b::after { content:''; margin-left:10px; border-left:38px solid var(--charcoal); border-top:24px solid transparent; border-bottom:24px solid transparent; }
+  #start span { font-size:22px; font-weight:600; letter-spacing:.02em; }
+  #start small { font-family:var(--fb); font-size:15px; opacity:.7; }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+
+  <!-- ===== lines 1-2: Cheetah, the acquisitions, go-live ===== -->
+  <div class="abs eyebrow" id="eyebrow" style="left:700px; top:150px;">Fall 2022 · Cheetah Technologies</div>
+  <div class="abs" id="wh" style="left:700px; top:220px; width:1000px; transform-origin:0 0; opacity:1;">
+    <svg viewBox="0 0 760 480" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <g id="whMain"><path d="M60 430 L60 170 L300 70 L540 170 L540 430"/><path d="M30 430 L730 430"/><path d="M250 430 L250 330 L350 330 L350 430" opacity=".6"/></g>
+      <g id="whRack" stroke-width="4"><path d="M100 400 L100 210"/><path d="M150 400 L150 210"/><path d="M100 250 L150 250"/><path d="M100 295 L150 295"/><path d="M100 340 L150 340"/><path d="M180 400 L180 190"/><path d="M230 400 L230 190"/><path d="M180 235 L230 235"/><path d="M180 280 L230 280"/><path d="M180 325 L230 325"/><path d="M370 400 L370 190"/><path d="M420 400 L420 190"/><path d="M370 235 L420 235"/><path d="M370 280 L420 280"/><path d="M370 325 L420 325"/></g>
+      <g id="whFreezer" stroke-width="4"><path d="M450 400 L450 250 L515 250 L515 400"/><path d="M482 285 L482 325 M462 295 L502 315 M502 295 L462 315" stroke-width="3.5"/></g>
+      <g id="whTags" stroke-width="3" opacity=".75"><path d="M108 262 L120 262 M188 247 L200 247 M378 247 L390 247 M108 307 L120 307 M188 292 L200 292 M378 292 L390 292 M108 352 L120 352 M188 337 L200 337 M378 337 L390 337"/></g>
+      <g id="acq1" stroke-width="5" style="opacity:0"><path d="M566 430 L566 372 L590 358 L614 372 L614 430"/></g>
+      <g id="acq2" stroke-width="5" style="opacity:0"><path d="M628 430 L628 372 L652 358 L676 372 L676 430"/></g>
+      <g id="acq3" stroke-width="5" style="opacity:0"><path d="M690 430 L690 372 L714 358 L738 372 L738 430"/></g>
+    </svg>
+  </div>
+  <div class="chip" id="chipAcq" style="left:730px; top:880px;"><b>+3</b>regional distributors · ~$24M revenue</div>
+  <div class="stamp" id="stamp" style="transform:rotate(-8deg)">GO-LIVE · OCT 2022</div>
+  <div class="shot" id="pick" style="left:900px; top:200px; width:920px;"><img src="artifacts/pick-list.png" alt=""><div class="hl rust" id="hlShort" style="left:18px; top:359px; width:885px; height:47px;"></div></div>
+  <div class="chip" id="chipFill" style="left:900px; top:740px;"><b>~75%</b>fill rate</div>
+
+  <!-- ===== line 3: pallets out back ===== -->
+  <div class="abs" id="fk" style="left:160px; top:300px; width:760px; opacity:1;">
+    <svg viewBox="0 0 760 520" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <g id="fkDump" style="opacity:0"><path d="M30 250 L210 250 L196 440 L44 440 Z"/><path d="M22 250 L218 250"/><path d="M40 250 L70 205 L230 222"/><path d="M60 300 L180 300" opacity=".5"/><circle cx="64" cy="458" r="14"/><circle cx="176" cy="458" r="14"/></g>
+      <path id="fkGround" d="M0 486 L760 486" opacity="0"/>
+      <g id="fkMove" style="opacity:0">
+        <g id="fkPallet" style="transform-box:view-box; transform-origin:404px 392px;"><path d="M262 330 L392 330 L392 380 L262 380 Z"/><path d="M272 270 L332 270 L332 330 L272 330 Z"/><path d="M338 292 C 330 250, 400 238, 392 292 C 396 312, 340 318, 338 292 Z" stroke="#D16C02"/><path d="M250 392 L404 392"/></g>
+        <g><path d="M412 170 L412 440"/><path d="M432 170 L432 440"/><path d="M406 170 L438 170"/><path d="M404 392 L412 392"/><path d="M432 300 L620 300 L640 360 L640 440 L432 440"/><path d="M470 300 L470 190 L600 190 L620 300"/><path d="M640 380 L690 380 L690 440 L640 440"/><circle cx="480" cy="452" r="34"/><circle cx="610" cy="452" r="34"/><circle cx="480" cy="452" r="8"/><circle cx="610" cy="452" r="8"/></g>
+        <g><circle cx="545" cy="226" r="24"/><path d="M545 250 L556 300"/><path d="M552 270 L512 284 L488 270"/><path d="M556 300 L520 300 L512 336"/></g>
+      </g>
+    </svg>
+  </div>
+  <div class="chip" id="chipShrink" style="left:1000px; top:440px;"><b>28%</b>shrink in one week</div>
+
+  <!-- ===== line 4: the dough ===== -->
+  <div class="abs" id="dough" style="left:450px; top:280px; width:520px; opacity:1;">
+    <svg viewBox="0 0 520 420" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <g id="dShelf"><path d="M40 330 L480 330"/><path d="M60 330 L60 400 M460 330 L460 400"/><path d="M40 200 L480 200" opacity=".45"/></g>
+      <g id="dBox" style="opacity:0; transform-box:view-box; transform-origin:240px 330px;"><path d="M150 330 L150 250 L330 250 L330 330"/><path d="M150 250 L180 228 L360 228 L330 250 M360 228 L360 308 L330 330"/></g>
+      <g id="dPuff" stroke="#D16C02" style="opacity:0; transform-box:view-box; transform-origin:240px 330px;"><path d="M150 330 C 110 300, 105 205, 175 170 C 230 140, 300 140, 345 175 C 400 215, 380 300, 330 330 Z" fill="#121517"/><path d="M190 200 C 220 185, 260 185, 290 198" opacity=".6"/></g>
+    </svg>
+  </div>
+  <div class="abs" id="doughLbl" style="left:600px; top:548px; width:180px; text-align:center; font-family:var(--fd); color:var(--cream); line-height:1.1;"><div style="font-size:22px; font-weight:700; letter-spacing:.12em;">FROZEN</div><div style="font-size:20px; font-weight:500;">pizza dough</div></div>
+  <div class="chip" id="chipDough" style="left:990px; top:540px;"><b>Frozen</b>in the dry warehouse</div>
+
+  <!-- ===== line 5 / 15: the burn counter ===== -->
+  <div class="abs eyebrow" id="burnEye" style="left:0; right:0; top:350px; text-align:center;">Contribution margin burn · per month</div>
+  <div class="ctr" id="burn" style="top:380px; color:var(--rust);">$0</div>
+  <div class="sub" id="burnSub" style="top:600px; color:var(--fog);">~$1M / month</div>
+  <div class="ctr" id="burn2" style="top:380px; color:var(--charcoal);">$1,000,000</div>
+  <div class="sub" id="burn2Sub" style="top:600px; color:var(--stone);">a month · Mar 2023</div>
+
+  <!-- ===== lines 6-7: the root-cause frame (centre widened to 1270) ===== -->
+  <div class="screen wide" id="gap" data-col="c" style="width:1040px;"><img src="artifacts/gap-analysis.png" alt=""><img id="gapRC" src="artifacts/gap-analysis-struck.png" alt="" style="position:absolute; left:0; top:0; width:100%;"><img id="gapStruck" src="artifacts/gap-analysis-struck.png" alt="" style="position:absolute; left:0; top:0; width:100%; opacity:0;"><div class="hl" id="hlCrews" style="left:57px; top:475px; width:440px; height:35px;"></div><div class="cap"><b>OCT 22 · GAP ANALYSIS</b> · root cause, found in a few hours</div></div>
+  <div class="screen wide" id="wms" data-col="c" style="width:1270px;"><img src="artifacts/wms-locations.png" alt=""><div class="hl" id="hlWms" style="left:19px; top:288px; width:891px; height:60px;"></div><div class="cap" id="wmsCap"><b>NEW LOCATIONS</b> · no rules, no dimensions</div></div>
+
+  <!-- ===== line 8: the key line, alone ===== -->
+  <div class="abs" id="replen" style="left:330px; top:150px; width:1260px; filter:blur(2px); border-radius:16px; overflow:hidden;"><img src="artifacts/replen-log.png" alt="" style="display:block; width:100%;"></div>
+  <div class="abs" id="sun" style="left:932px; top:296px; width:56px; height:56px;">
+    <svg viewBox="0 0 56 56" style="overflow:hidden">
+      <g id="rays" stroke="#EAB62F" stroke-width="4" stroke-linecap="round"><path d="M28 3 L28 9 M28 47 L28 53 M3 28 L9 28 M47 28 L53 28 M10 10 L14 14 M42 42 L46 46 M46 10 L42 14 M10 46 L14 42"/></g>
+      <circle id="disc" cx="28" cy="28" r="13" fill="#EAB62F"/>
+      <circle id="shade" cx="28" cy="28" r="13" fill="#383F3B" style="transform:translateX(34px)"/>
+    </svg>
+  </div>
+  <div class="key" id="k1" style="top:392px;">The crews fixed the building <span id="kDay">by day</span>.</div>
+  <div class="key" id="k2" style="top:482px;">The system undid it <span id="kNight">by night</span>.</div>
+
+  <!-- ===== lines 9-12: two tracks, the demo frame ===== -->
+  <div class="stitle" id="t2">Two tracks, at once</div>
+  <div class="lane" id="lane1" style="top:200px;"><em>1</em>By hand<div class="ring" id="ring1"></div></div>
+  <div class="lane" id="lane2" style="top:340px;"><em>2</em>Fix the cause</div>
+  <div class="screen" id="count" data-col="c"><img src="artifacts/count-sheet.png" alt=""><div id="countMask" style="position:absolute; left:472px; top:163px; width:155px; height:166px; background:#fff; transform-origin:50% 100%;"></div><div class="hl" id="hlBy" style="left:626px; top:158px; width:104px; height:200px;"></div><div class="cap"><b>TRACK 1 · BY HAND</b> · the whole company on the floor, freezer too</div></div>
+  <div class="screen" id="naama" data-col="c">
+    <svg viewBox="0 0 780 418" fill="none" stroke="#383F3B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <g id="nDraw">
+        <path d="M30 372 L750 372" opacity=".45"/>
+        <circle cx="610" cy="118" r="48"/><path d="M610 76 L610 84 M652 118 L644 118 M610 160 L610 152 M568 118 L576 118" stroke-width="4"/>
+        <path d="M610 118 L619 94" stroke-width="5"/><path d="M610 118 L577 137" stroke-width="4"/>
+        <path d="M120 300 L520 300"/><path d="M120 300 L120 284 L520 284 L520 300"/>
+        <path d="M150 300 L188 370 M188 300 L150 370 M452 300 L490 370 M490 300 L452 370" stroke-width="4"/>
+        <path d="M132 284 C 130 262, 196 258, 204 284" stroke-width="4"/>
+        <circle cx="176" cy="254" r="22"/>
+        <path d="M202 284 C 232 238, 300 230, 362 244 C 420 256, 474 250, 508 284"/>
+        <path d="M262 251 L276 284 M330 241 L338 284" stroke-width="3.5" opacity=".6"/>
+        <path d="M600 372 L600 300 L748 300 M612 300 L612 372" stroke-width="4"/>
+        <path d="M628 300 L640 262 L700 262 L708 300" stroke-width="4"/>
+        <path d="M540 368 L562 368 L566 358 L548 356 Z M568 368 L590 368 L594 358 L576 356 Z" stroke-width="3.5"/>
+      </g>
+      <text class="z" id="z1" x="214" y="222" font-size="26" stroke="none">z</text>
+      <text class="z" id="z2" x="236" y="196" font-size="32" stroke="none">z</text>
+      <text class="z" id="z3" x="262" y="164" font-size="40" stroke="none">z</text>
+    </svg>
+    <div class="nm"><b>Na'ama</b><span>co-founder · 16-hour days</span></div>
+    <div class="cap"><b>TRACK 1 · BY HAND</b> · Na'ama slept at the warehouse</div>
+  </div>
+  <div class="screen" id="slot" data-col="c"><img src="artifacts/slotting.png" alt=""><div class="hl" id="hlZone" style="left:14px; top:113px; width:482px; height:375px;"></div><div class="hl" id="hlCons" style="left:516px; top:384px; width:240px; height:57px;"></div><div class="cap"><b>TRACK 2 · FIX THE CAUSE</b> · fixed slots for fast movers, flexible for the rest</div></div>
+  <div class="screen" id="scan" data-col="c"><img src="artifacts/scan-qa.png" alt=""><div class="hl" id="hlModal" style="left:166px; top:136px; width:446px; height:221px;"></div><div class="cap"><b>BARCODE CHECKS</b> · receiving, picking, loading, delivery</div></div>
+  <div class="screen" id="std" data-col="c"><img src="artifacts/standard-work.png" alt=""><div class="cap"><b>DAILY STANDARD WORK</b> · so it survives the next reorg</div></div>
+  <div class="tracker" id="trk" data-col="r"><img src="artifacts/turnaround-tracker.png" alt=""><img class="over" id="trkTurn" src="artifacts/turnaround-tracker-turning.png" alt=""><div class="hl" id="hlCols" style="left:322px; top:93px; width:120px; height:216px;"></div><div class="lbl">The turnaround tracker</div></div>
+
+  <!-- ===== lines 13-16: results ===== -->
+  <div class="shot light" id="pickFull" style="left:110px; top:230px; width:900px;"><img src="artifacts/pick-list-full.png" alt=""></div>
+  <div class="res" id="r1"><div class="lb">Fill rate</div><div class="row"><span class="old">~75%</span><span class="ar">→</span><span class="new" id="r1n">99%+</span></div><div class="sb" id="r1s">by Mar 2023</div></div>
+  <div class="res" id="r2"><div class="lb">Shrink · lost stock</div><div class="row"><span class="old">~17–18%</span><span class="ar">→</span><span class="new" id="r2n">~2%</span></div><div class="sb" id="r2s">full pallets no longer thrown out</div></div>
+  <div class="res" id="r3"><div class="lb">Orders with an error</div><div class="row"><span class="old">~22%</span><span class="ar">→</span><span class="new" id="r3n">~3%</span></div><div class="sb" id="r3s">checked at every scan</div></div>
+  <div class="abs" id="prof" style="left:0; right:0; top:400px; text-align:center; font-family:var(--fd); font-weight:700; font-size:120px; letter-spacing:-.03em; color:var(--charcoal); line-height:1.1;">Profitable</div>
+  <div class="abs" id="profDate" style="left:0; right:0; top:540px; text-align:center; font-family:var(--fd); font-weight:700; font-size:56px; color:var(--sage);">Oct 2023</div>
+
+  <!-- ===== line 17: the Waya lens ===== -->
+  <div class="stitle" id="tLens">The Waya lens</div>
+  <div id="lensGrp" style="position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:1255px 470px;">
+  <div class="lens" id="cSym" style="left:1000px;"><b>Symptom</b><span>short orders, lost stock</span></div>
+  <div class="lens" id="cCau" style="left:1000px;"><b>Cause</b><span>the system's logic</span></div>
+  <div class="abs" id="neq" style="left:1225px; top:322px; width:50px; text-align:center; font-family:var(--fd); font-weight:700; font-size:64px; color:var(--rust);">≠</div>
+  <div class="abs" id="arrows" style="left:620px; top:500px; width:1270px; height:240px; opacity:1;">
+    <svg viewBox="0 0 1270 240" fill="none" stroke="#6A9D8A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <g id="arw"><path d="M320 220 L320 18"/><path d="M302 40 L320 18 L338 40"/><path d="M940 220 L940 18"/><path d="M922 40 L940 18 L958 40"/></g>
+    </svg>
+  </div>
+  <div class="abs" id="both" style="left:620px; width:1270px; top:752px; text-align:center; font-family:var(--fd); font-weight:700; font-size:40px; color:var(--sage);">Work both at once</div>
+  </div>
+
+  <!-- ===== the expert widget (one seat, every appearance) ===== -->
+  <div class="tile" id="expert" data-col="l"><div class="bar"><i></i><b id="barL" style="font-weight:600">Vince · now a Waya co-founder</b><span id="barR">in 2022, at Cheetah</span></div><div class="body"><video id="expertClip" muted playsinline preload="auto"></video></div></div>
+
+  <!-- ===== the close ===== -->
+  <img id="logo" src="assets/waya-logo-cream.png" alt="Waya" class="abs" style="left:50%; top:230px; height:100px; transform:translateX(-50%);">
+  <div class="abs" id="cta" style="left:0; right:0; top:400px; text-align:center; font-family:var(--fd); font-weight:700; font-size:56px; letter-spacing:-.02em; color:var(--cream);">Have a problem like this one?</div>
+  <div style="position:absolute; left:0; right:0; top:520px; display:flex; justify-content:center; gap:24px;">
+    <div class="btn primary" id="bCall" style="position:relative;">Schedule a Call<i id="halo" style="position:absolute; inset:-6px; border:3px solid #D16C02; border-radius:18px; opacity:0;"></i></div>
+    <div class="btn secondary" id="bLean">See Lean AI</div>
+  </div>
+  <div class="abs" id="url" style="left:0; right:0; top:680px; text-align:center; font-family:var(--fd); font-weight:500; font-size:24px; letter-spacing:.04em; color:var(--fog);">wayaframes.com</div>
+
+  <div id="cap"></div>
+  <audio id="snd" src="render/out/audio-final.wav" preload="auto"></audio>
+</div></div>
+<div class="scrub"><i id="scrubfill"></i></div>
+<div id="start" hidden><b></b><span>Play with sound</span><small>space pauses · R restarts · ←/→ skip 5 s</small></div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const CAPTIONS = params.get('cap') !== '0';
+  const EASE = 'cubic-bezier(.2,.7,.2,1)', POP = 'cubic-bezier(.2,1.4,.4,1)';
+  const A = [], JS = [], CLIPS = [];
+  const W = 1920, H = 1080;          // landscape only (INSTRUCTIONS #3)
+  const stage = $('stage');
+
+  // ================= CUES: the voiceover ================= (vo.mjs reads this list; write names as shown on screen)
+  const CAPS = [
+    [0.60, 6.73, "Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others."],
+    [7.78, 11.94, "When the rebuilt warehouse went live, customers got three items in four."],
+    [12.59, 14.71, "Pallets of fresh food rotted out back."],
+    [15.36, 18.13, "Frozen pizza dough sat out until the yeast woke up."],
+    [18.78, 20.85, "It was burning about a million dollars a month."],
+    [21.90, 25.64, "On October twenty-second, Vince found the cause. Not the crews."],
+    [26.29, 29.77, "The building had changed. The warehouse system's logic never did."],
+    [30.42, 34.36, "The crews fixed the building by day, and the system undid it by night."],
+    [36.01, 37.94, "So: two tracks, at once."],
+    [38.59, 44.78, "Track one, by hand: the whole company counting stock in the freezer, and Na'ama sleeping at the warehouse."],
+    [45.43, 47.63, "Track two rebuilt the system's logic."],
+    [48.28, 51.75, "Then barcode checks that stop mistakes, and daily standard work."],
+    [52.80, 55.32, "Customers got ninety-nine items in a hundred."],
+    [55.97, 59.12, "Lost stock fell to two percent, order errors to three."],
+    [59.77, 62.90, "The burn fell to two hundred sixty thousand a month by March."],
+    [63.55, 66.19, "By October twenty twenty-three, it was profitable."],
+    [67.44, 71.94, "Separate the symptom from the cause, then work both at once.", 'VINCE'],   // VINCE'S OWN VOICE: narrator PLACEHOLDER until his clip. vo.mjs uses assets/vince-lens.wav instead once it exists
+    [72.64, 75.97, "Talk to us, or run the same methods yourself with Lean AI."],
+  ];
+
+  // ---- helpers ----
+  function tw(el, kf, start, dur, easing = EASE) { const a = el.animate(kf, { delay: start * 1000, duration: Math.max(dur, 0.001) * 1000, fill: 'both', easing }); a.pause(); A.push(a); return a; }
+  // ONE animation for a property across many points in time: track(el, [[t, {prop: v, easing?}], ...])
+  function track(el, pts) { const t0 = pts[0][0], t1 = pts[pts.length - 1][0], d = Math.max(t1 - t0, 0.001); return tw(el, pts.map(([t, v]) => ({ ...v, offset: Math.min(1, Math.max(0, (t - t0) / d)) })), t0, d, 'linear'); }
+  // opacity (and an optional rise) over one or more [start, end] windows; end = null keeps it on
+  function wins(el, ws, { fi = 0.4, fo = 0.35, dy = 0, base = '', peak = 1 } = {}) {
+    const o = [[0, { opacity: 0 }]], tr = [[0, { transform: `${base} translateY(${dy}px)` }]];
+    for (const [s, e] of ws) {
+      o.push([s, { opacity: 0 }], [s + fi, { opacity: peak }]);
+      if (e != null) o.push([e, { opacity: peak }], [e + fo, { opacity: 0 }]);
+      if (dy) { tr.push([s, { transform: `${base} translateY(${dy}px)`, easing: EASE }], [s + 0.6, { transform: `${base} translateY(0px)` }]); if (e != null) tr.push([e + fo, { transform: `${base} translateY(0px)` }], [e + fo + 0.01, { transform: `${base} translateY(${dy}px)` }]); }
+    }
+    track(el, o); if (dy) track(el, tr);
+  }
+  const win = (el, s, e, opt) => wins(el, [[s, e]], opt);
+  // draw a line-art group in (stroke-dashoffset on every path)
+  function draw(g, start, dur = 1.0, stagger = 0) {
+    [...g.querySelectorAll('path, circle')].forEach((p, i) => { p.setAttribute('pathLength', '1'); p.style.strokeDasharray = '1 1'; tw(p, [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], start + i * stagger, dur, 'cubic-bezier(.4,0,.2,1)'); });
+  }
+  // a muted clip inside its widget during each [start, end, offset] window: clip time = offset + (t - start), wrapped at the clip's length
+  function clip(videoEl, src, windows, len) { if (!src) return null; const c = { el: videoEl, windows, len, ready: false }; videoEl.addEventListener('loadedmetadata', () => { c.len = videoEl.duration || len; c.ready = true; }); videoEl.addEventListener('error', () => { c.ready = false; }); videoEl.src = src; videoEl.loop = true; CLIPS.push(c); return c; }
+  const money = v => '$' + Math.round(v).toLocaleString('en-US');
+
+  // ================= THE EXPERT CLIP =================
+  // Swap the placeholder for Oren's clip by changing this ONE line to 'assets/expert-vince.mp4' (muted, no audio stream).
+  const EXPERT_SRC = 'assets/expert-placeholder.mp4';
+  // Seconds into expert-vince.mp4 where Vince starts saying line B ("Separate the symptom…"), the same take that
+  // assets/vince-lens.wav is cut from. Line 17 seeks the clip so that moment lands on the line's first word (lip sync).
+  const VINCE_LENS_OFFSET = 0;
+  // Where each muted appearance starts in the real clip (VINCE-RECORDING.md beats 1, 3, 5). The placeholder just loops.
+  // Placeholder values: three different beats, so the take's quiet start never shows. Set them when the clip arrives.
+  const EXPERT_IN = { intro: 4, rootCause: 18, tracks: 30 };
+
+  // ================= TIMELINE (every time a measured word boundary, render/out/words.json) =================
+  // background: cold (lines 1-7) -> charcoal (key line) -> cream (two tracks .. lens) -> charcoal (close)
+  const L7END = 29.72, KEY = 30.42, SO = 36.06, CLOSE = CAPS[17][0], L17 = CAPS[16][0];
+  // The lens line's picture ends where the voice stops, not at the end of its 4.5 s slot (CAPS[16][1]).
+  // L17_SAID = its measured length (vo-timing.txt); set it from Vince's take when his audio replaces the placeholder.
+  const L17_SAID = 3.45, L17END = L17 + L17_SAID;
+  track(stage, [[0, { backgroundColor: '#121517' }], [L7END, { backgroundColor: '#121517' }], [KEY, { backgroundColor: '#383F3B' }],
+    [SO - 0.05, { backgroundColor: '#383F3B' }], [SO + 0.75, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.6, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.05, { backgroundColor: '#383F3B' }]]);
+
+  // ---- line 1: Vince, Cheetah, three others ----
+  const VINCE = 0.65, CHEETAH = 3.17, THREE = 5.90;
+  const L2 = 7.78;
+  win($('eyebrow'), CHEETAH, 12.25, { fi: 0.5 });
+  draw($('whMain'), CHEETAH + 0.1, 1.3, 0.12);
+  ['acq1', 'acq2', 'acq3'].forEach((id, i) => { const g = $(id); tw(g, [{ opacity: 0 }, { opacity: 1 }], THREE + i * 0.15, 0.3, 'linear'); tw(g, [{ transform: 'translateX(80px)' }, { transform: 'translateX(0px)' }], THREE + i * 0.15, 0.6, POP); });
+  win($('chipAcq'), THREE + 0.35, L2 + 0.1, { dy: 16 });
+  // a slow push on the warehouse through line 1, then it moves left for line 2 (one transform track)
+  track($('wh'), [[CHEETAH, { transform: 'translate(0px, 0px) scale(1)' }], [L2 + 0.05, { transform: 'translate(-10px, 6px) scale(1.01)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-620px, 80px) scale(.76)' }]]);
+  track($('wh'), [[0, { opacity: 1 }], [12.3, { opacity: 1 }], [12.65, { opacity: 0 }]]);
+  // eyebrow follows the warehouse to its style-frame seat
+  track($('eyebrow'), [[L2 + 0.05, { transform: 'translate(0px, 0px)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-590px, 50px)' }]]);
+
+  // ---- line 2: rebuilt, went live, three items in four ----
+  const REBUILT = 8.02, LIVE = 9.08, THREE_IN_FOUR = 10.62, FOUR = 11.43, L3 = 12.59;
+  draw($('whRack'), REBUILT, 0.8, 0.04); draw($('whFreezer'), REBUILT + 0.35, 0.7, 0.1); draw($('whTags'), REBUILT + 0.7, 0.5);
+  track($('stamp'), [[0, { opacity: 0 }], [LIVE, { opacity: 0 }], [LIVE + 0.15, { opacity: 1 }], [12.3, { opacity: 1 }], [12.65, { opacity: 0 }]]);
+  tw($('stamp'), [{ transform: 'rotate(-8deg) scale(1.5)' }, { transform: 'rotate(-8deg) scale(1)' }], LIVE, 0.45, POP);
+  win($('pick'), THREE_IN_FOUR - 0.3, 12.3, { dy: 24 });
+  win($('hlShort'), FOUR, null, { fi: 0.25 });
+  win($('chipFill'), THREE_IN_FOUR + 0.3, 12.3, { dy: 16 });
+
+  // ---- line 3: pallets rotted out back ----
+  const PALLETS = 12.64, ROTTED = 13.77, L4 = 15.36;
+  const fk = $('fk');
+  track(fk, [[0, { opacity: 1 }], [L4 - 0.4, { opacity: 1 }], [L4 - 0.05, { opacity: 0 }]]);
+  tw($('fkDump'), [{ opacity: 0 }, { opacity: 1 }], PALLETS - 0.05, 0.4, 'linear'); tw($('fkGround'), [{ opacity: 0 }, { opacity: 0.55 }], PALLETS - 0.05, 0.4, 'linear');
+  tw($('fkMove'), [{ opacity: 0 }, { opacity: 1 }], PALLETS + 0.15, 0.3, 'linear');
+  tw($('fkMove'), [{ transform: 'translateX(200px)' }, { transform: 'translateX(0px)' }], PALLETS + 0.15, 1.0, 'cubic-bezier(.25,.6,.3,1)');
+  tw($('fkPallet'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-18deg)' }], ROTTED, 0.6, EASE);
+  win($('chipShrink'), 13.07, L4 - 0.4, { dy: 16 });
+
+  // ---- line 4: frozen dough, the yeast woke up ----
+  const FROZEN = 15.41, SAT = 16.27, YEAST = 17.27, L5 = 18.78;
+  track($('dough'), [[0, { opacity: 1 }], [L5 - 0.4, { opacity: 1 }], [L5 - 0.05, { opacity: 0 }]]);
+  draw($('dShelf'), FROZEN - 0.2, 0.7, 0.08);
+  track($('dBox'), [[0, { opacity: 0 }], [FROZEN, { opacity: 0 }], [FROZEN + 0.3, { opacity: 1 }], [YEAST, { opacity: 1 }], [YEAST + 0.25, { opacity: 0 }]]);
+  track($('dBox'), [[FROZEN, { transform: 'translateY(-40px)', easing: 'cubic-bezier(.3,1.3,.5,1)' }], [FROZEN + 0.55, { transform: 'translateY(0px) rotate(0deg)' }], [16.6, { transform: 'rotate(0deg)' }], [16.75, { transform: 'rotate(-2deg)' }], [16.9, { transform: 'rotate(2deg)' }], [17.05, { transform: 'rotate(-1.5deg)' }], [17.2, { transform: 'rotate(1deg)' }], [YEAST + 0.25, { transform: 'scale(1.06)' }]]);
+  track($('dPuff'), [[0, { opacity: 0 }], [YEAST, { opacity: 0 }], [YEAST + 0.25, { opacity: 1 }]]);
+  tw($('dPuff'), [{ transform: 'scale(.85)' }, { transform: 'scale(1)' }], YEAST, 0.5, POP);
+  win($('doughLbl'), FROZEN + 0.3, L5 - 0.4);
+  tw($('doughLbl'), [{ transform: 'translateY(0px)', color: '#FAF7F1' }, { transform: 'translateY(-34px)', color: '#F08A2C' }], YEAST, 0.5, POP);
+  win($('chipDough'), SAT, L5 - 0.4, { dy: 16 });
+
+  // ---- line 5: the burn, still climbing at the last word ----
+  const BURNING = 19.04, MILLION = 19.60, MONTH_END = 20.87, L6 = 21.90;
+  win($('burn'), L5, L6 - 0.35, { fi: 0.3 });
+  win($('burnSub'), MILLION, L6 - 0.35, { dy: 14 });
+  JS.push(t => { const p = Math.min(1, Math.max(0, (t - BURNING) / (MONTH_END - BURNING))); $('burn').textContent = money(1e6 * (p < 1 ? p * (1.15 - 0.15 * p) : 1)); });
+
+  // ---- line 6: the root cause, Oct 22; not the crews ----
+  const OCTOBER = 22.06, FOUND = 23.68, NOT_CREWS = 24.85, L7 = 26.29;
+  win($('gap'), OCTOBER - 0.1, L7 - 0.2, { dy: 14, fo: 0.2 });
+  // the root-cause box writes in, top to bottom, on "found the cause" (box at x 529-998, y 438-673 in the 1040 x 743 shot)
+  tw($('gapRC'), [{ clipPath: 'inset(438px 42px 305px 529px)' }, { clipPath: 'inset(438px 42px 70px 529px)' }], FOUND, 0.8, 'cubic-bezier(.4,0,.3,1)');
+  win($('hlCrews'), NOT_CREWS - 0.45, NOT_CREWS + 0.55, { fi: 0.25, fo: 0.3 });
+  track($('gapStruck'), [[0, { opacity: 0 }], [NOT_CREWS, { opacity: 0 }], [NOT_CREWS + 0.3, { opacity: 1 }]]);
+
+  // ---- line 7: the building changed; the system's logic never did ----
+  const CHANGED = 26.83, LOGIC = 28.72, HL_MOVE = 28.35;
+  win($('wms'), L7, KEY - 0.4, { fi: 0.3, fo: 0.35, dy: 10 });
+  // one outline that moves: no-dimension rows -> the 886 panel (torn-down-aisle step dropped: the line is 3.4 s)
+  track($('hlWms'), [[0, { opacity: 0 }], [CHANGED, { opacity: 0 }], [CHANGED + 0.25, { opacity: 1 }], [KEY - 0.55, { opacity: 1 }], [KEY - 0.4, { opacity: 0 }]]);
+  track($('hlWms'), [[HL_MOVE, { left: '19px', top: '288px', width: '891px', height: '60px', easing: EASE }], [HL_MOVE + 0.45, { left: '935px', top: '221px', width: '317px', height: '470px' }]]);
+  JS.push(t => { $('wmsCap').innerHTML = t < HL_MOVE ? '<b>NEW LOCATIONS</b> · no rules, no dimensions' : '<b>1 ITEM · UP TO 886 LOCATIONS</b> · old aisles still in the system'; });
+
+  // ---- line 8: the key line, alone ----
+  const BY_DAY = 31.70, AND_SYS = 32.52, BY_NIGHT = 33.80, KEY_OUT = 35.5;
+  win($('replen'), KEY, KEY_OUT, { fi: 0.6, fo: 0.5, peak: 0.03 });
+  win($('k1'), KEY, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  win($('k2'), AND_SYS, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  tw($('kDay'), [{ color: '#FAF7F1' }, { color: '#EAB62F' }], BY_DAY, 0.3, 'linear');
+  tw($('kNight'), [{ color: '#FAF7F1' }, { color: '#F08A2C' }], BY_NIGHT, 0.3, 'linear');
+  win($('sun'), BY_DAY, KEY_OUT, { fi: 0.3, fo: 0.45 });
+  tw($('sun'), [{ transform: 'rotate(-30deg) scale(.6)' }, { transform: 'rotate(0deg) scale(1)' }], BY_DAY, 0.5, POP);
+  tw($('rays'), [{ opacity: 1 }, { opacity: 0 }], BY_NIGHT, 0.4, 'linear');
+  tw($('disc'), [{ fill: '#EAB62F' }, { fill: '#B8BBB6' }], BY_NIGHT, 0.4, 'linear');
+  tw($('shade'), [{ transform: 'translateX(34px)' }, { transform: 'translateX(8px)' }], BY_NIGHT, 0.4, EASE);
+
+  // ---- line 9: so, two tracks at once (cream) ----
+  const TWO_TRACKS = 36.67, L10 = 38.59, TRACK1 = 38.64, BY_HAND = 39.58;
+  const DEMO_OUT = 52.30;                         // the demo frame leaves just before line 13
+  win($('t2'), SO + 0.1, DEMO_OUT, { fi: 0.5 });
+  win($('trk'), SO + 0.45, DEMO_OUT, { dy: 14 });
+  win($('lane1'), TWO_TRACKS, BY_HAND - 0.25, { dy: -20, fo: 0.25 });
+  win($('lane2'), TWO_TRACKS + 0.15, BY_HAND - 0.25, { dy: -20, fo: 0.25 });
+  track($('lane2').querySelector('em'), [[0, { opacity: 1 }], [TRACK1, { opacity: 1 }], [TRACK1 + 0.3, { opacity: 0.35 }]]);
+  win($('ring1'), TRACK1, BY_HAND - 0.25, { fi: 0.25, fo: 0.25 });
+
+  // ---- line 10: track one by hand; Na'ama asleep at the warehouse ----
+  const WHOLE = 40.54, COUNTING = 41.15, NAAMA = 42.89, L11 = 45.43;
+  win($('count'), BY_HAND, NAAMA - 0.05, { fo: 0.25 });
+  track($('count'), [[BY_HAND, { transform: 'translate(0px, 14px)', easing: EASE }], [BY_HAND + 0.6, { transform: 'translate(0px, 0px)' }], ]);
+  win($('hlBy'), WHOLE, COUNTING + 0.8, { fi: 0.25 });
+  tw($('countMask'), [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], COUNTING, 0.72, 'steps(6, end)');
+  win($('naama'), NAAMA + 0.12, L11 - 0.2, { fi: 0.35, fo: 0.25 });
+  tw($('naama'), [{ transform: 'translateX(60px)' }, { transform: 'translateX(0px)' }], NAAMA, 0.6, EASE);
+  draw($('nDraw'), NAAMA, 0.9, 0.03);
+  // the z's drift up and fade, looping, so the frame breathes under the voice
+  JS.push(t => { ['z1', 'z2', 'z3'].forEach((id, i) => { const p = (((t - NAAMA - 0.6 - i * 0.45) % 1.6) + 1.6) % 1.6 / 1.6; const on = t > NAAMA + 0.6 + i * 0.45; const e = $(id); e.style.opacity = on ? (Math.sin(p * Math.PI)).toFixed(3) : 0; e.setAttribute('transform', `translate(${(p * 10).toFixed(1)} ${(-p * 18).toFixed(1)})`); }); });
+
+  // ---- line 11: track two rebuilt the system's logic ----
+  const TRACK2 = 45.48, REBUILT2 = 46.06, LOGIC2 = 47.03, L12 = 48.28;
+  win($('slot'), TRACK2 - 0.02, 48.45, { dy: 14, fo: 0.25 });   // out as "barcode" (48.50) brings the scan screen
+  win($('hlZone'), REBUILT2, LOGIC2 - 0.1, { fi: 0.25, fo: 0.25 });
+  win($('hlCons'), LOGIC2, 48.3, { fi: 0.25, fo: 0.25 });
+  const TURN = 47.45;
+  track($('trkTurn'), [[0, { opacity: 0 }], [TURN, { opacity: 0 }], [TURN + 0.15, { opacity: 1 }]]);
+  win($('hlCols'), TURN + 0.3, TURN + 1.4, { fi: 0.25, fo: 0.3 });
+
+  // ---- line 12: barcode checks that stop mistakes; daily standard work ----
+  const BARCODE = 48.50, STOP = 49.41, DAILY = 50.66;
+  win($('scan'), BARCODE + 0.1, DAILY - 0.05, { dy: 14, fo: 0.25 });
+  win($('hlModal'), STOP, DAILY, { fi: 0.25, fo: 0.25 });
+  win($('std'), DAILY + 0.1, DEMO_OUT, { dy: 20, fi: 0.35 });
+
+  // ---- the expert widget: one seat, four appearances ----
+  const EX = [
+    { s: VINCE, e: L2 - 0.35, l: 'Vince · now a Waya co-founder', r: 'in 2022, at Cheetah', off: EXPERT_IN.intro },
+    { s: L6 + 0.05, e: KEY - 0.4, l: 'Vince · took over as COO', r: 'the root cause', off: EXPERT_IN.rootCause },
+    { s: SO + 0.25, e: DEMO_OUT, l: 'Vince · Waya co-founder', r: 'the turnaround', off: EXPERT_IN.tracks },
+    { s: L17 - 0.3, e: L17END + 0.25, l: 'Vince · Waya co-founder', r: 'the Waya lens', off: null },
+  ];
+  wins($('expert'), EX.map(x => [x.s, x.e]), { fi: 0.4, fo: 0.35, dy: 14 });
+  JS.push(t => { const x = EX.find(x => t < x.e + 0.4) || EX[EX.length - 1]; $('barL').textContent = x.l; $('barR').textContent = x.r; });
+  // the lens window seeks the clip so VINCE_LENS_OFFSET lands on line 17's first word; muted windows start at EXPERT_IN
+  clip($('expertClip'), EXPERT_SRC, EX.map(x => [x.s, x.e + 0.35, x.off == null ? VINCE_LENS_OFFSET - (L17 - x.s) : x.off]), 4.0);
+
+  // ---- line 13: ninety-nine items in a hundred ----
+  const L13 = 52.80, NINETY9 = 53.52, L14 = 55.97, LOST = 56.02, TWO_PCT = 56.85, ORDER_ERR = 57.89, THREE3 = 58.59, L15 = 59.77;
+  win($('pickFull'), L13 - 0.1, L15 - 0.3, { dy: 24 });
+  win($('r1'), L13 + 0.2, LOST - 0.3, { fi: 0.35, fo: 0.25 });
+  win($('r1n'), NINETY9, null, { fi: 0.3, dy: 30 });
+  win($('r1s'), 54.22, null);
+  // ---- line 14: lost stock, order errors (one card at a time, same geometry) ----
+  win($('r2'), LOST, ORDER_ERR - 0.3, { fi: 0.3, fo: 0.25 });
+  win($('r2n'), TWO_PCT, null, { fi: 0.3, dy: 30 });
+  win($('r2s'), TWO_PCT + 0.4, null);
+  win($('r3'), ORDER_ERR, L15 - 0.3, { fi: 0.3, fo: 0.3 });
+  win($('r3n'), THREE3, null, { fi: 0.3, dy: 30 });
+  win($('r3s'), THREE3 + 0.3, null);
+
+  // ---- line 15: the burn runs down to $260K by March ----
+  const BURN2 = 59.89, THOUSAND_END = 61.75, BY_MARCH = 62.14, L16 = 63.55;
+  win($('burn2'), L15, L16 - 0.3, { fi: 0.3 });
+  wins($('burnEye'), [[L5 + 0.1, L6 - 0.35], [L15 + 0.05, L16 - 0.3]]);   // both appearances, one track
+  track($('burnEye'), [[L6, { color: '#B8BBB6' }], [L15 - 0.1, { color: '#B8BBB6' }], [L15, { color: '#6B6F6C' }]]);   // fog on cold, stone on cream
+  win($('burn2Sub'), BY_MARCH, L16 - 0.3, { dy: 14 });
+  JS.push(t => { const p = Math.min(1, Math.max(0, (t - BURN2) / (THOUSAND_END - BURN2))); const e = 1 - Math.pow(1 - p, 2); $('burn2').textContent = money(Math.round((1e6 - 740000 * e) / 1000) * 1000); });
+
+  // ---- line 16: profitable, alone ----
+  const OCT23 = 63.74, PROFITABLE = 65.46, PROF_OUT = L17 - 0.45;   // gone before the lens comes up for Vince's first word
+  win($('profDate'), OCT23, PROF_OUT, { fi: 0.4, fo: 0.25 });
+  track($('profDate'), [[OCT23, { transform: 'translateY(-50px) scale(1.25)' }], [PROFITABLE - 0.45, { transform: 'translateY(-50px) scale(1.25)', easing: EASE }], [PROFITABLE + 0.05, { transform: 'translateY(0px) scale(1)' }]]);
+  win($('prof'), PROFITABLE + 0.05, PROF_OUT, { fi: 0.35, fo: 0.25, dy: 30 });
+
+  // ---- line 17: the Waya lens (Vince's own voice) ----
+  const SEPARATE = 67.49, FROM_CAUSE = 68.66, BOTH = 69.97, AT_ONCE = 70.26;
+  const LENS_OUT = CLOSE - 0.45;   // the lens cards stay up into the close's background fade and cross the wordmark: no blank frame
+  win($('tLens'), L17 - 0.3, L17END + 0.35, { fi: 0.4, fo: 0.35 });
+  win($('cSym'), L17 - 0.05, null, { fi: 0.3 }); win($('cCau'), SEPARATE, null, { fi: 0.2 });
+  tw($('cSym'), [{ transform: 'translateX(0px)' }, { transform: 'translateX(-320px)' }], SEPARATE, 0.8, EASE);
+  tw($('cCau'), [{ transform: 'translateX(0px)' }, { transform: 'translateX(300px)' }], SEPARATE, 0.8, EASE);
+  win($('neq'), FROM_CAUSE, null, { fi: 0.3, dy: 12 });
+  draw($('arw'), BOTH, 0.5, 0);
+  win($('both'), AT_ONCE, null, { fi: 0.35, dy: 14 });
+  // after the last word: a slow push-in on the lens, then it leaves as the close comes up
+  // the paper cards darken with the background, then hand over to the wordmark with no empty frame
+  track($('lensGrp'), [[0, { opacity: 1 }], [CLOSE - 0.3, { opacity: 1 }], [CLOSE + 0.05, { opacity: 0 }]]);
+  track($('lensGrp'), [[CLOSE - 0.6, { filter: 'brightness(1)' }], [CLOSE - 0.05, { filter: 'brightness(0.42)' }]]);
+  track($('lensGrp'), [[AT_ONCE, { transform: 'translateY(0px) scale(1)', easing: 'cubic-bezier(.3,0,.6,1)' }], [LENS_OUT, { transform: 'translateY(0px) scale(1.04)', easing: 'cubic-bezier(.4,0,.7,1)' }],
+    [CLOSE + 0.05, { transform: 'translateY(210px) scale(1.045)' }]]);   // sinks away under the rising wordmark so the two never overprint
+
+  // ---- 18-19: the close (charcoal; the wordmark within 0.2 s of the line) ----
+  const CLOSE_SAID = 3.28, CARD_HOLD = 2.6;          // the close line's measured length; the card holds after it
+  const TALK = CLOSE + 0.05, LEAN = CLOSE + 2.60;     // "Talk" and "Lean" at the narrator's measured offsets
+  win($('logo'), CLOSE - 0.15, null, { fi: 0.5, dy: 16, base: 'translateX(-50%)' });
+  win($('cta'), CLOSE + 0.05, null, { fi: 0.5, dy: 18 });
+  win($('bCall'), TALK + 0.05, null, { fi: 0.35, dy: 16 });
+  win($('bLean'), LEAN, null, { fi: 0.35, dy: 16 });
+  win($('url'), LEAN + 0.4, null, { fi: 0.5 });
+  // a slow halo on the primary button keeps the card alive under the voice, and points at the call
+  const HALO = TALK + 0.6, HALO_P = 1.4;
+  JS.push(t => { const h = $('halo'); if (t < HALO) { h.style.opacity = 0; return; } const p = ((t - HALO) % HALO_P) / HALO_P; h.style.opacity = (0.9 * (1 - p)).toFixed(3); h.style.transform = `scale(${(1 + 0.18 * p).toFixed(3)}, ${(1 + 0.5 * p).toFixed(3)})`; });
+
+  const cap = $('cap');
+  if (CAPTIONS) JS.push(t => { const c = CAPS.find(([a, b]) => t >= a && t < b); if (c) { cap.textContent = c[2]; cap.style.opacity = 1; } else cap.style.opacity = 0; });
+
+  // ================= clock (leave as is) =================
+  // const DUR = 78.52;   <- literal mirror of the line below for vo.mjs's regex; keep it equal to CLOSE + CLOSE_SAID + CARD_HOLD
+  const DUR = Math.min(90, +(CLOSE + CLOSE_SAID + CARD_HOLD).toFixed(2));
+  function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
+  addEventListener('resize', scale); scale();
+  if (params.get('ui') === '0') document.querySelector('.scrub').style.display = 'none';
+  const snd = $('snd'); const SOUND = params.get('audio') !== '0' && params.get('ui') !== '0';
+  if (!SOUND) snd.removeAttribute('src');
+  let playing = false, t0 = 0, raf = 0;
+  function clipsAt(t, seeking) {
+    const waits = [];
+    for (const c of CLIPS) {
+      const w = c.ready && c.windows.find(([a, b]) => t >= a && t < b);
+      c.el.style.display = w ? 'block' : 'none';
+      if (!w) { if (!c.el.paused) c.el.pause(); continue; }
+      const want = (((w[2] || 0) + t - w[0]) % c.len + c.len) % c.len;
+      if (seeking) { if (Math.abs(c.el.currentTime - want) > 0.02) waits.push(new Promise(r => { c.el.addEventListener('seeked', r, { once: true }); c.el.currentTime = want; })); }
+      else if (c.el.paused) { c.el.currentTime = want; c.el.play().catch(() => {}); }
+    }
+    return Promise.all(waits);
+  }
+  function apply(t) { for (const fn of JS) fn(t); $('scrubfill').style.width = (t / DUR * 100) + '%'; }
+  function seek(t) { t = Math.max(0, Math.min(DUR, t)); for (const a of A) { a.pause(); a.currentTime = t * 1000; } apply(t); if (SOUND) { try { snd.currentTime = t; } catch (e) {} } return clipsAt(t, true).then(() => t); }
+  function play(from = 0) {
+    seek(from); playing = true; t0 = performance.now() - from * 1000;
+    for (const a of A) a.play();
+    if (SOUND) { snd.currentTime = from; snd.play().catch(() => {}); }
+    const loop = () => { if (!playing) return; const t = (performance.now() - t0) / 1000; apply(t); clipsAt(t, false); if (t >= DUR) { playing = false; seek(DUR); return; } raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+  }
+  function pause() { playing = false; cancelAnimationFrame(raf); if (SOUND) snd.pause(); seek((performance.now() - t0) / 1000); }
+  setInterval(() => { if (playing && SOUND && !snd.paused) { const d = snd.currentTime - (performance.now() - t0) / 1000; if (Math.abs(d) > 0.08) t0 -= d * 1000; } }, 2000);
+  window.__seek = seek; window.__play = play; window.__pause = pause; window.__DUR = DUR;
+  window.__ready = document.fonts.ready.then(() => new Promise(r => setTimeout(r, 300))).then(() => true);
+  document.addEventListener('keydown', e => {
+    const now = () => playing ? (performance.now() - t0) / 1000 : (SOUND ? snd.currentTime : 0);
+    if (e.key === ' ') { e.preventDefault(); playing ? pause() : play(now()); }
+    if (e.key === 'r') play(0);
+    if (e.key === 'ArrowRight') play(Math.min(DUR, now() + 5));
+    if (e.key === 'ArrowLeft') play(Math.max(0, now() - 5));
+  });
+  $('start').addEventListener('click', () => { $('start').hidden = true; play(0); });
+  document.fonts.ready.then(() => {
+    if (params.has('t')) seek(parseFloat(params.get('t')) || 0);
+    else if (params.get('autoplay') === '0') seek(0);
+    else if (SOUND) { seek(0); $('start').hidden = false; }
+    else play(0);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="1280x760">
+<title>Operations daily · Dashboards</title>
+<link rel="stylesheet" href="wms.css">
+<link rel="stylesheet" href="ops-dash.css">
+</head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>dashboards.internal/ops/daily?site=DC-01&amp;range=mtd</div></div>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b></b>Dashboards</div>
+    <h6>Operations</h6><a class="on">Operations daily</a><a>Fulfillment</a><a>Inventory &amp; shrink</a><a>Transportation</a>
+    <h6>Finance</h6><a>Contribution margin</a><a>Customer churn</a>
+  </aside>
+  <div class="body">
+    <div class="hd"><h1>Operations daily — Cheetah DC-01</h1><span class="pill">October 2023 · month to date</span><span class="pill">Updated Oct 20, 23:00</span>
+      <div class="r"><span class="btn">Share</span><span class="btn">Export</span></div></div>
+    <div class="kpis">
+      <div class="kpi good"><span class="n">Fill rate</span><span class="v">99%+</span><span class="d">▲ from 75%</span><span class="t">items ordered, shipped</span></div>
+      <div class="kpi good"><span class="n">Shrink</span><span class="v">~2%</span><span class="d">▼ from 17.6% (peak 28%)</span><span class="t">of inventory value</span></div>
+      <div class="kpi good"><span class="n">On-time delivery</span><span class="v">90%+</span><span class="d">▲ from 24%</span><span class="t">routes arriving in window</span></div>
+      <div class="kpi good"><span class="n">Orders with an error</span><span class="v">~3%</span><span class="d">▼ from 22%</span><span class="t">of orders shipped</span></div>
+      <div class="kpi good"><span class="n">Contribution margin</span><span class="v">Positive</span><span class="d">▲ from −$1.0M / month</span><span class="t">first profitable month</span></div>
+    </div>
+    <div class="row">
+      <div class="card"><h3>Contribution margin, by month <span>Oct 2022 – Oct 2023</span></h3>
+        <svg viewBox="0 0 600 430" preserveAspectRatio="xMidYMid meet" id="ch"></svg></div>
+      <div class="card"><h3>Standard work · today <span>all checks green</span></h3>
+        <div class="alerts">
+          <div class="a-g"><b>Receiving</b><span>scan QA · 0 hard-stops open</span><small>06:00</small></div>
+          <div class="a-g"><b>Replenishment</b><span>nightly job within plan</span><small>05:30</small></div>
+          <div class="a-g"><b>Cycle count</b><span>today's aisles done</span><small>14:10</small></div>
+          <div class="a-g"><b>Picking</b><span>scan QA on every line</span><small>live</small></div>
+          <div class="a-g"><b>Loading &amp; delivery</b><span>scan at door and dock</span><small>live</small></div>
+        </div></div>
+    </div>
+  </div>
+</div>
+<script>
+  // monthly contribution margin, $K. Known points: ~-1,000 (Oct 2022), ~-260 (Mar 2023), positive (Oct 2023); between them, illustrative.
+  const s = document.getElementById('ch'), W = 600, H = 430, L = 52, T = 24, B = 380;
+  const m = [-1000, -820, -610, -450, -340, -260, -210, -160, -110, -70, -35, -10, 30];
+  const lab = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+  const lo = -1100, hi = 150, y = v => T + (hi - v) / (hi - lo) * (B - T), bw = (W - L - 10) / m.length;
+  let h = '';
+  [0, -250, -500, -750, -1000].forEach(v => { h += `<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="${v === 0 ? '#9aa5b1' : '#edf0f3'}"/><text x="${L - 8}" y="${y(v) + 4}" font-size="11" fill="#8a96a3" text-anchor="end">${v === 0 ? '$0' : '−$' + (-v) + 'K'}</text>`; });
+  m.forEach((v, i) => { const x0 = L + 6 + i * bw, c = v >= 0 ? '#2e8b57' : (i === 0 ? '#d9502b' : '#e7a08d');
+    h += `<rect x="${x0}" y="${Math.min(y(v), y(0))}" width="${bw - 10}" height="${Math.abs(y(v) - y(0))}" rx="2" fill="${c}"/>`;
+    h += `<text x="${x0 + (bw - 10) / 2}" y="${B + 22}" font-size="11" fill="#6b7785" text-anchor="middle">${lab[i]}</text>`; });
+  const lx = i => L + 6 + i * bw + (bw - 10) / 2;
+  h += `<text x="${lx(0)}" y="${y(-1000) + 16}" font-size="11.5" font-weight="700" fill="#fff" text-anchor="middle">−$1M</text>`;
+  h += `<text x="${lx(5)}" y="${y(-260) + 16}" font-size="11.5" font-weight="700" fill="#7a2a14" text-anchor="middle">−$260K</text>`;
+  h += `<text x="${lx(12)}" y="${y(30) - 8}" font-size="11.5" font-weight="700" fill="#1e6b45" text-anchor="middle">Profit</text>`;
+  h += `<text x="${L + 6}" y="${B + 40}" font-size="11" fill="#8a96a3">2022</text><text x="${lx(3) - 10}" y="${B + 40}" font-size="11" fill="#8a96a3">2023</text>`;
+  s.innerHTML = h;
+</script>
+</body></html>

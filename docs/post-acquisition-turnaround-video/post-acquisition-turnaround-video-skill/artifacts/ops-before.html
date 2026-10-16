@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="1280x760">
+<title>Operations daily · Dashboards</title>
+<link rel="stylesheet" href="wms.css">
+<link rel="stylesheet" href="ops-dash.css">
+</head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>dashboards.internal/ops/daily?site=DC-01&amp;range=mtd</div></div>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b></b>Dashboards</div>
+    <h6>Operations</h6><a class="on">Operations daily</a><a>Fulfillment</a><a>Inventory &amp; shrink</a><a>Transportation</a>
+    <h6>Finance</h6><a>Contribution margin</a><a>Customer churn</a>
+  </aside>
+  <div class="body">
+    <div class="hd"><h1>Operations daily — Cheetah DC-01</h1><span class="pill">October 2022 · month to date</span><span class="pill">Updated Oct 21, 23:00</span>
+      <div class="r"><span class="btn">Share</span><span class="btn">Export</span></div></div>
+    <div class="kpis">
+      <div class="kpi bad"><span class="n">Fill rate</span><span class="v">75%</span><span class="d">▼ target 98%</span><span class="t">3 of every 4 items ordered</span></div>
+      <div class="kpi bad"><span class="n">Shrink</span><span class="v">17.6%</span><span class="d">▲ peak week 28%</span><span class="t">of inventory value</span></div>
+      <div class="kpi bad"><span class="n">On-time delivery</span><span class="v">24%</span><span class="d">▼ this week · target 95%</span><span class="t">routes arriving in window</span></div>
+      <div class="kpi bad"><span class="n">Orders with an error</span><span class="v">22%</span><span class="d">▲ short, wrong, damaged</span><span class="t">of orders shipped</span></div>
+      <div class="kpi bad"><span class="n">Contribution margin</span><span class="v">−$1.0M</span><span class="d">▼ per month</span><span class="t">run rate, October</span></div>
+    </div>
+    <div class="row">
+      <div class="card"><h3>Fill rate and on-time, by week <span>Aug 29 – Oct 17</span></h3>
+        <svg viewBox="0 0 600 430" preserveAspectRatio="xMidYMid meet" id="ch"></svg></div>
+      <div class="card"><h3>Open alerts <span>9 open</span></h3>
+        <div class="alerts">
+          <div class="a-r"><b>Untracked pallets in the yard</b><span>100+ pallets, fresh, no location</span><small>Oct 21</small></div>
+          <div class="a-r"><b>Staging lanes full</b><span>Lanes 1–6, trailers 3</span><small>Oct 21</small></div>
+          <div class="a-r"><b>Disposal</b><span>2 dumpsters/day, food</span><small>Oct 20</small></div>
+          <div class="a-r"><b>Count variance</b><span>Errors in 90% of locations counted</span><small>Oct 19</small></div>
+          <div class="a-r"><b>Trucks late</b><span>14 of 19 routes</span><small>Oct 21</small></div>
+        </div></div>
+    </div>
+  </div>
+</div>
+<script>
+  const s = document.getElementById('ch'), W = 600, H = 430, L = 38, B = 400, T = 14;
+  const fill = [97.8, 98.1, 97.6, 97.9, 96.5, 81, 76, 74], ot = [93, 94, 92, 93, 88, 41, 32, 24];
+  const x = i => L + 12 + i * ((W - L - 30) / (fill.length - 1)), y = v => B - (v / 100) * (B - T);
+  let h = '';
+  [0, 25, 50, 75, 100].forEach(v => { h += `<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#edf0f3"/><text x="${L - 8}" y="${y(v) + 4}" font-size="11" fill="#8a96a3" text-anchor="end">${v}%</text>`; });
+  h += `<line x1="${x(4.5)}" x2="${x(4.5)}" y1="${T}" y2="${B}" stroke="#22313f" stroke-dasharray="4 4"/><text x="${x(4.5) + 6}" y="${T + 12}" font-size="11.5" font-weight="600" fill="#22313f">Go-live</text>`;
+  const line = (a, c) => `<polyline fill="none" stroke="${c}" stroke-width="3" points="${a.map((v, i) => x(i) + ',' + y(v)).join(' ')}"/>` + a.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${c}"/>`).join('');
+  h += line(fill, '#5b4bb7') + line(ot, '#d9502b');
+  h += `<text x="${x(7) - 6}" y="${y(74) - 10}" font-size="12" font-weight="700" fill="#5b4bb7" text-anchor="end">Fill 75%</text><text x="${x(7) - 6}" y="${y(24) + 20}" font-size="12" font-weight="700" fill="#d9502b" text-anchor="end">On-time 24%</text>`;
+  ['Aug 29', 'Sep 5', 'Sep 12', 'Sep 19', 'Sep 26', 'Oct 3', 'Oct 10', 'Oct 17'].forEach((d, i) => { h += `<text x="${x(i)}" y="${B + 20}" font-size="11" fill="#6b7785" text-anchor="middle">${d}</text>`; });
+  s.innerHTML = h;
+</script>
+</body></html>

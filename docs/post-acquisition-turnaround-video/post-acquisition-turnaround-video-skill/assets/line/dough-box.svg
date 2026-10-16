@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Line art for script line 4. #shelf + #box are the frozen dough on a dry shelf; #puff is the swollen box
+       (crossfade #box -> #puff on "the yeast woke up", or scale #puff from the box's base at 150,330).
+       The label text is drawn as type in the page, not here: FROZEN · pizza dough. -->
+  <g id="shelf"><path d="M40 330 L480 330"/><path d="M60 330 L60 400 M460 330 L460 400"/><path d="M40 200 L480 200" opacity=".45"/></g>
+  <g id="box"><path d="M150 330 L150 250 L330 250 L330 330"/><path d="M150 250 L180 228 L360 228 L330 250 M360 228 L360 308 L330 330"/></g>
+  <g id="puff" stroke="#D16C02"><path d="M150 330 C 110 300, 105 205, 175 170 C 230 140, 300 140, 345 175 C 400 215, 380 300, 330 330 Z"/><path d="M190 200 C 220 185, 260 185, 290 198" opacity=".6"/></g>
+</svg>

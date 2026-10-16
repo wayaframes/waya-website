@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="shoot" content="990x652">
+<title>SW-07 Daily standard work — Picking</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1f2933; background: #eef0f3; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  .chrome { background: #e6e7ea; border-bottom: 1px solid #cfd2d8; height: 40px; display: flex; align-items: center; padding: 0 14px; gap: 8px; flex: none; }
+  .chrome i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .chrome i:nth-child(1) { background: #ff5f57 } .chrome i:nth-child(2) { background: #febc2e } .chrome i:nth-child(3) { background: #28c840 }
+  .chrome .url { margin-left: 12px; flex: 1; max-width: 560px; height: 26px; border-radius: 7px; background: #fff; border: 1px solid #cfd2d8; display: flex; align-items: center; padding: 0 10px; font-size: 12.5px; color: #555; }
+  .page { margin: 14px auto 14px; flex: 1; width: 920px; display: flex; flex-direction: column; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.12); padding: 18px 24px; }
+  .hd { display: flex; align-items: baseline; gap: 14px; border-bottom: 2px solid #1f2933; padding-bottom: 8px; }
+  .hd h1 { margin: 0; font-size: 21px; }
+  .hd span { font-size: 13px; color: #6b7280; }
+  .hd .r { margin-left: auto; text-align: right; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; margin-top: 12px; }
+  th { text-align: left; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #6b7280; padding: 7px 8px; border-bottom: 1px solid #cfd5dc; }
+  td { padding: 24px 8px; border-bottom: 1px solid #edf0f3; vertical-align: top; }
+  td.t { font-family: Consolas, monospace; font-size: 13px; color: #4b5563; white-space: nowrap; }
+  td b { font-weight: 600; }
+  .stop { display: inline-block; font-size: 11.5px; font-weight: 700; color: #b3261e; background: #fde8e4; border-radius: 4px; padding: 1px 7px; margin-left: 6px; }
+  .bx { width: 18px; height: 18px; border: 2px solid #9aa5b1; border-radius: 4px; display: inline-block; }
+  .ft { margin-top: auto; font-size: 12.5px; color: #6b7280; display: flex; gap: 22px; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url">docs.internal/ops/standard-work/SW-07-picking</div></div>
+<div class="page">
+  <div class="hd"><h1>SW-07 · Daily standard work — Picking</h1><span>DC-01 · all shifts</span><span class="r">Rev. 3 · posted at every pick zone</span></div>
+  <table>
+    <tr><th style="width:90px">When</th><th>Step</th><th style="width:240px">Check</th><th style="width:50px">Done</th></tr>
+    <tr><td class="t">05:30</td><td><b>Stand-up at the board</b> · yesterday's misses, today's waves</td><td>misses have an owner</td><td><span class="bx"></span></td></tr>
+    <tr><td class="t">05:45</td><td><b>Pick faces full</b> for fast movers (fixed slots)</td><td>no empty fixed slot</td><td><span class="bx"></span></td></tr>
+    <tr><td class="t">every line</td><td><b>Scan the location, then the item</b><span class="stop">HARD-STOP</span></td><td>wrong item or slot blocks the line</td><td><span class="bx"></span></td></tr>
+    <tr><td class="t">every short</td><td><b>Call the lead, do not skip</b> · lead finds stock or logs the short</td><td>no silent shorts</td><td><span class="bx"></span></td></tr>
+    <tr><td class="t">at the dock</td><td><b>Scan every case onto the truck</b><span class="stop">HARD-STOP</span></td><td>order matches the load</td><td><span class="bx"></span></td></tr>
+    <tr><td class="t">14:00</td><td><b>Cycle-count today's aisles</b></td><td>variances posted</td><td><span class="bx"></span></td></tr>
+  </table>
+  <div class="ft"><span>Same checks at receiving (SW-04), loading (SW-09), delivery (SW-11)</span><span>Change only through the weekly review</span></div>
+</div>
+</body></html>

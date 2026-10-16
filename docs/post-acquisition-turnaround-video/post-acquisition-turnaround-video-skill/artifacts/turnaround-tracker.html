@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="variants" content="turning">
+<meta name="shoot" content="600x470">
+<title>Turnaround tracker · DC-01</title>
+<link rel="stylesheet" href="wms.css">
+<style>
+  body { font-size: 17px; background: #fff; }
+  .hd { padding: 22px 18px 10px; border-bottom: 1px solid #e3e6ea; }
+  .hd h1 { margin: 0; font-size: 23px; font-weight: 700; }
+  .hd p { margin: 3px 0 0; font-size: 15px; color: #6b7785; }
+  table { font-size: 17px; table-layout: fixed; }
+  th { background: #fff; font-size: 14px; padding: 10px 6px; }
+  td { padding: 13px 6px; font-variant-numeric: tabular-nums; }
+  td:first-child { font-weight: 600; }
+  td.c { text-align: center; }
+  .r { color: #b3261e; font-weight: 700; background: #fdeeea; }
+  .a { color: #8a5a00; font-weight: 700; background: #fff4da; }
+  .g { color: #1e6b45; font-weight: 700; background: #e6f4ec; }
+  .t { color: #6b7785; font-size: 14px; }
+  body:not(.turning) .later { color: #c6ccd2; background: #fff; font-weight: 400; }
+  .foot { padding: 12px 18px; font-size: 14px; color: #6b7785; display: flex; gap: 16px; }
+  .foot i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url"><svg viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 0 1 6 0V5h1v7H1V5zm1.5 0h3V3.5a1.5 1.5 0 0 0-3 0z" fill="#777"/></svg>ops.internal/turnaround/dc-01/weekly</div></div>
+<div class="hd"><h1>Turnaround · weekly</h1><p>DC-01 · week starting</p></div>
+<div><table style="width:100%"><colgroup><col style="width:190px"><col style="width:70px"><col style="width:85px"><col style="width:85px"><col style="width:85px"><col style="width:85px"></colgroup>
+  <tr><th>Measure</th><th class="t">Target</th><th class="c">Oct 17</th><th class="c">Oct 24</th><th class="c">Oct 31</th><th class="c">Nov 7</th></tr>
+  <tr><td>Fill rate</td><td class="t">98%</td><td class="c r">75%</td><td class="c r">77%</td><td class="c later a">83%</td><td class="c later a">88%</td></tr>
+  <tr><td>Shrink</td><td class="t">&lt; 3%</td><td class="c r">28%</td><td class="c r">19%</td><td class="c later a">12%</td><td class="c later a">8%</td></tr>
+  <tr><td>Orders with an error</td><td class="t">&lt; 3%</td><td class="c r">22%</td><td class="c r">21%</td><td class="c later a">15%</td><td class="c later a">11%</td></tr>
+  <tr><td>On-time delivery</td><td class="t">95%</td><td class="c r">24%</td><td class="c r">31%</td><td class="c later a">52%</td><td class="c later a">67%</td></tr>
+  <tr><td>Margin burn / mo</td><td class="t">$0</td><td class="c r">$1.0M</td><td class="c r">$1.0M</td><td class="c later r">$0.9M</td><td class="c later r">$0.8M</td></tr>
+</table></div>
+<div class="foot"><span><i style="background:#fdeeea;border:1px solid #f1b8ab"></i>off target</span><span><i style="background:#fff4da;border:1px solid #ecd08a"></i>improving</span><span><i style="background:#e6f4ec;border:1px solid #a9d6bd"></i>on target</span></div>
+<script>new URLSearchParams(location.search).getAll("v").forEach(c=>document.body.classList.add(c))</script>
+</body></html>

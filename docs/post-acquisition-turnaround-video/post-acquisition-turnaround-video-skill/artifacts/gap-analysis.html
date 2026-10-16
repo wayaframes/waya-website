@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="variants" content="struck">
+<meta name="shoot" content="840x600">
+<title>Gap analysis — Cheetah DC-01 fulfillment</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1f2933; background: #eef0f3; display: flex; flex-direction: column; height: 100vh; overflow: hidden; padding-bottom: 40px; }
+  .chrome { background: #e6e7ea; border-bottom: 1px solid #cfd2d8; height: 40px; display: flex; align-items: center; padding: 0 14px; gap: 8px; flex: none; }
+  .chrome i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .chrome i:nth-child(1) { background: #ff5f57 } .chrome i:nth-child(2) { background: #febc2e } .chrome i:nth-child(3) { background: #28c840 }
+  .chrome .url { margin-left: 12px; flex: 1; max-width: 560px; height: 26px; border-radius: 7px; background: #fff; border: 1px solid #cfd2d8; display: flex; align-items: center; padding: 0 10px; font-size: 12.5px; color: #555; }
+  .bar { height: 40px; background: #fff; border-bottom: 1px solid #dde1e6; display: flex; align-items: center; padding: 0 16px; gap: 14px; font-size: 13px; color: #4b5563; flex: none; }
+  .bar b { color: #1f2933; font-size: 14px; }
+  .bar .r { margin-left: auto; color: #6b7280; }
+  .page { margin: 14px auto 0; width: 812px; flex: 1; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.12); padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap: 10px 14px; }
+  .hd { grid-column: 1 / 3; display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid #1f2933; padding-bottom: 6px; }
+  .hd h1 { margin: 0; font-size: 19px; }
+  .hd span { font-size: 12.5px; color: #6b7280; }
+  .hd .d { margin-left: auto; font-weight: 600; color: #1f2933; font-size: 13.5px; }
+  .box { border: 1px solid #cfd5dc; border-radius: 4px; padding: 8px 11px; font-size: 14px; line-height: 1.38; }
+  .box h2 { margin: 0 0 5px; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: #4b5563; }
+  .box h2 em { font-style: normal; background: #1f2933; color: #fff; border-radius: 3px; padding: 0 5px; margin-right: 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  td, th { border-bottom: 1px solid #edf0f3; padding: 3px 4px; text-align: left; }
+  th { color: #6b7280; font-weight: 600; } .bad { color: #b3261e; font-weight: 700; }
+  .cause { display: flex; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px dashed #e3e6ea; }
+  .cause b { font-weight: 600; }
+  .cause .v { margin-left: auto; font-size: 11.5px; white-space: nowrap; }
+  .crew b { position: relative; }
+  body.struck .crew { color: #8a929c; }
+  body.struck .crew b::after { content: ''; position: absolute; left: -3px; right: -3px; top: 52%; height: 3px; background: #D16C02; border-radius: 2px; }
+  .root { background: #fff8e6; border-color: #e7c76a; }
+  body:not(.struck) .root .fill { color: #b0b6bd; font-style: italic; }
+  body.struck .root .empty { display: none; } body:not(.struck) .root .fill { display: none; }
+  .ok { color: #1e6b45; font-weight: 600; } .no { color: #b3261e; font-weight: 600; }
+</style></head>
+<body>
+<div class="chrome"><i></i><i></i><i></i><div class="url">docs.internal/ops/gap-analysis-dc01-fulfillment</div></div>
+<div class="bar"><b>Gap analysis — Cheetah DC-01 fulfillment</b><span>A3</span><span class="r">Edited Sat Oct 22, 2022 · 11:40</span></div>
+<div class="page">
+  <div class="hd"><h1>Fulfillment collapse after go-live</h1><span>Method: gap analysis (A3)</span><span class="d">Oct 22, 2022</span></div>
+  <div class="box"><h2><em>1</em>Problem</h2>Since the rebuilt warehouse went live, orders ship short and late, and stock is lost.
+    <table style="margin-top:6px"><tr><th>Measure</th><th>Now</th><th>Target</th></tr>
+      <tr><td>Fill rate</td><td class="bad">~75%</td><td>98%</td></tr>
+      <tr><td>Shrink, month</td><td class="bad">17–18%</td><td>&lt; 3%</td></tr>
+      <tr><td>Orders with an error</td><td class="bad">~22%</td><td>&lt; 3%</td></tr></table></div>
+  <div class="box"><h2><em>2</em>Facts from the floor</h2>
+    Count: errors in 90% of storage locations.<br>Nightly replenishment: ~70 tasks → 300+.<br>One SKU in up to 886 locations.<br>New locations: no rules; many no dimensions.<br>Old aisles: torn down, still active in the system.</div>
+  <div class="box"><h2><em>3</em>Causes considered</h2>
+    <div class="cause crew"><b>Crews: labor, training, effort</b><span class="v no">does not explain it</span></div>
+    <div class="cause"><b>Racking not finished</b><span class="v">partial</span></div>
+    <div class="cause"><b>No wall-to-wall count of acquired stock</b><span class="v">contributes</span></div>
+    <div class="cause"><b>System logic never updated for the new building</b><span class="v ok">explains all five facts</span></div></div>
+  <div class="box root"><h2><em>4</em>Root cause</h2>
+    <span class="empty" style="color:#b0b6bd;font-style:italic">to fill in</span>
+    <span class="fill"><b>The warehouse was rebuilt; the system's slotting and replenishment logic was not.</b> Every night the replenishment job re-scatters stock into slots that are too small, empty or gone.</span></div>
+</div>
+<script>new URLSearchParams(location.search).getAll("v").forEach(c=>document.body.classList.add(c))</script>
+</body></html>

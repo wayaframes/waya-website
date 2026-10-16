@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Line art for script line 3. Groups: #dumpster, #pallet (tip it toward the dumpster: rotate about 404,392), #forklift, #vince, #ground. -->
+  <g id="dumpster">
+  <path d="M30 250 L210 250 L196 440 L44 440 Z"/>
+  <path d="M22 250 L218 250"/><path d="M40 250 L70 205 L230 222"/>
+  <path d="M60 300 L180 300" opacity=".5"/>
+  <circle cx="64" cy="458" r="14"/><circle cx="176" cy="458" r="14"/>
+  </g>
+  <g id="pallet">
+  <path d="M262 330 L392 330 L392 380 L262 380 Z"/>
+  <path d="M272 270 L332 270 L332 330 L272 330 Z"/>
+  <path d="M338 292 C 330 250, 400 238, 392 292 C 396 312, 340 318, 338 292 Z" stroke="#D16C02"/>
+  <path d="M250 392 L404 392"/>
+  </g>
+  <g id="forklift">
+  <path d="M412 170 L412 440"/><path d="M432 170 L432 440"/><path d="M406 170 L438 170"/>
+  <path d="M404 392 L412 392"/>
+  <path d="M432 300 L620 300 L640 360 L640 440 L432 440"/>
+  <path d="M470 300 L470 190 L600 190 L620 300"/>
+  <path d="M640 380 L690 380 L690 440 L640 440"/>
+  <circle cx="480" cy="452" r="34"/><circle cx="610" cy="452" r="34"/>
+  <circle cx="480" cy="452" r="8"/><circle cx="610" cy="452" r="8"/>
+  </g>
+  <g id="vince">
+  <circle cx="545" cy="226" r="24"/>
+  <path d="M545 250 L556 300"/><path d="M552 270 L512 284 L488 270"/>
+  <path d="M556 300 L520 300 L512 336"/>
+  </g>
+  <path id="ground" d="M0 486 L760 486" opacity=".55"/>
+</svg>
