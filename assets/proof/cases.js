@@ -384,8 +384,9 @@ window.WAYA_GROUPS = {
     programLabel: "the Scale Up Program",
     steps: [
       { title: "Separate the symptom from the cause", method: "Gap analysis", seen: ["post-acquisition-turnaround"], text: "Gap analysis before blame: find what is actually breaking, not who." },
+      { title: "Set the few goals that matter", method: "Annual planning, KPIs and objectives", seen: ["planning-okrs"], text: "Leaders cut the list to three ranked goals on the real bottleneck, so \"urgent\" stops setting the priorities." },
       { title: "Design the target, then work back", method: "Kaikaku, scenario planning", seen: ["sole-supplier"], text: "Plan for the futures you might face and turn each gap into something to build." },
-      { title: "Run the fix and the business together", method: "A3, planning cadence", seen: ["post-acquisition-turnaround", "planning-okrs"], text: "Triage by hand while the real fix lands, then set a cadence the team keeps after we leave." }
+      { title: "Run the fix and the business together", method: "A3, quarterly reviews", seen: ["post-acquisition-turnaround", "planning-okrs"], text: "Triage by hand while the real fix lands, on a cadence the team keeps after we leave." }
     ],
     cases: ["post-acquisition-turnaround", "sole-supplier", "planning-okrs"],
     bridge: "It starts with a Hoshin workshop to agree on the few goals that matter, then 3–6 months of embedded implementation alongside your team, so the fix and the business run together.",
