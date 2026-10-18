@@ -372,7 +372,7 @@ window.WAYA_GROUPS = {
       { title: "Build the fix into the system", method: "Kaizen, standard work", seen: ["warehouse-quality", "ap-automation-margin"], text: "Change the process and the software together, then keep the metric visible so the gain holds." }
     ],
     cases: ["ap-automation-margin", "warehouse-quality", "cash-float"],
-    bridge: "The methods behind these results (measuring the gap, finding the cause on the floor, and building the fix into the system) are what we run with you in 4 Weeks to Higher Margins. You work on your own margin problem alongside operators who have done it, and Lean AI keeps the method running after the four weeks end.",
+    bridge: "The methods behind these results (measuring the gap, finding the cause on the floor, and building the fix into the system) are what we run with you in the Waya 4 Weeks to Higher Margins program. A Waya expert will guide you to work on your own margin problem while you learn alongside other operators who are doing it.\n\nOur Lean AI Platform keeps the method running after the four weeks end.",
     program: { name: "4 Weeks to Higher Margins", url: "/lean-ai/cohort/" },
     root: "ops-intro-call"
   },
