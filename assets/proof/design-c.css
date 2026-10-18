@@ -413,3 +413,94 @@ html.design-c .dc-rm .dc-ridge { will-change: auto; }
   html.design-c .dc-card:focus-visible,
   html.design-c .dc-route:hover { transform: none; }
 }
+
+/* ===================================================================== steps: "Under the floor" illustrations
+   The element's normal style is the final frame. Under .is-anim each piece runs a keyframe
+   that defines only its start state, paused until the card is in view (.is-run). */
+
+html.design-c .dc-art-fig {
+  margin: 18px 0 4px;
+  max-width: 440px;
+}
+html.design-c .dc-art-svg { display: block; width: 100%; height: auto; overflow: visible; }
+html.design-c .dc-art-narrow { display: none; }
+
+html.design-c .dc-art-svg .s {
+  fill: none;
+  stroke: var(--waya-charcoal); stroke-width: 1.75;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+html.design-c .dc-art-svg .s.k { stroke: var(--waya-rust); }
+html.design-c .dc-art-svg .s.f { stroke: var(--dc-sage-deep); }
+html.design-c .dc-art-svg .s.thin { stroke-width: 1; opacity: 0.5; }
+html.design-c .dc-art-svg .s.faint { stroke-width: 1.25; stroke-dasharray: 3 4; opacity: 0.4; }
+html.design-c .dc-art-svg .fill-key { fill: color-mix(in srgb, var(--waya-rust) 8%, transparent); }
+html.design-c .dc-art-svg .fill-fix {
+  fill: color-mix(in srgb, var(--waya-sage) 45%, transparent);
+  transform-box: fill-box; transform-origin: 0% 50%;
+}
+html.design-c .dc-art-svg .dot { fill: var(--waya-charcoal); transform-box: fill-box; transform-origin: center; }
+html.design-c .dc-art-svg .t {
+  font-family: var(--font-body); font-size: 12.5px;
+  fill: var(--waya-charcoal);
+}
+html.design-c .dc-art-svg .t.b { font-weight: 600; }
+html.design-c .dc-art-svg .t.m { fill: var(--dc-muted); }
+html.design-c .dc-art-svg .t.sm { font-size: 12px; }
+html.design-c .dc-art-svg .blamed { opacity: 0.55; }
+html.design-c .dc-art-svg .door {
+  fill: var(--waya-charcoal);
+  transform-box: fill-box; transform-origin: 0% 50%;
+  transform: rotate(50deg);
+}
+html.design-c .dc-art-svg .door.r { transform-origin: 100% 50%; transform: rotate(-50deg); }
+
+html.design-c .dc-art-fig.is-anim .a-fade { animation: dc-a-fade var(--t, 400ms) var(--ease-standard) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .a-draw { stroke-dasharray: 1 1; animation: dc-a-draw var(--t, 500ms) var(--ease-standard) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .a-pop { animation: dc-a-pop var(--t, 250ms) var(--dc-ease-out) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .a-grow { animation: dc-a-grow var(--t, 1000ms) var(--ease-standard) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .a-door { animation: dc-a-door var(--t, 450ms) var(--ease-standard) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .a-dim { animation: dc-a-dim var(--t, 400ms) var(--ease-standard) var(--d, 0ms) both paused; }
+html.design-c .dc-art-fig.is-anim .lin { animation-timing-function: linear; }
+html.design-c .dc-art-fig.is-run .a-fade,
+html.design-c .dc-art-fig.is-run .a-draw,
+html.design-c .dc-art-fig.is-run .a-pop,
+html.design-c .dc-art-fig.is-run .a-grow,
+html.design-c .dc-art-fig.is-run .a-door,
+html.design-c .dc-art-fig.is-run .a-dim { animation-play-state: running; }
+
+@keyframes dc-a-fade { from { opacity: 0; } }
+@keyframes dc-a-draw { from { stroke-dashoffset: 1; } }
+@keyframes dc-a-pop { from { opacity: 0; transform: scale(0.3); } }
+@keyframes dc-a-grow { from { transform: scaleX(0); } }
+@keyframes dc-a-door { from { transform: rotate(0deg); } }
+@keyframes dc-a-dim { from { opacity: 1; } }
+
+html.design-c .dc-art-replay {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 6px 0;
+  background: none; border: 0;
+  font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  color: var(--waya-charcoal);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--waya-charcoal) 40%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+html.design-c .dc-art-replay:hover { text-decoration-color: var(--waya-rust); }
+html.design-c .dc-art-replay:focus-visible {
+  outline: 2px solid var(--dc-sage-deep);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 640px) {
+  html.design-c .dc-art-wide { display: none; }
+  html.design-c .dc-art-narrow { display: block; max-width: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.design-c .dc-art-fig *,
+  html.design-c .dc-art-fig.is-anim * { animation: none !important; }
+  html.design-c .dc-art-replay { display: none; }
+}

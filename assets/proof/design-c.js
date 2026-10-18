@@ -592,6 +592,152 @@
     animate([{ chart: ch, li: el, done: false }], rm);
   }
 
-  /* Steps: the problem pages ship their own step cards, so Design C leaves them alone. */
-  WP.register('c', { strip: strip, hero: hero, cases: cases, chart: chart });
+  /* ------------------------------------------------------------------ steps: "Under the floor"
+     One labelled line drawing per step card, scaling-through-change only. Every shape carries
+     a label taken from the case stories; no numbers, axes or dates. The final frame is the
+     element's normal style, so reduced motion and screenshots show the finished diagram.
+     Animations are CSS keyframes that only define their start ("from") state. */
+
+  function artSvg(w, hgt, cls) {
+    return svgEl('svg', { 'class': 'dc-art-svg' + (cls ? ' ' + cls : ''), viewBox: '0 0 ' + w + ' ' + hgt, focusable: 'false', 'aria-hidden': 'true' });
+  }
+  /* shape: anim = [kind, delayMs, durationMs] with kind fade | draw | pop | grow | door | dim */
+  function S(parent, tag, attrs, anim) {
+    if (anim && anim[0] === 'draw') attrs.pathLength = 1;
+    var n = svgEl(tag, attrs);
+    if (anim) {
+      n.classList.add('a-' + anim[0]);
+      n.setAttribute('style', '--d:' + (anim[1] || 0) + 'ms' + (anim[2] ? ';--t:' + anim[2] + 'ms' : ''));
+    }
+    parent.appendChild(n);
+    return n;
+  }
+  function T(parent, x, y, str, cls, anim, anchor) {
+    var n = S(parent, 'text', { x: x, y: y, 'class': 't ' + (cls || ''), 'text-anchor': anchor || 'middle' }, anim);
+    n.textContent = str;
+    return n;
+  }
+
+  /* 1. Symptom vs cause: the floor opens onto the logic that undid the crews' work. */
+  function artCause(fig) {
+    var s = artSvg(320, 180);
+    var g = S(s, 'g', {}, ['fade', 500]);
+    T(g, 8, 14, 'Blamed: crews', 'm blamed', ['dim', 2100, 400], 'start');
+    S(s, 'path', { d: 'M6,10 H100', 'class': 's k' }, ['draw', 2100, 400]);
+    [['Shrink', 48], ['Errors', 112], ['Empty slots', 176]].forEach(function (r, i) {
+      var x = r[1] - 23;
+      S(s, 'path', { d: 'M' + x + ',48 h46 v44 h-46 Z M' + x + ',63 h46 M' + x + ',78 h46', 'class': 's' }, ['draw', i * 120, 500]);
+      T(s, r[1], 40, r[0], 'b', ['fade', 300 + i * 120]);
+    });
+    S(s, 'path', { d: 'M8,100 H80 M144,100 H312', 'class': 's' });
+    S(s, 'rect', { x: 80, y: 98.75, width: 32, height: 2.5, 'class': 'door' }, ['door', 1000, 450]);
+    S(s, 'rect', { x: 112, y: 98.75, width: 32, height: 2.5, 'class': 'door r' }, ['door', 1000, 450]);
+    S(s, 'path', { d: 'M20,118 H300 V166 H20 Z', 'class': 's k fill-key' }, ['fade', 1350, 450]);
+    T(s, 160, 139, 'System logic: never updated', 'b', ['fade', 1450]);
+    T(s, 160, 156, 'for new racking', 'b', ['fade', 1450]);
+    S(s, 'path', { d: 'M236,118 C236,86 228,72 206,70', 'class': 's k' }, ['draw', 1850, 450]);
+    S(s, 'path', { d: 'M210,65 L202,70 L210,75', 'class': 's k' }, ['fade', 2250, 150]);
+    T(s, 244, 72, 'Undone', 'm sm', ['fade', 2150], 'start');
+    T(s, 244, 86, 'every night', 'm sm', ['fade', 2150], 'start');
+    fig.appendChild(s);
+  }
+
+  /* 2. Target first, then walk back: wide (left to right) and narrow (bottom-up) layouts. */
+  function artTarget(fig) {
+    var items = ['Crew', 'Building', 'ERP', 'SKUs'];
+
+    var w = artSvg(320, 180, 'dc-art-wide');
+    S(w, 'path', { d: 'M196,56 H312 V112 H196 Z', 'class': 's k fill-key' }, ['draw', 0, 600]);
+    T(w, 254, 80, 'Owned warehouses,', 'b sm', ['fade', 300]);
+    T(w, 254, 96, 'direct sourcing', 'b sm', ['fade', 300]);
+    T(w, 16, 14, 'Five scenarios', 'm sm', ['fade', 500], 'start');
+    [24, 46, 68, 90, 112].forEach(function (y, i) {
+      S(w, 'path', { d: 'M16,' + y + ' L194,84', 'class': 's faint' }, ['fade', 600 + i * 90, 300]);
+    });
+    S(w, 'path', { d: 'M254,112 V148 H26', 'class': 's' }, ['draw', 1200, 900]);
+    S(w, 'path', { d: 'M33,143 L25,148 L33,153', 'class': 's' }, ['fade', 2050, 150]);
+    [206, 152, 98, 44].forEach(function (x, i) {
+      S(w, 'circle', { cx: x, cy: 148, r: 4.5, 'class': 'dot' }, ['pop', 1350 + i * 220, 250]);
+      T(w, x, 168, items[i], '', ['fade', 1350 + i * 220]);
+    });
+    fig.appendChild(w);
+
+    var n = artSvg(300, 240, 'dc-art-narrow');
+    S(n, 'path', { d: 'M70,8 H230 V56 H70 Z', 'class': 's k fill-key' }, ['draw', 0, 600]);
+    T(n, 150, 28, 'Owned warehouses,', 'b', ['fade', 300]);
+    T(n, 150, 45, 'direct sourcing', 'b', ['fade', 300]);
+    [92, 116, 140, 164, 188].forEach(function (y, i) {
+      S(n, 'path', { d: 'M14,' + y + ' L84,58', 'class': 's faint' }, ['fade', 600 + i * 90, 300]);
+    });
+    T(n, 14, 212, 'Five scenarios', 'm sm', ['fade', 500], 'start');
+    S(n, 'path', { d: 'M150,56 V222', 'class': 's' }, ['draw', 1200, 900]);
+    S(n, 'path', { d: 'M145,214 L150,222 L155,214', 'class': 's' }, ['fade', 2050, 150]);
+    [88, 124, 160, 196].forEach(function (y, i) {
+      S(n, 'circle', { cx: 150, cy: y, r: 4.5, 'class': 'dot' }, ['pop', 1350 + i * 220, 250]);
+      T(n, 164, y + 4, items[i], '', ['fade', 1350 + i * 220], 'start');
+    });
+    fig.appendChild(n);
+  }
+
+  /* 3. Two tracks at once under an unbroken shipping line. */
+  function artTracks(fig) {
+    var s = artSvg(320, 160);
+    T(s, 16, 18, 'Shipping', 'b', ['fade', 0], 'start');
+    S(s, 'path', { d: 'M16,30 H300', 'class': 's k lin' }, ['draw', 100, 2300]);
+    S(s, 'path', { d: 'M294,25 L302,30 L294,35', 'class': 's k' }, ['fade', 2350, 150]);
+    T(s, 16, 62, 'Triage by hand, daily', '', ['fade', 200], 'start');
+    S(s, 'path', { d: 'M16,86 H304', 'class': 's f thin' }, ['fade', 200]);
+    for (var k = 0; k < 12; k++) {
+      var x = 26 + k * 24;
+      S(s, 'path', { d: 'M' + x + ',74 V86', 'class': 's f' }, ['fade', 400 + k * 160, 200]);
+    }
+    T(s, 16, 116, 'Rebuild system logic', '', ['fade', 300], 'start');
+    S(s, 'rect', { x: 16, y: 126, width: 288, height: 14, 'class': 'fill-fix lin' }, ['grow', 500, 1900]);
+    S(s, 'path', { d: 'M16,126 H304 V140 H16 Z', 'class': 's f' }, ['fade', 300]);
+    fig.appendChild(s);
+  }
+
+  function steps(el, ctx) {
+    if (!el || !ctx || ctx.groupId !== 'scaling-through-change') return;
+    var items = Array.prototype.filter.call(el.children || [], function (c) { return c.tagName === 'LI'; });
+    var builders = [artCause, artTarget, artTracks];
+    var rm = !!ctx.reducedMotion;
+    var canAnimate = !rm && 'IntersectionObserver' in window;
+    var io = canAnimate ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var fig = e.target.querySelector('.dc-art-fig');
+        if (fig) fig.classList.add('is-run');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.35 }) : null;
+
+    items.forEach(function (li, i) {
+      if (!builders[i]) return;
+      var fig = hide(h('figure', 'proof-step-art dc-art-fig'));
+      builders[i](fig);
+
+      /* after the step's text paragraph, before "Used in" */
+      var seen = li.querySelector('.proof-step-seen');
+      if (seen && seen.parentNode) seen.parentNode.insertBefore(fig, seen);
+      else li.appendChild(fig);
+
+      if (!canAnimate) return;
+      var btn = h('button', 'dc-art-replay', 'Replay');
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', 'Replay the illustration');
+      btn.addEventListener('click', function () {
+        fig.classList.remove('is-anim', 'is-run');
+        void fig.getBoundingClientRect();              /* restart the keyframes */
+        fig.classList.add('is-anim', 'is-run');
+      });
+      fig.parentNode.insertBefore(btn, fig.nextSibling);
+      fig.classList.add('is-anim');
+      io.observe(li);
+    });
+    el.classList.add('dc-steps-art');
+    if (!canAnimate) el.classList.add('dc-rm');
+  }
+
+  WP.register('c', { strip: strip, hero: hero, cases: cases, chart: chart, steps: steps });
 })();
