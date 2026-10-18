@@ -54,7 +54,7 @@
   color: var(--waya-rust); background: color-mix(in srgb, var(--waya-rust) 9%, transparent);
   border-radius: 999px; padding: 5px 11px;
 }
-.proof-steps .proof-step-method + h3 { margin-top: 12px; }
+.proof-steps h3 + .proof-step-method { margin-top: 10px; }
 .proof-step-seen { margin-top: auto !important; padding-top: 16px; font-size: 13.5px; line-height: 1.5; color: var(--fg-2); border-top: 1px dashed var(--border-1); }
 .proof-steps p.proof-step-seen { margin-top: 18px; }
 .proof-step-seen a { color: var(--waya-charcoal); font-weight: 600; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--waya-rust) 50%, transparent); text-underline-offset: 3px; }
@@ -67,11 +67,22 @@
 }
 
 /* Story cards: one case as chart, problem, diagnosis, fix, results */
-.proof-stories { display: grid; gap: 28px; margin: 44px auto 0; max-width: 1040px; }
+.proof-stories { display: grid; gap: 44px; margin: 44px auto 0; max-width: 1040px; }
 .proof-story {
-  background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 20px;
-  padding: 32px 36px; box-shadow: var(--shadow-1); scroll-margin-top: 90px;
+  --story-bg: color-mix(in srgb, var(--waya-mint) 60%, var(--waya-cream));
+  --story-accent: var(--waya-sage);
+  background: var(--story-bg); border: 1px solid var(--border-1); border-left: 6px solid var(--story-accent);
+  border-radius: 20px; padding: 32px 36px; box-shadow: var(--shadow-1); scroll-margin-top: 90px;
 }
+.proof-story:nth-child(3n+2) {
+  --story-bg: color-mix(in srgb, var(--waya-tan) 26%, var(--waya-cream));
+  --story-accent: var(--waya-rust);
+}
+.proof-story:nth-child(3n+3) {
+  --story-bg: color-mix(in srgb, var(--waya-sage) 16%, var(--waya-cream));
+  --story-accent: var(--waya-charcoal);
+}
+.proof-story .proof-kicker { color: var(--waya-charcoal); }
 .proof-story-title { margin-top: 8px; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.15; color: var(--waya-charcoal); }
 .proof-story-top { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: center; }
 /* A case with a video leads with it: centered, about 1.5x the earlier side tile */
@@ -94,7 +105,7 @@
 
 .proof-story-flow {
   margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid var(--border-1);
+  border-top: 1px solid color-mix(in srgb, var(--waya-charcoal) 18%, transparent);
 }
 .proof-story-step { position: relative; padding: 22px 26px 4px; }
 .proof-story-step:first-child { padding-left: 0; }
@@ -103,7 +114,7 @@
 .proof-story-step:not(:last-child)::after {
   content: '→'; position: absolute; right: -12px; top: 18px; z-index: 1;
   width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%;
-  background: var(--waya-cream); color: var(--waya-rust); font-weight: 700; font-size: 14px;
+  background: var(--story-bg); color: var(--waya-rust); font-weight: 700; font-size: 14px;
 }
 .proof-story-label {
   font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--waya-rust);
@@ -118,7 +129,7 @@
   list-style: none; padding: 0; margin: 26px 0 0; display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
 }
-.proof-story-results li { background: var(--waya-paper); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.proof-story-results li { background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
 .proof-pair-label { font-size: 13px; color: var(--fg-2); }
 .proof-pair-vals { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
 .proof-pair-vals .proof-before { font-size: 16px; }
