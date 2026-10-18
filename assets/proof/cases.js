@@ -13,6 +13,36 @@ window.WAYA_CASES = {
     summary: "We built invoice extraction into the app and moved from batches to one invoice at a time.",
     timeframe: "March to October 2016",
     chart: { label: "Gross margin", axis: "Gross margin (%)", before: 20, after: 70, unit: "%", fmtBefore: "~20%", fmtAfter: "~70%", better: "up", xBefore: "Mar 2016", xAfter: "Oct 2016" },
+    story: {
+      "problem": "An invoice with line items cost $3.34 to process, all of what it brought in. Gross margin sat near 20%.",
+      "method": "A3, root cause analysis",
+      "diagnosis": "Every line item was typed by hand, twice, then checked line by line. Invoices waited in batches, and only one person on one shift could verify them.",
+      "fixes": [
+        "Built extraction into the app, so a processor typed 3 fields instead of a whole invoice",
+        "Moved from batches to one invoice at a time, first in, first out",
+        "Trained the night shift to verify, so two shifts worked the queue"
+      ],
+      "results": [
+        {
+          "label": "Invoice with line items, all-in",
+          "fmtBefore": "$3.34",
+          "fmtAfter": "$0.97"
+        },
+        {
+          "label": "Line-item turnaround",
+          "fmtBefore": "24 hours",
+          "fmtAfter": "under 30 minutes"
+        }
+      ]
+    },
+    video: {
+      "src": "/assets/video/restaurant-ap-margin.mp4",
+      "poster": "/assets/video/restaurant-ap-margin-poster.jpg",
+      "portrait": "/assets/video/restaurant-ap-margin-portrait.mp4",
+      "portraitPoster": "/assets/video/restaurant-ap-margin-portrait-poster.jpg",
+      "duration": "1:14",
+      "caption": "Watch how margin went from 20% to 70%"
+    },
     headline: { label: "Gross margin", before: 20, after: 70, unit: "%", fmtBefore: "~20%", fmtAfter: "~70%", better: "up" },
     metrics: [
       { label: "Invoice with line items, all-in", before: 3.34, after: 0.97, unit: "$", fmtBefore: "$3.34", fmtAfter: "$0.97", better: "down" },
@@ -29,6 +59,33 @@ window.WAYA_CASES = {
     summary: "We tracked each picker's accuracy and checked only 1 in 10 carts for the most reliable pickers.",
     timeframe: null,
     chart: { label: "QC staff per 100 orders", axis: "QC staff per 100 orders (FTEs)", before: 7, after: 2, unit: "FTE", fmtBefore: "7 FTEs", fmtAfter: "2 FTEs", better: "down", xBefore: "Before", xAfter: "After" },
+    story: {
+      "problem": "A manager checked every picked cart, item by item: about 13 minutes per order, and roughly 7 in 10 carts still had an error.",
+      "method": "Kaizen, A3",
+      "diagnosis": "Quality was inspected at the end of the line instead of built into the pick. With no data on who was reliable, the only safe policy was to check everyone, every time.",
+      "fixes": [
+        "Tracked each picker's error rate and speed in the app",
+        "Paid a bonus on both, earned only when a cart shipped clean",
+        "Checked 1 in 10 carts for pickers under 1% errors, and put anyone who slipped back on full checks"
+      ],
+      "results": [
+        {
+          "label": "Carts with a picking error",
+          "fmtBefore": "~72%",
+          "fmtAfter": "~10%"
+        },
+        {
+          "label": "Carts requiring QC",
+          "fmtBefore": "100%",
+          "fmtAfter": "30%"
+        },
+        {
+          "label": "Gross margin",
+          "fmtBefore": "~10%",
+          "fmtAfter": "20–25%"
+        }
+      ]
+    },
     headline: { label: "Carts with a picking error", before: 72, after: 10, unit: "%", fmtBefore: "~72%", fmtAfter: "~10%", better: "down" },
     metrics: [
       { label: "Gross margin", before: 10, after: 22.5, unit: "%", fmtBefore: "~10%", fmtAfter: "20–25%", better: "up" },
@@ -61,6 +118,33 @@ window.WAYA_CASES = {
     summary: "We linked each customer payment to its supplier invoice, so the supplier was paid straight from it.",
     timeframe: null,
     chart: { label: "Cash fronted for product", axis: "Product cost fronted (%)", before: 100, after: 8, unit: "%", fmtBefore: "~100%", fmtAfter: "~8%", better: "down", xBefore: "Before", xAfter: "After" },
+    story: {
+      "problem": "The company paid its supplier almost at once but was paid by customers 3–4 days later, fronting the cash on about 70% of revenue. A $200K supplier credit line capped growth.",
+      "method": "Gap analysis",
+      "diagnosis": "Supplier payments weren't linked to customer billing. The data to link them already existed; nothing connected it.",
+      "fixes": [
+        "Split each payment at delivery: the product share went straight to the supplier, matched to its invoice",
+        "Gave the supplier a portal showing each payout against its invoices, to the cent",
+        "Reconciled monthly and automated every mismatch away"
+      ],
+      "results": [
+        {
+          "label": "Working capital freed",
+          "fmtBefore": "",
+          "fmtAfter": "~$1M"
+        },
+        {
+          "label": "Supplier line of credit",
+          "fmtBefore": "$200K, maxed out",
+          "fmtAfter": "no longer needed"
+        },
+        {
+          "label": "Delivery to cash",
+          "fmtBefore": "3–4 days",
+          "fmtAfter": "1–3 days"
+        }
+      ]
+    },
     headline: { label: "Cash fronted for product", before: 100, after: 8, unit: "%", fmtBefore: "~100%", fmtAfter: "~8%", better: "down" },
     metrics: [
       { label: "Working capital freed", before: null, after: 1, unit: "$M", fmtBefore: "", fmtAfter: "~$1M", better: "up" },

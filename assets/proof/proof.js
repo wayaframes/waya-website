@@ -13,6 +13,23 @@
   if (DESIGNS.indexOf(design) < 0) design = DEFAULT;
   document.documentElement.classList.add('design-' + design);
 
+  /* Video tiles: the poster button becomes the player on click (portrait cut on upright phones). */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.proof-video-play');
+    if (!btn) return;
+    var fig = btn.closest('.proof-video');
+    var portrait = fig.getAttribute('data-portrait') &&
+      window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches;
+    var v = document.createElement('video');
+    v.controls = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto';
+    v.poster = portrait ? fig.getAttribute('data-poster-portrait') : (btn.querySelector('img') || {}).src || '';
+    v.src = portrait ? fig.getAttribute('data-portrait') : fig.getAttribute('data-src');
+    v.setAttribute('aria-label', btn.getAttribute('aria-label').replace(/^Play the video: /, ''));
+    btn.replaceWith(v);
+    v.focus();
+    var p = v.play(); if (p && p.catch) p.catch(function () { /* autoplay blocked: the controls are there */ });
+  });
+
   var BOOKING = 'https://api.leadconnectorhq.com/widget/bookings/';
   var ran = false;
 
@@ -60,11 +77,11 @@
 
   if (!document.getElementById('proof-design-css')) {   /* the page head normally loads it before first paint */
     var css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = '/assets/proof/design-' + design + '.css?v=2';
+    css.rel = 'stylesheet'; css.href = '/assets/proof/design-' + design + '.css?v=3';
     document.head.appendChild(css);
   }
   var js = document.createElement('script');
-  js.src = '/assets/proof/design-' + design + '.js?v=2'; js.defer = true;
+  js.src = '/assets/proof/design-' + design + '.js?v=3'; js.defer = true;
   document.head.appendChild(js);
 
   /* Design switcher for review: local previews, Cloudflare previews, or an explicit ?design= */

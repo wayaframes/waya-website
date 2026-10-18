@@ -110,6 +110,13 @@ html.design-c .dc-more::after {
   transition: transform var(--dur-base) var(--ease-standard);
 }
 
+/* standalone chart inside a story card */
+html.design-c .dc-chart-solo { position: relative; width: 100%; min-width: 0; }
+html.design-c .dc-chart-solo .dc-chart { height: 240px; }
+@media (max-width: 640px) {
+  html.design-c .dc-chart-solo .dc-chart { height: 200px; }
+}
+
 /* ===================================================================== strip */
 
 html.design-c .dc-strip-band {
@@ -371,41 +378,6 @@ html.design-c .dc-v-before { color: var(--dc-muted); font-weight: 500; }
 html.design-c .dc-v-arrow { color: var(--waya-rust); }
 html.design-c .dc-route .dc-more { margin-top: 20px; }
 
-/* The summit band: the program link that already sits in the container. */
-html.design-c .dc-summit {
-  max-width: 960px;
-  margin: 44px auto 0;
-  padding: 32px 40px;
-  display: flex; align-items: center; gap: 24px;
-  background: var(--waya-charcoal);
-  border-radius: 24px;
-  color: var(--waya-cream);
-}
-html.design-c .dc-summit-flag { flex: none; width: 40px; height: 48px; }
-html.design-c .dc-summit-flag line { stroke: var(--waya-cream); stroke-width: 2.5; stroke-linecap: round; }
-html.design-c .dc-summit-flag path { fill: var(--waya-mustard); }
-html.design-c .dc-summit-body {
-  min-width: 0;
-  font-family: var(--font-display); font-weight: 600;
-  font-size: 22px; line-height: 1.35;
-  color: var(--waya-cream);
-  overflow-wrap: anywhere;
-}
-html.design-c .dc-summit-body * { color: inherit; margin: 0; }
-html.design-c .dc-summit-body a {
-  color: var(--waya-cream);
-  text-decoration: underline;
-  text-decoration-color: var(--waya-mustard);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
-}
-html.design-c .dc-summit-body a:hover { color: var(--waya-mustard); }
-html.design-c .dc-summit-body a:focus-visible {
-  outline: 2px solid var(--waya-mustard);
-  outline-offset: 4px;
-  border-radius: 2px;
-}
-
 @media (max-width: 640px) {
   html.design-c .dc-timeline { padding-left: 24px; gap: 24px; }
   html.design-c .dc-timeline::before { left: 6px; top: 34px; bottom: 34px; }
@@ -415,8 +387,6 @@ html.design-c .dc-summit-body a:focus-visible {
   html.design-c .dc-route-title { font-size: 22px; }
   html.design-c .dc-route .dc-after { font-size: 36px; }
   html.design-c .dc-markers { grid-template-columns: minmax(0, 1fr); }
-  html.design-c .dc-summit { flex-direction: column; align-items: flex-start; padding: 26px 22px; gap: 16px; }
-  html.design-c .dc-summit-body { font-size: 19px; }
 }
 
 /* ===================================================================== reduced motion: end state, no movement */

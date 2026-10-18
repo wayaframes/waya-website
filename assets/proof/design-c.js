@@ -554,29 +554,6 @@
     return { li: li, chart: chart, done: false };
   }
 
-  function summitBand(el, ctx, list) {
-    var extras = Array.prototype.filter.call(el.children || [], function (n) { return n !== list; });
-    var group = ctx && ctx.group;
-    if (!extras.length && !(group && group.program && txt(group.program.name) && txt(group.program.url))) return null;
-    var band = h('div', 'dc-summit');
-    var icon = hide(svgEl('svg', { 'class': 'dc-summit-flag', viewBox: '0 0 40 48', focusable: 'false' }));
-    icon.appendChild(svgEl('line', { x1: 6, y1: 4, x2: 6, y2: 46 }));
-    icon.appendChild(svgEl('path', { d: 'M7,5 L36,13 L7,21 Z' }));
-    band.appendChild(icon);
-    var body = h('div', 'dc-summit-body');
-    if (extras.length) {
-      extras.forEach(function (n) { body.appendChild(n); });
-    } else {
-      var p = h('p');
-      var a = h('a', null, txt(group.program.name));
-      a.setAttribute('href', group.program.url);
-      p.appendChild(a);
-      body.appendChild(p);
-    }
-    band.appendChild(body);
-    return band;
-  }
-
   function cases(el, ctx) {
     if (!el) return;
     var list = validCases(ctx);
@@ -588,16 +565,33 @@
     ul.setAttribute('role', 'list');
     var cards = list.map(function (c) { var rc = routeCard(c); ul.appendChild(rc.li); return rc; });
 
-    var band = summitBand(el, ctx, original);
     if (original && original.parentNode) original.parentNode.replaceChild(ul, original);
     else el.insertBefore(ul, el.firstChild);
-    if (band) el.appendChild(band);
     el.classList.add('dc-cases', 'dc-n' + Math.min(list.length, 4));
     if (rm) el.classList.add('dc-rm');
 
     animate(cards, rm);
   }
 
-  /* Steps: the problem pages now ship their own step cards, so Design C leaves them alone. */
-  WP.register('c', { strip: strip, hero: hero, cases: cases });
+  /* ------------------------------------------------------------------ chart (story cards)
+     Only the slope chart, for one case. The story card's HTML carries the title, numbers and link.
+     Self-contained: no parent classes or other renderers needed. */
+  function chart(el, ctx) {
+    if (!el) return;
+    var c = arr(ctx && ctx.cases)[0];
+    if (!c || typeof c !== 'object') return;
+    var ch = Chart(c.chart, { compact: false });
+    if (!ch) return;                                  /* leave the fallback text */
+    var rm = !!(ctx && ctx.reducedMotion);
+    var line = chartSentence(c.chart, null);
+    while (el.firstChild) el.removeChild(el.firstChild);
+    el.classList.add('dc-chart-solo');
+    if (rm) el.classList.add('dc-rm');
+    if (line) el.appendChild(sr(line + '.'));
+    el.appendChild(ch.box);
+    animate([{ chart: ch, li: el, done: false }], rm);
+  }
+
+  /* Steps: the problem pages ship their own step cards, so Design C leaves them alone. */
+  WP.register('c', { strip: strip, hero: hero, cases: cases, chart: chart });
 })();

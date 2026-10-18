@@ -66,6 +66,101 @@
   background: var(--waya-paper); color: var(--waya-rust); font-weight: 700; font-size: 15px;
 }
 
+/* Story cards: one case as chart, problem, diagnosis, fix, results */
+.proof-stories { display: grid; gap: 28px; margin: 44px auto 0; max-width: 1040px; }
+.proof-story {
+  background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 20px;
+  padding: 32px 36px; box-shadow: var(--shadow-1); scroll-margin-top: 90px;
+}
+.proof-story-title { margin-top: 8px; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.15; color: var(--waya-charcoal); }
+.proof-story-top { margin-top: 22px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: center; }
+.proof-story.has-video .proof-story-top { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.proof-chart { min-height: 200px; }
+.proof-chart-fallback {
+  display: grid; place-items: center; min-height: 200px; border-radius: 14px;
+  background: var(--waya-paper); font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--waya-charcoal); text-align: center; padding: 16px;
+}
+.proof-story-when { margin-top: 8px; font-size: 13px; color: var(--fg-2); }
+
+.proof-story-flow {
+  margin-top: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--border-1);
+}
+.proof-story-step { position: relative; padding: 22px 26px 4px; }
+.proof-story-step:first-child { padding-left: 0; }
+.proof-story-step:last-child { padding-right: 0; }
+.proof-story-step + .proof-story-step { border-left: 1px solid var(--border-1); }
+.proof-story-step:not(:last-child)::after {
+  content: '→'; position: absolute; right: -12px; top: 18px; z-index: 1;
+  width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--waya-cream); color: var(--waya-rust); font-weight: 700; font-size: 14px;
+}
+.proof-story-label {
+  font-family: var(--font-display); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--waya-rust);
+}
+.proof-story-step > p:not(.proof-story-label):not(.proof-step-method), .proof-story-step li { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--fg-1); }
+.proof-story-step .proof-step-method { margin-top: 10px; display: inline-block; }
+.proof-story-step ul { list-style: none; padding: 0; margin: 0; }
+.proof-story-step li { position: relative; padding-left: 22px; }
+.proof-story-step li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--waya-sage); font-weight: 700; }
+
+.proof-story-results {
+  list-style: none; padding: 0; margin: 26px 0 0; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
+}
+.proof-story-results li { background: var(--waya-paper); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.proof-pair-label { font-size: 13px; color: var(--fg-2); }
+.proof-pair-vals { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.proof-pair-vals .proof-before { font-size: 16px; }
+.proof-pair-vals .proof-after { font-size: 20px; }
+.proof-story-more { margin-top: 20px; }
+.proof-story-more a { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-rust); }
+.proof-story-more a:hover { text-decoration: underline; }
+
+/* Video tile: poster with a play button, swapped for the player on click */
+.proof-video { margin: 0; }
+.proof-video-play {
+  position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: pointer;
+  border-radius: 14px; overflow: hidden; background: var(--waya-ink); box-shadow: var(--shadow-3);
+  aspect-ratio: 16 / 9;
+}
+.proof-video-play img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--dur-base) var(--ease-standard); }
+.proof-video-play:hover img, .proof-video-play:focus-visible img { transform: scale(1.03); }
+.proof-video-play:focus-visible { outline: 3px solid var(--waya-rust); outline-offset: 3px; }
+.proof-video-icon {
+  position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+  background: var(--waya-rust); box-shadow: 0 8px 24px color-mix(in srgb, var(--waya-ink) 35%, transparent);
+}
+.proof-video-icon::after {
+  content: ''; position: absolute; left: 26px; top: 20px;
+  border-style: solid; border-width: 12px 0 12px 19px; border-color: transparent transparent transparent var(--waya-cream);
+}
+.proof-video-time {
+  position: absolute; right: 10px; bottom: 10px; padding: 3px 9px; border-radius: 999px;
+  background: color-mix(in srgb, var(--waya-ink) 75%, transparent); color: var(--waya-cream);
+  font-family: var(--font-display); font-weight: 600; font-size: 12.5px;
+}
+.proof-video video { width: 100%; display: block; border-radius: 14px; background: var(--waya-ink); }
+.proof-video figcaption { margin-top: 10px; font-size: 13.5px; color: var(--fg-2); text-align: center; }
+
+/* Lean AI early-access form (same card as the case study pages) */
+.signup-form-card {
+  max-width: 640px; margin: 40px auto 0;
+  background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 18px;
+  box-shadow: var(--shadow-1); padding: 12px;
+}
+.signup-form-card iframe { width: 100%; height: 469px; border: none; border-radius: 8px; display: block; }
+
+@media (max-width: 960px) {
+  .proof-story { padding: 24px 20px; }
+  .proof-story-title { font-size: 23px; }
+  .proof-story.has-video .proof-story-top { grid-template-columns: minmax(0, 1fr); }
+  .proof-story-flow { grid-template-columns: minmax(0, 1fr); }
+  .proof-story-step, .proof-story-step:first-child, .proof-story-step:last-child { padding: 18px 0 6px; }
+  .proof-story-step + .proof-story-step { border-left: 0; border-top: 1px solid var(--border-1); }
+  .proof-story-step:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -12px; transform: translateX(-50%); }
+}
+
 /* From case study to program */
 .proof-bridge .section-title { max-width: 820px; }
 
