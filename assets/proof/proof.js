@@ -1,17 +1,8 @@
-/* Proof components: picks a design (A, B or C), loads its CSS and JS, and lets it enhance
-   every [data-proof] container. Without JS, or if a design fails, the plain HTML inside each
-   container stays as it is.
-   Review: ?design=a|b|c switches design and is remembered in this browser. */
+/* Proof components: lets the design script (design-c.js, which registers 'c') enhance every
+   [data-proof] container. Without JS, or if the design fails, the plain HTML inside each
+   container stays as it is. The page head loads design-c.css and sets html.design-c. */
 (function () {
-  var DESIGNS = ['a', 'b', 'c'], DEFAULT = 'a', KEY = 'waya_proof_design';
-  var asked = new URLSearchParams(location.search).get('design');
-  var design = DESIGNS.indexOf(asked) >= 0 ? asked : null;
-  try {
-    if (design) localStorage.setItem(KEY, design);
-    else design = localStorage.getItem(KEY);
-  } catch (e) { /* storage blocked: fall through to the default */ }
-  if (DESIGNS.indexOf(design) < 0) design = DEFAULT;
-  document.documentElement.classList.add('design-' + design);
+  var design = 'c';
 
   /* Video tiles: the poster button becomes the player on click (portrait cut on upright phones). */
   document.addEventListener('click', function (e) {
@@ -53,13 +44,13 @@
     ran = true;
     document.querySelectorAll('[data-proof]').forEach(function (el) {
       var type = el.getAttribute('data-proof');
-      if (type === 'steps') return;   /* the step cards are the same plain HTML in every design */
+      if (type === 'steps') return;   /* the step cards are plain HTML */
       if (typeof renderer[type] !== 'function') return;
       try {
         renderer[type](el, ctxFor(el));
         el.classList.add('proof-enhanced');
       } catch (err) {
-        console.error('proof design ' + design + ' failed on ' + type, err);   /* plain HTML stays */
+        console.error('proof design failed on ' + type, err);   /* plain HTML stays */
       }
     });
   }
@@ -72,31 +63,4 @@
       else run(renderer);
     }
   };
-
-  if (!document.querySelector('[data-proof]') && !document.getElementById('proof-switcher-anchor')) return;
-
-  if (!document.getElementById('proof-design-css')) {   /* the page head normally loads it before first paint */
-    var css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = '/assets/proof/design-' + design + '.css?v=3';
-    document.head.appendChild(css);
-  }
-  var js = document.createElement('script');
-  js.src = '/assets/proof/design-' + design + '.js?v=3'; js.defer = true;
-  document.head.appendChild(js);
-
-  /* Design switcher for review: local previews, Cloudflare previews, or an explicit ?design= */
-  var host = location.hostname;
-  if (asked || host === 'localhost' || host === '127.0.0.1' || /\.pages\.dev$/.test(host)) {
-    document.addEventListener('DOMContentLoaded', function () {
-      var bar = document.createElement('div');
-      bar.className = 'proof-switcher';
-      bar.setAttribute('role', 'navigation');
-      bar.setAttribute('aria-label', 'Design versions (review only)');
-      bar.innerHTML = '<span>Design</span>' + DESIGNS.map(function (d) {
-        var u = new URL(location.href); u.searchParams.set('design', d);
-        return '<a href="' + u.pathname + u.search + u.hash + '"' + (d === design ? ' aria-current="true"' : '') + '>' + d.toUpperCase() + '</a>';
-      }).join('');
-      document.body.appendChild(bar);
-    });
-  }
 })();

@@ -1,5 +1,5 @@
 /* Proof components: plain styling for the server HTML. This is what shows without JS,
-   and the base the design files (design-a/b/c.css) build on or replace. */
+   and the base design-c.css builds on. */
 
 .proof-section .section-title { margin-bottom: 0; }
 .proof-section .proof-all { margin-top: 14px; text-align: center; font-size: 14.5px; }
@@ -179,17 +179,3 @@
   .proof-steps li:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -26px; transform: translateX(-50%); }
 }
 
-/* Review-only design switcher (proof.js shows it on localhost, *.pages.dev, or with ?design=) */
-.proof-switcher {
-  position: fixed; left: 16px; bottom: 16px; z-index: 60;
-  display: flex; align-items: center; gap: 4px; padding: 6px;
-  background: var(--waya-ink); border-radius: 999px; box-shadow: var(--shadow-3);
-  font-family: var(--font-display); font-size: 13px;
-}
-.proof-switcher span { padding: 0 8px 0 10px; color: color-mix(in srgb, var(--waya-cream) 70%, transparent); letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
-.proof-switcher a {
-  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
-  color: var(--waya-cream); font-weight: 700; text-decoration: none;
-}
-.proof-switcher a:hover { background: color-mix(in srgb, var(--waya-cream) 14%, transparent); }
-.proof-switcher a[aria-current="true"] { background: var(--waya-rust); }

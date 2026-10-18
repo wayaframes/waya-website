@@ -1,5 +1,7 @@
 # Proof components: three design directions
 
+> **Decision, 2026-10-19:** Oren chose Direction C. Designs A and B, the A/B/C switcher and the /design-review/ page were removed. The Solutions pages later moved to plain-HTML story cards (problem, diagnosis, fix, results), so on those pages Design C draws only the charts.
+
 Scope: proof strips (home, /scale-up-program/, /operations-audit/) and the three /what-we-fix/ problem pages (hero, steps, cases, CTA). Copy is fixed. Each direction is one `design-x.css` + `design-x.js`, scoped under `html.design-x`.
 
 ## Shared rules (all directions)

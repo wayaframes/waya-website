@@ -1,5 +1,7 @@
 # Proof components: engineering contract
 
+> **Decision, 2026-10-19:** Oren chose Direction C. Designs A and B, the A/B/C switcher and the /design-review/ page were removed. The Solutions pages later moved to plain-HTML story cards (problem, diagnosis, fix, results), so on those pages Design C draws only the charts.
+
 Three designs (A, B, C, specified in `DIRECTIONS.md`) render the same data on the same pages. One loader picks the design.
 
 ## Files
