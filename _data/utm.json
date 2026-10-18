@@ -72,8 +72,8 @@
 
   "website_buttons": {
     "param": "utm_button",
-    "allowed": ["nav", "hero", "challenge", "pricing", "pullquote", "path", "who", "faq", "final_cta", "footer"],
-    "note": "nav, hero, challenge, pricing, final_cta, footer come from Notion. pullquote, path, who, faq were added 2026-10-12 from the site inventory; confirm or fold them into the Notion six. Use underscores, never hyphens (final_cta, not final-cta).",
+    "allowed": ["nav", "hero", "challenge", "pricing", "pullquote", "path", "who", "faq", "final_cta", "footer", "video"],
+    "note": "nav, hero, challenge, pricing, final_cta, footer come from Notion. pullquote, path, who, faq were added 2026-10-12 from the site inventory; confirm or fold them into the Notion six. video was added 2026-10-16 (Oren) for the Schedule a Call button under a case study video; mirror it to Notion. Use underscores, never hyphens (final_cta, not final-cta).",
     "defaults_global": "window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: '<product>_direct_<period>' }",
     "defaults_note": "A direct visitor with no inbound campaign still needs a campaign so GHL can route on the product token. The engine applies these only when nothing was captured from an inbound link."
   },
