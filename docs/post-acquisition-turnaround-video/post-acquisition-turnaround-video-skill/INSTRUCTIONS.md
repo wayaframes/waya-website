@@ -23,6 +23,10 @@ Every instruction Oren gives, verbatim, with how it is checked. Items are never 
 | 17 | Close card: "Schedule a call." primary | "Schedule a Call" is the primary button on the close card | verified (draft 1, 78.52 s) |
 | 18 | "make sure that the link is is https://staging.waya-website.pages.dev/case-studies/post-acquisition-turnaround/ add the UTM according to the site UTM rules." | Clarified: "The button under the video on the page", domain "www.wayaframes.com". At publishing: a Schedule a Call button under the video on case-studies/post-acquisition-turnaround/, booking link built by scripts/utm_link.py with utm_button only (placement 'video' must first be added to utm.json, pending Oren's OK), check_utm.py 0 failures | open (publishing) |
 | 19 | Button tag: "use the \"video\" tag" | utm.json website_buttons.allowed includes "video"; button href = waya-consultation?utm_button=video; Notion mirror updated at publishing | open (publishing) |
+| 20 | "put both videos on the page, the top one is the skill generated video, beneath it the watercolor video" | case-studies/post-acquisition-turnaround/: skill video first, watercolor beneath (edit was interrupted by Oren; on hold) | on hold |
+| 21 | "I have the video from Vince, I want you to edit it according to the script and put it in the widget that you carved out for it." (take: Downloads/IMG_9128.MOV) | Widget plays Vince's clip at all four appearances; lens line in his own voice, lip-synced; lens scene re-timed to his words | open |
+| 22 | "This version needs to go into the post-acquisition-turnaround video branch" | Committed on branch post-acquisition-turnaround-video only | open |
+| 23 | "tell the audion tech to try to compress the volume of the video" | Dynamic-range compression on Vince's line and the final mix; report LRA and LUFS before/after | open |
 
 ## House-rule overrides for this video
 - Rule 28 (two cuts): portrait cut deferred until Oren approves the landscape cut (item 3).

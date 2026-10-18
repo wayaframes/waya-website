@@ -192,3 +192,72 @@ All paths below are relative to the video folder. All times are seconds.
 | `ra-34.30.png` | The key line alone |
 | `ra-41.90.png` | The demo frame with level bottoms and a solid caption |
 | `ra-77.00.png` | The close card |
+
+---
+
+## Round 3 (real Vince clip, re-timed lens scene, 2026-10-18)
+
+Video folder moved to `post-acquisition-turnaround-video-skill/`. 145 fresh stills (captions off) in
+`render/out/review-art-r3/`: every line start and +0.5 s, every 0.5 s across all four widget appearances, every 0.25 s
+across 66.5–73.5, plus the round-1/2 key frames. Widget crops: `render/out/review-art-r3/sheets/widget-0..4.png`;
+regression sheet: `sheets/regression.png`. Final MP4 78.52 s, 1920x1080; frame at 41.9 s matches the page, no captions.
+
+### Vince in the widget
+
+| Check | Result | Evidence |
+|---|---|---|
+| Face crop, all four appearances (0.65–7.4, 21.95–30.0, 36.3–52.3, 67.14–71.54), start / mid / end | **PASS**: seated, head and shoulders, eyes at about 40% of the square, face centred; same scale every appearance; no stand-up, cut, look-away or frame-edge oddity in 97 sampled frames | `sheets/widget-0..4.png` |
+| Bar does not cut the face | **PASS**: the top of his hair sits 15–25 px below the 52 px bar; the face never goes under it | `ra-41.90.png` |
+| Headroom | **PASS**: tight but correct for a 560 px talking-head tile (reference 05 is similar) | `ra-41.90.png` |
+| Always plays video (rule 11), same size every time | **PASS**: the expression and mouth change frame to frame in every window; 562x562 at x 30, y 140 each time | widget sheets |
+| Lens line in his own voice | **PASS (picture side)**: mouth is moving through 67.44–70.94 and the widget holds until 71.54 | `widget-3.png` 67.44–71.00 |
+
+### Lens scene (66.5–73.5, every 0.25 s)
+
+| Check | Result | Evidence |
+|---|---|---|
+| Sequence on his words | **PASS**: Symptom card in at 69.04, ≠ at 69.81, Cause at 70.04, arrows draw at 71.04, "Work both at once" at 71.14; one element at a time, no stacking | `sheets/sheet-13.png`, `sheet-14.png` |
+| "Work both at once" readable ≥ 1.2 s | **PASS (marginal)**: at opacity ≥ 0.5 from about 71.3 to 72.55 (≈ 1.25 s), fully on 71.5–72.3. But the stage starts darkening to charcoal at about 72.14, so it is at full contrast on cream for only about 0.65 s; by 72.5 it is sage on grey. | `ra-71.50.png`, `ra-72.00.png`, `ra-72.50.png`; meas `both` 0.44 / 1 / 1 / 1 / 1 / 0.63 at 71.25–72.50 |
+| No blank frame into the close | **PASS**: the lens group (cards + arrows) stays up through the background fade and crosses the wordmark (72.50: lens 0.63, logo 0.02; 72.64: lens 0.17, logo 0.30); "Have a problem like this one?" by 72.75 | `ra-72.50.png`, `ra-72.64.png`, `ra-72.75.png` |
+| Close card | **PASS**: unchanged; Schedule a Call primary with halo, See Lean AI, wayaframes.com | `ra-76.00.png`, `ra-78.45.png` |
+
+### Round-2 open items
+
+| # | Result | Evidence |
+|---|---|---|
+| 8 tracker outline | **PASS**: stage x 1753–1879, inside the card (1882), clear of "Oct 31" | meas 47.90 `hlCols` |
+| N1 886 outline bottom | **PASS**: ends at y 838, above the caption bar (845) | meas 29.00 `hlWms` |
+| N2 burn eyebrow contrast | **PASS**: stone #6B6F6C on cream for line 15 (pixel 107,111,108), fog on cold for line 5 | `ra-62.50.png` |
+| N3 standard-work white band | **open (optional, unchanged)**: the shot was not re-shot; a white band remains above the caption | `ra-51.75.png` |
+
+### Regression pass (every scene start)
+
+**PASS.** All line starts checked (`sheets/regression.png`). Grid, key line alone (32.92–35.50), dough scene,
+root-cause frame, 886 panel, demo frame (all `data-col` tops at 140, centre screens 562 tall), results, burn, Profitable
+and close are as in round 2. No new overlaps, clipping or blank frames. The real clip's warm cream wall and blue shirt
+sit well against both the cold dark scenes and the cream demo frame; no colour clash.
+
+### New in round 3
+
+| # | Time | Problem | Fix |
+|---|---|---|---|
+| R3-1 | 71.5–72.5 | "Work both at once" gets only about 0.65 s at full contrast before the close's background fade takes it to grey. It is the takeaway line. | Hold the cream background until 72.45 (start the charcoal fade 0.3 s later) and start "Work both at once" with the arrows at 71.04 instead of 71.14. That gives about 1.2 s at full contrast. The close line starts at 72.64, so the 0.2 s wordmark rule still holds, and the 90 s limit has 11 s of room. |
+| R3-2 | 67.44–69.04 | For 1.6 s at the start of the lens line, the right two-thirds of the frame is empty (widget + section title only) while Vince says "You need to separate…". Nothing is frozen (his face moves), so this does not break rule 13. | Judgment call. Either leave it (his face carries the beat), or bring the Symptom card in on "separate" (about 68.3) instead of on "symptom". |
+
+### Round 3 verdict
+
+- **Vince clip: PASS at all four appearances.** The framing, crop, bar clearance and motion are right, and nothing odd
+  happens in any sampled frame.
+- **Lens scene: PASS.** There is one marginal item: R3-1, which is the readability of "Work both at once" against the
+  darkening background. The fix is two timing values.
+- **Round-2 items: all closed** except optional N3.
+- **Regression: PASS.**
+- Ready to show Oren. R3-1 is recommended before final; R3-2 is his call.
+
+**Stills showing Vince** (all in `render/out/review-art-r3/`):
+
+| Still | Appearance |
+|---|---|
+| `ra-41.90.png` | The demo frame, full size |
+| `ra-25.75.png` | The root-cause frame |
+| `ra-71.00.png` | The lens, with Symptom ≠ Cause on screen |

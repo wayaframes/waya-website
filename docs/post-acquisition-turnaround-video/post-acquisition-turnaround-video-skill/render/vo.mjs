@@ -84,7 +84,11 @@ CUES.forEach(([start, end, text, who], i) => {
   const vsrc = who === 'VINCE' ? vinceSource() : null;
   if (vsrc) {
     const wav = resolve(outDir, 'vo', 'vince-lens.wav'), raw = resolve(outDir, 'vo', 'vince-lens-raw.wav'), win = resolve(outDir, 'vo', 'vince-lens-window.wav');
-    const OFF = PAGE_NUM('VINCE_LENS_OFFSET') ?? 0;
+    // --vince-offset <s> overrides the page's VINCE_LENS_OFFSET (for voicing before the page is updated); they must agree
+    // before a render, or his voice and mouth are out of sync
+    const PAGE_OFF = PAGE_NUM('VINCE_LENS_OFFSET');
+    const OFF = opt('vince-offset') != null ? +opt('vince-offset') : (PAGE_OFF ?? 0);
+    if (PAGE_OFF !== OFF) console.log(`WARNING: voicing Vince from ${OFF} s (--vince-offset) but video.html says VINCE_LENS_OFFSET = ${PAGE_OFF}: set the page to ${OFF} before rendering, or lip sync breaks`);
     let len = opt('vince-len') ? +opt('vince-len') : null;
     if (vsrc.take) {
       const max = +opt('vince-max', String(end - start + 2));
@@ -101,7 +105,20 @@ CUES.forEach(([start, end, text, who], i) => {
       console.log(`Vince's line: ${vsrc.file} (pre-cut; its first sample must be VINCE_LENS_OFFSET ${OFF} s in the clip), ${len.toFixed(2)} s`);
     }
     const fo = Math.max(len - 0.04, 0).toFixed(3);
-    run(ffmpegPath, ['-y', '-i', win, '-af', `atrim=0:${len.toFixed(3)},highpass=f=80,afftdn=nf=-30,afade=t=in:st=0:d=0.015,afade=t=out:st=${fo}:d=0.04`, '-ar', '48000', '-ac', '2', raw]);
+    // CLEAN + COMPRESS (Oren 2026-10-18, "compress the volume"): high-pass, a light de-noise set from the take's own
+    // room tone (the quietest 10% of 50 ms windows, so the gate never eats soft consonants), then a gentle compressor
+    // whose threshold sits 6 dB under his speech-gated level, so his louder and softer words even out and he sits
+    // as steady as the narrator. The level match below runs after it.
+    const env = (() => { const p = spawnSync(ffmpegPath, ['-v', 'error', '-i', win, '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'], { maxBuffer: 1 << 30 });
+      const x = new Float32Array(p.stdout.buffer, p.stdout.byteOffset, p.stdout.length >> 2); const es = [];
+      for (let i = 0; i + 800 <= x.length; i += 800) { let e = 0; for (let k = i; k < i + 800; k++) e += x[k] * x[k]; es.push(10 * Math.log10(e / 800 + 1e-12)); }
+      return es.sort((a, b) => a - b); })();
+    const floorDb = env[Math.floor(env.length * 0.1)] ?? -60;
+    const nf = Math.min(-25, Math.max(-80, floorDb + 6)).toFixed(0);
+    const cth = 10 ** ((gatedDb(win) - 6) / 20);
+    const chain = `atrim=0:${len.toFixed(3)},highpass=f=80,afftdn=nr=10:nf=${nf},acompressor=threshold=${cth.toFixed(5)}:ratio=3:attack=5:release=120:knee=4:makeup=1,afade=t=in:st=0:d=0.015,afade=t=out:st=${fo}:d=0.04`;
+    console.log(`Vince's clean-up: room tone ${floorDb.toFixed(1)} dBFS -> afftdn nf ${nf}; compressor 3:1 from ${(20 * Math.log10(cth)).toFixed(1)} dBFS`);
+    run(ffmpegPath, ['-y', '-i', win, '-af', chain, '-ar', '48000', '-ac', '2', raw]);
     const narr = clips.filter(c => !c.who);
     const ref = narr.length ? 10 * Math.log10(narr.reduce((s, c) => s + 10 ** (gatedDb(c.wav) / 10), 0) / narr.length) : -18;
     // two passes: the limiter that catches his peaks takes a little off the level, so correct once more

@@ -13,7 +13,7 @@
      measured word boundary from render/out/words.json, named once and derived from.
    - Demo frame: expert widget left, the centre screen, the tracker right, all top-aligned at --frame-top. data-col marks them.
    - THE EXPERT CLIP: one source, EXPERT_SRC. To swap the placeholder for Oren's clip change that one line to
-     'assets/expert-vince.mp4' (muted, no audio stream) and set VINCE_LENS_OFFSET (+ EXPERT_IN for the muted beats).
+     'assets/expert-vince.mp4' (muted, no audio stream) and set VINCE_LENS_OFFSET (+ EXPERT_IN for the muted beats). Done 2026-10-18.
 -->
 <style>
   @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
@@ -279,7 +279,7 @@
     [55.97, 59.12, "Lost stock fell to two percent, order errors to three."],
     [59.77, 62.90, "The burn fell to two hundred sixty thousand a month by March."],
     [63.55, 66.19, "By October twenty twenty-three, it was profitable."],
-    [67.44, 71.94, "Separate the symptom from the cause, then work both at once.", 'VINCE'],   // VINCE'S OWN VOICE: narrator PLACEHOLDER until his clip. vo.mjs uses assets/vince-lens.wav instead once it exists
+    [67.44, 71.94, "You need to separate the symptom from the root cause.", 'VINCE'],   // VINCE'S OWN VOICE, cut from assets/vince-take.m4a at VINCE_LENS_OFFSET (his words, not the script's: INSTRUCTIONS #21)
     [72.64, 75.97, "Talk to us, or run the same methods yourself with Lean AI."],
   ];
 
@@ -307,23 +307,23 @@
   const money = v => '$' + Math.round(v).toLocaleString('en-US');
 
   // ================= THE EXPERT CLIP =================
-  // Swap the placeholder for Oren's clip by changing this ONE line to 'assets/expert-vince.mp4' (muted, no audio stream).
-  const EXPERT_SRC = 'assets/expert-placeholder.mp4';
-  // Seconds into expert-vince.mp4 where Vince starts saying line B ("Separate the symptom…"), the same take that
-  // assets/vince-lens.wav is cut from. Line 17 seeks the clip so that moment lands on the line's first word (lip sync).
-  const VINCE_LENS_OFFSET = 0;
-  // Where each muted appearance starts in the real clip (VINCE-RECORDING.md beats 1, 3, 5). The placeholder just loops.
-  // Placeholder values: three different beats, so the take's quiet start never shows. Set them when the clip arrives.
-  const EXPERT_IN = { intro: 4, rootCause: 18, tracks: 30 };
+  // Vince's real take (INSTRUCTIONS #21): 720x720, muted, clip time = take time (0-110.4 s; VINCE-TRANSCRIPT.md).
+  // (assets/expert-placeholder.mp4 is kept on disk but no longer used.)
+  const EXPERT_SRC = 'assets/expert-vince.mp4';
+  // Seconds into the take where he starts the lens line ("You need to separate the symptom from the root cause.",
+  // 100.34-103.84). vo.mjs cuts his audio from assets/vince-take.m4a at this same second: one number for voice and mouth.
+  const VINCE_LENS_OFFSET = 100.34;
+  // Where each muted appearance starts in the take (VINCE-TRANSCRIPT.md, "The muted appearances").
+  const EXPERT_IN = { intro: 9.30, rootCause: 42.20, tracks: 66.20 };
 
   // ================= TIMELINE (every time a measured word boundary, render/out/words.json) =================
   // background: cold (lines 1-7) -> charcoal (key line) -> cream (two tracks .. lens) -> charcoal (close)
   const L7END = 29.72, KEY = 30.42, SO = 36.06, CLOSE = CAPS[17][0], L17 = CAPS[16][0];
   // The lens line's picture ends where the voice stops, not at the end of its 4.5 s slot (CAPS[16][1]).
-  // L17_SAID = its measured length (vo-timing.txt); set it from Vince's take when his audio replaces the placeholder.
-  const L17_SAID = 3.45, L17END = L17 + L17_SAID;
+  // L17_SAID = his measured read from the take (100.34 -> 103.84 s, VINCE-TRANSCRIPT.md).
+  const L17_SAID = 3.50, L17END = L17 + L17_SAID;
   track(stage, [[0, { backgroundColor: '#121517' }], [L7END, { backgroundColor: '#121517' }], [KEY, { backgroundColor: '#383F3B' }],
-    [SO - 0.05, { backgroundColor: '#383F3B' }], [SO + 0.75, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.6, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.05, { backgroundColor: '#383F3B' }]]);
+    [SO - 0.05, { backgroundColor: '#383F3B' }], [SO + 0.75, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.5, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.05, { backgroundColor: '#383F3B' }]]);
 
   // ---- line 1: Vince, Cheetah, three others ----
   const VINCE = 0.65, CHEETAH = 3.17, THREE = 5.90;
@@ -482,19 +482,24 @@
   win($('prof'), PROFITABLE + 0.05, PROF_OUT, { fi: 0.35, fo: 0.25, dy: 30 });
 
   // ---- line 17: the Waya lens (Vince's own voice) ----
-  const SEPARATE = 67.49, FROM_CAUSE = 68.66, BOTH = 69.97, AT_ONCE = 70.26;
+  // his words on the film = L17 + (take time - VINCE_LENS_OFFSET), take times from VINCE-TRANSCRIPT.md
+  const V = take => +(L17 + take - VINCE_LENS_OFFSET).toFixed(2);
+  const SYMPTOM = V(102.06), FROM_THE = V(102.76), ROOT_CAUSE = V(103.06);   // 69.16, 69.86, 70.16
+  // "Work both at once" is no longer spoken: it lands just after his last word and holds to the close (>= 1.2 s readable)
+  const BOTH = L17END + 0.1, AT_ONCE = BOTH + 0.1;
   const LENS_OUT = CLOSE - 0.45;   // the lens cards stay up into the close's background fade and cross the wordmark: no blank frame
   win($('tLens'), L17 - 0.3, L17END + 0.35, { fi: 0.4, fo: 0.35 });
-  win($('cSym'), L17 - 0.05, null, { fi: 0.3 }); win($('cCau'), SEPARATE, null, { fi: 0.2 });
-  tw($('cSym'), [{ transform: 'translateX(0px)' }, { transform: 'translateX(-320px)' }], SEPARATE, 0.8, EASE);
-  tw($('cCau'), [{ transform: 'translateX(0px)' }, { transform: 'translateX(300px)' }], SEPARATE, 0.8, EASE);
-  win($('neq'), FROM_CAUSE, null, { fi: 0.3, dy: 12 });
+  // each card slides into its seat on the word that names it (seats: Symptom left 680, Cause left 1300)
+  win($('cSym'), SYMPTOM - 0.12, null, { fi: 0.3 }); win($('cCau'), ROOT_CAUSE - 0.12, null, { fi: 0.3 });
+  tw($('cSym'), [{ transform: 'translateX(-250px)' }, { transform: 'translateX(-320px)' }], SYMPTOM - 0.12, 0.6, EASE);
+  tw($('cCau'), [{ transform: 'translateX(370px)' }, { transform: 'translateX(300px)' }], ROOT_CAUSE - 0.12, 0.6, EASE);
+  win($('neq'), FROM_THE - 0.05, null, { fi: 0.3, dy: 12 });
   draw($('arw'), BOTH, 0.5, 0);
-  win($('both'), AT_ONCE, null, { fi: 0.35, dy: 14 });
+  win($('both'), AT_ONCE, null, { fi: 0.25, dy: 14 });
   // after the last word: a slow push-in on the lens, then it leaves as the close comes up
   // the paper cards darken with the background, then hand over to the wordmark with no empty frame
-  track($('lensGrp'), [[0, { opacity: 1 }], [CLOSE - 0.3, { opacity: 1 }], [CLOSE + 0.05, { opacity: 0 }]]);
-  track($('lensGrp'), [[CLOSE - 0.6, { filter: 'brightness(1)' }], [CLOSE - 0.05, { filter: 'brightness(0.42)' }]]);
+  track($('lensGrp'), [[0, { opacity: 1 }], [CLOSE - 0.25, { opacity: 1 }], [CLOSE + 0.05, { opacity: 0 }]]);
+  track($('lensGrp'), [[CLOSE - 0.5, { filter: 'brightness(1)' }], [CLOSE - 0.05, { filter: 'brightness(0.42)' }]]);
   track($('lensGrp'), [[AT_ONCE, { transform: 'translateY(0px) scale(1)', easing: 'cubic-bezier(.3,0,.6,1)' }], [LENS_OUT, { transform: 'translateY(0px) scale(1.04)', easing: 'cubic-bezier(.4,0,.7,1)' }],
     [CLOSE + 0.05, { transform: 'translateY(210px) scale(1.045)' }]]);   // sinks away under the rising wordmark so the two never overprint
 

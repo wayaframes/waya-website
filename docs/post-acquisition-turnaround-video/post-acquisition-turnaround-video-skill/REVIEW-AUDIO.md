@@ -382,3 +382,135 @@ Vince's slot). Each one now has audible music, −26 dBFS on average in the gaps
 2. **Fix 4 (pending the clip):** Vince's word times. Then re-time the close to his measured end + 0.7, and re-run
    `vo.mjs` → `music.py` → `mix.mjs` → `audit.mjs`.
 3. **Advisory, the producer's call:** "Profitable" held 1.45 s (item 9).
+
+## Round 3: Vince's real take wired in (2026-10-18)
+
+**What was reviewed:**
+- `render/out/video-final.mp4`: 78.52 s, 1920x1080 at 30 fps, AAC 48 kHz.
+- The lens line is now his own voice: take 100.34 → 103.84 s, "You need to separate the symptom from the root
+  cause.", at film 67.44–70.94.
+- The widget plays `assets/expert-vince.mp4` on the take's timeline (`VINCE_LENS_OFFSET` 100.34; `EXPERT_IN` 9.30 /
+  42.20 / 66.20).
+- The voice is compressed in `mix.mjs`.
+
+**How it was measured:**
+- `node audit.mjs`: all checks pass.
+- A fresh page sweep at 0.05 s steps.
+- A pixel scan of the MP4 at 10 fps with the widget masked.
+- Full-resolution blank-frame check from 70 to 73 s.
+- Speech-gated levels on `vo.wav`, `vo-comp.wav` and the MP4's audio.
+- Lip sync measured along the whole chain: the iPhone original (`Downloads/IMG_9128.MOV`) → the clip and the take
+  audio → the film.
+
+### Lip sync on the lens line: **PASS**, net offset ≈ 3 ms (well under 1 frame, 33 ms)
+
+Each link was measured by cross-correlation: 10 ms audio-energy envelopes for sound, frame-difference motion series
+and per-frame pixel matching for picture.
+
+| Link | Measured | Meaning |
+|---|---|---|
+| `vince-take.m4a` vs the MOV's audio (95–105 s) | 0 ms (corr 1.00) | The take audio is on the original's timeline |
+| `expert-vince.mp4` vs the MOV's picture (95–105 s) | +1 frame (corr 0.98) | The clip shows the MOV's content about 33 ms late |
+| His voice in the film vs `take(t + 32.90)` (67.0–71.6) | +30 ms (corr 0.93) | The voice is about 30 ms late. The offset is already present in `vo-comp.wav`, so it comes from `vo.mjs`'s cut of the m4a, not from the mix or the encode |
+| The widget's picture in the film vs `clip(t + 32.90)` | median 0 frames (pixel match, 106 frames) | The page seeks exactly: `expertClip.currentTime` read in the page at 67.14 / 67.44 / 68.00 / 69.16 / 70.38 / 70.94 / 71.50 is 100.040 / 100.340 / 100.900 / 102.060 / 103.280 / 103.840 / 104.400, equal to t + 32.90 to the millisecond |
+
+- **Net:** the mouth shows MOV(t + 32.867) and the voice plays MOV(t + 32.870), so they are in sync within about
+  3 ms.
+- **The catch:** this is two roughly 1-frame lags cancelling each other. If either is re-cut (the clip re-encoded,
+  or the audio cut changed), re-measure, because one of them alone would be a 1-frame offset. That is still within
+  1 frame, so not a failure.
+- **The edges of the line are clean:**
+  - At 67.14–67.44 the widget shows 100.04–100.34, the quiet before "You". No mouthing ahead of the voice.
+  - At 70.94–71.54 it shows 103.84–104.44, the pause before "and attack the latter". The widget is gone (71.54)
+    before he would start that phrase.
+
+### No audio in the clip, no doubling: **PASS**
+
+- `expert-vince.mp4` has one video stream and no audio stream. The page's `<video>` is also `muted`.
+- `vo.mjs` lays the take audio once: the timing sheet tags the row `[VINCE (own voice)]`, and the narrator
+  placeholder is not voiced.
+- In the film, the autocorrelation of the audio over his line (lags 15–600 ms) peaks at 0.118, which means no echo
+  or second copy.
+
+### His level vs the narrator: **PASS**
+
+| Track | Vince | Narrator |
+|---|---|---|
+| `vo.wav` (before compression) | −15.0 dBFS | −13.6 to −15.5 dBFS |
+| `vo-comp.wav` (after the voice compressor) | −14.9 dBFS | −13.9 to −15.6 dBFS |
+
+He sits in the middle of the narrator's range.
+
+**Final loudness:** −16.0 LUFS, LRA 2.8 LU, true peak −2.1 dBTP. No clipping.
+
+### Line 17 phrase-by-visual (new anchors)
+
+His phrases (silencedetect on `cue-16.wav`) and words (`VINCE-TRANSCRIPT.md`, film = take − 32.90):
+
+| Phrase | Word | Visual | On | Δ | OK |
+|---|---|---|---|---|---|
+| "You need to separate" 67.44–68.60 | You 67.44 / separate 67.80 | widget (his face, lip-synced) + "The Waya lens" | 67.35 | −0.09 | ✓ |
+| same | — | right half empty until the Symptom card: masked static 67.55–69.00 (1.45 s) | — | — | borderline, accepted: his face carries it (see below) |
+| "the symptom" 68.95–69.71 | symptom 69.16 | Symptom card slides in | 69.20 | +0.04 | ✓ |
+| "from the root cause." 69.85–70.95 | from 69.86 / root 70.16 | ≠ / Cause card | 70.00 / 70.20 | +0.14 / +0.04 | ✓ |
+| (after his last word, 70.94) | — | arrows draw 71.04; "Work both at once" | 71.30 | on-screen only | ✓ (holds 1.25 s) |
+| exit | — | widget out 71.40; title out 71.50; cards out 72.55 (sinking, darkening); wordmark 72.75 | — | — | ✓ overlap, no blank |
+
+- **Optional:** bring a first visual in on "separate" (67.80), for example the two empty card seats or the ≠ ghosted,
+  to break the 1.45 s still on the right. It is at the limit, not over it.
+- **Producer note (content, not timing):** the screen still says "Work both at once", which he no longer says. In the
+  take he goes on "and attack the latter" (cut, not heard). The on-screen line is the page's lens and still reads
+  correctly after "separate the symptom from the root cause".
+
+### Music under his line, lens → close, blank frames
+
+- **Duck (derived from the timing sheet):**
+  - The window is [67.34, 71.04] at −15 dB, with 0.8 s ramps.
+  - The bed sits at −41 to −55 dBFS under him, 30.2 dB under his speech: inaudible behind him but present. **PASS.**
+  - The peak after "profitable" settles from −19.5 dBFS (66.5) to −27.9 (67.25) before his first word.
+- **Lens → close (voice silent 70.95–72.64, 1.69 s):**
+  - The mix dips to −45.2 dBFS for one 0.25 s window at 71.0, then −40 → −33 dBFS. That is no hole (round 1 was
+    ≤ −60 for 1 s).
+  - The picture keeps moving (the lens push and sink).
+  - The silence is 1.69 s against 0.7 s of air elsewhere. **Optional:** move the close line to his end + 0.7 = 71.64
+    (CAPS[17][0]); TALK, LEAN, DUR and the music plan follow automatically. The film would be about 77.5 s.
+- **Blank frames 70–73 s: none.** Every frame has content (full-resolution check). Round 2's two near-blank frames at
+  72.47–72.50 are gone.
+
+### Regression on the rest: **PASS**
+
+- **Audit:** no OVER, no pushed, air ≥ 0.6 s; phrases unchanged for lines 1–16 and 18; widget tops aligned; names
+  checked.
+- **Onsets:** identical to round 2 on lines 1–16 and 18 (for example: fill-rate chip 11.15, root-cause reveal 23.68,
+  "Profitable" 65.70, wordmark 72.75, Schedule a Call 72.95, See Lean AI 75.45). No visual is more than 0.7 s off its
+  phrase, and none is under the wrong line.
+- **Frozen, widget masked:**
+
+  | Stretch | Length | Note |
+  |---|---|---|
+  | 0.7–3.1 | 2.4 s | His real face now plays there, the intro from take 9.30 |
+  | 22.5–23.8 | 1.3 s | — |
+  | 34.1–35.4 | 1.3 s | Planned hold |
+  | 37.2–38.6 | 1.4 s | — |
+  | 67.5–69.0 | 1.5 s | Above |
+
+  Nothing else is over 1.2 s.
+- **Blank frames elsewhere:** unchanged, all ≤ 0.3 s, the 0.6 s cold open aside.
+- **Music under the voice:**
+
+  | Section | Under the voice |
+  |---|---|
+  | Results, lines 12–16 | 12.5–14.1 dB |
+  | Drive, line 12 | 14.3 dB |
+  | Problem section | 12.6–19.0 dB |
+  | Key line | 10.0 dB |
+  | Close line | 23.1 dB |
+  | Close card | 17.9 dB, a little louder than the ~20 target after the bus gain; audible, acceptable |
+
+### Round 3 open items
+
+1. **Optional:** re-time the close to Vince's end + 0.7 s (CAPS[17][0] = 71.64). The voice gap drops from 1.69 to
+   0.7 s and the film runs about 77.5 s.
+2. **Optional:** add a visual on "separate" (67.80) to break the 1.45 s still beside his face.
+3. **Producer:** "Work both at once" on screen vs his spoken line (content). "Profitable" hold (item 9, unchanged).
+4. **Fix 4: done** by the other session; the words are in `VINCE-TRANSCRIPT.md` and the lens constants use them.

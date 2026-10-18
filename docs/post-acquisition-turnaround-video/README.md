@@ -4,7 +4,7 @@ Two videos of the same case study (`/case-studies/post-acquisition-turnaround/`)
 
 | Video | What it is |
 |---|---|
-| `post-acquisition-turnaround-video-skill.mp4` | Narrated, 1:18.5, 1920x1080, 30 fps, voice and music. Made with the waya-video skill on 2026-10-16. Vince's story at Cheetah Technologies. **Draft:** Vince's on-camera clip is a striped placeholder and the narrator stands in for his lens line until his recording arrives. Landscape only; the portrait cut follows approval. |
+| `post-acquisition-turnaround-video-skill.mp4` | Narrated, 1:18.5, 1920x1080, 30 fps, voice and music. Made with the waya-video skill, 2026-10-16 to 10-18. Vince's story at Cheetah Technologies. Vince appears on camera four times (his own take, 2026-10-16) and says the lens line in his own voice. Landscape only; the portrait cut follows approval. |
 | `post-acquisition-turnaround-video-watercolor.mp4` | Silent, 45 s, 1920x1080, watercolor washes in the Waya palette. Made on 2026-10-03. |
 
 Each has a `-poster.jpg` next to it.
