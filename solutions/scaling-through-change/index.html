@@ -24,14 +24,14 @@
 <link rel="stylesheet" href="/assets/styles.css?v=30">
 <script>window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: 'scaleup_direct_2026q4' };</script>
 <script defer src="/assets/analytics.js"></script>
-<link rel="stylesheet" href="/assets/proof/proof.css?v=3">
+<link rel="stylesheet" href="/assets/proof/proof.css?v=5">
 <script>/* Proof design (A/B/C): pick it and load its stylesheet before first paint, so nothing above the fold shifts. */
 (function () { var d = 'a', q = new URLSearchParams(location.search).get('design');
   try { if (/^[abc]$/.test(q)) localStorage.setItem('waya_proof_design', q); else q = localStorage.getItem('waya_proof_design'); } catch (e) {}
   if (/^[abc]$/.test(q)) d = q;
   document.documentElement.classList.add('design-' + d);
   document.write('<link rel="stylesheet" id="proof-design-css" href="/assets/proof/design-' + d + '.css?v=3">'); })();</script>
-<script defer src="/assets/proof/cases.js?v=3"></script>
+<script defer src="/assets/proof/cases.js?v=4"></script>
 <script defer src="/assets/proof/proof.js?v=3"></script>
 <script type="application/ld+json">
 {
@@ -131,7 +131,6 @@
           <a href="/solutions/margins-and-cash/">Margins and Cash</a>
           <a href="/solutions/scaling-through-change/">Scaling Through Change</a>
           <a href="/solutions/faster-service/">Faster Service</a>
-          <a href="/case-studies/">All case studies</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -181,50 +180,98 @@
   <div class="container">
     <p class="section-eyebrow">Results</p>
     <h2 class="section-title">Where we've fixed this</h2>
-    <div class="proof" data-proof="cases" data-group="scaling-through-change">
-  <ul class="proof-list">
-    <li class="proof-item" data-case="post-acquisition-turnaround">
-      <a class="proof-link" href="/case-studies/post-acquisition-turnaround/">
-        <span class="proof-kicker">Cheetah · M&amp;A</span>
-        <span class="proof-metric"><span class="proof-label">Contribution margin</span>
-          <span class="proof-before">~$1M/mo burn</span> <span class="proof-arrow" aria-hidden="true">→</span>
-          <span class="proof-after">Profitable</span></span>
-        <span class="proof-summary">We found the warehouse system was never updated for the new racking, and rebuilt it while triaging by hand.</span>
-        <span class="proof-metrics">
-          <span><b>Shrink:</b> ~17–18% → ~2%</span>
-          <span><b>Fill rate:</b> ~75% → 99%+</span>
-        </span>
-        <span class="proof-more">Read the case study</span>
-      </a>
-    </li>
-    <li class="proof-item" data-case="sole-supplier">
-      <a class="proof-link" href="/case-studies/sole-supplier/">
-        <span class="proof-kicker">Cheetah · Supply chain</span>
-        <span class="proof-metric"><span class="proof-label">Time to rebuild the supply chain</span>
-          <span class="proof-after">14 months</span></span>
-        <span class="proof-summary">We built the company&#x27;s own warehouse and direct sourcing in 14 months, while the old business kept running.</span>
-        <span class="proof-metrics">
-          <span><b>Revenue during the transition:</b> ~$75M → ~$155M</span>
-          <span><b>Supply model:</b> One supplier → Owned warehouses, direct sourcing</span>
-        </span>
-        <span class="proof-more">Read the case study</span>
-      </a>
-    </li>
-    <li class="proof-item" data-case="planning-okrs">
-      <a class="proof-link" href="/case-studies/planning-okrs/">
-        <span class="proof-kicker">14-person startup · Planning</span>
-        <span class="proof-metric"><span class="proof-label">Company goals</span>
-          <span class="proof-before">6–7 unranked</span> <span class="proof-arrow" aria-hidden="true">→</span>
-          <span class="proof-after">3 objectives</span></span>
-        <span class="proof-summary">We cut seven unranked goals to three objectives set on the real bottleneck.</span>
-        <span class="proof-metrics">
-          <span><b>ARR, as the company went on to grow:</b> $7.3M → ~$10M</span>
-          <span><b>Team:</b> 14 people → 24 people</span>
-        </span>
-        <span class="proof-more">Read the case study</span>
-      </a>
-    </li>
-  </ul>
+    <div class="proof-stories">
+      <article class="proof-story has-video" id="post-acquisition-turnaround">
+        <p class="proof-kicker">Cheetah · M&amp;A</p>
+        <h3 class="proof-story-title">A post-acquisition operations turnaround</h3>
+        <div class="proof-story-video">
+          <figure class="proof-video" data-src="/assets/video/post-acquisition-turnaround-video-skill.mp4" data-portrait="" data-poster-portrait="">
+            <button type="button" class="proof-video-play" aria-label="Play the video: Watch how a $1M monthly burn became a profitable operation (1:26)">
+              <img src="/assets/video/post-acquisition-turnaround-video-skill-poster.jpg" width="1280" height="720" loading="lazy" alt="">
+              <span class="proof-video-icon" aria-hidden="true"></span>
+              <span class="proof-video-time">1:26</span>
+            </button>
+            <figcaption>Watch how a $1M monthly burn became a profitable operation</figcaption>
+          </figure>
+        </div>
+        <div class="proof-story-top">
+          <div class="proof-story-chart">
+            <div class="proof-chart" data-proof="chart" data-cases="post-acquisition-turnaround">
+              <p class="proof-chart-fallback">Shrink: ~17–18% → ~2%</p>
+            </div>
+            <p class="proof-story-when">To October 2023</p>
+          </div>
+        </div>
+        <div class="proof-story-flow">
+          <div class="proof-story-step"><p class="proof-story-label">The problem</p><p>After three acquisitions, fulfillment fell apart: fill rate near 75%, shrink at 17–18%, on-time delivery as low as 24%, and about $1M a month in contribution margin burned.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The diagnosis</p><p class="proof-step-method">A3, gap analysis</p><p>The warehouse had been rebuilt with new racking and hundreds of new locations, but the warehouse system&#x27;s logic was never updated. The system undid the crews&#x27; work faster than they could clear it.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The fix</p><ul>
+            <li>Triaged by hand every day: cleared staging, replenished the top 1,000 items, one location per product</li>
+            <li>Rebuilt the warehouse system&#x27;s slotting for the new layout, so it consolidated stock instead of scattering it</li>
+            <li>Added barcode checks across receiving, picking, loading and delivery, written into daily standard work</li>
+            </ul></div>
+        </div>
+        <ul class="proof-story-results">
+          <li><span class="proof-pair-label">Contribution margin</span><span class="proof-pair-vals"><span class="proof-before">~$1M/mo burn</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">profitable (Oct 2023)</span></span></li>
+          <li><span class="proof-pair-label">Fill rate</span><span class="proof-pair-vals"><span class="proof-before">~75%</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">99%+</span></span></li>
+          <li><span class="proof-pair-label">On-time delivery</span><span class="proof-pair-vals"><span class="proof-before">under 40%</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">~90%+</span></span></li>
+        </ul>
+        <p class="proof-story-more"><a href="/case-studies/post-acquisition-turnaround/">Read the full case study →</a></p>
+      </article>
+      <article class="proof-story" id="sole-supplier">
+        <p class="proof-kicker">Cheetah · Supply chain</p>
+        <h3 class="proof-story-title">Replacing a sole supplier in 14 months</h3>
+        <div class="proof-story-top">
+          <div class="proof-story-chart">
+            <div class="proof-chart" data-proof="chart" data-cases="sole-supplier">
+              <p class="proof-chart-fallback">Annualized revenue: ~$75M → ~$155M</p>
+            </div>
+            <p class="proof-story-when">14 months from July 2018</p>
+          </div>
+        </div>
+        <div class="proof-story-flow">
+          <div class="proof-story-step"><p class="proof-story-label">The problem</p><p>The whole business ran on one supplier. In July 2018, at about $75M in annualized revenue, that supplier said the partnership no longer worked.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The diagnosis</p><p class="proof-step-method">Kaikaku, scenario planning</p><p>Getting better at buying from the supplier couldn&#x27;t fix depending on it. The system itself was the constraint, so it needed a redesign, not small improvements.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The fix</p><ul>
+            <li>Designed the new supply chain backward from the target state, across five scenarios</li>
+            <li>Turned a seven-flows gap analysis into a build list: pricing, 2,800 SKUs, a warehouse, a 35-person crew</li>
+            <li>Ran it as a separate team and tested it with a worst-case drill before go-live</li>
+            </ul></div>
+        </div>
+        <ul class="proof-story-results">
+          <li><span class="proof-pair-label">Time to rebuild</span><span class="proof-pair-vals"><span class="proof-after">14 months</span></span></li>
+          <li><span class="proof-pair-label">Revenue during the transition</span><span class="proof-pair-vals"><span class="proof-before">~$75M</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">~$155M</span></span></li>
+          <li><span class="proof-pair-label">Supply model</span><span class="proof-pair-vals"><span class="proof-before">One supplier</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">owned warehouses and direct sourcing</span></span></li>
+        </ul>
+        <p class="proof-story-more"><a href="/case-studies/sole-supplier/">Read the full case study →</a></p>
+      </article>
+      <article class="proof-story" id="planning-okrs">
+        <p class="proof-kicker">14-person startup · Planning</p>
+        <h3 class="proof-story-title">Cutting seven goals to three</h3>
+        <div class="proof-story-top">
+          <div class="proof-story-chart">
+            <div class="proof-chart" data-proof="chart" data-cases="planning-okrs">
+              <p class="proof-chart-fallback">Company goals: 6–7 unranked → 3 objectives</p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="proof-story-flow">
+          <div class="proof-story-step"><p class="proof-story-label">The problem</p><p>The company planned to triple revenue, but the CEO&#x27;s goals were six or seven, unranked, and the team named prioritization as its top blocker.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The diagnosis</p><p class="proof-step-method">Annual and quarterly planning</p><p>The goals lived in one person&#x27;s head, so each function worked toward a different one and &quot;urgent&quot; was the only signal.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The fix</p><ul>
+            <li>Ran a four-day offsite that opened with the team&#x27;s own survey answers</li>
+            <li>Cut seven goals to three, all set on the real bottleneck: collections</li>
+            <li>Turned &quot;test 10–30 agents&quot; into three agent workflows: deal desk, close, and collect</li>
+            </ul></div>
+        </div>
+        <ul class="proof-story-results">
+          <li><span class="proof-pair-label">Company goals</span><span class="proof-pair-vals"><span class="proof-before">6–7 unranked</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">3 objectives, 17 key results</span></span></li>
+          <li><span class="proof-pair-label">ARR, as the company went on to grow</span><span class="proof-pair-vals"><span class="proof-before">$7.3M</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">~$10M</span></span></li>
+          <li><span class="proof-pair-label">Team</span><span class="proof-pair-vals"><span class="proof-before">14 people</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">24 people</span></span></li>
+        </ul>
+        <p class="proof-story-more"><a href="/case-studies/planning-okrs/">Read the full case study →</a></p>
+      </article>
     </div>
     <p class="proof-all"><a href="/case-studies/">See all case studies →</a></p>
   </div>
@@ -312,7 +359,6 @@
         <li><a href="/solutions/margins-and-cash/">Margins and Cash</a></li>
         <li><a href="/solutions/scaling-through-change/">Scaling Through Change</a></li>
         <li><a href="/solutions/faster-service/">Faster Service</a></li>
-        <li><a href="/case-studies/">All case studies</a></li>
       </ul>
     </div>
     <div>

@@ -24,14 +24,14 @@
 <link rel="stylesheet" href="/assets/styles.css?v=30">
 <script>window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: 'opsaudit_direct_2026q4' };</script>
 <script defer src="/assets/analytics.js"></script>
-<link rel="stylesheet" href="/assets/proof/proof.css?v=3">
+<link rel="stylesheet" href="/assets/proof/proof.css?v=5">
 <script>/* Proof design (A/B/C): pick it and load its stylesheet before first paint, so nothing above the fold shifts. */
 (function () { var d = 'a', q = new URLSearchParams(location.search).get('design');
   try { if (/^[abc]$/.test(q)) localStorage.setItem('waya_proof_design', q); else q = localStorage.getItem('waya_proof_design'); } catch (e) {}
   if (/^[abc]$/.test(q)) d = q;
   document.documentElement.classList.add('design-' + d);
   document.write('<link rel="stylesheet" id="proof-design-css" href="/assets/proof/design-' + d + '.css?v=3">'); })();</script>
-<script defer src="/assets/proof/cases.js?v=3"></script>
+<script defer src="/assets/proof/cases.js?v=4"></script>
 <script defer src="/assets/proof/proof.js?v=3"></script>
 <script type="application/ld+json">
 {
@@ -125,7 +125,6 @@
           <a href="/solutions/margins-and-cash/">Margins and Cash</a>
           <a href="/solutions/scaling-through-change/">Scaling Through Change</a>
           <a href="/solutions/faster-service/">Faster Service</a>
-          <a href="/case-studies/">All case studies</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -175,37 +174,61 @@
   <div class="container">
     <p class="section-eyebrow">Results</p>
     <h2 class="section-title">Where we've fixed this</h2>
-    <div class="proof" data-proof="cases" data-group="faster-service">
-  <ul class="proof-list">
-    <li class="proof-item" data-case="customer-support">
-      <a class="proof-link" href="/case-studies/customer-support/">
-        <span class="proof-kicker">Cheetah · Support</span>
-        <span class="proof-metric"><span class="proof-label">First response</span>
-          <span class="proof-before">22 hours</span> <span class="proof-arrow" aria-hidden="true">→</span>
-          <span class="proof-after">6 minutes</span></span>
-        <span class="proof-summary">We built in-app ticket intake that routes each request to the right person automatically.</span>
-        <span class="proof-metrics">
-          <span><b>Tickets assigned correctly, automatically:</b> 10% → 95%</span>
-          <span><b>Tickets submitted in the app:</b> 10% → 70%</span>
-        </span>
-        <span class="proof-more">Read the case study</span>
-      </a>
-    </li>
-    <li class="proof-item" data-case="hospital-patient-wait">
-      <a class="proof-link" href="/case-studies/hospital-patient-wait/">
-        <span class="proof-kicker">Hospital · GI suite</span>
-        <span class="proof-metric"><span class="proof-label">Referral to procedure wait</span>
-          <span class="proof-before">5 months</span> <span class="proof-arrow" aria-hidden="true">→</span>
-          <span class="proof-after">2 months</span></span>
-        <span class="proof-summary">We sped up room changeover and fixed pre-op readiness so the next patient was ready on time.</span>
-        <span class="proof-metrics">
-          <span><b>Room turnover:</b> 29 min → 23.7 min</span>
-          <span><b>Procedures per room per day:</b> 10.4 → 11.4</span>
-        </span>
-        <span class="proof-more">Read the case study</span>
-      </a>
-    </li>
-  </ul>
+    <div class="proof-stories">
+      <article class="proof-story" id="customer-support">
+        <p class="proof-kicker">Cheetah · Support</p>
+        <h3 class="proof-story-title">From a 22-hour to a 6-minute support response</h3>
+        <div class="proof-story-top">
+          <div class="proof-story-chart">
+            <div class="proof-chart" data-proof="chart" data-cases="customer-support">
+              <p class="proof-chart-fallback">First response: 22 hours → 6 minutes</p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="proof-story-flow">
+          <div class="proof-story-step"><p class="proof-story-label">The problem</p><p>First response to a support ticket averaged 22 hours. Requests came in over five disconnected channels, and about half were resolved outside any system.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The diagnosis</p><p class="proof-step-method">A3, SIPOC</p><p>There was no structured front door. A person had to read, sort and route every message, and the most common questions had no self-service path.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The fix</p><ul>
+            <li>In-app intake: the customer picks the order and the issue, which creates a tagged ticket</li>
+            <li>Automatic routing to the right agent, with every channel feeding one system</li>
+            <li>Self-service for invoices, credits, returns and truck location, and agents allowed to approve small credits</li>
+            </ul></div>
+        </div>
+        <ul class="proof-story-results">
+          <li><span class="proof-pair-label">First response</span><span class="proof-pair-vals"><span class="proof-before">22 hours</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">6 minutes</span></span></li>
+          <li><span class="proof-pair-label">Tickets assigned correctly, automatically</span><span class="proof-pair-vals"><span class="proof-before">10%</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">95%</span></span></li>
+          <li><span class="proof-pair-label">Tickets submitted in the app</span><span class="proof-pair-vals"><span class="proof-before">10%</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">70%</span></span></li>
+        </ul>
+        <p class="proof-story-more"><a href="/case-studies/customer-support/">Read the full case study →</a></p>
+      </article>
+      <article class="proof-story" id="hospital-patient-wait">
+        <p class="proof-kicker">Hospital · GI suite</p>
+        <h3 class="proof-story-title">Cutting a 5-month patient wait to 2</h3>
+        <div class="proof-story-top">
+          <div class="proof-story-chart">
+            <div class="proof-chart" data-proof="chart" data-cases="hospital-patient-wait">
+              <p class="proof-chart-fallback">Referral to procedure wait: 5 months → 2 months</p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="proof-story-flow">
+          <div class="proof-story-step"><p class="proof-story-label">The problem</p><p>A two-room GI suite took about 29 minutes to turn a room over, capping each room near 10 procedures a day while more than 560 patients waited up to five months.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The diagnosis</p><p class="proof-step-method">Kaizen, 5 Whys</p><p>Changeover was only part of it. Often the next case couldn&#x27;t start because the physician was elsewhere or the next patient wasn&#x27;t ready.</p></div>
+          <div class="proof-story-step"><p class="proof-story-label">The fix</p><ul>
+            <li>Standard work for room turnover, with supplies staged where each step needs them</li>
+            <li>A standard GI order set and recovery protocol in the records system</li>
+            <li>Pre-op readiness: IV placement priority, prep and fasting screening, a cleaner handoff</li>
+            </ul></div>
+        </div>
+        <ul class="proof-story-results">
+          <li><span class="proof-pair-label">Referral to procedure wait</span><span class="proof-pair-vals"><span class="proof-before">5 months</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">2 months (target was 3)</span></span></li>
+          <li><span class="proof-pair-label">Room turnover</span><span class="proof-pair-vals"><span class="proof-before">29 min</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">23.7 min</span></span></li>
+          <li><span class="proof-pair-label">Procedures per room per day</span><span class="proof-pair-vals"><span class="proof-before">10.4</span> <span class="proof-arrow" aria-hidden="true">→</span> <span class="proof-after">11.4</span></span></li>
+        </ul>
+        <p class="proof-story-more"><a href="/case-studies/hospital-patient-wait/">Read the full case study →</a></p>
+      </article>
     </div>
     <p class="proof-all"><a href="/case-studies/">See all case studies →</a></p>
   </div>
@@ -293,7 +316,6 @@
         <li><a href="/solutions/margins-and-cash/">Margins and Cash</a></li>
         <li><a href="/solutions/scaling-through-change/">Scaling Through Change</a></li>
         <li><a href="/solutions/faster-service/">Faster Service</a></li>
-        <li><a href="/case-studies/">All case studies</a></li>
       </ul>
     </div>
     <div>
