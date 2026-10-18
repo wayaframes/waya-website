@@ -55,3 +55,7 @@
 /.claude/*     /    301
 /.github/*     /    301
 /.gitignore    /    301
+
+# What We Fix has no index page; the hub of all results stands in for it
+/what-we-fix/    /case-studies/    301
+/what-we-fix     /case-studies/    301

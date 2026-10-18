@@ -1,0 +1,67 @@
+/* Proof components: plain styling for the server HTML. This is what shows without JS,
+   and the base the design files (design-a/b/c.css) build on or replace. */
+
+.proof-section .section-title { margin-bottom: 0; }
+.proof-section .proof-all { margin-top: 14px; text-align: center; font-size: 14.5px; }
+.proof-section .proof-all a { color: var(--waya-rust); font-family: var(--font-display); font-weight: 600; }
+
+.proof-list {
+  list-style: none; padding: 0; margin: 44px auto 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;
+}
+.proof-link {
+  display: flex; flex-direction: column; gap: 10px; height: 100%;
+  background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 16px;
+  padding: 22px 22px 20px; color: inherit; text-decoration: none;
+  transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+.proof-link:hover, .proof-link:focus-visible { border-color: var(--waya-rust); box-shadow: var(--shadow-1); }
+.proof-kicker {
+  font-family: var(--font-display); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2);
+}
+.proof-metric { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.proof-label { flex-basis: 100%; font-size: 13.5px; color: var(--fg-2); }
+.proof-before { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--waya-stone); text-decoration: line-through; text-decoration-color: var(--waya-rust); }
+.proof-arrow { color: var(--waya-rust); }
+.proof-after { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.1; color: var(--waya-charcoal); overflow-wrap: anywhere; }
+.proof-summary { font-size: 14.5px; line-height: 1.5; color: var(--fg-1); }
+.proof-metrics { display: grid; gap: 4px; font-size: 13.5px; color: var(--fg-2); }
+.proof-metrics b { font-weight: 600; color: var(--waya-charcoal); }
+.proof-more { margin-top: auto; font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--waya-rust); }
+.proof-cta { margin-top: 32px; text-align: center; }
+.proof-program { margin-top: 28px; text-align: center; font-size: 15px; }
+.proof-program a { color: var(--waya-rust); font-family: var(--font-display); font-weight: 600; }
+
+/* Problem pages */
+.proof-steps {
+  list-style: none; padding: 0; margin: 44px auto 0; max-width: 1040px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.proof-steps li { background: var(--waya-cream); border: 1px solid var(--border-1); border-radius: 16px; padding: 24px; }
+.proof-step-n {
+  display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--waya-charcoal); color: var(--waya-cream);
+  font-family: var(--font-display); font-weight: 700; font-size: 14px;
+}
+.proof-steps h3 { margin-top: 14px; font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--waya-charcoal); }
+.proof-steps p { margin-top: 8px; font-size: 15px; line-height: 1.55; color: var(--fg-2); }
+
+@media (max-width: 960px) {
+  .proof-steps { grid-template-columns: 1fr; }
+}
+
+/* Review-only design switcher (proof.js shows it on localhost, *.pages.dev, or with ?design=) */
+.proof-switcher {
+  position: fixed; left: 16px; bottom: 16px; z-index: 60;
+  display: flex; align-items: center; gap: 4px; padding: 6px;
+  background: var(--waya-ink); border-radius: 999px; box-shadow: var(--shadow-3);
+  font-family: var(--font-display); font-size: 13px;
+}
+.proof-switcher span { padding: 0 8px 0 10px; color: color-mix(in srgb, var(--waya-cream) 70%, transparent); letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
+.proof-switcher a {
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  color: var(--waya-cream); font-weight: 700; text-decoration: none;
+}
+.proof-switcher a:hover { background: color-mix(in srgb, var(--waya-cream) 14%, transparent); }
+.proof-switcher a[aria-current="true"] { background: var(--waya-rust); }

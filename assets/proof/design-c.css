@@ -1,0 +1,596 @@
+/* Proof components, Design C: "The Climb".
+   Tokens only (var(--waya-*), --fg-*, --border-1, --shadow-*, --font-*) plus color-mix().
+   Every rule is scoped under html.design-c. Classes prefixed dc- are built by design-c.js;
+   the hero rules key on .proof-hero so the page restyles once, when this file arrives. */
+
+html.design-c {
+  --dc-sage-deep: color-mix(in srgb, var(--waya-sage) 75%, var(--waya-ink));
+  --dc-muted: color-mix(in srgb, var(--waya-stone) 78%, var(--waya-ink));
+  --dc-fill: color-mix(in srgb, var(--waya-sage) 22%, transparent);
+  --dc-contour: color-mix(in srgb, var(--waya-tan) 25%, transparent);
+  --dc-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html.design-c .dc-sr {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap; border: 0;
+}
+
+/* ===================================================================== shared: route profile */
+
+html.design-c .dc-profile { position: relative; width: 100%; height: 176px; flex: none; }
+html.design-c .dc-profile-svg {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 100%;
+  display: block; overflow: visible;
+}
+html.design-c .dc-ground { stroke: var(--border-1); stroke-width: 1; }
+html.design-c .dc-area { fill: var(--dc-fill); }
+html.design-c .dc-line {
+  fill: none;
+  stroke: var(--waya-sage); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+/* Qualitative result: the last pitch to the summit is dashed, never a measured height. */
+html.design-c .dc-line-qual { stroke-dasharray: 3 7; }
+html.design-c .dc-base-dot { fill: var(--waya-rust); stroke: var(--waya-paper); stroke-width: 2.5; }
+html.design-c .dc-summit-dot { fill: var(--waya-charcoal); }
+html.design-c .dc-flag-pole { stroke: var(--waya-charcoal); stroke-width: 2; stroke-linecap: round; }
+html.design-c .dc-flag-cloth {
+  fill: var(--waya-mustard);
+  transform-box: fill-box; transform-origin: 0% 50%;
+}
+html.design-c .dc-flag {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: transform 240ms var(--ease-standard), opacity 240ms var(--ease-standard);
+}
+html.design-c .is-summit .dc-flag { opacity: 1; transform: none; }
+
+html.design-c .dc-base-label {
+  position: absolute; left: 14px; bottom: 5px;
+  max-width: calc(100% - 28px);
+  font-family: var(--font-body); font-size: 14px; line-height: 18px;
+  color: var(--dc-muted);
+  white-space: nowrap;
+}
+html.design-c .dc-after {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 40px; line-height: 1.05; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--waya-ink);
+  overflow-wrap: anywhere;
+}
+html.design-c .dc-label {
+  font-family: var(--font-body); font-weight: 500;
+  font-size: 15px; line-height: 1.4;
+  color: var(--waya-charcoal);
+  overflow-wrap: anywhere;
+}
+html.design-c .dc-kicker {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 12px; line-height: 1.4;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dc-muted);
+}
+html.design-c .dc-more {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  color: var(--waya-charcoal);
+}
+html.design-c .dc-more::after {
+  content: '';
+  width: 7px; height: 7px;
+  border-top: 2px solid var(--waya-rust); border-right: 2px solid var(--waya-rust);
+  transform: rotate(45deg);
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+
+@keyframes dc-wave {
+  0%, 100% { transform: rotate(0deg); }
+  45% { transform: rotate(8deg); }
+}
+
+/* ===================================================================== strip */
+
+html.design-c .dc-strip-band {
+  position: relative;
+  isolation: isolate;
+  background: var(--waya-cream);
+}
+html.design-c .proof.dc-strip { position: static; background: none; border: 0; }
+html.design-c .dc-contour {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+html.design-c .dc-contour path {
+  fill: none;
+  stroke: var(--dc-contour); stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+html.design-c .dc-strip-wrap { position: relative; }
+html.design-c .dc-cards {
+  position: relative; z-index: 1;
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+html.design-c .dc-n2 .dc-cards {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 520px));
+  justify-content: center;
+}
+html.design-c .dc-card-item { display: flex; min-width: 0; margin: 0; padding: 0; }
+html.design-c .dc-card {
+  display: flex; flex-direction: column;
+  width: 100%; min-height: 320px;
+  background: var(--waya-paper);
+  border-radius: 18px;
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+  color: inherit; text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+html.design-c .dc-card .dc-profile { height: 176px; }
+html.design-c .dc-card-body {
+  display: flex; flex-direction: column; gap: 6px;
+  flex: 1;
+  padding: 10px 22px 20px;
+  min-width: 0;
+}
+html.design-c .dc-card-body .dc-kicker { margin-top: 2px; }
+html.design-c .dc-card .dc-more { margin-top: auto; padding-top: 12px; }
+
+html.design-c .dc-card:hover,
+html.design-c .dc-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3);
+}
+html.design-c .dc-card:hover .dc-more::after,
+html.design-c .dc-card:focus-visible .dc-more::after { transform: translateX(3px) rotate(45deg); }
+html.design-c .dc-card:hover .dc-flag-cloth,
+html.design-c .dc-card:focus-visible .dc-flag-cloth { animation: dc-wave 300ms var(--ease-standard); }
+html.design-c .dc-card:focus { outline: none; }
+html.design-c .dc-card:focus-visible {
+  outline: 2px solid var(--dc-sage-deep);
+  outline-offset: 3px;
+}
+
+html.design-c .dc-cta {
+  position: relative; z-index: 1;
+  margin: 56px 0 0;
+  text-align: center;
+}
+html.design-c .dc-cta .btn-rust {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 56px;
+  padding: 0 36px;
+  border-radius: 999px;
+  font-size: 16px;
+}
+html.design-c .dc-cta .btn-rust:focus-visible {
+  outline: 2px solid var(--dc-sage-deep);
+  outline-offset: 3px;
+}
+
+/* The trail from the last summit down to the booking button (desktop only). */
+html.design-c .dc-connector {
+  position: absolute; left: 0; top: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+}
+html.design-c .dc-connector.is-ready { opacity: 1; }
+html.design-c .dc-connector-line {
+  fill: none;
+  stroke: var(--waya-sage); stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+html.design-c .dc-connector.is-drawing .dc-reveal {
+  transition: stroke-dashoffset 900ms var(--dc-ease-out) 120ms;
+}
+
+@media (min-width: 961px) and (max-width: 1180px) {
+  html.design-c .dc-n4 .dc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  html.design-c .dc-connector { display: none; }
+}
+@media (max-width: 640px) {
+  html.design-c .dc-cards,
+  html.design-c .dc-n2 .dc-cards { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  html.design-c .dc-card { min-height: 260px; }
+  html.design-c .dc-card .dc-profile { height: 130px; }
+  html.design-c .dc-card .dc-after { font-size: 36px; }
+  html.design-c .dc-cta { margin-top: 36px; }
+  html.design-c .dc-cta .btn-rust { display: flex; width: 100%; }
+}
+
+/* ===================================================================== problem page: hero */
+
+html.design-c .proof-hero {
+  background-color: var(--waya-paper);
+  background-image: none;
+  min-height: 520px;
+  padding: 104px 56px 220px;
+  overflow: hidden;
+}
+html.design-c .proof-hero::after { content: none; display: none; }
+html.design-c .proof-hero .hero-inner { position: relative; z-index: 2; }
+html.design-c .proof-hero .eyebrow { color: var(--waya-charcoal); }
+html.design-c .proof-hero h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 68px;
+  color: var(--waya-ink);
+}
+html.design-c .proof-hero .sub {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--waya-charcoal);
+}
+
+html.design-c .dc-ridges {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 230px;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+html.design-c .dc-ridge {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 100%;
+  will-change: transform;
+}
+html.design-c .dc-ridge svg { display: block; width: 100%; height: 100%; }
+html.design-c .dc-ridge-back path { fill: var(--waya-tan); }
+html.design-c .dc-ridge-mid path { fill: var(--waya-sage); }
+html.design-c .dc-ridge-front path { fill: color-mix(in srgb, var(--waya-charcoal) 70%, transparent); }
+
+html.design-c .dc-here {
+  position: absolute; left: 16%; bottom: 22px;
+  z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+}
+html.design-c .dc-here-dot {
+  position: relative;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--waya-rust);
+  box-shadow: 0 0 0 3px var(--waya-cream);
+}
+html.design-c .dc-hero-live .dc-here-dot::after {
+  content: '';
+  position: absolute; inset: -3px;
+  border: 2px solid var(--waya-rust); border-radius: 50%;
+  opacity: 0;
+  animation: dc-pulse 1400ms var(--dc-ease-out) 600ms 1 both;
+}
+html.design-c .dc-here-label {
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--waya-cream);
+  font-family: var(--font-display); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--waya-ink);
+  white-space: nowrap;
+}
+@keyframes dc-pulse {
+  0% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(3.2); }
+}
+
+@media (max-width: 960px) {
+  html.design-c .proof-hero { padding: 96px 28px 200px; min-height: 500px; }
+  html.design-c .proof-hero h1 { font-size: 52px; }
+  html.design-c .dc-ridges { height: 210px; }
+}
+@media (max-width: 640px) {
+  html.design-c .proof-hero { padding: 72px 20px 168px; min-height: 460px; }
+  html.design-c .proof-hero h1 { font-size: 40px; }
+  html.design-c .proof-hero .sub { font-size: 18px; }
+  html.design-c .dc-ridges { height: 172px; }
+  html.design-c .dc-here { left: 8%; bottom: 16px; }
+}
+
+/* ===================================================================== problem page: steps */
+
+html.design-c .dc-trail-wrap {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+html.design-c .dc-trail {
+  position: absolute; left: 0; top: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+html.design-c .dc-trail-ghost {
+  fill: none;
+  stroke: color-mix(in srgb, var(--waya-sage) 35%, transparent); stroke-width: 2;
+  stroke-dasharray: 2 9; stroke-linecap: round;
+}
+html.design-c .dc-trail-path {
+  fill: none;
+  stroke: var(--waya-sage); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+html.design-c ol.dc-steps {
+  position: relative; z-index: 1;
+  list-style: none;
+  margin: 0; padding: 32px 0;
+  max-width: none;
+  display: grid; gap: 56px;
+}
+html.design-c .dc-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  column-gap: 40px;
+  align-items: center;
+  margin: 0; padding: 0;
+  background: none; border: 0;
+}
+html.design-c .dc-steps .dc-wp {
+  grid-column: 2; grid-row: 1;
+  justify-self: center;
+  position: static;
+  display: grid; place-items: center;
+  width: 48px; height: 48px;
+  margin: 0; padding: 0;
+  border-radius: 50%;
+  background: var(--waya-cream);
+  border: 2px solid var(--waya-sage);
+  font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--dc-sage-deep);
+  transition: background-color 280ms var(--ease-standard), border-color 280ms var(--ease-standard),
+              color 280ms var(--ease-standard), transform 280ms var(--ease-standard);
+}
+html.design-c .dc-step.is-reached .dc-wp {
+  background: var(--dc-sage-deep);
+  border-color: var(--dc-sage-deep);
+  color: var(--waya-cream);
+  transform: scale(1.06);
+}
+html.design-c .dc-step-card {
+  grid-column: 1; grid-row: 1;
+  justify-self: end;
+  width: 100%; max-width: 420px;
+  padding: 22px 26px;
+  background: var(--waya-paper);
+  border-radius: 16px;
+  box-shadow: var(--shadow-1);
+  text-align: left;
+}
+html.design-c .dc-step:nth-child(even) .dc-step-card { grid-column: 3; justify-self: start; }
+html.design-c .dc-step-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 22px; line-height: 1.25;
+  color: var(--waya-charcoal);
+}
+html.design-c .dc-step-card p {
+  margin: 0;
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--waya-charcoal);
+}
+
+@media (max-width: 960px) {
+  html.design-c .dc-step { grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr); column-gap: 24px; }
+}
+@media (max-width: 640px) {
+  html.design-c ol.dc-steps { gap: 28px; padding: 16px 0; }
+  html.design-c .dc-step {
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: start;
+  }
+  html.design-c .dc-steps .dc-wp { grid-column: 1; justify-self: start; }
+  html.design-c .dc-step-card,
+  html.design-c .dc-step:nth-child(even) .dc-step-card {
+    grid-column: 2;
+    justify-self: stretch;
+    max-width: none;
+    padding: 18px 20px;
+  }
+  html.design-c .dc-step-card h3 { font-size: 20px; }
+}
+
+/* ===================================================================== problem page: cases */
+
+html.design-c .proof.dc-cases { background: none; border: 0; }
+html.design-c .dc-timeline {
+  position: relative;
+  list-style: none;
+  max-width: 960px;
+  margin: 0 auto; padding: 0 0 0 56px;
+  display: grid; gap: 36px;
+}
+html.design-c .dc-timeline::before {
+  content: '';
+  position: absolute; left: 19px; top: 44px; bottom: 44px;
+  border-left: 2px dashed color-mix(in srgb, var(--waya-sage) 60%, transparent);
+}
+html.design-c .dc-tl-item { position: relative; min-width: 0; margin: 0; padding: 0; }
+html.design-c .dc-tl-item::before {
+  content: '';
+  position: absolute; left: -45px; top: 36px;
+  width: 18px; height: 18px; box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--waya-cream);
+  border: 2px solid var(--waya-sage);
+  transition: background-color 300ms var(--ease-standard), border-color 300ms var(--ease-standard);
+}
+html.design-c .dc-tl-item.is-summit::before { background: var(--dc-sage-deep); border-color: var(--dc-sage-deep); }
+
+html.design-c .dc-route {
+  position: relative;
+  padding: 28px 32px 26px;
+  background: var(--waya-paper);
+  border-radius: 20px;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+html.design-c .dc-route:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3);
+}
+html.design-c .dc-route:hover .dc-flag-cloth { animation: dc-wave 300ms var(--ease-standard); }
+html.design-c .dc-route:hover .dc-more::after { transform: translateX(3px) rotate(45deg); }
+html.design-c .dc-route .dc-kicker { margin: 0 0 6px; }
+html.design-c .dc-route-title {
+  margin: 0;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 26px; line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--waya-charcoal);
+  text-wrap: balance;
+}
+html.design-c .dc-route-link { color: inherit; text-decoration: none; }
+html.design-c .dc-route-link::after {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 1;
+  border-radius: 20px;
+}
+html.design-c .dc-route:hover .dc-route-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--waya-sage);
+}
+html.design-c .dc-route-link:focus { outline: none; }
+html.design-c .dc-route-link:focus-visible::after {
+  outline: 2px solid var(--dc-sage-deep);
+  outline-offset: 4px;
+}
+html.design-c .dc-route .dc-profile {
+  width: auto;
+  height: 200px;
+  margin: 18px -32px 0;
+}
+html.design-c .dc-result {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 4px 14px;
+  margin: 12px 0 0;
+}
+html.design-c .dc-route .dc-after { font-size: 44px; }
+html.design-c .dc-route .dc-label { font-size: 16px; }
+/* Timeframe is a caption under the result, never a label on the drawing. */
+html.design-c .dc-timeframe {
+  margin: 6px 0 0;
+  font-family: var(--font-body); font-size: 14px; line-height: 1.4;
+  color: var(--dc-muted);
+}
+html.design-c .dc-summary {
+  margin: 12px 0 0;
+  max-width: 64ch;
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--waya-charcoal);
+}
+html.design-c .dc-markers {
+  margin: 22px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px 24px;
+}
+html.design-c .dc-marker {
+  min-width: 0;
+  padding-top: 10px;
+  border-top: 2px solid var(--waya-sage);
+}
+html.design-c .dc-marker.is-qual { border-top-style: dashed; }
+html.design-c .dc-marker dt {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: var(--font-body); font-weight: 500; font-size: 14px; line-height: 1.4;
+  color: var(--waya-charcoal);
+}
+html.design-c .dc-marker dd {
+  margin: 4px 0 0;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 18px; line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  color: var(--waya-ink);
+  overflow-wrap: anywhere;
+}
+html.design-c .dc-v-before { color: var(--dc-muted); font-weight: 500; }
+html.design-c .dc-v-arrow { color: var(--waya-rust); }
+html.design-c .dc-route .dc-more { margin-top: 20px; }
+
+/* The summit band: the program link that already sits in the container. */
+html.design-c .dc-summit {
+  max-width: 960px;
+  margin: 44px auto 0;
+  padding: 32px 40px;
+  display: flex; align-items: center; gap: 24px;
+  background: var(--waya-charcoal);
+  border-radius: 24px;
+  color: var(--waya-cream);
+}
+html.design-c .dc-summit-flag { flex: none; width: 40px; height: 48px; }
+html.design-c .dc-summit-flag line { stroke: var(--waya-cream); stroke-width: 2.5; stroke-linecap: round; }
+html.design-c .dc-summit-flag path { fill: var(--waya-mustard); }
+html.design-c .dc-summit-body {
+  min-width: 0;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 22px; line-height: 1.35;
+  color: var(--waya-cream);
+  overflow-wrap: anywhere;
+}
+html.design-c .dc-summit-body * { color: inherit; margin: 0; }
+html.design-c .dc-summit-body a {
+  color: var(--waya-cream);
+  text-decoration: underline;
+  text-decoration-color: var(--waya-mustard);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+html.design-c .dc-summit-body a:hover { color: var(--waya-mustard); }
+html.design-c .dc-summit-body a:focus-visible {
+  outline: 2px solid var(--waya-mustard);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 640px) {
+  html.design-c .dc-timeline { padding-left: 24px; gap: 24px; }
+  html.design-c .dc-timeline::before { left: 6px; top: 34px; bottom: 34px; }
+  html.design-c .dc-tl-item::before { left: -24px; top: 28px; width: 14px; height: 14px; }
+  html.design-c .dc-route { padding: 22px 18px 22px; }
+  html.design-c .dc-route .dc-profile { height: 180px; margin: 14px -18px 0; }
+  html.design-c .dc-route-title { font-size: 22px; }
+  html.design-c .dc-route .dc-after { font-size: 36px; }
+  html.design-c .dc-markers { grid-template-columns: minmax(0, 1fr); }
+  html.design-c .dc-summit { flex-direction: column; align-items: flex-start; padding: 26px 22px; gap: 16px; }
+  html.design-c .dc-summit-body { font-size: 19px; }
+}
+
+/* ===================================================================== reduced motion: end state, no movement */
+
+html.design-c .dc-rm,
+html.design-c .dc-rm *,
+html.design-c .dc-rm *::before,
+html.design-c .dc-rm *::after {
+  transition: none !important;
+  animation: none !important;
+}
+html.design-c .dc-rm .dc-ridge { will-change: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.design-c [class*="dc-"],
+  html.design-c [class*="dc-"]::before,
+  html.design-c [class*="dc-"]::after,
+  html.design-c .dc-cards *,
+  html.design-c .dc-timeline *,
+  html.design-c .dc-ridges * {
+    transition: none !important;
+    animation: none !important;
+  }
+  html.design-c .dc-card:hover,
+  html.design-c .dc-card:focus-visible,
+  html.design-c .dc-route:hover { transform: none; }
+}

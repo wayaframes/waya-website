@@ -1,0 +1,886 @@
+/* Proof components, Design A: "The Ledger".
+   Every rule is scoped under html.design-a. Tokens only (var(--waya-*), --fg-*, --border-1,
+   --shadow-*, --font-*, --dur-*, --ease-standard) plus color-mix(). No new colour values.
+   Class prefix: pa- (built by design-a.js). The hero is restyled from CSS alone so it does not
+   shift when the script runs. */
+
+/* ---------- shared ---------- */
+html.design-a .pa-sr {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap; border: 0;
+}
+
+html.design-a .pa-strip,
+html.design-a .pa-cases {
+  --pa-cols: minmax(0, 1fr) minmax(0, 1.15fr);
+  --pa-gap: 32px;
+  --pa-padx: 20px;
+  --pa-pady: 24px;
+  --pa-b: 40px;
+  --pa-a: clamp(44px, 4.4vw, 56px);
+  --pa-q: 40px;
+  --pa-rowbg: var(--waya-paper);
+  --pa-rowbg-hover: color-mix(in srgb, var(--waya-tan) 14%, var(--waya-paper));
+  --wipe: 100%;
+  --wipe-n: 1;
+  position: relative;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--fg-1);
+  background: var(--waya-paper);
+  border-top: 3px double var(--waya-charcoal);
+  border-bottom: 1px solid var(--border-1);
+}
+
+/* ---------- the wipe control ---------- */
+html.design-a .pa-ctl {
+  --wipe-n: 1;
+  position: relative;
+  min-width: 0;
+}
+html.design-a .pa-range {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: calc(100% + 28px);
+  margin: 0 -14px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+html.design-a .pa-range:focus { outline: none; }
+html.design-a .pa-range:focus-visible {
+  outline: 2px solid var(--waya-rust);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+/* track: rust up to the handle, a ruled line after it */
+html.design-a .pa-range::-webkit-slider-runnable-track {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(to right,
+    var(--waya-rust) 0,
+    var(--waya-rust) calc(14px + (100% - 28px) * var(--wipe-n)),
+    var(--border-1) calc(14px + (100% - 28px) * var(--wipe-n)),
+    var(--border-1) 100%);
+}
+html.design-a .pa-range::-moz-range-track {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(to right,
+    var(--waya-rust) 0,
+    var(--waya-rust) calc(14px + (100% - 28px) * var(--wipe-n)),
+    var(--border-1) calc(14px + (100% - 28px) * var(--wipe-n)),
+    var(--border-1) 100%);
+}
+/* handle: a 28px cream disc, rust ring, the vertical hairline through its centre */
+html.design-a .pa-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px; height: 28px;
+  margin-top: -13px;
+  border-radius: 50%;
+  border: 2px solid var(--waya-rust);
+  background:
+    linear-gradient(to right, transparent calc(50% - 1px), var(--waya-rust) calc(50% - 1px), var(--waya-rust) calc(50% + 1px), transparent calc(50% + 1px)),
+    var(--waya-cream);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--dur-base) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+html.design-a .pa-range::-moz-range-thumb {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--waya-rust);
+  background:
+    linear-gradient(to right, transparent calc(50% - 1px), var(--waya-rust) calc(50% - 1px), var(--waya-rust) calc(50% + 1px), transparent calc(50% + 1px)),
+    var(--waya-cream);
+  box-shadow: var(--shadow-1);
+}
+html.design-a .pa-range:hover::-webkit-slider-thumb,
+html.design-a .pa-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--waya-rust) 18%, transparent);
+}
+html.design-a .pa-range:hover::-moz-range-thumb,
+html.design-a .pa-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--waya-rust) 18%, transparent);
+}
+html.design-a .pa-range:active::-webkit-slider-thumb { transform: scale(1.06); }
+html.design-a .pa-ctl-labs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-ctl-a { color: var(--waya-ink); }
+
+/* ---------- the value cell ---------- */
+html.design-a .pa-val {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  /* the cell is as wide as its widest figure, so the whole wipe travel is visible on every row */
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+html.design-a .pa-b,
+html.design-a .pa-a {
+  grid-area: 1 / 1;
+  min-width: min(9ch, 100%);
+  overflow-wrap: anywhere;
+}
+html.design-a .pa-b {
+  font-size: var(--pa-b);
+  font-weight: 600;
+  color: var(--waya-stone);
+  /* Before shows to the right of the wipe */
+  clip-path: inset(-0.3em 0 -0.3em var(--wipe));
+}
+html.design-a .pa-scal .pa-b-txt {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--waya-rust);
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: none;
+}
+html.design-a .pa-a {
+  position: relative;
+  font-size: var(--pa-a);
+  font-weight: 700;
+  color: var(--waya-ink);
+  /* After shows to the left of the wipe */
+  clip-path: inset(-0.3em calc(100% - var(--wipe)) -0.3em 0);
+}
+html.design-a .pa-qual .pa-a { font-size: var(--pa-q); }
+/* split-flap: the Before figure as the upper leaf, folding away once as the wipe crosses 50% */
+html.design-a .pa-a::before {
+  content: attr(data-flap);
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--waya-stone);
+  background: var(--pa-rowbg);
+  clip-path: inset(0 0 50% 0);
+  transform-origin: 50% 50%;
+  opacity: 0;
+  pointer-events: none;
+  backface-visibility: hidden;
+}
+html.design-a .is-flip .pa-a::before { animation: pa-flap 180ms var(--ease-standard); }
+@keyframes pa-flap {
+  0%   { opacity: 1; transform: perspective(500px) rotateX(0deg); }
+  100% { opacity: 1; transform: perspective(500px) rotateX(-90deg); }
+}
+/* the seam: the hairline crossing each row at the wipe position */
+html.design-a .pa-seam {
+  position: absolute;
+  top: calc(-1 * var(--pa-pady));
+  bottom: calc(-1 * var(--pa-pady));
+  left: var(--wipe);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--waya-rust);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
+  pointer-events: none;
+}
+html.design-a .is-mid .pa-seam { opacity: 1; }
+/* once After is showing, Before stays on the books as a footnote */
+html.design-a .pa-foot {
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-top: 10px;
+  letter-spacing: 0;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+html.design-a .is-after .pa-foot { opacity: 1; }
+html.design-a .pa-foot-k {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-foot-v {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--waya-stone);
+  overflow-wrap: anywhere;
+}
+html.design-a .pa-scal .pa-foot-v {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--waya-rust);
+  text-decoration-thickness: 1.5px;
+}
+
+/* ---------- row text ---------- */
+html.design-a .pa-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+html.design-a .pa-kicker {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-label {
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--waya-charcoal);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+html.design-a .pa-more {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-2);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+html.design-a .pa-more-arrow {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+
+/* ---------- strip ---------- */
+html.design-a .pa-strip {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 32px;
+  max-width: 1140px;
+  margin: 44px auto 0;
+  padding: clamp(48px, 6vw, 72px) 32px;
+}
+html.design-a .pa-aside {
+  grid-column: 1 / span 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+html.design-a .pa-eyebrow {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-key {
+  display: grid;
+  gap: 6px;
+  margin: 20px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--border-1);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+html.design-a .pa-key-b {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--waya-stone);
+  text-decoration-line: line-through;
+  text-decoration-color: var(--waya-rust);
+  text-decoration-thickness: 2px;
+}
+html.design-a .pa-key-a {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--waya-ink);
+}
+html.design-a .pa-cta {
+  position: sticky;
+  bottom: 24px;
+  margin: auto 0 0;
+  padding-top: 32px;
+}
+html.design-a .pa-ledger {
+  grid-column: 5 / span 8;
+  min-width: 0;
+}
+html.design-a .pa-head,
+html.design-a .pa-bar {
+  display: grid;
+  grid-template-columns: var(--pa-cols);
+  column-gap: var(--pa-gap);
+  align-items: end;
+  padding: 0 var(--pa-padx) 6px;
+  border-bottom: 2px solid var(--waya-charcoal);
+}
+html.design-a .pa-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+html.design-a .pa-li {
+  margin: 0;
+  border-bottom: 1px solid var(--border-1);
+}
+html.design-a .pa-row {
+  display: grid;
+  grid-template-columns: var(--pa-cols);
+  column-gap: var(--pa-gap);
+  align-items: center;
+  min-height: 112px;
+  padding: var(--pa-pady) var(--pa-padx);
+  color: inherit;
+  text-decoration: none;
+  background: var(--pa-rowbg);
+  transition: background-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+
+/* hover and focus: tan wash, rust rule on the left, label underlined */
+html.design-a a.pa-row:hover,
+html.design-a a.pa-row:focus-visible,
+html.design-a .pa-entry-head:hover {
+  --pa-rowbg: var(--pa-rowbg-hover);
+  box-shadow: inset 3px 0 0 var(--waya-rust);
+}
+html.design-a a.pa-row:hover .pa-label,
+html.design-a a.pa-row:focus-visible .pa-label,
+html.design-a .pa-entry-head:hover .pa-title-txt {
+  text-decoration-line: underline;
+}
+html.design-a a.pa-row:hover .pa-more,
+html.design-a a.pa-row:focus-visible .pa-more,
+html.design-a .pa-entry-head:hover .pa-more { color: var(--waya-rust); }
+html.design-a a.pa-row:hover .pa-more-arrow,
+html.design-a .pa-entry-head:hover .pa-more-arrow { transform: translateX(3px); }
+html.design-a a.pa-row:focus { outline: none; }
+html.design-a a.pa-row:focus-visible {
+  outline: 2px solid var(--waya-rust);
+  outline-offset: 4px;
+}
+html.design-a .pa-btn:focus-visible {
+  outline: 2px solid var(--waya-rust);
+  outline-offset: 4px;
+}
+
+/* ---------- problem page: cases ---------- */
+html.design-a .pa-cases {
+  --pa-gap: 40px;
+  --pa-pady: 32px;
+  --pa-b: 50px;
+  --pa-a: clamp(48px, 5.4vw, 70px);
+  --pa-q: 50px;
+  max-width: 1140px;
+  margin: 44px auto 0;
+  padding: 8px clamp(0px, 2vw, 24px) 24px;
+}
+html.design-a .pa-bar {
+  position: sticky;
+  top: 64px;
+  z-index: 3;
+  padding-top: 10px;
+  background: var(--waya-paper);
+}
+html.design-a .pa-entry {
+  border-bottom: 1px solid var(--border-1);
+  padding-bottom: 28px;
+}
+html.design-a .pa-entry:last-child { border-bottom: 0; }
+html.design-a .pa-entry-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--pa-cols);
+  column-gap: var(--pa-gap);
+  align-items: center;
+  min-height: 140px;
+  padding: var(--pa-pady) var(--pa-padx);
+  background: var(--pa-rowbg);
+  transition: background-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+html.design-a .pa-entry-head .pa-val { pointer-events: none; }
+html.design-a .pa-title {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--waya-ink);
+  text-wrap: balance;
+}
+html.design-a .pa-entry-link {
+  color: inherit;
+  text-decoration: none;
+}
+html.design-a .pa-title-txt {
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+/* the whole entry head is the link's hit area */
+html.design-a a.pa-entry-link::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+html.design-a a.pa-entry-link:focus { outline: none; }
+html.design-a a.pa-entry-link:focus-visible::after {
+  outline: 2px solid var(--waya-rust);
+  outline-offset: 4px;
+}
+html.design-a .pa-entry-head:focus-within {
+  --pa-rowbg: var(--pa-rowbg-hover);
+}
+html.design-a .pa-entry .pa-label { margin-top: 10px; font-size: 15px; color: var(--fg-2); }
+html.design-a .pa-summary {
+  margin: 10px 0 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--fg-1);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+/* the metrics ledger table */
+html.design-a .pa-table {
+  width: calc(100% - 2 * var(--pa-padx));
+  margin: 4px var(--pa-padx) 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+html.design-a .pa-table th,
+html.design-a .pa-table td {
+  padding: 11px 16px 11px 0;
+  text-align: left;
+  vertical-align: baseline;
+  border-bottom: 1px solid var(--border-1);
+  overflow-wrap: anywhere;
+}
+html.design-a .pa-table thead th {
+  padding-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--waya-charcoal);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-table thead th:first-child { width: 50%; }
+html.design-a .pa-table tbody tr:last-child th,
+html.design-a .pa-table tbody tr:last-child td { border-bottom: 0; }
+html.design-a .pa-table tbody th {
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--waya-charcoal);
+}
+html.design-a .pa-tv-b,
+html.design-a .pa-tv-a,
+html.design-a .pa-tv-none {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-size: 17px;
+  line-height: 1.3;
+}
+html.design-a .pa-tv-b { font-weight: 600; color: var(--waya-stone); }
+html.design-a .pa-tv-none { color: var(--fg-2); }
+html.design-a .pa-scal .pa-tv-b {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--waya-rust);
+  text-decoration-thickness: 1.5px;
+}
+html.design-a .pa-tv-a {
+  display: inline-block;
+  max-width: 100%;
+  font-weight: 700;
+  color: var(--waya-ink);
+  clip-path: inset(-0.3em calc(100% - var(--wipe)) -0.3em 0);
+}
+
+/* ---------- problem page: hero (CSS only, so nothing shifts when JS adds the page) ---------- */
+html.design-a .proof-hero {
+  min-height: 440px;
+  background: var(--waya-cream);
+  background-image: none;
+  border-bottom: 1px solid var(--border-1);
+}
+html.design-a .proof-hero::after { display: none; }
+html.design-a .proof-hero .hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  column-gap: 64px;
+  align-items: center;
+  min-height: 340px;
+  text-align: left;
+}
+html.design-a .proof-hero .hero-content {
+  grid-column: 1;
+  max-width: none;
+  margin: 0;
+  min-width: 0;
+}
+html.design-a .proof-hero .eyebrow {
+  color: var(--waya-rust);
+  margin-bottom: 18px;
+}
+html.design-a .proof-hero h1 {
+  font-size: 64px;
+  line-height: 1.02;
+  color: var(--waya-ink);
+  text-wrap: balance;
+}
+html.design-a .proof-hero .sub {
+  max-width: 34em;
+  margin: 28px 0 0;
+  padding: 4px 0 4px 20px;
+  border-left: 4px solid var(--waya-mustard);
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--waya-charcoal);
+}
+html.design-a .proof-hero .hero-badges { color: var(--fg-2); }
+html.design-a .proof-hero .btn-ghost-dark { color: var(--waya-ink); border-color: var(--waya-charcoal); }
+
+/* the ledger page */
+html.design-a .pa-page {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  height: 340px;
+  padding: 18px 24px 16px 0;
+  background: var(--waya-paper);
+  border: 1px solid var(--border-1);
+  box-shadow: var(--shadow-1);
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+html.design-a .pa-page-head,
+html.design-a .pa-line {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+}
+html.design-a .pa-page-head {
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--waya-charcoal);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+html.design-a .pa-page-col { justify-self: end; }
+html.design-a .pa-lines {
+  flex: 1;
+  display: grid;
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+}
+html.design-a .pa-line {
+  align-items: end;
+  padding-bottom: 3px;
+  background: linear-gradient(var(--border-1), var(--border-1)) left bottom / 100% 1px no-repeat;
+}
+html.design-a .pa-line-n {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2px;
+  margin-right: 12px;
+  border-right: 3px double color-mix(in srgb, var(--waya-rust) 45%, transparent);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-2);
+}
+html.design-a .pa-fig {
+  position: relative;
+  justify-self: end;
+  max-width: 100%;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--waya-stone);
+}
+html.design-a .pa-fig.pa-scal::after {
+  content: '';
+  position: absolute;
+  left: -3px; right: -3px;
+  top: 54%;
+  height: 2px;
+  background: var(--waya-rust);
+  transform-origin: left center;
+}
+html.design-a .pa-page.is-run .pa-line {
+  animation: pa-rule 600ms cubic-bezier(.2, .7, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+html.design-a .pa-page.is-run .pa-fig {
+  animation: pa-type 600ms steps(var(--n, 10), end) both;
+  animation-delay: calc(200ms + var(--i, 0) * 120ms);
+}
+html.design-a .pa-page.is-run .pa-fig.pa-scal::after {
+  animation: pa-strike 260ms var(--ease-standard) both;
+  animation-delay: calc(800ms + var(--i, 0) * 120ms);
+}
+@keyframes pa-rule { from { background-size: 0% 1px; } to { background-size: 100% 1px; } }
+@keyframes pa-type { from { clip-path: inset(-0.3em 100% -0.3em -4px); } to { clip-path: inset(-0.3em -4px -0.3em -4px); } }
+@keyframes pa-strike { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- problem page: steps ---------- */
+html.design-a .pa-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  max-width: 1140px;
+  margin: 48px auto 0;
+  padding: 32px 0 0;
+  list-style: none;
+  text-align: left;
+}
+html.design-a .pa-steps::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: var(--waya-charcoal);
+  transform-origin: left center;
+}
+html.design-a .pa-steps.pa-wait::before { transform: scaleX(0); }
+html.design-a .pa-steps.pa-wait.is-in::before {
+  transform: scaleX(1);
+  transition: transform 900ms cubic-bezier(.2, .7, .2, 1);
+}
+html.design-a .pa-steps > .pa-step {
+  min-width: 0;
+  margin: 0;
+  padding: 0 32px;
+  background: none;
+  border: 0;
+  border-left: 1px solid var(--border-1);
+  border-radius: 0;
+}
+html.design-a .pa-steps > .pa-step:first-child { padding-left: 0; border-left: 0; }
+html.design-a .pa-steps > .pa-step:last-child { padding-right: 0; }
+html.design-a .pa-steps.pa-wait > .pa-step {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+html.design-a .pa-steps.pa-wait.is-in > .pa-step {
+  opacity: 1;
+  transform: none;
+  transition: opacity 500ms var(--ease-standard), transform 500ms var(--ease-standard);
+  transition-delay: calc(250ms + var(--i, 0) * 200ms);
+}
+html.design-a .pa-step-n {
+  display: block;
+  width: auto; height: auto;
+  margin: 0 0 16px;
+  background: none;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--waya-rust);
+}
+html.design-a .pa-steps .pa-step-t {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--waya-ink);
+  text-wrap: balance;
+}
+html.design-a .pa-steps .pa-step-x {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+/* ---------- problem page: final CTA on an ink band ---------- */
+html.design-a main:has(.proof-hero) .final-cta {
+  background: var(--waya-ink);
+  background-image: none;
+}
+
+/* ---------- ≤ 960px ---------- */
+@media (max-width: 960px) {
+  html.design-a .pa-strip {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+    padding: 48px 24px;
+  }
+  html.design-a .pa-aside { display: contents; }
+  html.design-a .pa-aside-top { order: 0; }
+  html.design-a .pa-ledger { grid-column: 1; order: 1; }
+  html.design-a .pa-cta { order: 2; position: static; padding-top: 0; margin: 8px 0 0; }
+  html.design-a .pa-key { display: none; }
+  html.design-a .pa-strip,
+  html.design-a .pa-cases { --pa-b: 34px; --pa-a: 46px; --pa-q: 34px; --pa-gap: 24px; }
+
+  html.design-a .proof-hero .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 160px;
+    row-gap: 36px;
+    min-height: 0;
+  }
+  html.design-a .proof-hero h1 { font-size: 52px; }
+  html.design-a .proof-hero .sub { font-size: 20px; }
+  html.design-a .pa-page {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: stretch;
+    height: 160px;
+    padding: 10px 16px 10px 0;
+  }
+  html.design-a .pa-lines {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    grid-auto-flow: column;
+    column-gap: 16px;
+  }
+  html.design-a .pa-page-head,
+  html.design-a .pa-line { grid-template-columns: 36px minmax(0, 1fr); }
+  html.design-a .pa-line-n { margin-right: 8px; font-size: 10px; }
+  html.design-a .pa-fig { font-size: 15px; }
+}
+
+/* ---------- ≤ 640px: one column, Before stacked above After ---------- */
+@media (max-width: 640px) {
+  html.design-a .pa-strip { padding: 36px 16px; margin-top: 32px; }
+  html.design-a .pa-strip,
+  html.design-a .pa-cases {
+    --pa-cols: minmax(0, 1fr);
+    --pa-padx: 12px;
+    --pa-pady: 20px;
+    --pa-b: 32px;
+    --pa-a: 44px;
+    --pa-q: 32px;
+  }
+  html.design-a .pa-cases { --pa-b: 34px; --pa-a: 46px; --pa-q: 34px; padding: 4px 0 16px; margin-top: 32px; }
+  html.design-a .pa-head,
+  html.design-a .pa-bar { grid-template-columns: minmax(0, 1fr); }
+  html.design-a .pa-head-k { display: none; }
+  html.design-a .pa-row,
+  html.design-a .pa-entry-head { row-gap: 14px; min-height: 0; }
+  html.design-a .pa-b,
+  html.design-a .pa-a { grid-area: auto; min-width: 0; }
+  html.design-a .pa-b { grid-row: 1; clip-path: none; }
+  html.design-a .pa-a { grid-row: 2; margin-top: 4px; }
+  html.design-a .pa-seam,
+  html.design-a .pa-foot,
+  html.design-a .pa-a::before { display: none; }
+  html.design-a .pa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    font-size: 15px;
+  }
+  html.design-a .pa-title { font-size: 21px; }
+  html.design-a .pa-table { font-size: 14px; }
+  html.design-a .pa-table thead th:first-child { width: 44%; }
+  html.design-a .pa-table th,
+  html.design-a .pa-table td { padding-right: 10px; }
+  html.design-a .pa-tv-b,
+  html.design-a .pa-tv-a,
+  html.design-a .pa-tv-none { font-size: 15px; }
+
+  html.design-a .proof-hero { padding: 64px 20px 48px; min-height: 0; }
+  html.design-a .proof-hero h1 { font-size: 40px; }
+  html.design-a .proof-hero .sub { font-size: 19px; padding-left: 16px; }
+}
+
+/* ---------- steps stack below 760px; the rule turns vertical ---------- */
+@media (max-width: 760px) {
+  html.design-a .pa-steps {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 0 0 24px;
+    margin-top: 36px;
+  }
+  html.design-a .pa-steps::before {
+    left: 0; top: 0; bottom: 0; right: auto;
+    width: 2px; height: auto;
+    transform-origin: center top;
+  }
+  html.design-a .pa-steps.pa-wait::before { transform: scaleY(0); }
+  html.design-a .pa-steps.pa-wait.is-in::before { transform: scaleY(1); }
+  html.design-a .pa-steps > .pa-step,
+  html.design-a .pa-steps > .pa-step:first-child,
+  html.design-a .pa-steps > .pa-step:last-child {
+    padding: 24px 0;
+    border-left: 0;
+    border-top: 1px solid var(--border-1);
+  }
+  html.design-a .pa-steps > .pa-step:first-child { border-top: 0; padding-top: 0; }
+  html.design-a .pa-steps > .pa-step:last-child { padding-bottom: 0; }
+  html.design-a .pa-steps.pa-wait > .pa-step { transform: translateY(8px); }
+  html.design-a .pa-steps.pa-wait.is-in > .pa-step { transform: none; }
+}
+
+/* ---------- reduced motion: final state, no transitions ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.design-a .pa-strip *,
+  html.design-a .pa-cases *,
+  html.design-a .pa-page *,
+  html.design-a .pa-steps,
+  html.design-a .pa-steps::before,
+  html.design-a .pa-steps > * {
+    animation: none !important;
+    transition: none !important;
+  }
+  html.design-a .pa-steps::before { transform: none !important; }
+  html.design-a .pa-steps > .pa-step { opacity: 1 !important; transform: none !important; }
+}
+html.design-a .pa-still *,
+html.design-a .pa-still *::before { animation: none !important; transition: none !important; }
+
+/* ---------- print: show the books closed ---------- */
+@media print {
+  html.design-a .pa-ctl { display: none; }
+  html.design-a .pa-a,
+  html.design-a .pa-tv-a { clip-path: none !important; }
+  html.design-a .pa-b { visibility: hidden; }
+  html.design-a .pa-foot { opacity: 1 !important; }
+  html.design-a .pa-bar { position: static; }
+}
