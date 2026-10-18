@@ -47,8 +47,31 @@
 .proof-steps h3 { margin-top: 14px; font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--waya-charcoal); }
 .proof-steps p { margin-top: 8px; font-size: 15px; line-height: 1.55; color: var(--fg-2); }
 
+.proof-steps li { position: relative; display: flex; flex-direction: column; }
+.proof-step-method {
+  margin-top: 14px; align-self: flex-start;
+  font-family: var(--font-display); font-weight: 700; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--waya-rust); background: color-mix(in srgb, var(--waya-rust) 9%, transparent);
+  border-radius: 999px; padding: 5px 11px;
+}
+.proof-steps .proof-step-method + h3 { margin-top: 12px; }
+.proof-step-seen { margin-top: auto !important; padding-top: 16px; font-size: 13.5px; line-height: 1.5; color: var(--fg-2); border-top: 1px dashed var(--border-1); }
+.proof-steps p.proof-step-seen { margin-top: 18px; }
+.proof-step-seen a { color: var(--waya-charcoal); font-weight: 600; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--waya-rust) 50%, transparent); text-underline-offset: 3px; }
+.proof-step-seen a:hover { color: var(--waya-rust); }
+/* Arrows between steps: the order matters */
+.proof-steps li:not(:last-child)::after {
+  content: '→'; position: absolute; right: -17px; top: 34px; z-index: 1;
+  width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--waya-paper); color: var(--waya-rust); font-weight: 700; font-size: 15px;
+}
+
+/* From case study to program */
+.proof-bridge .section-title { max-width: 820px; }
+
 @media (max-width: 960px) {
-  .proof-steps { grid-template-columns: 1fr; }
+  .proof-steps { grid-template-columns: 1fr; gap: 28px; }
+  .proof-steps li:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -26px; transform: translateX(-50%); }
 }
 
 /* Review-only design switcher (proof.js shows it on localhost, *.pages.dev, or with ?design=) */

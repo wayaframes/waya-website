@@ -1,3 +1,4 @@
+/* Step cards are shared plain HTML in every design (proof.css); the .pb-steps-retired rules below no longer match anything. */
 /* Proof components, Design B: "Control Room".
    Dark ink instrument panels with mustard and mint readouts. Every rule is scoped under
    html.design-b. Colours come from the :root tokens in /assets/styles.css plus color-mix(). */
@@ -19,7 +20,7 @@ html.design-b .pb-sr {
 
 /* ---------- The console surface (strip, cases, steps) ---------- */
 html.design-b .pb-console,
-html.design-b .proof-steps,
+html.design-b .pb-steps-retired,
 html.design-b .proof[data-proof]:not(.pb-on) {
   position: relative;
   isolation: isolate;
@@ -41,21 +42,21 @@ html.design-b .proof[data-proof]:not(.pb-on) {
 }
 /* vignette over the grid so the texture recedes toward the edges */
 html.design-b .pb-console::before,
-html.design-b .proof-steps::before,
+html.design-b .pb-steps-retired::before,
 html.design-b .proof[data-proof]:not(.pb-on)::before {
   content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
   background: radial-gradient(ellipse 70% 80% at 35% 45%, transparent 0, color-mix(in srgb, var(--waya-ink) 88%, transparent) 78%);
 }
 /* status rail along the top edge: red zone to good zone */
 html.design-b .pb-console::after,
-html.design-b .proof-steps::after {
+html.design-b .pb-steps-retired::after {
   content: ''; position: absolute; left: 28px; right: 28px; top: -1px; height: 3px; border-radius: 0 0 3px 3px;
   background: linear-gradient(90deg, var(--waya-rust), var(--waya-mustard) 50%, var(--waya-sage));
   pointer-events: none;
 }
 html.design-b .pb-console { padding: 72px 56px 64px; overflow: hidden; }
 html.design-b .pb-console :focus-visible,
-html.design-b .proof-steps :focus-visible {
+html.design-b .pb-steps-retired :focus-visible {
   outline: 2px solid var(--waya-mustard); outline-offset: 3px;
 }
 html.design-b .pb-console .btn-rust:focus-visible { outline-offset: 4px; }
@@ -197,18 +198,18 @@ html.design-b .pb-hero-gauge.is-idle .pb-wobble { animation: pb-wobble 4s ease-i
 /* ======================================================================
    STEPS: rotary switch + cards
    ====================================================================== */
-html.design-b .proof-steps {
+html.design-b .pb-steps-retired {
   list-style: none;
   padding: 56px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   row-gap: 14px;
 }
-html.design-b .proof-steps.pb-on {
+html.design-b .pb-steps-retired.pb-on {
   grid-template-columns: 200px minmax(0, 1fr);
   column-gap: 48px;
 }
-html.design-b .proof-steps > li {
+html.design-b .pb-steps-retired > li {
   position: relative;
   padding: 22px 24px 22px 28px;
   background: color-mix(in srgb, var(--waya-cream) 3%, transparent);
@@ -216,19 +217,19 @@ html.design-b .proof-steps > li {
   border-radius: 0 14px 14px 0;
   min-width: 0;
 }
-html.design-b .proof-steps.pb-on > li.pb-step {
+html.design-b .pb-steps-retired.pb-on > li.pb-step {
   grid-column: 2;
   cursor: pointer;
   transition: background-color var(--dur-base) var(--ease-standard), border-color var(--dur-base) var(--ease-standard);
 }
-html.design-b .proof-steps > li.pb-step:hover { background: var(--pb-hover); }
-html.design-b .proof-steps > li.pb-step.is-active { background: var(--pb-fill); border-left-color: var(--waya-mint); }
-html.design-b .proof-steps .proof-step-n {
+html.design-b .pb-steps-retired > li.pb-step:hover { background: var(--pb-hover); }
+html.design-b .pb-steps-retired > li.pb-step.is-active { background: var(--pb-fill); border-left-color: var(--waya-mint); }
+html.design-b .pb-steps-retired .pb-step-n-retired {
   display: inline-block; margin-bottom: 8px;
   font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.12em;
   color: var(--waya-mustard); font-variant-numeric: tabular-nums;
 }
-html.design-b .proof-steps h3 {
+html.design-b .pb-steps-retired h3 {
   margin: 0;
   font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25;
   color: var(--waya-cream);
@@ -237,9 +238,9 @@ html.design-b .pb-step-btn {
   display: inline; padding: 0; margin: 0; border: 0; background: none; cursor: pointer;
   font: inherit; color: inherit; text-align: left; letter-spacing: inherit; border-radius: 4px;
 }
-html.design-b .proof-steps p { margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--waya-fog); }
+html.design-b .pb-steps-retired p { margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--waya-fog); }
 
-html.design-b .proof-steps > li.pb-knob-li {
+html.design-b .pb-steps-retired > li.pb-knob-li {
   grid-column: 1;
   grid-row: 1 / span var(--pb-rows, 3);
   align-self: start;
@@ -378,18 +379,18 @@ html.design-b .proof[data-proof]:not(.pb-on) a:not(.btn-rust):not(.proof-link) {
   html.design-b .pb-read-vals.is-q .pb-after,
   html.design-b .pb-read-vals.is-long .pb-after { font-size: 44px; }
   html.design-b .proof-hero h1 { font-size: 52px; }
-  html.design-b .proof-steps { padding: 44px 32px; }
-  html.design-b .proof-steps.pb-on { grid-template-columns: 150px minmax(0, 1fr); column-gap: 32px; }
+  html.design-b .pb-steps-retired { padding: 44px 32px; }
+  html.design-b .pb-steps-retired.pb-on { grid-template-columns: 150px minmax(0, 1fr); column-gap: 32px; }
   html.design-b .pb-knob { width: 140px; height: 140px; }
 }
 
 @media (max-width: 640px) {
   html.design-b .pb-console,
-  html.design-b .proof-steps,
+  html.design-b .pb-steps-retired,
   html.design-b .proof[data-proof]:not(.pb-on) { border-radius: 20px; }
   html.design-b .pb-console { padding: 44px 20px 28px; }
   html.design-b .pb-console::after,
-  html.design-b .proof-steps::after { left: 20px; right: 20px; }
+  html.design-b .pb-steps-retired::after { left: 20px; right: 20px; }
   html.design-b .proof[data-proof]:not(.pb-on) { padding: 36px 16px 24px; }
 
   /* strip: one column, dial then chips */
@@ -432,12 +433,12 @@ html.design-b .proof[data-proof]:not(.pb-on) a:not(.btn-rust):not(.proof-link) {
   html.design-b .pb-hero-gauge { width: min(340px, 96%); }
 
   /* steps: knob sticks to the top while the cards scroll under it */
-  html.design-b .proof-steps { padding: 0 16px 24px; }
-  html.design-b .proof-steps:not(.pb-on) { padding-top: 24px; }
-  html.design-b .proof-steps.pb-on { grid-template-columns: minmax(0, 1fr); }
-  html.design-b .proof-steps.pb-on > li.pb-step { grid-column: 1; }
-  html.design-b .proof-steps > li { padding: 18px 18px 18px 20px; }
-  html.design-b .proof-steps > li.pb-knob-li {
+  html.design-b .pb-steps-retired { padding: 0 16px 24px; }
+  html.design-b .pb-steps-retired:not(.pb-on) { padding-top: 24px; }
+  html.design-b .pb-steps-retired.pb-on { grid-template-columns: minmax(0, 1fr); }
+  html.design-b .pb-steps-retired.pb-on > li.pb-step { grid-column: 1; }
+  html.design-b .pb-steps-retired > li { padding: 18px 18px 18px 20px; }
+  html.design-b .pb-steps-retired > li.pb-knob-li {
     grid-column: 1; grid-row: auto;
     top: 64px; z-index: 2;
     margin: 0 -16px; padding: 18px 0 10px;
@@ -445,8 +446,8 @@ html.design-b .proof[data-proof]:not(.pb-on) a:not(.btn-rust):not(.proof-link) {
     border-radius: 20px 20px 0 0;
   }
   html.design-b .pb-knob { width: 96px; height: 96px; }
-  html.design-b .proof-steps h3 { font-size: 19px; }
-  html.design-b .proof-steps p { font-size: 15px; }
+  html.design-b .pb-steps-retired h3 { font-size: 19px; }
+  html.design-b .pb-steps-retired p { font-size: 15px; }
 
   /* cases */
   html.design-b .pb-card { padding: 22px 18px 18px; }
@@ -455,7 +456,7 @@ html.design-b .proof[data-proof]:not(.pb-on) a:not(.btn-rust):not(.proof-link) {
 /* ---------- Reduced motion: end state, no movement ---------- */
 @media (prefers-reduced-motion: reduce) {
   html.design-b .pb-console *,
-  html.design-b .proof-steps *,
+  html.design-b .pb-steps-retired *,
   html.design-b .proof-hero * {
     animation: none !important;
     transition: none !important;

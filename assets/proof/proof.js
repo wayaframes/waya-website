@@ -36,6 +36,7 @@
     ran = true;
     document.querySelectorAll('[data-proof]').forEach(function (el) {
       var type = el.getAttribute('data-proof');
+      if (type === 'steps') return;   /* the step cards are the same plain HTML in every design */
       if (typeof renderer[type] !== 'function') return;
       try {
         renderer[type](el, ctxFor(el));
@@ -59,11 +60,11 @@
 
   if (!document.getElementById('proof-design-css')) {   /* the page head normally loads it before first paint */
     var css = document.createElement('link');
-    css.rel = 'stylesheet'; css.href = '/assets/proof/design-' + design + '.css?v=1';
+    css.rel = 'stylesheet'; css.href = '/assets/proof/design-' + design + '.css?v=2';
     document.head.appendChild(css);
   }
   var js = document.createElement('script');
-  js.src = '/assets/proof/design-' + design + '.js?v=1'; js.defer = true;
+  js.src = '/assets/proof/design-' + design + '.js?v=2'; js.defer = true;
   document.head.appendChild(js);
 
   /* Design switcher for review: local previews, Cloudflare previews, or an explicit ?design= */
