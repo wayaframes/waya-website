@@ -44,7 +44,8 @@
     ran = true;
     document.querySelectorAll('[data-proof]').forEach(function (el) {
       var type = el.getAttribute('data-proof');
-      if (typeof renderer[type] !== 'function') return;   /* steps: design-c only illustrates groups it has drawings for */
+      if (type === 'steps') return;   /* the step cards are plain HTML */
+      if (typeof renderer[type] !== 'function') return;
       try {
         renderer[type](el, ctxFor(el));
         el.classList.add('proof-enhanced');
