@@ -11,7 +11,7 @@
 // The timing sheet is the thing to read after a run: OVER means a line is longer than its slot, "pushed"
 // means the previous line ran into it. Both must be empty before a render.
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -64,7 +64,19 @@ const PAGE_STR = k => { const r = new RegExp(`const ${k} = '([^']+)';`).exec(htm
 const hasAudio = f => existsSync(f) && /Audio:/.test(spawnSync(ffmpegPath, ['-i', f], { encoding: 'utf8' }).stderr);
 const vinceSource = () => {
   if (opt('vince-take')) return { file: resolve(here, '..', opt('vince-take')), take: true };
-  for (const ext of ['wav', 'm4a', 'mp4', 'mov']) { const f = resolve(here, '..', `assets/vince-take.${ext}`); if (hasAudio(f)) return { file: f, take: true }; }
+  // DEREVERB (Oren 2026-10-18, INSTRUCTIONS #30, "a lot of echo"): the take is cleaned ONCE, whole, by dereverb.py
+  // (WPE + late-reverb suppression + expander) into assets/vince-take-clean.wav on the same timeline, and every Vince
+  // line is cut from that. It is (re)built here whenever it is missing or older than the take. --raw-take skips it.
+  for (const ext of ['wav', 'm4a', 'mp4', 'mov']) {
+    const f = resolve(here, '..', `assets/vince-take.${ext}`); if (!hasAudio(f)) continue;
+    if (args.includes('--raw-take')) return { file: f, take: true };
+    const clean = resolve(here, '..', 'assets/vince-take-clean.wav');
+    if (!existsSync(clean) || statSync(clean).mtimeMs < statSync(f).mtimeMs) {
+      console.log('dereverbing the take once -> assets/vince-take-clean.wav');
+      run('python', [resolve(here, 'dereverb.py'), '--in', f, '--out', clean]);
+    }
+    return { file: clean, take: true, clean: true };
+  }
   const src = PAGE_STR('EXPERT_SRC');
   if (src && !/placeholder/.test(src) && hasAudio(resolve(here, '..', src))) return { file: resolve(here, '..', src), take: true };
   const cut = resolve(here, '..', opt('vince', 'assets/vince-lens.wav'));
@@ -80,58 +92,19 @@ const gatedDb = f => {
   const g = Math.max(10 ** (-4.5), p95 * 10 ** (-2.5)); const on = es.filter(e => e > g);
   return on.length ? 10 * Math.log10(on.reduce((a, b) => a + b, 0) / on.length) : -120;
 };
-CUES.forEach(([start, end, text, who], i) => {
+// SEVERAL EXPERT LINES (draft 3, 2026-10-18): a 'VINCE' cue may carry its take in/out as 5th and 6th elements,
+//   [start, end, text, 'VINCE', takeIn, takeOut]
+// and is then cut from the (dereverbed) take at exactly takeIn for takeOut - takeIn seconds: no leading-silence
+// trim, no automatic end rule (a pause inside the segment must not end it). The widget, where it shows him, seeks
+// the clip to takeIn at the cue's start, so mouth and voice share that number. A 'VINCE' cue without in/out falls
+// back to the single-line rule above (VINCE_LENS_OFFSET / --vince-offset, L17_SAID / --vince-len / first pause).
+// ONE ROOM: every Vince cue gets the same chain with the same thresholds, set from his speech level over all his
+// cues together (so a quieter segment is not compressed differently), then each is matched to the narrator's gated
+// level. They are voiced after all the narrator lines, so the narrator reference is complete.
+const vinceCues = [];
+CUES.forEach(([start, end, text, who, tin, tout], i) => {
   const vsrc = who === 'VINCE' ? vinceSource() : null;
-  if (vsrc) {
-    const wav = resolve(outDir, 'vo', 'vince-lens.wav'), raw = resolve(outDir, 'vo', 'vince-lens-raw.wav'), win = resolve(outDir, 'vo', 'vince-lens-window.wav');
-    // --vince-offset <s> overrides the page's VINCE_LENS_OFFSET (for voicing before the page is updated); they must agree
-    // before a render, or his voice and mouth are out of sync
-    const PAGE_OFF = PAGE_NUM('VINCE_LENS_OFFSET');
-    const OFF = opt('vince-offset') != null ? +opt('vince-offset') : (PAGE_OFF ?? 0);
-    if (PAGE_OFF !== OFF) console.log(`WARNING: voicing Vince from ${OFF} s (--vince-offset) but video.html says VINCE_LENS_OFFSET = ${PAGE_OFF}: set the page to ${OFF} before rendering, or lip sync breaks`);
-    let len = opt('vince-len') ? +opt('vince-len') : null;
-    if (vsrc.take) {
-      const max = +opt('vince-max', String(end - start + 2));
-      run(ffmpegPath, ['-y', '-ss', OFF.toFixed(3), '-i', vsrc.file, '-t', max.toFixed(3), '-vn', '-ar', '48000', '-ac', '2', win]);
-      if (len == null) {
-        const sd = spawnSync(ffmpegPath, ['-i', win, '-af', 'silencedetect=noise=-40dB:d=0.45', '-f', 'null', '-'], { encoding: 'utf8' }).stderr;
-        const pause = [...sd.matchAll(/silence_start: ([\d.]+)/g)].map(m => +m[1]).find(t => t > 1.5);
-        len = pause != null ? pause + 0.12 : max;
-      }
-      console.log(`Vince's line: ${vsrc.file} from ${OFF.toFixed(3)} s (VINCE_LENS_OFFSET) for ${len.toFixed(2)} s`);
-    } else {
-      run(ffmpegPath, ['-y', '-i', vsrc.file, '-vn', '-ar', '48000', '-ac', '2', win]);
-      len = len ?? duration(win);
-      console.log(`Vince's line: ${vsrc.file} (pre-cut; its first sample must be VINCE_LENS_OFFSET ${OFF} s in the clip), ${len.toFixed(2)} s`);
-    }
-    const fo = Math.max(len - 0.04, 0).toFixed(3);
-    // CLEAN + COMPRESS (Oren 2026-10-18, "compress the volume"): high-pass, a light de-noise set from the take's own
-    // room tone (the quietest 10% of 50 ms windows, so the gate never eats soft consonants), then a gentle compressor
-    // whose threshold sits 6 dB under his speech-gated level, so his louder and softer words even out and he sits
-    // as steady as the narrator. The level match below runs after it.
-    const env = (() => { const p = spawnSync(ffmpegPath, ['-v', 'error', '-i', win, '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'], { maxBuffer: 1 << 30 });
-      const x = new Float32Array(p.stdout.buffer, p.stdout.byteOffset, p.stdout.length >> 2); const es = [];
-      for (let i = 0; i + 800 <= x.length; i += 800) { let e = 0; for (let k = i; k < i + 800; k++) e += x[k] * x[k]; es.push(10 * Math.log10(e / 800 + 1e-12)); }
-      return es.sort((a, b) => a - b); })();
-    const floorDb = env[Math.floor(env.length * 0.1)] ?? -60;
-    const nf = Math.min(-25, Math.max(-80, floorDb + 6)).toFixed(0);
-    const cth = 10 ** ((gatedDb(win) - 6) / 20);
-    const chain = `atrim=0:${len.toFixed(3)},highpass=f=80,afftdn=nr=10:nf=${nf},acompressor=threshold=${cth.toFixed(5)}:ratio=3:attack=5:release=120:knee=4:makeup=1,afade=t=in:st=0:d=0.015,afade=t=out:st=${fo}:d=0.04`;
-    console.log(`Vince's clean-up: room tone ${floorDb.toFixed(1)} dBFS -> afftdn nf ${nf}; compressor 3:1 from ${(20 * Math.log10(cth)).toFixed(1)} dBFS`);
-    run(ffmpegPath, ['-y', '-i', win, '-af', chain, '-ar', '48000', '-ac', '2', raw]);
-    const narr = clips.filter(c => !c.who);
-    const ref = narr.length ? 10 * Math.log10(narr.reduce((s, c) => s + 10 ** (gatedDb(c.wav) / 10), 0) / narr.length) : -18;
-    // two passes: the limiter that catches his peaks takes a little off the level, so correct once more
-    let gain = ref - gatedDb(raw);
-    for (let pass = 0; pass < 2; pass++) {
-      run(ffmpegPath, ['-y', '-i', raw, '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.95:level=0`, wav]);
-      gain += ref - gatedDb(wav);
-    }
-    console.log(`Vince's level: speech-gated ${gatedDb(raw).toFixed(1)} dBFS -> ${gatedDb(wav).toFixed(1)} dBFS (narrator ${ref.toFixed(1)} dBFS, gain ${gain.toFixed(1)} dB)`);
-    run(ffmpegPath, ['-y', '-loglevel', 'error', '-i', wav, '-c', 'copy', resolve(outDir, 'vo', `cue-${String(i).padStart(2, '0')}.wav`)]);
-    clips.push({ i, start, end, text, wav, dur: duration(wav), who: 'VINCE (own voice)' });
-    return;
-  }
+  if (vsrc) { vinceCues.push({ i, start, end, text, tin, tout, vsrc }); clips.push({ i, pending: true }); return; }
   const say = spoken(text);
   const key = createHash('sha1').update(`${ENGINE}|${VOICE}|${RATE}|${say}`).digest('hex').slice(0, 12);
   const mp3 = resolve(outDir, 'vo', `${key}.${ENGINE === 'sapi' ? 'raw.wav' : 'mp3'}`), wav = resolve(outDir, 'vo', `${key}.wav`);
@@ -154,6 +127,62 @@ CUES.forEach(([start, end, text, who], i) => {
   clips.push({ i, start, end, text, wav, dur: duration(wav), who: who === 'VINCE' ? 'VINCE PLACEHOLDER (narrator; swap for assets/vince-lens.wav)' : '' });
 });
 
+const narrRef = (() => { const narr = clips.filter(c => !c.pending && !c.who); return narr.length ? 10 * Math.log10(narr.reduce((s, c) => s + 10 ** (gatedDb(c.wav) / 10), 0) / narr.length) : -18; })();
+const vwins = vinceCues.map(v => {
+  const n2 = String(v.i).padStart(2, '0');
+  const win = resolve(outDir, 'vo', `vince-${n2}-window.wav`);
+  let OFF, len;
+  if (v.tin != null && v.tout != null) {
+    OFF = +v.tin; len = +v.tout - +v.tin;
+    if (!(len > 0)) throw new Error(`cue ${v.i}: take out ${v.tout} must be after take in ${v.tin}`);
+    if (!v.vsrc.take) throw new Error(`cue ${v.i} has take in/out but no take was found (assets/vince-take.*)`);
+    run(ffmpegPath, ['-y', '-ss', OFF.toFixed(3), '-i', v.vsrc.file, '-t', len.toFixed(3), '-vn', '-ar', '48000', '-ac', '2', win]);
+  } else {
+    // legacy single line: --vince-offset or the page's VINCE_LENS_OFFSET; --vince-len, L17_SAID, or the first pause
+    const PAGE_OFF = PAGE_NUM('VINCE_LENS_OFFSET');
+    OFF = opt('vince-offset') != null ? +opt('vince-offset') : (PAGE_OFF ?? 0);
+    if (PAGE_OFF !== OFF) console.log(`WARNING: voicing Vince from ${OFF} s (--vince-offset) but video.html says VINCE_LENS_OFFSET = ${PAGE_OFF}: set the page to ${OFF} before rendering, or lip sync breaks`);
+    const PAGE_SAID = (/const L17_SAID = ([\d.]+)/.exec(html) || [])[1];
+    len = opt('vince-len') ? +opt('vince-len') : (PAGE_SAID && PAGE_OFF ? +PAGE_SAID : null);
+    if (v.vsrc.take) {
+      const max = +opt('vince-max', String(v.end - v.start + 2));
+      run(ffmpegPath, ['-y', '-ss', OFF.toFixed(3), '-i', v.vsrc.file, '-t', max.toFixed(3), '-vn', '-ar', '48000', '-ac', '2', win]);
+      if (len == null) {
+        const sd = spawnSync(ffmpegPath, ['-i', win, '-af', 'silencedetect=noise=-40dB:d=0.45', '-f', 'null', '-'], { encoding: 'utf8' }).stderr;
+        const pause = [...sd.matchAll(/silence_start: ([\d.]+)/g)].map(m => +m[1]).find(t => t > 1.5);
+        len = pause != null ? pause + 0.12 : max;
+      }
+    } else { run(ffmpegPath, ['-y', '-i', v.vsrc.file, '-vn', '-ar', '48000', '-ac', '2', win]); len = len ?? duration(win); }
+  }
+  console.log(`Vince cue ${v.i}: ${v.vsrc.file.split(/[\\/]/).pop()} from ${OFF.toFixed(3)} to ${(OFF + len).toFixed(3)} s (${len.toFixed(2)} s) at film ${v.start}`);
+  return { ...v, n2, win, OFF, len };
+});
+// his speech level over all his cues together sets the shared thresholds
+const vLevel = vwins.length ? 10 * Math.log10(vwins.reduce((s, w) => s + 10 ** (gatedDb(w.win) / 10), 0) / vwins.length) : -30;
+for (const w of vwins) {
+  const raw = resolve(outDir, 'vo', `vince-${w.n2}-raw.wav`), wav = resolve(outDir, 'vo', `vince-${w.n2}.wav`);
+  const fo = Math.max(w.len - 0.04, 0).toFixed(3);
+  // A compressor lifts the room tail between words (the first cut, 3:1 / 120 ms release, lifted it ~10 dB, which is
+  // what Oren heard as echo, INSTRUCTIONS #30). So on the dereverbed take: no extra de-noise, a mild 2:1 compressor
+  // (6 dB under his speech) with a short release, then a downward expander (agate 2:1 from 26 dB under his speech,
+  // at most -14 dB) that pushes the gaps back down. mix.mjs leaves these spans out of its own voice compressor.
+  const cth = 10 ** ((vLevel - 6) / 20), gth = 10 ** ((vLevel - 26) / 20);
+  const chain = w.vsrc.clean
+    ? `atrim=0:${w.len.toFixed(3)},highpass=f=80,acompressor=threshold=${cth.toFixed(5)}:ratio=2:attack=8:release=60:knee=4:makeup=1,agate=threshold=${gth.toFixed(5)}:ratio=2:range=0.2:attack=2:release=60:knee=2,afade=t=in:st=0:d=0.015,afade=t=out:st=${fo}:d=0.04`
+    : `atrim=0:${w.len.toFixed(3)},highpass=f=80,afftdn=nr=10:nf=-53,acompressor=threshold=${cth.toFixed(5)}:ratio=3:attack=5:release=120:knee=4:makeup=1,afade=t=in:st=0:d=0.015,afade=t=out:st=${fo}:d=0.04`;
+  run(ffmpegPath, ['-y', '-i', w.win, '-af', chain, '-ar', '48000', '-ac', '2', raw]);
+  // two passes: the limiter that catches his peaks takes a little off the level, so correct once more
+  let gain = narrRef - gatedDb(raw);
+  for (let pass = 0; pass < 2; pass++) {
+    run(ffmpegPath, ['-y', '-i', raw, '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.95:level=0:latency=1`, wav]);
+    gain += narrRef - gatedDb(wav);
+  }
+  console.log(`Vince cue ${w.i}: ${w.vsrc.clean ? 'dereverbed; ' : ''}compressor 2:1 from ${(vLevel - 6).toFixed(1)}, expander below ${(vLevel - 26).toFixed(1)} dBFS; speech ${gatedDb(raw).toFixed(1)} -> ${gatedDb(wav).toFixed(1)} dBFS (narrator ${narrRef.toFixed(1)}, gain ${gain.toFixed(1)} dB)`);
+  run(ffmpegPath, ['-y', '-loglevel', 'error', '-i', wav, '-c', 'copy', resolve(outDir, 'vo', `cue-${w.n2}.wav`)]);
+  const k = clips.findIndex(c => c.pending && c.i === w.i);
+  clips[k] = { i: w.i, start: w.start, end: w.end, text: w.text, wav, dur: duration(wav), who: 'VINCE (own voice)', take: [w.OFF, w.OFF + w.len] };
+}
+
 // 2. lay them out; a line that runs past the next start pushes it, and both are reported
 let cursor = 0, prevEnd = 0; const GAP = 0.18;
 const rows = [];
@@ -161,7 +190,7 @@ for (const c of clips) {
   c.at = Math.max(c.start, cursor);
   const pushed = c.at - c.start, slot = c.end - c.start, over = c.dur - slot, air = c.at - prevEnd;
   cursor = c.at + c.dur + GAP; prevEnd = c.at + c.dur;
-  rows.push(`${c.at.toFixed(2).padStart(7)}s  ${c.dur.toFixed(2).padStart(5)}s  slot ${slot.toFixed(1).padStart(4)}s  air ${air.toFixed(2).padStart(5)}s ${over > 0 ? `OVER +${over.toFixed(1)}` : '       '} ${pushed > 0.05 ? `pushed +${pushed.toFixed(1)}` : '           '}  ${c.who ? `[${c.who}] ` : ''}${c.text}`);
+  rows.push(`${c.at.toFixed(2).padStart(7)}s  ${c.dur.toFixed(2).padStart(5)}s  slot ${slot.toFixed(1).padStart(4)}s  air ${air.toFixed(2).padStart(5)}s ${over > 0.01 ? `OVER +${over.toFixed(1)}` : '       '} ${pushed > 0.05 ? `pushed +${pushed.toFixed(1)}` : '           '}  ${c.who ? `[${c.who}] ` : ''}${c.text}`);
 }
 // the film's length: the page's own window.__DUR (DUR may be derived, e.g. CLOSE + CLOSE_SAID + CARD_HOLD), read in a
 // headless browser as render.mjs does; if no browser starts, an uncommented literal `const DUR = 78.5;`
@@ -176,7 +205,9 @@ async function pageDur() {
 }
 const PAGE_DUR = await pageDur();
 if (PAGE_DUR == null) console.log('WARNING: no DUR found on the page; the voice track ends with the speech');
-const total = Math.max(PAGE_DUR ?? cursor, cursor);
+const DUR_OPT = opt('dur') ? +opt('dur') : null;
+const total = Math.max(DUR_OPT ?? PAGE_DUR ?? cursor, cursor);
+if (DUR_OPT == null && PAGE_DUR != null && PAGE_DUR - prevEnd < 2.6 - 0.01) console.log(`WARNING: the page's DUR ${PAGE_DUR} leaves only ${(PAGE_DUR - prevEnd).toFixed(2)} s after the last line (${prevEnd.toFixed(2)}); the close card needs >= 2.6 s. Check CLOSE/CLOSE_SAID in video.html, or pass --dur.`);
 console.log(rows.join('\n'));
 console.log(`\n${ENGINE === 'sapi' ? 'PLACEHOLDER Windows voice (timing test only; re-voice with the default engine before delivery)' : `voice ${VOICE} rate ${RATE}`}; speech ends at ${prevEnd.toFixed(1)}s; film ${total.toFixed(1)}s`);
 
@@ -200,15 +231,17 @@ writeFileSync(resolve(outDir, 'vo-timing.txt'), rows.join('\n') + '\n');
 console.log('wrote out/vo.wav and out/vo-timing.txt');
 // Vince's own line, checked in the finished voice track: lip sync needs it on its planned start, and its speech-gated
 // level within 1 dB of the narrator's
-const vc = clips.find(c => c.who === 'VINCE (own voice)');
-if (vc) {
-  if (vc.at - vc.start > 0.01) console.log(`WARNING: Vince's line is pushed ${(vc.at - vc.start).toFixed(2)} s: the widget seeks VINCE_LENS_OFFSET to ${vc.start}, so his mouth and voice are out of sync. Move the line before it.`);
+const vcs = clips.filter(c => c.who === 'VINCE (own voice)');
+if (vcs.length) {
   const tmp = resolve(outDir, 'vo', 'check.wav');
   const seg = (a, b) => { run(ffmpegPath, ['-y', '-loglevel', 'error', '-ss', a.toFixed(3), '-t', (b - a).toFixed(3), '-i', resolve(outDir, 'vo.wav'), tmp]); return gatedDb(tmp); };
-  const v = seg(vc.at, vc.at + vc.dur);
   const nv = clips.filter(c => !c.who && c.at != null).map(c => 10 ** (seg(c.at, c.at + c.dur) / 10));
   const n = 10 * Math.log10(nv.reduce((a, b) => a + b, 0) / nv.length);
-  console.log(`in vo.wav: Vince speaks at ${v.toFixed(1)} dBFS, the narrator at ${n.toFixed(1)} dBFS (${Math.abs(v - n) <= 1 ? 'within' : 'OUTSIDE'} +-1 dB)`);
+  for (const vc of vcs) {
+    if (vc.at - vc.start > 0.01) console.log(`WARNING: Vince's cue ${vc.i} is pushed ${(vc.at - vc.start).toFixed(2)} s: the widget seeks the take to ${vc.take[0]} at ${vc.start}, so his mouth and voice are out of sync. Move the line before it.`);
+    const v = seg(vc.at, vc.at + vc.dur);
+    console.log(`in vo.wav: Vince cue ${vc.i} (take ${vc.take[0].toFixed(2)}-${vc.take[1].toFixed(2)}) speaks at ${v.toFixed(1)} dBFS, the narrator at ${n.toFixed(1)} dBFS (${Math.abs(v - n) <= 1 ? 'within' : 'OUTSIDE'} +-1 dB)`);
+  }
 }
 
 if (existsSync(VIDEO)) {

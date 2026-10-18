@@ -261,3 +261,132 @@ sit well against both the cold dark scenes and the cream demo frame; no colour c
 | `ra-41.90.png` | The demo frame, full size |
 | `ra-25.75.png` | The root-cause frame |
 | `ra-71.00.png` | The lens, with Symptom ≠ Cause on screen |
+
+
+---
+
+## Round 4 (draft 3, `render/out/video-final.mp4`, 86.06 s, 2026-10-18)
+
+**What was checked**
+- **Stills:** 276 new stills with captions off, in `render/out/review-art-r4/`:
+  - every line start and line start + 0.5 s;
+  - every 0.25 s across every transition;
+  - every 0.25 s inside the new scenes: 0–2 (the Vince card), 12.5–18.9 (forklift, dough), 21.75–32.75 (aisle,
+    A3, WMS), 44.25–54.5 (10a and Na'ama), and 75–81.5 (lens and close).
+- **Flat-frame pass:** 121 extra stills at 0.05 s steps around every dark hand-off, in `review-art-r4/fine/`.
+- **Contact sheets:** `review-art-r4/sheets/s-00..22.png`.
+- **Geometry:** measured per still, in `review-art-r4/meas-*.json`.
+- **The final MP4:** 86.06 s, 1920x1080, 30 fps. Frames pulled at 2.0 and 26.0 s match the page (mean pixel
+  difference 1–2 out of 255), with no captions.
+
+### Instructions
+
+| # | Check | Result | Evidence (in `render/out/review-art-r4/`) |
+|---|---|---|---|
+| 24 | No Vince video 0–6; a still in a non-video card | **PASS**. A horizontal 600x236 badge with a round headshot, "IN 2022 · AT CHEETAH / Vince / now a Waya co-founder". It has no bar and no live dot, so it does not read as a call. It is gone by 7.9. | `ra-1.00.png`, `ra-6.50.png` |
+| 26 | No Vince video 22–30 | **PASS**. The first widget frame is 45.00; nothing of Vince shows from 7.9 to 44.9. | meas: `expert` first visible at 45.00 |
+| 29 | His talking video only while his own voice plays | **PASS**. The widget is up 45.0–52.3 (voice 44.86–52.09) and 75.25–79.6 (voice 75.48–78.98). The key-line quote (32.48–40.12) is text only. | widget windows in meas |
+| 25 | Forklift looks professional, in motion | **PASS**. It is a flat editorial illustration with filled shapes, a lamp pool, a faceless operator in hard hat and hi-vis, and a dumpster with a clipped front. The motion reads: drive-in, forks rise, tip on "rotted", crates arc into the dumpster and disappear behind its front wall (13.75–15.0). See fix 1 for the entry. | `ra-14.25.png`, `sheets/s-02.png` |
+| 28 | Na'ama beat professional | **PASS**. A warm office at about 2:10: lamp pool, monitor still red, clock, window onto racking, vest on the hook. She is asleep on her arms under a sage blanket. It reads in its 1.5 s. | `ra-53.25.png` |
+| — | Dough (row 4) redrawn | **PASS**. A kraft case on dry-goods shelving, flaps forced open by the risen dough on "woke up"; the label holds still. The group is centred (x 486–1465). | `ra-17.75.png` |
+| 27/33 | Row 6 screen text matches "the process, not the people" | **PASS**. The aisle push-in on "went to the floor", the eyebrow "OCT 22 · GO AND SEE", then the A3: Process ringed in mustard, People greyed (not struck), the root cause filled in, caption "ROOT CAUSE · the process, not the people". | `ra-23.50.png`, `ra-27.50.png` |
+| 32 | Key line in his voice, text alone, no face | **PASS**. Four-line quote, phrase by phrase on his timing, "— Vince", sun turning to moon. Nothing else on screen above 3%. | `ra-39.50.png` |
+| HR 13 | No blank or flat frames longer than 0.5 s | **PASS**. The flat frames are 0.00–0.65 (the opening, as in rounds 1–3), 32.45–32.70 (0.25 s), and 71.60–71.80 (0.2 s). Into the close there is no blank frame: the lens group crosses the wordmark at 80.18. | `fine/` stills |
+| HR 10 | Grid | **PASS**. Every `data-col` element tops out at 140 in both layouts: W (centre x 170 w 1062, tracker x 1300) and D (widget x 30, count x 620, tracker x 1430). The row 6–7 screens sit at x 430, y 150, as ART.md specifies (not a demo frame). | meas |
+| — | Type ≥ 20 px | **FAIL (one item)**. The badge eyebrow "IN 2022 · AT CHEETAH" is 17 px (fix 6). The widget bar is 19 px, which matches the ART.md type scale and was accepted in round 1. | meas `bdgWhen 17px` |
+| — | Clutter in 10a | **PASS, but it is the busiest frame in the film.** Five elements: widget, count sheet, tracker, crew strip, 24-7 dial. They work because they arrive one at a time and the strip sits in empty space below the 700 line. Fix 4 removes the one real collision. | `ra-50.50.png` |
+| — | "Work both at once" readable ≥ 1.2 s (≈ 78.7–80.0) | **FAIL (marginal)**. It is at opacity ≥ 0.5 from about 78.95 to 80.10, about 1.15 s, but at full contrast on cream only 79.0–79.85, about 0.85 s. The close's background fade starts about 79.85 (stage pixel 128,131,127 at 80.00). Vince's widget also fades at 79.5, so the left third empties while the line is still being read. | `ra-79.25.png`, `ra-80.00.png`; meas `both` 0.88 / 1 / 1 / 1 / 0.92 / 0.2 at 79.00–80.18 |
+
+### Fix list (round 4)
+
+| # | Time | Problem | Evidence | Fix |
+|---|---|---|---|---|
+| 1 | 12.25–12.65 | **Double exposure into the forklift.** The forklift drives in under the fading warehouse, stamp and pick list (all three at 0.43 at 12.50). Most of the drive-in is hidden under the pick list, so the new illustration's best motion is lost. | `ra-12.50.png`, `ra-12.59.png` | End `#wh`, `#stamp`, `#pick` and `#chipFill` at 12.10 (fade 0.3 s). Start the forklift drive-in at `PALLETS` (12.64) from an empty stage. |
+| 2 | 15.0–15.4 | **Double exposure: forklift into dough.** The forklift and operator show through the shelving (fk 0.17, dough 0.47 at 15.25). | `ra-15.25.png` | `#fk` out by `L4 - 0.15`; `#dough` in at `L4`. |
+| 3 | 21.6–21.9 | **Double exposure: burn counter into aisle.** "$1,000,000" sits over the aisle's racking at about 0.4 each. | `ra-21.75.png` | `#burn` and `#burnSub` out at `L6 - 0.45`, then the aisle in from `L6 - 0.15`. |
+| 4 | 52.09–52.35 | **The tracker slides back over the count sheet.** At 52.25 the tracker (x 1324) overlaps the count sheet (611–1393, opacity 0.96) by about 70 px, so the tracker's table covers the sheet's right column. | `ra-52.25.png`; meas | Start the tracker's translateX back at `count` out + 0.05 (about 52.35), or fade `#count` out by 52.10, before the slide. |
+| 5 | 78.85–80.18 | **"Work both at once" is too short at full contrast** (see the table above). It is the takeaway line. | `ra-79.25.png`, `ra-80.00.png` | Bring `#both` in with the arrows at 78.75 (not about 78.9). Hold the cream background until 80.10 (start the charcoal fade about 0.25 s later). Keep the widget until 79.85, so the frame does not empty first. That gives about 1.3 s at full contrast. If the close has to move, slide it 0.2 s: the film is 86.06 s, so it stays well under 90. |
+| 6 | 1.0–7.9 | **The badge eyebrow is 17 px**, below the 20 px minimum. | meas `bdgWhen` | `#bdgWhen` `font-size: 20px` (the badge has room: the text column is 270 px wide). |
+| 7 | 75.48–77.25 | **Dead space at the start of the lens (R3-2, unchanged).** For 1.8 s the right two-thirds is empty, only the title and widget, while Vince says "You need to separate…". | `ra-76.25.png` | Bring the Symptom card in on "separate" (about 76.0) instead of about 77.2. Or accept it: his face is moving. |
+| 8 | 41.35–41.75 | **The lane card drops before the stage turns cream.** "By hand" lands on the mid-grey of the charcoal → cream fade, before the title, so for 0.3 s it reads as a grey card on grey. | `ra-41.42.png`, `ra-41.50.png` | Start `#lane1` / `#lane2` 0.3 s later (`TWO_TRACKS + 0.3`), after the background is cream and the title is in. |
+| 9 | 71.75–73.6 | **"Oct 2023" is alone for about 1.8 s before "Profitable" arrives.** It reads as a caption waiting for its headline. | `ra-72.25.png` | Optional. Start "Oct 2023" at 72.6 (later in "October twenty twenty-three") so the wait is under 1 s. Or set "Oct 2023" at the 56 px payoff size while it waits alone, then let it settle. |
+
+### Judgment calls
+
+The animator's judgment calls 1–5 were not in any file I could find (not in REVIEW notes, ART.md, SCRIPT.md or the
+render logs). My verdict on the open choices that ART.md and SCRIPT.md draft 3 record:
+
+1. **Na'ama at the desk, not on a cot.** Keep the desk. It reads as "slept there" in 1.5 s, and a cot needs a wider
+   frame.
+2. **The crew strip in 10a.** Keep it. It is the only picture of "everyone, executive, sales team, operators". It sits
+   below the frame line and arrives figure by figure. Drop the 24-7 dial before the strip if Oren calls it busy.
+3. **Two registers** (line art for the building in rows 1–2, illustration for the floor scenes). Keep both. The
+   change marks "now we are on the floor", and the building reads as a diagram.
+4. **The aisle as the backdrop for the A3 and the WMS (rows 6–7).** Keep it. "Go and see" is literally the setting,
+   and the slow drift keeps the frame alive under 10 s of screens. The racking's orange edges are busy at full
+   strength, so if anything, dim the aisle to about 0.7 once the A3 is up.
+5. **The tracker as the only element that moves between layouts W and D.** Keep it. The centre never morphs. Only
+   the timing of the slide back needs fixing (fix 4).
+
+### Round 4 verdict
+
+- **Instructions #24–#33 (visual): all pass.**
+- **Illustrations (forklift, dough, Na'ama, aisle, crew):** professional, and they read in motion.
+- **Must fix before Oren:** fixes 1–5. They are three double-exposure entries, the tracker collision, and the
+  "Work both at once" hold. Each is a timing change of one or two values.
+- **Should fix:** 6 and 8.
+- **Optional:** 7 and 9.
+
+**Representative stills** (all in `render/out/review-art-r4/`):
+
+| Still | Shows |
+|---|---|
+| `ra-14.25.png` | The new forklift, mid-tip |
+| `ra-27.50.png` | Go and see: the A3 over the aisle |
+| `ra-50.50.png` | 10a: Vince on camera, count sheet, crew strip, tracker |
+| `ra-79.25.png` | The lens, "Work both at once" |
+
+---
+
+## Round 5 (quick re-check, `render/out/video-final.mp4`, 86.06 s, 2026-10-18)
+
+**What was checked**
+- **Stills:** 100 new stills with captions off, in `render/out/review-art-r5/`:
+  - every 0.25 s across each changed window;
+  - every 0.05 s across 32.4–32.7 and 79.5–80.5;
+  - every scene start.
+- **Contact sheet:** `review-art-r5/check.png`.
+- **Geometry:** measured per still, in `review-art-r5/meas-*.json`.
+
+### Round 4 items
+
+| # | Item | Result | Evidence |
+|---|---|---|---|
+| 1 | Stage cleared before the forklift | **PASS**. The pick list, warehouse and stamp are at 0.4 at 12.00 and gone by 12.25. The forklift drives in on an empty stage. | `ra-12.25.png` |
+| 2 | Forklift gone before the dough | **PASS**. The forklift is at 0.33 at 15.00 and gone by 15.25; the dough comes in alone. | `ra-15.25.png` |
+| 3 | Counter gone before the aisle | **PASS**. The counter is at 0.2 at 21.50; the aisle comes in alone at 21.75. | `ra-21.75.png` |
+| 4 | Count sheet out before the tracker slides | **PASS**. The tracker holds at x 1430 until the count sheet is out, then slides at 52.35–52.75 with no overlap. | meas 52.00–52.75 |
+| 5 | "Work both at once" | **PASS**. It is fully on, on cream, from 79.00 to 80.10 (1.1 s at full contrast; about 1.3 s at opacity ≥ 0.5). The stage turns dark only after 80.10. | `fine` values in meas 79.5–80.5; `ra-79.75.png` |
+| 6 | Badge eyebrow at 20 px | **PASS**. `bdgWhen` measures 20 px. No typeset text is under 20 px except the widget bar (19 px, accepted in round 1). | `b/meas` at 5.00 |
+| 7 | Symptom on "separate" | **PASS**. The Symptom card is in at 75.75–76.0. | `ra-76.00.png` |
+| 8 | Lanes after the cream | **PASS**. The lanes start at 41.75, after the title begins, and are on cream by 42.0. | `ra-42.00.png` |
+| 9 | "Oct 2023" timing | **PASS**. It is in at 72.25 and alone for about 1.3 s, down from 1.8 s. | `ra-72.50.png` |
+| — | Sun on "So", underline on "warehousing crew" | **PASS**. Both read. | `ra-32.70.png`, `ra-33.75.png` |
+| — | Wordmark at CLOSE + 0.05 | **PASS**. The wordmark is in from 80.25 (0.04), and the background is dark from 80.45. | meas |
+
+### Blank frames and regression
+
+- **Blank frames: PASS.** None is longer than 0.5 s:
+  - 32.45–32.70: 0.25 s; the sun is fading in.
+  - 41.42–41.6: about 0.2 s.
+  - 80.20–80.35: 0.15 s; the wordmark is rising.
+- **Regression: PASS.** Every scene start is as in round 4.
+- **The widget's exit** (79.23–79.58) is by design, and I accept it.
+
+### Blockers
+
+**None.** One cosmetic note, not a blocker: at 52.25 the exiting count sheet (opacity 0.36, sliding left) overlaps the
+fading widget by about 30 px. Both are below half opacity, so it reads as a cross-fade. If wanted: fade-only exit
+for `#count`, as in round 1 fix 6.
+
+**Round 5 verdict: PASS.** The landscape cut is ready for Oren.

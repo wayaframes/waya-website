@@ -6,6 +6,8 @@ All times are seconds into the take. `assets/expert-vince.mp4` (muted) and `asse
 
 ## Takes and quality
 
+- **Echo removed (INSTRUCTIONS #30):** `render/dereverb.py` cleans the whole take once into `assets/vince-take-clean.wav` (WPE dereverberation, late-reverb suppression, downward expander; same timeline, sample for sample, lag 0). vo.mjs cuts every Vince line from it. Measured RT60 of the room about 0.22 s. On the lens line, the word gaps sit 38-42 dB under his speech (they were 22-25 dB under), and the tail after "cause" sits 60 dB under (it was 30 dB under).
+
 - One continuous take, a single pass. Quiet start 0.0-9.5 s (he looks down at 0 s, then at the lens by ~4 s). Speech 9.5-107.9 s. Quiet hold 107.9-110.9 s. He thanks someone at 112.0 s and **stands up from ~110.9 s: never use anything after 110.4 s** (the clip stops there).
 - **Line B was not said word for word, and there are no extra reads of it.** He paraphrased it once, in a longer sentence (100.36-107.90): "You need to separate the symptom from the root cause and attack the latter, because that will fix your problem permanently." The second half ("attack the latter") says the opposite of the script's "then work both at once".
 - Lines 1-7 were said in his own words and on the beats, in order. He names WMS (muted, so harmless). A small restart at 56.0 s ("did not match that. that hadn't been upgraded").

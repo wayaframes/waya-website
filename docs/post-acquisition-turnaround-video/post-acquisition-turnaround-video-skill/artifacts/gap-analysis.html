@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="variants" content="struck">
+<meta name="variants" content="process,people">
 <meta name="shoot" content="840x600">
 <title>Gap analysis — Cheetah DC-01 fulfillment</title>
 <style>
@@ -25,22 +25,25 @@
   table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
   td, th { border-bottom: 1px solid #edf0f3; padding: 3px 4px; text-align: left; }
   th { color: #6b7280; font-weight: 600; } .bad { color: #b3261e; font-weight: 700; }
-  .cause { display: flex; gap: 8px; align-items: baseline; padding: 4px 0; border-bottom: 1px dashed #e3e6ea; }
-  .cause b { font-weight: 600; }
-  .cause .v { margin-left: auto; font-size: 11.5px; white-space: nowrap; }
-  .crew b { position: relative; }
-  body.struck .crew { color: #8a929c; }
-  body.struck .crew b::after { content: ''; position: absolute; left: -3px; right: -3px; top: 52%; height: 3px; background: #D16C02; border-radius: 2px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 8px; }
+  .cc { position: relative; border: 1px solid #cfd5dc; border-radius: 6px; padding: 8px 10px 9px; background: #fbfcfd; transition: none; }
+  .cc b { display: block; font-size: 16px; font-weight: 700; }
+  .cc span { display: block; font-size: 12.5px; color: #4b5563; line-height: 1.35; margin-top: 2px; }
+  .cc .ring { position: absolute; inset: -7px; border: 3.5px solid #EAB62F; border-radius: 12px; opacity: 0; }
+  body.process .proc .ring, body.people .proc .ring { opacity: 1; }
+  body.people .ppl { color: #9aa1a9; background: #f4f5f6; border-color: #e3e6ea; }
+  body.people .ppl span { color: #aab0b7; }
+  .also { font-size: 12.5px; color: #6b7280; line-height: 1.5; border-top: 1px dashed #e3e6ea; padding-top: 5px; }
+  .ok { color: #1e6b45; font-weight: 600; }
   .root { background: #fff8e6; border-color: #e7c76a; }
-  body:not(.struck) .root .fill { color: #b0b6bd; font-style: italic; }
-  body.struck .root .empty { display: none; } body:not(.struck) .root .fill { display: none; }
+  body.process .root .empty, body.people .root .empty { display: none; } body:not(.process):not(.people) .root .fill { display: none; }
   .ok { color: #1e6b45; font-weight: 600; } .no { color: #b3261e; font-weight: 600; }
 </style></head>
 <body>
 <div class="chrome"><i></i><i></i><i></i><div class="url">docs.internal/ops/gap-analysis-dc01-fulfillment</div></div>
 <div class="bar"><b>Gap analysis — Cheetah DC-01 fulfillment</b><span>A3</span><span class="r">Edited Sat Oct 22, 2022 · 11:40</span></div>
 <div class="page">
-  <div class="hd"><h1>Fulfillment collapse after go-live</h1><span>Method: gap analysis (A3)</span><span class="d">Oct 22, 2022</span></div>
+  <div class="hd"><h1>Fulfillment collapse after go-live</h1><span>Owner: Vince · COO · Method: gap analysis (A3), go and see</span><span class="d">Oct 22, 2022</span></div>
   <div class="box"><h2><em>1</em>Problem</h2>Since the rebuilt warehouse went live, orders ship short and late, and stock is lost.
     <table style="margin-top:6px"><tr><th>Measure</th><th>Now</th><th>Target</th></tr>
       <tr><td>Fill rate</td><td class="bad">~75%</td><td>98%</td></tr>
@@ -49,13 +52,14 @@
   <div class="box"><h2><em>2</em>Facts from the floor</h2>
     Count: errors in 90% of storage locations.<br>Nightly replenishment: ~70 tasks → 300+.<br>One SKU in up to 886 locations.<br>New locations: no rules; many no dimensions.<br>Old aisles: torn down, still active in the system.</div>
   <div class="box"><h2><em>3</em>Causes considered</h2>
-    <div class="cause crew"><b>Crews: labor, training, effort</b><span class="v no">does not explain it</span></div>
-    <div class="cause"><b>Racking not finished</b><span class="v">partial</span></div>
-    <div class="cause"><b>No wall-to-wall count of acquired stock</b><span class="v">contributes</span></div>
-    <div class="cause"><b>System logic never updated for the new building</b><span class="v ok">explains all five facts</span></div></div>
+    <div class="cards">
+      <div class="cc ppl"><b>People</b><span>crews: labor, training, effort</span></div>
+      <div class="cc proc"><b>Process</b><span>the system's logic, never updated for the new building</span><i class="ring"></i></div>
+    </div>
+    <div class="also">Also checked: racking not finished (partial) · no wall-to-wall count of acquired stock (contributes)</div></div>
   <div class="box root"><h2><em>4</em>Root cause</h2>
     <span class="empty" style="color:#b0b6bd;font-style:italic">to fill in</span>
-    <span class="fill"><b>The warehouse was rebuilt; the system's slotting and replenishment logic was not.</b> Every night the replenishment job re-scatters stock into slots that are too small, empty or gone.</span></div>
+    <span class="fill"><b>The process, not the people.</b> The building was rebuilt; the system's slotting and replenishment logic was not. Every night it re-scattered stock into slots that were too small, empty or gone.</span></div>
 </div>
 <script>new URLSearchParams(location.search).getAll("v").forEach(c=>document.body.classList.add(c))</script>
 </body></html>

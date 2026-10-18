@@ -1,44 +1,56 @@
 {
-  "_note": "Cheetah turnaround (2026-10-16). Dark D-minor drone from frame 1; ticking from line 2 (go-live); DARK crescendo under the key line (30.42-34.31, held to 35.5) with the lead lowered; lift to F major on 'two tracks' (36.67); build on track one (38.6), drive on barcode checks (48.3), full on the results (52.8); bright crescendo = the peak on 'profitable' (65.46). The lens duck, calm_at, the payoff crescendo's end and dur are DERIVED from out/vo-timing.txt (block 'derive'): the duck runs from the lens line's start - 0.1 to its measured end + 0.1 at -15 dB with 0.8 s ramps (producer-approved, review fix 5), so it follows Vince's own line whatever its length. The static duck/calm_at/dur below are only the fallback when there is no timing sheet. tension_gain_db 4.5 pairs with mix.mjs's default --music -13 (review fix 6): the problem section stays where it was, the results drop 3 dB. presets drive/full vol 0.85 (were 1.25/1.4): with -13 alone the results sat only ~10 dB under the voice; this brings them to the ~14 dB target (review fix 6).",
-  "dur": 78.5,
+  "_note": "Draft 3 re-timing (2026-10-18, on the measured CAPS): tension to 41.31 (just before 'Two tracks'), lift to F major on 'Two' (41.42), build on 'Track one' (43.04), drive on barcode checks (57.26), full on the results (60.84); the DARK crescendo now spans the key line in Vince's own voice (32.35-41.30), ducked -15 dB under him and swelling in the 0.8 s text hold before the lift; the bright crescendo starts on 'profitable' (73.34). The bed ducks fully (-15 dB, 0.8 s ramps) under EVERY [VINCE] row of out/vo-timing.txt (derive), so all three of his own-voice moments follow their measured spans; calm_at and the payoff crescendo's end follow the last one (the lens). | Cheetah turnaround (2026-10-16). Dark D-minor drone from frame 1; ticking from line 2 (go-live); DARK crescendo under the key line (30.42-34.31, held to 35.5) with the lead lowered; lift to F major on 'two tracks' (36.67); build on track one (38.6), drive on barcode checks (48.3), full on the results (52.8); bright crescendo = the peak on 'profitable' (65.46). The lens duck, calm_at, the payoff crescendo's end and dur are DERIVED from out/vo-timing.txt (block 'derive'): the duck runs from the lens line's start - 0.1 to its measured end + 0.1 at -15 dB with 0.8 s ramps (producer-approved, review fix 5), so it follows Vince's own line whatever its length. The static duck/calm_at/dur below are only the fallback when there is no timing sheet. tension_gain_db 4.5 pairs with mix.mjs's default --music -13 (review fix 6): the problem section stays where it was, the results drop 3 dB. presets drive/full vol 0.85 (were 1.25/1.4): with -13 alone the results sat only ~10 dB under the voice; this brings them to the ~14 dB target (review fix 6). Round 4 (2026-10-18): steady/build/drive/full vol 0.72/0.97/0.72/0.72 (steady -3.3 dB, the others -1.5 dB; were 1.05/1.15/0.85/0.85) bring two tracks and the results back to ~14 dB under the voice without touching the tension (music.py normalises to the peak, which is in the dark section, so raising tension_gain_db or lowering --music moved the problem section too); calm_level 0.6 (-4.4 dB from calm_at) puts the close card ~20 dB under.",
+  "dur": 86.06,
   "bpm": 100,
-  "tension_end": 35.9,
-  "pulse_from": 7.8,
-  "bright_at": 36.6,
+  "tension_end": 41.31,
+  "pulse_from": 7.78,
+  "bright_at": 41.42,
   "layers": [
     [
-      36.6,
+      41.42,
       "steady"
     ],
     [
-      38.6,
+      43.04,
       "build"
     ],
     [
-      48.3,
+      57.26,
       "drive"
     ],
     [
-      52.8,
+      60.84,
       "full"
     ]
   ],
   "crescendo": [
     [
-      30.3,
-      35.6
+      32.35,
+      41.3
     ],
     [
-      65.3,
-      66.8
+      73.34,
+      74.84
     ]
   ],
   "cresc_lead": 0.7,
-  "calm_at": 67.2,
+  "calm_at": 75.24,
   "duck": [
     [
-      67.34,
-      70.99,
+      32.38,
+      40.22,
+      -15,
+      0.8
+    ],
+    [
+      44.76,
+      52.19,
+      -15,
+      0.8
+    ],
+    [
+      75.38,
+      79.08,
       -15,
       0.8
     ]
@@ -66,7 +78,7 @@
       "snare": 0.7,
       "hat": 0.8,
       "lead": 0.9,
-      "vol": 0.85
+      "vol": 0.72
     },
     "full": {
       "pad": 1,
@@ -76,7 +88,28 @@
       "snare": 0.9,
       "hat": 1,
       "lead": 1,
-      "vol": 0.85
+      "vol": 0.72
+    },
+    "steady": {
+      "pad": 1,
+      "pluck": 1,
+      "kick": 0.5,
+      "bass": 0,
+      "snare": 0,
+      "hat": 0,
+      "lead": 0,
+      "vol": 0.72
+    },
+    "build": {
+      "pad": 1,
+      "pluck": 1,
+      "kick": 0.7,
+      "bass": 0.8,
+      "snare": 0,
+      "hat": 0.5,
+      "lead": 0,
+      "vol": 0.97
     }
-  }
+  },
+  "calm_level": 0.6
 }

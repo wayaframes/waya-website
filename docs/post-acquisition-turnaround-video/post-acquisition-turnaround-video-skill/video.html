@@ -12,8 +12,9 @@
    - The cue list (const CAPS) is the one source of truth for what is said and when. Every time below is a
      measured word boundary from render/out/words.json, named once and derived from.
    - Demo frame: expert widget left, the centre screen, the tracker right, all top-aligned at --frame-top. data-col marks them.
-   - THE EXPERT CLIP: one source, EXPERT_SRC. To swap the placeholder for Oren's clip change that one line to
-     'assets/expert-vince.mp4' (muted, no audio stream) and set VINCE_LENS_OFFSET (+ EXPERT_IN for the muted beats). Done 2026-10-18.
+   - THE EXPERT CLIP: one source, EXPERT_SRC (Vince's take, muted). It is on screen ONLY while his own voice plays
+     (INSTRUCTIONS #29): the all-hands beat (CAPS[9]) and the lens (CAPS[17]). Each window reads its take in-point from
+     its cue (CAPS[i][4]), the same second vo.mjs cuts his audio at, so mouth and voice share one number.
 -->
 <style>
   @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
@@ -63,23 +64,40 @@
   .screen > img { display:block; width:100%; height:auto; }
   .screen .cap { position:absolute; left:0; right:0; bottom:0; padding:12px 20px; background:#1F2422; color:var(--cream); font-family:var(--fd); font-size:20px; font-weight:500; letter-spacing:.02em; white-space:nowrap; }
   .screen .cap b { font-weight:700; }
-  .tracker { position:absolute; left:1430px; top:var(--frame-top); width:450px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
+  .tracker { position:absolute; left:1300px; top:var(--frame-top); width:450px; border-radius:18px; overflow:hidden; box-shadow:0 24px 70px rgba(31,36,34,.14); border:1px solid rgba(56,63,59,.14); background:#fff; opacity:0; }
   .tracker img { display:block; width:100%; height:auto; }
   .tracker img.over { position:absolute; left:0; top:0; opacity:0; }
   .tracker .lbl { position:absolute; left:0; right:0; top:0; z-index:2; padding:10px 16px; background:rgba(31,36,34,.92); color:var(--cream); font-family:var(--fd); font-size:15px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; }
-  .lane { position:absolute; left:660px; width:700px; height:110px; box-sizing:border-box; background:var(--paper); border:1px solid rgba(56,63,59,.14); border-radius:16px; display:flex; align-items:center; gap:22px; padding:0 34px; font-family:var(--fd); font-weight:700; font-size:44px; color:var(--charcoal); opacity:0; box-shadow:0 14px 40px rgba(31,36,34,.08); }
+  .lane { position:absolute; left:250px; width:900px; height:110px; box-sizing:border-box; background:var(--paper); border:1px solid rgba(56,63,59,.14); border-radius:16px; display:flex; align-items:center; gap:22px; padding:0 34px; font-family:var(--fd); font-weight:700; font-size:44px; color:var(--charcoal); opacity:0; box-shadow:0 14px 40px rgba(31,36,34,.08); }
   .lane em { font-style:normal; width:58px; height:58px; border-radius:50%; background:var(--charcoal); color:var(--cream); display:flex; align-items:center; justify-content:center; font-size:32px; }
   .lane .ring { position:absolute; inset:-4px; border:3px solid var(--mustard); border-radius:18px; opacity:0; }
-  /* Na'ama's beat: a line drawing on paper, in the centre seat */
-  /* every centre screen of the demo frame ends at y 700, level with the widget (image top-aligned, caption at the bottom) */
-  #count, #naama, #slot, #scan, #std { height:560px; background:#fff; }
-  #naama { background:var(--paper); }
-  #slot > img { height:500px; object-fit:cover; object-position:top; }   /* drop the shot's footer line, which the caption bar would cut */
-  #naama .nm { position:absolute; left:34px; top:28px; font-family:var(--fd); }
-  #naama .nm b { display:block; font-size:44px; font-weight:700; color:var(--charcoal); letter-spacing:-.02em; }
-  #naama .nm span { display:block; font-family:var(--fb); font-size:24px; color:var(--stone); margin-top:2px; }
-  #naama svg { position:absolute; left:0; top:84px; width:780px; height:418px; }
-  #naama .z { font-family:var(--fd); font-weight:700; fill:var(--stone); }
+  /* layout D (10a only): the count sheet in the 780 centre seat, ending at y 700 level with the widget */
+  #count { height:560px; background:#fff; }
+  /* layout W (no widget): the centre is x 170, width 1060; the caption sits under the shot, never over it */
+  #naama, #slot, #scan, #std { left:170px; width:1060px; background:#fff; }
+  #slot .cap, #scan .cap, #std .cap { position:relative; }
+  /* Na'ama's beat: the warehouse office illustration, full-bleed (assets/line/naama-office.svg, INSTRUCTIONS #28) */
+  #naama { height:761px; background:#161b1e; }
+  #naama .nm { position:absolute; left:34px; top:28px; font-family:var(--fd); z-index:1; }
+  #naama .nm b { display:block; font-size:44px; font-weight:700; color:var(--cream); letter-spacing:-.02em; }
+  #naama .nm span { display:block; font-family:var(--fb); font-size:24px; color:var(--fog); margin-top:2px; }
+  #naama #breath { transform-box:view-box; transform-origin:300px 392px; }
+  #naama #minuteHand { transform-box:view-box; transform-origin:470px 128px; }
+  /* the A3's states, stacked on its neutral shot */
+  .screen img.ov { position:absolute; left:0; top:0; width:100%; opacity:0; }
+  /* the still card of Vince (line 1): a horizontal badge with a round photo, nothing like the square video widget */
+  .badge { position:absolute; display:flex; align-items:center; gap:30px; box-sizing:border-box; background:var(--cold2); border:1px solid var(--cold3); border-radius:28px; box-shadow:0 30px 80px rgba(0,0,0,.45); opacity:0; }
+  .badge .ph { flex:none; border-radius:50%; overflow:hidden; box-shadow:0 0 0 5px var(--cream), 0 0 0 6px rgba(0,0,0,.4); }
+  .badge .ph img { display:block; width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
+  .badge .tx b { display:block; font-family:var(--fd); font-weight:700; color:var(--cream); letter-spacing:-.02em; }
+  .badge .tx span { display:block; color:var(--fog); }
+  .badge .tx em { display:block; font-style:normal; font-family:var(--fd); font-weight:700; letter-spacing:.14em; color:var(--mustard); text-transform:uppercase; }
+  /* the illustrations' moving parts (transforms in the SVG's own units) */
+  #fk g, #dough g, #crew g { transform-box:view-box; }
+  #fkTip { transform-origin:140px 290px; }
+  #operator { transform-origin:492px 236px; }
+  #dBox, #dPuff { transform-origin:240px 330px; }
+  #dayNight { transform-origin:712px 75px; }
   /* results */
   .res { position:absolute; left:1110px; top:300px; width:760px; opacity:0; }
   .res .lb { font-family:var(--fb); font-weight:600; font-size:30px; color:var(--stone); letter-spacing:.02em; }
@@ -89,7 +107,10 @@
   .res .new { font-size:140px; font-weight:700; color:var(--sage); letter-spacing:-.03em; display:inline-block; opacity:0; }
   .res .sb { font-size:28px; color:var(--stone); margin-top:4px; opacity:0; }
   /* key line and payoff */
-  .key { position:absolute; left:0; right:0; text-align:center; font-family:var(--fd); font-weight:700; font-size:76px; line-height:1.18; letter-spacing:-.025em; color:var(--cream); opacity:0; white-space:nowrap; }
+  /* the key line: Vince's words as a quote (ART.md, Draft 3, row 8) */
+  .q { position:absolute; left:160px; right:160px; text-align:center; font-family:var(--fd); font-weight:700; font-size:64px; line-height:1.2; letter-spacing:-.02em; color:var(--cream); white-space:nowrap; opacity:0; }
+  .q i { font-style:normal; font-weight:500; color:var(--fog); }
+  .q .day { color:var(--mustard); }
   /* the lens */
   .lens { position:absolute; top:240px; width:520px; height:260px; box-sizing:border-box; background:var(--paper); border:1px solid rgba(56,63,59,.14); border-radius:20px; box-shadow:0 18px 50px rgba(31,36,34,.10); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0; }
   .lens b { font-family:var(--fd); font-weight:700; font-size:56px; color:var(--charcoal); letter-spacing:-.02em; }
@@ -112,9 +133,15 @@
 <body>
 <div id="wrap"><div id="stage">
 
+  <!-- ===== line 1: Vince's still card (a photo in a badge, not the video widget: INSTRUCTIONS #24) ===== -->
+  <div class="badge" id="badge" style="left:80px; top:400px; width:600px; height:236px; padding:0 34px;">
+    <div class="ph" style="width:168px; height:168px;"><img src="assets/vince-headshot.jpeg" alt=""></div>
+    <div class="tx"><em id="bdgWhen" style="font-size:20px; margin-bottom:10px;">In 2022 · at Cheetah</em><b style="font-size:54px;">Vince</b><span id="bdgNow" style="font-size:24px; margin-top:4px;">now a Waya co-founder</span></div>
+  </div>
+
   <!-- ===== lines 1-2: Cheetah, the acquisitions, go-live ===== -->
-  <div class="abs eyebrow" id="eyebrow" style="left:700px; top:150px;">Fall 2022 · Cheetah Technologies</div>
-  <div class="abs" id="wh" style="left:700px; top:220px; width:1000px; transform-origin:0 0; opacity:1;">
+  <div class="abs eyebrow" id="eyebrow" style="left:780px; top:150px;">Fall 2022 · Cheetah Technologies</div>
+  <div class="abs" id="wh" style="left:780px; top:220px; width:1000px; transform-origin:0 0; opacity:1;">
     <svg viewBox="0 0 760 480" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
       <g id="whMain"><path d="M60 430 L60 170 L300 70 L540 170 L540 430"/><path d="M30 430 L730 430"/><path d="M250 430 L250 330 L350 330 L350 430" opacity=".6"/></g>
       <g id="whRack" stroke-width="4"><path d="M100 400 L100 210"/><path d="M150 400 L150 210"/><path d="M100 250 L150 250"/><path d="M100 295 L150 295"/><path d="M100 340 L150 340"/><path d="M180 400 L180 190"/><path d="M230 400 L230 190"/><path d="M180 235 L230 235"/><path d="M180 280 L230 280"/><path d="M180 325 L230 325"/><path d="M370 400 L370 190"/><path d="M420 400 L420 190"/><path d="M370 235 L420 235"/><path d="M370 280 L420 280"/><path d="M370 325 L420 325"/></g>
@@ -125,32 +152,268 @@
       <g id="acq3" stroke-width="5" style="opacity:0"><path d="M690 430 L690 372 L714 358 L738 372 L738 430"/></g>
     </svg>
   </div>
-  <div class="chip" id="chipAcq" style="left:730px; top:880px;"><b>+3</b>regional distributors · ~$24M revenue</div>
+  <div class="chip" id="chipAcq" style="left:1260px; top:880px;"><b>+3</b>regional distributors · ~$24M revenue</div>
   <div class="stamp" id="stamp" style="transform:rotate(-8deg)">GO-LIVE · OCT 2022</div>
   <div class="shot" id="pick" style="left:900px; top:200px; width:920px;"><img src="artifacts/pick-list.png" alt=""><div class="hl rust" id="hlShort" style="left:18px; top:359px; width:885px; height:47px;"></div></div>
   <div class="chip" id="chipFill" style="left:900px; top:740px;"><b>~75%</b>fill rate</div>
 
-  <!-- ===== line 3: pallets out back ===== -->
-  <div class="abs" id="fk" style="left:160px; top:300px; width:760px; opacity:1;">
-    <svg viewBox="0 0 760 520" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-      <g id="fkDump" style="opacity:0"><path d="M30 250 L210 250 L196 440 L44 440 Z"/><path d="M22 250 L218 250"/><path d="M40 250 L70 205 L230 222"/><path d="M60 300 L180 300" opacity=".5"/><circle cx="64" cy="458" r="14"/><circle cx="176" cy="458" r="14"/></g>
-      <path id="fkGround" d="M0 486 L760 486" opacity="0"/>
-      <g id="fkMove" style="opacity:0">
-        <g id="fkPallet" style="transform-box:view-box; transform-origin:404px 392px;"><path d="M262 330 L392 330 L392 380 L262 380 Z"/><path d="M272 270 L332 270 L332 330 L272 330 Z"/><path d="M338 292 C 330 250, 400 238, 392 292 C 396 312, 340 318, 338 292 Z" stroke="#D16C02"/><path d="M250 392 L404 392"/></g>
-        <g><path d="M412 170 L412 440"/><path d="M432 170 L432 440"/><path d="M406 170 L438 170"/><path d="M404 392 L412 392"/><path d="M432 300 L620 300 L640 360 L640 440 L432 440"/><path d="M470 300 L470 190 L600 190 L620 300"/><path d="M640 380 L690 380 L690 440 L640 440"/><circle cx="480" cy="452" r="34"/><circle cx="610" cy="452" r="34"/><circle cx="480" cy="452" r="8"/><circle cx="610" cy="452" r="8"/></g>
-        <g><circle cx="545" cy="226" r="24"/><path d="M545 250 L556 300"/><path d="M552 270 L512 284 L488 270"/><path d="M556 300 L520 300 L512 336"/></g>
+  <!-- ===== line 3: pallets out back (flat illustration, assets/line/forklift-scene.svg: INSTRUCTIONS #25) ===== -->
+  <div class="abs" id="fk" style="left:160px; top:300px; width:760px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520">
+  <!-- Line 3, "Pallets of fresh food rotted out back": flat editorial illustration for the dark stage (replaces
+       vince-forklift.svg; same 760x520 budget at left 160, top 300). The default pose is the ARRIVED, RAISED
+       pose: the forks hold the pallet just above the dumpster rim. Animate FROM offsets back to this pose, then tip.
+       Animatable parts (CSS transforms; use transform-box: view-box with the origins given):
+         #fkBody     the whole forklift (chassis, mast, cab, operator, carriage). Drive in: translateX(+220px) -> 0.
+         #fkCarriage forks + backrest. Lift: translateY(+150px) -> 0 (forks low while driving, up on arrival).
+         #fkLoad     pallet + crates, a ROOT-level group (so the dumpster wall can hide what falls in). Give it
+                     the same translateX as #fkBody and the same translateY as #fkCarriage.
+         #fkTip      inside #fkLoad: the tip. rotate(0) -> rotate(-24deg), origin 140px 290px (the fork tips).
+         #crate1-3   inside #fkTip: slide into the dumpster after the tip: translate(-70px, 150px) each, staggered
+                     0.08 s; they vanish behind the dumpster's front wall through the clip-path (no fading needed).
+         #fkLampGlow the wall lamp's light: opacity .85 <-> 1, slow (optional).
+         #operator   inside #fkBody: tiny head turn toward the load: rotate(-6deg), origin 492px 236px (optional).
+       Palette: the film's tokens plus darker shades of them (mustard forklift, sage dumpster, tan wood, rust/brown produce). -->
+  <defs>
+    <radialGradient id="fsWall" cx="50%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#232b30"/><stop offset=".65" stop-color="#1a2024"/><stop offset="1" stop-color="#121517"/>
+    </radialGradient>
+    <linearGradient id="fsTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121517"/><stop offset="1" stop-color="#121517" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fsBot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121517" stop-opacity="0"/><stop offset="1" stop-color="#121517"/></linearGradient>
+    <radialGradient id="fsLamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#EAB62F" stop-opacity=".22"/><stop offset=".55" stop-color="#EAB62F" stop-opacity=".06"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fsGround" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2226"/><stop offset="1" stop-color="#121517"/>
+    </linearGradient>
+    <linearGradient id="fsFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000"/><stop offset=".08" stop-color="#fff"/><stop offset=".92" stop-color="#fff"/><stop offset="1" stop-color="#000"/>
+    </linearGradient>
+    <mask id="fsEdge"><rect width="760" height="520" fill="url(#fsFade)"/></mask>
+    <!-- everything except the dumpster's interior below the rim: what falls in disappears behind the front wall -->
+    <clipPath id="fsNotInDumpster"><path clip-rule="evenodd" d="M-400 -400 H1200 V1000 H-400 Z M34 302 H246 L232 470 H48 Z"/></clipPath>
+  </defs>
+
+  <!-- the yard at night: a wall, a lamp, the ground -->
+  <g id="fkYard" mask="url(#fsEdge)">
+    <rect width="760" height="420" fill="url(#fsWall)"/>
+    <g stroke="#262e33" stroke-width="2" opacity=".7">
+      <path d="M40 0V420M80 0V420M120 0V420M160 0V420M200 0V420M240 0V420M280 0V420M320 0V420M360 0V420M400 0V420M440 0V420M480 0V420M520 0V420M560 0V420M600 0V420M640 0V420M680 0V420M720 0V420"/>
+    </g>
+    <rect y="408" width="760" height="112" fill="url(#fsGround)"/>
+    <rect y="406" width="760" height="3" fill="#2a3237"/>
+    <g id="fkLampGlow"><ellipse cx="380" cy="230" rx="340" ry="250" fill="url(#fsLamp)"/></g>
+    <rect width="760" height="110" fill="url(#fsTop)"/>
+    <rect y="452" width="760" height="68" fill="url(#fsBot)"/>
+    <rect x="356" y="36" width="48" height="16" rx="4" fill="#383F3B"/><rect x="364" y="50" width="32" height="5" rx="2" fill="#F6D36B"/>
+  </g>
+
+  <!-- abandoned pallets along the wall, browning produce (depth: darker, smaller) -->
+  <g id="fkBackPallets" opacity=".7">
+    <ellipse cx="672" cy="466" rx="92" ry="8" fill="#000" opacity=".35"/>
+    <g fill="#8a7253"><rect x="590" y="446" width="166" height="8" rx="1"/><rect x="590" y="456" width="166" height="6" rx="1" opacity=".7"/><rect x="596" y="454" width="14" height="10"/><rect x="666" y="454" width="14" height="10"/><rect x="736" y="454" width="14" height="10"/></g>
+    <g><rect x="598" y="400" width="74" height="46" rx="3" fill="#7d6346"/><rect x="598" y="414" width="74" height="4" fill="#5f4a34"/><rect x="598" y="428" width="74" height="4" fill="#5f4a34"/>
+      <circle cx="612" cy="398" r="9" fill="#6e5232"/><circle cx="630" cy="395" r="10" fill="#7f5e36"/><circle cx="650" cy="397" r="9" fill="#5e4a2c"/><circle cx="664" cy="399" r="7" fill="#7a6a3e"/></g>
+    <g><rect x="676" y="400" width="74" height="46" rx="3" fill="#7d6346"/><rect x="676" y="414" width="74" height="4" fill="#5f4a34"/><rect x="676" y="428" width="74" height="4" fill="#5f4a34"/>
+      <ellipse cx="696" cy="396" rx="14" ry="8" fill="#56653a"/><ellipse cx="720" cy="395" rx="13" ry="8" fill="#6a5a30"/><ellipse cx="740" cy="398" rx="9" ry="6" fill="#4f5a35"/></g>
+    <g><rect x="636" y="356" width="74" height="44" rx="3" fill="#86694a"/><rect x="636" y="370" width="74" height="4" fill="#64503a"/><rect x="636" y="384" width="74" height="4" fill="#64503a"/>
+      <circle cx="652" cy="354" r="9" fill="#8a4a26"/><circle cx="670" cy="351" r="10" fill="#7a4424"/><circle cx="690" cy="353" r="9" fill="#6b4a2c"/></g>
+  </g>
+
+  <!-- the dumpster: back and lid (behind the load) -->
+  <g id="fkDumpBack">
+    <ellipse cx="140" cy="474" rx="118" ry="9" fill="#000" opacity=".45"/>
+    <path d="M30 300 L250 300 L268 222 L44 206 Z" fill="#2b3e36"/>
+    <path d="M44 206 L268 222 L266 230 L46 214 Z" fill="#3a5248"/>
+    <path d="M36 300 H244 V306 H36 Z" fill="#1b2622"/>
+    <g fill="#5e4a2c"><ellipse cx="88" cy="300" rx="22" ry="7"/><ellipse cx="150" cy="299" rx="26" ry="8" fill="#6b4a2c"/><ellipse cx="206" cy="300" rx="20" ry="6" fill="#4f5a35"/></g>
+  </g>
+
+  <!-- the forklift (Vince at the wheel), facing left -->
+  <g id="fkBody">
+    <ellipse cx="460" cy="476" rx="190" ry="11" fill="#000" opacity=".5"/>
+    <!-- mast -->
+    <rect x="276" y="112" width="12" height="344" rx="2" fill="#5b6064"/>
+    <rect x="292" y="112" width="12" height="344" rx="2" fill="#6B6F6C"/>
+    <rect x="279" y="112" width="3" height="344" fill="#868b8e"/>
+    <rect x="272" y="108" width="36" height="10" rx="3" fill="#4a4f53"/>
+    <rect x="272" y="250" width="36" height="7" fill="#4a4f53"/>
+    <rect x="272" y="390" width="36" height="7" fill="#4a4f53"/>
+    <rect x="309" y="230" width="7" height="200" rx="3" fill="#9a9fa1"/>
+    <!-- carriage: backrest + forks -->
+    <g id="fkCarriage">
+      <rect x="258" y="150" width="20" height="142" rx="2" fill="#383F3B"/>
+      <g stroke="#4a524e" stroke-width="3"><path d="M258 172H278M258 196H278M258 220H278M258 244H278M258 268H278"/></g>
+      <path d="M262 150 V292" stroke="#58605c" stroke-width="3"/>
+      <path d="M140 284 H270 V294 H146 Z" fill="#B8BBB6"/>
+      <path d="M140 284 H270 V287 H142 Z" fill="#dcded9"/>
+    </g>
+    <!-- chassis -->
+    <path d="M304 336 H566 Q582 336 586 352 L592 432 Q592 444 580 444 H312 Q302 444 302 432 Z" fill="#EAB62F"/>
+    <path d="M304 336 H566 Q582 336 586 352 L587 356 H303 Z" fill="#F6D36B"/>
+    <path d="M302 410 H592 V432 Q592 444 580 444 H312 Q302 444 302 432 Z" fill="#C9961F"/>
+    <!-- counterweight -->
+    <path d="M556 296 H618 Q648 296 652 330 L656 432 Q656 446 642 446 H556 Z" fill="#383F3B"/>
+    <path d="M556 296 H618 Q640 296 646 312 H556 Z" fill="#4a524e"/>
+    <rect x="620" y="360" width="26" height="6" rx="3" fill="#D16C02"/>
+    <!-- overhead guard -->
+    <path d="M318 338 L338 168" stroke="#2a302d" stroke-width="10" stroke-linecap="round"/>
+    <path d="M552 300 L540 168" stroke="#2a302d" stroke-width="10" stroke-linecap="round"/>
+    <path d="M330 166 H548" stroke="#2a302d" stroke-width="12" stroke-linecap="round"/>
+    <path d="M360 166 V178 M400 166 V178 M440 166 V178 M480 166 V178 M520 166 V178" stroke="#2a302d" stroke-width="5"/>
+    <!-- steering -->
+    <path d="M372 336 L402 284" stroke="#2a302d" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="410" cy="280" rx="20" ry="6" transform="rotate(-30 410 280)" fill="none" stroke="#1f2422" stroke-width="5"/>
+    <!-- seat -->
+    <path d="M470 330 H540 Q548 330 546 320 L540 254 Q538 246 530 248 L520 250 L522 314 H474 Q466 316 470 330 Z" fill="#1f2422"/>
+    <!-- operator: hard hat, hi-vis vest, gloves; no face (the figure suggests Vince, it does not portray him) -->
+    <g id="operator">
+      <path d="M470 318 Q450 318 452 330 L486 332 Q496 330 494 318 Z" fill="#262e33"/>
+      <path d="M470 250 Q488 240 506 250 L512 318 Q492 324 468 318 Z" fill="#D16C02"/>
+      <path d="M472 286 L510 284 M471 300 L511 299" stroke="#E8E2D6" stroke-width="5"/>
+      <path d="M492 250 L492 318" stroke="#b55c00" stroke-width="2"/>
+      <path d="M476 262 L440 282 L416 280" stroke="#262e33" stroke-width="11" stroke-linecap="round" fill="none"/>
+      <circle cx="414" cy="279" r="7" fill="#6B6F6C"/>
+      <rect x="485" y="232" width="14" height="18" rx="6" fill="#B98F6A"/>
+      <circle cx="492" cy="224" r="17" fill="#C9A27E"/>
+      <path d="M478 222 Q478 236 494 240 Q506 236 508 226 Q500 230 492 222 Z" fill="#2f2620" opacity=".85"/>
+      <path d="M472 220 Q474 198 494 198 Q514 198 514 220 Z" fill="#FAF7F1"/>
+      <path d="M466 220 H520 Q522 225 516 225 H468 Q463 225 466 220 Z" fill="#E8E2D6"/>
+      <path d="M494 198 V220" stroke="#d8d2c6" stroke-width="3"/>
+    </g>
+    <!-- wheels -->
+    <g><circle cx="352" cy="444" r="36" fill="#0b0d0e"/><circle cx="352" cy="444" r="18" fill="#4a4f53"/><circle cx="352" cy="444" r="7" fill="#B8BBB6"/><circle cx="352" cy="444" r="31" fill="none" stroke="#1d2124" stroke-width="3"/></g>
+    <g><circle cx="560" cy="446" r="32" fill="#0b0d0e"/><circle cx="560" cy="446" r="16" fill="#4a4f53"/><circle cx="560" cy="446" r="6" fill="#B8BBB6"/><circle cx="560" cy="446" r="27" fill="none" stroke="#1d2124" stroke-width="3"/></g>
+    <path d="M318 410 Q352 384 388 410" fill="none" stroke="#a87c14" stroke-width="5"/>
+    <path d="M528 410 Q560 388 592 410" fill="none" stroke="#a87c14" stroke-width="5"/>
+    <rect x="574" y="344" width="10" height="8" rx="2" fill="#D16C02"/>
+  </g>
+
+  <!-- the load: pallet + three crates of produce gone bad (root level, clipped at the dumpster's mouth) -->
+  <g clip-path="url(#fsNotInDumpster)">
+    <g id="fkLoadX"><g id="fkLoad">
+      <g id="fkTip">
+        <!-- pallet -->
+        <g>
+          <rect x="142" y="270" width="128" height="6" rx="1" fill="#D0AE89"/>
+          <rect x="142" y="277" width="128" height="7" fill="#b8956d"/>
+          <rect x="146" y="276" width="14" height="8" fill="#9c7a54"/><rect x="199" y="276" width="14" height="8" fill="#9c7a54"/><rect x="252" y="276" width="14" height="8" fill="#9c7a54"/>
+        </g>
+        <g id="crate1">
+          <rect x="146" y="226" width="58" height="44" rx="3" fill="#C49A6C"/>
+          <rect x="146" y="240" width="58" height="4" fill="#9C7650"/><rect x="146" y="254" width="58" height="4" fill="#9C7650"/>
+          <rect x="146" y="226" width="58" height="3" fill="#d8b688"/>
+          <circle cx="158" cy="222" r="9" fill="#B5502A"/><circle cx="175" cy="219" r="10" fill="#9e4524"/><circle cx="192" cy="222" r="9" fill="#8A6A3E"/>
+          <circle cx="172" cy="216" r="3" fill="#9aa38a" opacity=".8"/><circle cx="160" cy="219" r="2.5" fill="#5e4a2c"/>
+        </g>
+        <g id="crate2">
+          <rect x="208" y="226" width="58" height="44" rx="3" fill="#C49A6C"/>
+          <rect x="208" y="240" width="58" height="4" fill="#9C7650"/><rect x="208" y="254" width="58" height="4" fill="#9C7650"/>
+          <rect x="208" y="226" width="58" height="3" fill="#d8b688"/>
+          <ellipse cx="222" cy="221" rx="15" ry="9" fill="#6A9D8A"/><ellipse cx="246" cy="220" rx="14" ry="9" fill="#7a7a40"/><ellipse cx="258" cy="223" rx="8" ry="6" fill="#8A6A3E"/>
+          <path d="M216 218 Q222 212 230 218" stroke="#4f7a6a" stroke-width="2" fill="none"/>
+        </g>
+        <g id="crate3">
+          <rect x="176" y="182" width="58" height="44" rx="3" fill="#cfa776"/>
+          <rect x="176" y="196" width="58" height="4" fill="#a17b54"/><rect x="176" y="210" width="58" height="4" fill="#a17b54"/>
+          <rect x="176" y="182" width="58" height="3" fill="#e0c194"/>
+          <circle cx="188" cy="178" r="8" fill="#8A6A3E"/><circle cx="204" cy="176" r="9" fill="#B5502A"/><circle cx="220" cy="178" r="8" fill="#7a4424"/>
+          <circle cx="206" cy="172" r="2.5" fill="#9aa38a"/>
+        </g>
       </g>
-    </svg>
+    </g></g>
+  </g>
+
+  <!-- the dumpster's front wall (over the load's lower half once it falls in) -->
+  <g id="fkDumpFront">
+    <path d="M34 302 H246 L232 466 H48 Z" fill="#3c5649"/>
+    <path d="M34 302 H246 L245 312 H35 Z" fill="#4a6b5f"/>
+    <g fill="#33493f"><rect x="70" y="318" width="12" height="138" rx="2"/><rect x="134" y="318" width="12" height="138" rx="2"/><rect x="198" y="318" width="12" height="138" rx="2"/></g>
+    <path d="M60 330 C 64 360, 58 380, 62 410" stroke="#6b4a2c" stroke-width="3" opacity=".55" fill="none"/>
+    <path d="M168 336 C 170 352, 166 366, 170 380" stroke="#6b4a2c" stroke-width="3" opacity=".45" fill="none"/>
+    <rect x="18" y="330" width="16" height="10" rx="3" fill="#2b3e36"/><rect x="246" y="330" width="14" height="10" rx="3" fill="#2b3e36"/>
+    <g><circle cx="66" cy="470" r="10" fill="#0b0d0e"/><circle cx="66" cy="470" r="4" fill="#6B6F6C"/><circle cx="214" cy="470" r="10" fill="#0b0d0e"/><circle cx="214" cy="470" r="4" fill="#6B6F6C"/></g>
+  </g>
+</svg>
   </div>
   <div class="chip" id="chipShrink" style="left:1000px; top:440px;"><b>28%</b>shrink in one week</div>
 
-  <!-- ===== line 4: the dough ===== -->
-  <div class="abs" id="dough" style="left:450px; top:280px; width:520px; opacity:1;">
-    <svg viewBox="0 0 520 420" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-      <g id="dShelf"><path d="M40 330 L480 330"/><path d="M60 330 L60 400 M460 330 L460 400"/><path d="M40 200 L480 200" opacity=".45"/></g>
-      <g id="dBox" style="opacity:0; transform-box:view-box; transform-origin:240px 330px;"><path d="M150 330 L150 250 L330 250 L330 330"/><path d="M150 250 L180 228 L360 228 L330 250 M360 228 L360 308 L330 330"/></g>
-      <g id="dPuff" stroke="#D16C02" style="opacity:0; transform-box:view-box; transform-origin:240px 330px;"><path d="M150 330 C 110 300, 105 205, 175 170 C 230 140, 300 140, 345 175 C 400 215, 380 300, 330 330 Z" fill="#121517"/><path d="M190 200 C 220 185, 260 185, 290 198" opacity=".6"/></g>
-    </svg>
+  <!-- ===== line 4: the dough (flat illustration, assets/line/dough-box.svg) ===== -->
+  <div class="abs" id="dough" style="left:450px; top:280px; width:520px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420">
+  <!-- Row 4, "Frozen pizza dough sat out until the yeast woke up": flat editorial illustration (same register as
+       forklift-scene.svg / naama-office.svg), same 520x420 budget at left 450, top 280.
+       Groups (ids unchanged):
+         #shelf  dry-goods steel shelving, flour sacks and cans either side (context: this is the DRY warehouse)
+         #box    the frozen case, normal: kraft corrugated, a dark label panel on its face at x 166-314, y 264-318,
+                 where the page's typeset label sits (FROZEN / pizza dough, cream)
+         #puff   the same case swollen by the risen dough: seams split, dough bulging out of the top flaps
+       Cross-fade #box -> #puff on "the yeast woke up" with a scale 0.85 -> 1, origin 240px 330px (POP).
+       The label panel stays at the same place in both states, so the HTML label never moves.
+       #frost  optional: cold breath fading off the box (opacity .6 -> 0 as it warms, over the line). -->
+  <defs>
+    <radialGradient id="dbLight" cx="50%" cy="30%" r="60%"><stop offset="0" stop-color="#EAB62F" stop-opacity=".14"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="260" cy="215" rx="250" ry="200" fill="url(#dbLight)"/>
+  <g id="dShelf">
+    <!-- uprights -->
+    <rect x="36" y="60" width="12" height="350" rx="2" fill="#2f3d47"/><rect x="472" y="60" width="12" height="350" rx="2" fill="#2f3d47"/>
+    <rect x="38" y="60" width="3" height="350" fill="#46586a"/><rect x="474" y="60" width="3" height="350" fill="#46586a"/>
+    <!-- upper shelf with dry goods -->
+    <rect x="36" y="186" width="448" height="12" rx="2" fill="#4a524e"/><rect x="36" y="186" width="448" height="3" fill="#6B6F6C"/>
+    <g>
+      <path d="M62 186 Q58 140 76 128 H116 Q134 140 130 186 Z" fill="#E8E2D6"/><rect x="74" y="150" width="44" height="16" rx="2" fill="#6A9D8A"/>
+      <path d="M140 186 Q136 146 152 136 H186 Q202 146 198 186 Z" fill="#dcd5c7"/><rect x="150" y="156" width="38" height="14" rx="2" fill="#6A9D8A"/>
+      <g fill="#8a939a"><rect x="372" y="148" width="26" height="38" rx="3"/><rect x="402" y="148" width="26" height="38" rx="3"/><rect x="432" y="148" width="26" height="38" rx="3"/></g>
+      <g fill="#D16C02" opacity=".85"><rect x="372" y="160" width="26" height="12"/><rect x="402" y="160" width="26" height="12"/><rect x="432" y="160" width="26" height="12"/></g>
+    </g>
+    <!-- the shelf the case sits on -->
+    <rect x="36" y="330" width="448" height="14" rx="2" fill="#4a524e"/><rect x="36" y="330" width="448" height="3" fill="#6B6F6C"/>
+    <rect x="36" y="400" width="448" height="10" rx="2" fill="#383F3B"/>
+    <g fill="#E8E2D6"><path d="M62 330 Q58 296 74 288 H108 Q122 296 120 330 Z"/></g><rect x="70" y="302" width="40" height="13" rx="2" fill="#6A9D8A"/>
+    <g fill="#8a939a"><rect x="400" y="294" width="26" height="36" rx="3"/><rect x="430" y="294" width="26" height="36" rx="3"/></g>
+    <g fill="#D16C02" opacity=".85"><rect x="400" y="305" width="26" height="12"/><rect x="430" y="305" width="26" height="12"/></g>
+    <!-- a dry-aisle tag on the shelf edge -->
+    <rect x="214" y="334" width="92" height="9" rx="2" fill="#FAF7F1"/><rect x="220" y="336" width="34" height="5" fill="#383F3B"/>
+  </g>
+
+  <g id="dBox">
+    <ellipse cx="248" cy="331" rx="104" ry="5" fill="#000" opacity=".4"/>
+    <!-- top face -->
+    <path d="M150 250 L180 228 L360 228 L330 250 Z" fill="#d8b688"/>
+    <path d="M240 250 L270 228" stroke="#b8956d" stroke-width="3"/>
+    <!-- side -->
+    <path d="M330 250 L360 228 L360 308 L330 330 Z" fill="#9C7650"/>
+    <!-- front -->
+    <rect x="150" y="250" width="180" height="80" fill="#C49A6C"/>
+    <rect x="150" y="250" width="180" height="4" fill="#d8b688"/>
+    <rect x="232" y="250" width="16" height="80" fill="#b8956d" opacity=".55"/>
+    <rect x="166" y="264" width="148" height="54" rx="4" fill="#1f2422"/>
+    <path d="M300 270 l6 0 M303 267 l0 6" stroke="#D3E9E0" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <g id="dPuff">
+    <ellipse cx="248" cy="331" rx="118" ry="6" fill="#000" opacity=".4"/>
+    <!-- risen dough forcing the flaps open -->
+    <path d="M150 236 C 140 168, 214 132, 262 140 C 322 134, 384 168, 360 236 Z" fill="#EFE3C8"/>
+    <path d="M178 196 C 206 168, 252 160, 290 170" stroke="#d9c9a6" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="232" cy="184" r="4" fill="#d9c9a6"/><circle cx="300" cy="196" r="3" fill="#d9c9a6"/>
+    <!-- flaps bent back -->
+    <path d="M150 238 L120 214 L176 206 Z" fill="#d8b688"/><path d="M360 232 L392 206 L338 204 Z" fill="#c4a272"/>
+    <!-- swollen case: bowed sides, split seam -->
+    <path d="M150 238 C 136 268, 138 306, 150 330 L330 330 C 342 306, 344 266, 334 236 Z" fill="#C49A6C"/>
+    <path d="M334 236 C 352 226, 368 222, 372 230 C 380 266, 374 300, 360 310 L330 330 C 344 306, 346 266, 334 236 Z" fill="#9C7650"/>
+    <path d="M150 238 C 136 268, 138 306, 150 330" stroke="#d8b688" stroke-width="3" fill="none"/>
+    <path d="M240 236 C 238 260, 244 276, 240 300" stroke="#7a5a3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M240 236 C 236 248, 246 252, 242 262" stroke="#EFE3C8" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="166" y="264" width="148" height="54" rx="4" fill="#1f2422"/>
+    <path d="M318 248 l10 -6 M150 290 l-10 2" stroke="#D16C02" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g id="dFrost" opacity=".6" fill="none" stroke="#D3E9E0" stroke-width="3" stroke-linecap="round">
+    <path d="M200 224 C 194 216, 206 212, 200 204"/><path d="M256 222 C 250 214, 262 210, 256 202"/><path d="M312 224 C 306 216, 318 212, 312 204"/>
+  </g>
+</svg>
   </div>
   <div class="abs" id="doughLbl" style="left:600px; top:548px; width:180px; text-align:center; font-family:var(--fd); color:var(--cream); line-height:1.1;"><div style="font-size:22px; font-weight:700; letter-spacing:.12em;">FROZEN</div><div style="font-size:20px; font-weight:500;">pizza dough</div></div>
   <div class="chip" id="chipDough" style="left:990px; top:540px;"><b>Frozen</b>in the dry warehouse</div>
@@ -162,52 +425,463 @@
   <div class="ctr" id="burn2" style="top:380px; color:var(--charcoal);">$1,000,000</div>
   <div class="sub" id="burn2Sub" style="top:600px; color:var(--stone);">a month · Mar 2023</div>
 
-  <!-- ===== lines 6-7: the root-cause frame (centre widened to 1270) ===== -->
-  <div class="screen wide" id="gap" data-col="c" style="width:1040px;"><img src="artifacts/gap-analysis.png" alt=""><img id="gapRC" src="artifacts/gap-analysis-struck.png" alt="" style="position:absolute; left:0; top:0; width:100%;"><img id="gapStruck" src="artifacts/gap-analysis-struck.png" alt="" style="position:absolute; left:0; top:0; width:100%; opacity:0;"><div class="hl" id="hlCrews" style="left:57px; top:475px; width:440px; height:35px;"></div><div class="cap"><b>OCT 22 · GAP ANALYSIS</b> · root cause, found in a few hours</div></div>
-  <div class="screen wide" id="wms" data-col="c" style="width:1270px;"><img src="artifacts/wms-locations.png" alt=""><div class="hl" id="hlWms" style="left:19px; top:288px; width:891px; height:60px;"></div><div class="cap" id="wmsCap"><b>NEW LOCATIONS</b> · no rules, no dimensions</div></div>
+  <!-- ===== lines 6-7: go and see (the aisle), the A3, the warehouse system: no Vince video (INSTRUCTIONS #26) ===== -->
+  <div class="abs" id="aisle" style="left:0; top:0; width:1920px; transform-origin:960px 640px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1300">
+  <!-- Row 6 "Vince went to the floor": the camera moves down into the aisle (Lean's "go and see").
+       Animate the whole SVG: translateY(0 -> -220px) + scale(1 -> 1.06) over the line (origin 960px 640px).
+       #ceilingLights: opacity flicker .9 <-> 1 (optional). Generated by make-aisle.py. -->
+  <defs>
+    <radialGradient id="aiGlow" cx="50%" cy="48%" r="55%"><stop offset="0" stop-color="#EAB62F" stop-opacity=".16"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/></radialGradient>
+    <linearGradient id="aiFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f262a"/><stop offset="1" stop-color="#121517"/></linearGradient>
+    <linearGradient id="aiCeil" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1b2125"/><stop offset="1" stop-color="#121517"/></linearGradient>
+    <radialGradient id="aiVig" cx="50%" cy="50%" r="70%"><stop offset=".55" stop-color="#121517" stop-opacity="0"/><stop offset="1" stop-color="#121517" stop-opacity=".95"/></radialGradient>
+  </defs>
+  <rect width="1920" height="1300" fill="#121517"/>
+  <path d="M0 0 H1920 L1078.421052631579 529.4736842105264 H841.578947368421 Z" fill="url(#aiCeil)"/>
+  <path d="M0 1300 H1920 L1078.421052631579 719.2105263157895 H841.578947368421 Z" fill="url(#aiFloor)"/>
+  <path d="M918.0 1542.0 L1002.0 1542.0 L987.0967741935484 1221.9354838709678 L932.9032258064516 1221.9354838709678 Z" fill="#EAB62F" opacity=".35"/>
+  <path d="M940.4651162790698 1059.5348837209303 L979.5348837209302 1059.5348837209303 L974.7368421052631 956.4912280701755 L945.2631578947369 956.4912280701755 Z" fill="#EAB62F" opacity=".35"/>
+  <path d="M948.6486486486486 883.7837837837837 L971.3513513513514 883.7837837837837 L968.936170212766 831.9148936170212 L951.063829787234 831.9148936170212 Z" fill="#EAB62F" opacity=".35"/>
+  <path d="M953.0 790.3333333333334 L967.0 790.3333333333334 L965.5263157894736 758.6842105263158 L954.4736842105264 758.6842105263158 Z" fill="#EAB62F" opacity=".35"/>
+  <rect x="841.578947368421" y="529.4736842105264" width="236.84210526315792" height="189.73684210526312" fill="#1b2125"/>
+  <rect x="841.578947368421" y="529.4736842105264" width="236.84210526315792" height="189.73684210526312" fill="url(#aiGlow)"/>
+  <g id="ceilingLights">
+    <rect x="900.0" y="-144.0000000000001" width="120.0" height="12.0" rx="6.0" fill="#F6D36B" opacity="1.0"/>
+    <rect x="921.2903225806451" y="134.1935483870967" width="77.41935483870968" height="8.451612903225806" rx="4.225806451612903" fill="#F6D36B" opacity="0.8403225806451613"/>
+    <rect x="932.0930232558139" y="275.3488372093023" width="55.81395348837209" height="6.651162790697675" rx="3.3255813953488373" fill="#F6D36B" opacity="0.7593023255813954"/>
+    <rect x="938.9473684210526" y="364.91228070175436" width="42.10526315789473" height="5.508771929824562" rx="2.754385964912281" fill="#F6D36B" opacity="0.7078947368421054"/>
+    <rect x="943.7837837837837" y="428.1081081081081" width="32.43243243243243" height="4.702702702702702" rx="2.351351351351351" fill="#F6D36B" opacity="0.6716216216216216"/>
+    <rect x="947.2340425531914" y="473.1914893617021" width="25.53191489361702" height="4.127659574468085" rx="2.0638297872340425" fill="#F6D36B" opacity="0.6457446808510638"/>
+    <rect x="950.0" y="509.3333333333333" width="20.0" height="3.6666666666666665" rx="1.8333333333333333" fill="#F6D36B" opacity="0.625"/>
+  </g>
+  <path d="M841.578947368421 547.8947368421053 L810.0 523.3333333333334 L810.0 740.3333333333334 L841.578947368421 719.2105263157895 Z" fill="#192024"/>
+  <path d="M839.0526315789474 569.5748771020809 L812.5263157894736 554.129158241963 L812.5263157894736 589.7389033942559 L839.0526315789474 598.779443254818 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M839.0526315789474 569.5748771020809 L812.5263157894736 554.129158241963 L812.5263157894736 554.7958249086296 L839.0526315789474 570.1011928915545 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M839.0526315789474 611.844381237616 L812.5263157894736 605.6692585847693 L812.5263157894736 649.1383812010444 L839.0526315789474 647.4946466809422 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M839.0526315789474 611.844381237616 L812.5263157894736 605.6692585847693 L812.5263157894736 606.3359252514359 L839.0526315789474 612.3706970270896 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M839.0526315789474 663.202370122941 L812.5263157894736 668.2911405937689 L812.5263157894736 708.5378590078329 L839.0526315789474 696.2098501070664 Z" fill="#a88964" opacity=".78"/>
+  <path d="M839.0526315789474 663.202370122941 L812.5263157894736 668.2911405937689 L812.5263157894736 668.9578072604355 L839.0526315789474 663.7286859124147 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M839.0526315789474 704.2403745237534 L812.5263157894736 718.3296472652555 L812.5263157894736 735.9530026109661 L839.0526315789474 718.693790149893 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M839.0526315789474 704.2403745237534 L812.5263157894736 718.3296472652555 L812.5263157894736 718.9963139319221 L839.0526315789474 704.7666903132271 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M841.578947368421 552.5 L810.0 529.1666666666666 L810.0 531.8333333333333 L841.578947368421 554.6052631578947 Z" fill="#a8550a"/>
+  <path d="M841.578947368421 601.3157894736842 L810.0 591.0 L810.0 593.6666666666666 L841.578947368421 603.4210526315788 Z" fill="#a8550a"/>
+  <path d="M841.578947368421 649.2105263157895 L810.0 651.6666666666666 L810.0 654.3333333333333 L841.578947368421 651.3157894736842 Z" fill="#a8550a"/>
+  <path d="M841.578947368421 697.1052631578947 L810.0 712.3333333333334 L810.0 715.0 L841.578947368421 699.2105263157894 Z" fill="#a8550a"/>
+  <rect x="804.3333333333334" y="523.3333333333334" width="5.666666666666666" height="217.0" fill="#2f3d47"/>
+  <rect x="808.3000000000001" y="523.3333333333334" width="0.8499999999999999" height="217.0" fill="#46586a"/>
+  <path d="M1078.421052631579 547.8947368421053 L1110.0 523.3333333333334 L1110.0 740.3333333333334 L1078.421052631579 719.2105263157895 Z" fill="#192024"/>
+  <path d="M1080.9473684210527 564.5061281075315 L1107.4736842105262 547.948725394823 L1107.4736842105262 589.7389033942559 L1080.9473684210527 598.779443254818 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1080.9473684210527 564.5061281075315 L1107.4736842105262 547.948725394823 L1107.4736842105262 548.6153920614896 L1080.9473684210527 565.0324438970051 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1080.9473684210527 665.5224061694482 L1107.4736842105262 671.1200096113115 L1107.4736842105262 708.5378590078329 L1080.9473684210527 696.2098501070664 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1080.9473684210527 665.5224061694482 L1107.4736842105262 671.1200096113115 L1107.4736842105262 671.7866762779781 L1080.9473684210527 666.0487219589219 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1080.9473684210527 706.486796479357 L1107.4736842105262 721.068757064908 L1107.4736842105262 735.9530026109661 L1080.9473684210527 718.693790149893 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1080.9473684210527 706.486796479357 L1107.4736842105262 721.068757064908 L1107.4736842105262 721.7354237315747 L1080.9473684210527 707.0131122688307 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1078.421052631579 552.5 L1110.0 529.1666666666666 L1110.0 531.8333333333333 L1078.421052631579 554.6052631578947 Z" fill="#a8550a"/>
+  <path d="M1078.421052631579 601.3157894736842 L1110.0 591.0 L1110.0 593.6666666666666 L1078.421052631579 603.4210526315788 Z" fill="#a8550a"/>
+  <path d="M1078.421052631579 649.2105263157895 L1110.0 651.6666666666666 L1110.0 654.3333333333333 L1078.421052631579 651.3157894736842 Z" fill="#a8550a"/>
+  <path d="M1078.421052631579 697.1052631578947 L1110.0 712.3333333333334 L1110.0 715.0 L1078.421052631579 699.2105263157894 Z" fill="#a8550a"/>
+  <rect x="1110.0" y="523.3333333333334" width="5.666666666666666" height="217.0" fill="#2f3d47"/>
+  <rect x="1110.85" y="523.3333333333334" width="0.8499999999999999" height="217.0" fill="#46586a"/>
+  <path d="M810.0 523.3333333333334 L768.5106382978723 491.063829787234 L768.5106382978723 768.0851063829787 L810.0 740.3333333333334 Z" fill="#192024"/>
+  <path d="M806.6808510638298 544.2627840390433 L771.8297872340426 522.500702475895 L771.8297872340426 575.8867610324729 L806.6808510638298 587.7611940298507 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M806.6808510638298 544.2627840390433 L771.8297872340426 522.500702475895 L771.8297872340426 523.3517663056822 L806.6808510638298 544.9294507057099 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M806.6808510638298 662.6559664425566 L771.8297872340426 667.8059071909479 L771.8297872340426 727.4271440466277 L806.6808510638298 711.2347354138399 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M806.6808510638298 662.6559664425566 L771.8297872340426 667.8059071909479 L771.8297872340426 668.6569710207351 L806.6808510638298 663.3226331092233 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M810.0 529.1666666666666 L768.5106382978723 498.51063829787233 L768.5106382978723 501.9148936170213 L810.0 531.8333333333333 Z" fill="#a8550a"/>
+  <path d="M810.0 591.0 L768.5106382978723 577.4468085106383 L768.5106382978723 580.8510638297872 L810.0 593.6666666666666 Z" fill="#a8550a"/>
+  <path d="M810.0 651.6666666666666 L768.5106382978723 654.8936170212766 L768.5106382978723 658.2978723404254 L810.0 654.3333333333333 Z" fill="#a8550a"/>
+  <path d="M810.0 712.3333333333334 L768.5106382978723 732.3404255319149 L768.5106382978723 735.7446808510638 L810.0 715.0 Z" fill="#a8550a"/>
+  <rect x="761.2765957446809" y="491.063829787234" width="7.23404255319149" height="277.02127659574467" fill="#2f3d47"/>
+  <rect x="766.3404255319149" y="491.063829787234" width="1.0851063829787233" height="277.02127659574467" fill="#46586a"/>
+  <path d="M1110.0 523.3333333333334 L1151.4893617021276 491.063829787234 L1151.4893617021276 768.0851063829787 L1110.0 740.3333333333334 Z" fill="#192024"/>
+  <path d="M1113.3191489361702 554.5450434114904 L1148.1702127659573 535.1202281336693 L1148.1702127659573 575.8867610324729 L1113.3191489361702 587.7611940298507 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1113.3191489361702 554.5450434114904 L1148.1702127659573 535.1202281336693 L1148.1702127659573 535.9712919634566 L1113.3191489361702 555.211710078157 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1113.3191489361702 600.9808899132722 L1148.1702127659573 592.1114335821509 L1148.1702127659573 651.6569525395504 L1113.3191489361702 649.4979647218453 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1113.3191489361702 600.9808899132722 L1148.1702127659573 592.1114335821509 L1148.1702127659573 592.9624974119381 L1113.3191489361702 601.6475565799389 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1113.3191489361702 673.7765901330372 L1148.1702127659573 681.454366241546 L1148.1702127659573 727.4271440466277 L1113.3191489361702 711.2347354138399 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1113.3191489361702 673.7765901330372 L1148.1702127659573 681.454366241546 L1148.1702127659573 682.3054300713333 L1113.3191489361702 674.4432567997038 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1113.3191489361702 718.3073697484311 L1148.1702127659573 736.1074629551937 L1148.1702127659573 762.3980016652789 L1113.3191489361702 739.7286295793758 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1113.3191489361702 718.3073697484311 L1148.1702127659573 736.1074629551937 L1148.1702127659573 736.9585267849809 L1113.3191489361702 718.9740364150978 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1110.0 529.1666666666666 L1151.4893617021276 498.51063829787233 L1151.4893617021276 501.9148936170213 L1110.0 531.8333333333333 Z" fill="#a8550a"/>
+  <path d="M1110.0 591.0 L1151.4893617021276 577.4468085106383 L1151.4893617021276 580.8510638297872 L1110.0 593.6666666666666 Z" fill="#a8550a"/>
+  <path d="M1110.0 651.6666666666666 L1151.4893617021276 654.8936170212766 L1151.4893617021276 658.2978723404254 L1110.0 654.3333333333333 Z" fill="#a8550a"/>
+  <path d="M1110.0 712.3333333333334 L1151.4893617021276 732.3404255319149 L1151.4893617021276 735.7446808510638 L1110.0 715.0 Z" fill="#a8550a"/>
+  <rect x="1151.4893617021276" y="491.063829787234" width="7.23404255319149" height="277.02127659574467" fill="#2f3d47"/>
+  <rect x="1152.5744680851062" y="491.063829787234" width="1.0851063829787233" height="277.02127659574467" fill="#46586a"/>
+  <path d="M768.5106382978723 491.063829787234 L716.7567567567568 450.81081081081084 L716.7567567567568 802.7027027027027 L768.5106382978723 768.0851063829787 Z" fill="#192024"/>
+  <path d="M764.3703277745831 512.2347929919575 L720.897067280046 483.84252476794813 L720.897067280046 558.5185185185185 L764.3703277745831 573.3333333333334 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M764.3703277745831 512.2347929919575 L720.897067280046 483.84252476794813 L720.897067280046 484.92360584902923 L764.3703277745831 513.0858568217448 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M764.3703277745831 585.3080515442134 L720.897067280046 573.1542852207052 L720.897067280046 654.8148148148148 L764.3703277745831 652.1212121212121 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M764.3703277745831 585.3080515442134 L720.897067280046 573.1542852207052 L720.897067280046 574.2353663017863 L764.3703277745831 586.1591153740006 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M764.3703277745831 666.5067595713349 L720.897067280046 672.3971505871871 L720.897067280046 751.1111111111111 L764.3703277745831 730.9090909090909 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M764.3703277745831 666.5067595713349 L720.897067280046 672.3971505871871 L720.897067280046 673.4782316682681 L764.3703277745831 667.3578234011221 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M764.3703277745831 746.5923126595038 L720.897067280046 770.2794932505046 L720.897067280046 795.5555555555555 L764.3703277745831 767.2727272727273 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M764.3703277745831 746.5923126595038 L720.897067280046 770.2794932505046 L720.897067280046 771.3605743315857 L764.3703277745831 747.443376489291 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M768.5106382978723 498.51063829787233 L716.7567567567568 460.2702702702703 L716.7567567567568 464.59459459459464 L768.5106382978723 501.9148936170213 Z" fill="#a8550a"/>
+  <path d="M768.5106382978723 577.4468085106383 L716.7567567567568 560.5405405405405 L716.7567567567568 564.8648648648649 L768.5106382978723 580.8510638297872 Z" fill="#a8550a"/>
+  <path d="M768.5106382978723 654.8936170212766 L716.7567567567568 658.918918918919 L716.7567567567568 663.2432432432433 L768.5106382978723 658.2978723404254 Z" fill="#a8550a"/>
+  <path d="M768.5106382978723 732.3404255319149 L716.7567567567568 757.2972972972973 L716.7567567567568 761.6216216216217 L768.5106382978723 735.7446808510638 Z" fill="#a8550a"/>
+  <rect x="707.5675675675676" y="450.81081081081084" width="9.189189189189188" height="351.8918918918919" fill="#2f3d47"/>
+  <rect x="714.0" y="450.81081081081084" width="1.378378378378378" height="351.8918918918919" fill="#46586a"/>
+  <path d="M1151.4893617021276 491.063829787234 L1203.2432432432431 450.81081081081084 L1203.2432432432431 802.7027027027027 L1151.4893617021276 768.0851063829787 Z" fill="#192024"/>
+  <path d="M1155.6296722254167 531.6724875958453 L1199.102932719954 507.5997070615887 L1199.102932719954 558.5185185185185 L1155.6296722254167 573.3333333333334 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1155.6296722254167 531.6724875958453 L1199.102932719954 507.5997070615887 L1199.102932719954 508.68078814266977 L1155.6296722254167 532.5235514256325 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1155.6296722254167 605.8333648422338 L1199.102932719954 598.2407792516191 L1199.102932719954 654.8148148148148 L1155.6296722254167 652.1212121212121 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1155.6296722254167 605.8333648422338 L1199.102932719954 598.2407792516191 L1199.102932719954 599.3218603327001 L1155.6296722254167 606.684428672021 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1155.6296722254167 674.0406203835807 L1199.102932719954 681.6052026910431 L1199.102932719954 751.1111111111111 L1155.6296722254167 730.9090909090909 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1155.6296722254167 674.0406203835807 L1199.102932719954 681.6052026910431 L1199.102932719954 682.6862837721242 L1155.6296722254167 674.891684213368 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1155.6296722254167 738.6880414233063 L1199.102932719954 760.6187172951521 L1199.102932719954 795.5555555555555 L1155.6296722254167 767.2727272727273 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1155.6296722254167 738.6880414233063 L1199.102932719954 760.6187172951521 L1199.102932719954 761.6997983762332 L1155.6296722254167 739.5391052530936 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1151.4893617021276 498.51063829787233 L1203.2432432432431 460.2702702702703 L1203.2432432432431 464.59459459459464 L1151.4893617021276 501.9148936170213 Z" fill="#a8550a"/>
+  <path d="M1151.4893617021276 577.4468085106383 L1203.2432432432431 560.5405405405405 L1203.2432432432431 564.8648648648649 L1151.4893617021276 580.8510638297872 Z" fill="#a8550a"/>
+  <path d="M1151.4893617021276 654.8936170212766 L1203.2432432432431 658.918918918919 L1203.2432432432431 663.2432432432433 L1151.4893617021276 658.2978723404254 Z" fill="#a8550a"/>
+  <path d="M1151.4893617021276 732.3404255319149 L1203.2432432432431 757.2972972972973 L1203.2432432432431 761.6216216216217 L1151.4893617021276 735.7446808510638 Z" fill="#a8550a"/>
+  <rect x="1203.2432432432431" y="450.81081081081084" width="9.189189189189188" height="351.8918918918919" fill="#2f3d47"/>
+  <rect x="1204.6216216216214" y="450.81081081081084" width="1.378378378378378" height="351.8918918918919" fill="#46586a"/>
+  <path d="M716.7567567567568 450.81081081081084 L644.2105263157895 394.3859649122807 L644.2105263157895 851.2280701754386 L716.7567567567568 802.7027027027027 Z" fill="#192024"/>
+  <path d="M710.9530583214794 468.63198417090297 L650.0142247510669 426.70026268290593 L650.0142247510669 534.4482522275531 L710.9530583214794 555.1982378854625 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M710.9530583214794 468.63198417090297 L650.0142247510669 426.70026268290593 L650.0142247510669 428.10377145483574 L710.9530583214794 469.71306525198406 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M710.9530583214794 604.0801155578145 L650.0142247510669 595.2909457525641 L650.0142247510669 659.1912268677177 L710.9530583214794 655.4185022026431 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M710.9530583214794 604.0801155578145 L650.0142247510669 595.2909457525641 L650.0142247510669 596.694454524494 L710.9530583214794 605.1611966388955 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M710.9530583214794 695.420890775902 L650.0142247510669 708.9817255990665 L650.0142247510669 783.9342015078821 L710.9530583214794 755.6387665198238 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M710.9530583214794 695.420890775902 L650.0142247510669 708.9817255990665 L650.0142247510669 710.3852343709964 L710.9530583214794 696.501971856983 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M710.9530583214794 773.2459508939871 L650.0142247510669 805.8496551223309 L650.0142247510669 841.507882111035 L710.9530583214794 801.8942731277533 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M710.9530583214794 773.2459508939871 L650.0142247510669 805.8496551223309 L650.0142247510669 807.2531638942608 L710.9530583214794 774.3270319750682 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M716.7567567567568 460.2702702702703 L644.2105263157895 406.6666666666667 L644.2105263157895 412.280701754386 L716.7567567567568 464.59459459459464 Z" fill="#a8550a"/>
+  <path d="M716.7567567567568 560.5405405405405 L644.2105263157895 536.8421052631579 L644.2105263157895 542.4561403508773 L716.7567567567568 564.8648648648649 Z" fill="#a8550a"/>
+  <path d="M716.7567567567568 658.918918918919 L644.2105263157895 664.561403508772 L644.2105263157895 670.1754385964913 L716.7567567567568 663.2432432432433 Z" fill="#a8550a"/>
+  <path d="M716.7567567567568 757.2972972972973 L644.2105263157895 792.280701754386 L644.2105263157895 797.8947368421053 L716.7567567567568 761.6216216216217 Z" fill="#a8550a"/>
+  <rect x="632.280701754386" y="394.3859649122807" width="11.929824561403509" height="456.84210526315786" fill="#2f3d47"/>
+  <rect x="640.6315789473684" y="394.3859649122807" width="1.7894736842105263" height="456.84210526315786" fill="#46586a"/>
+  <path d="M1203.2432432432431 450.81081081081084 L1275.7894736842104 394.3859649122807 L1275.7894736842104 851.2280701754386 L1203.2432432432431 802.7027027027027 Z" fill="#192024"/>
+  <path d="M1209.0469416785204 471.2908372774144 L1269.9857752489331 430.0097056173986 L1269.9857752489331 534.4482522275531 L1209.0469416785204 555.1982378854625 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1209.0469416785204 471.2908372774144 L1269.9857752489331 430.0097056173986 L1269.9857752489331 431.4132143893284 L1209.0469416785204 472.3719183584955 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1209.0469416785204 583.51946008684 L1269.9857752489331 569.699341684511 L1269.9857752489331 659.1912268677177 L1209.0469416785204 655.4185022026431 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M1209.0469416785204 583.51946008684 L1269.9857752489331 569.699341684511 L1269.9857752489331 571.1028504564408 L1209.0469416785204 584.600541167921 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1209.0469416785204 686.2517060860242 L1269.9857752489331 697.5689501386018 L1269.9857752489331 783.9342015078821 L1209.0469416785204 755.6387665198238 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1209.0469416785204 686.2517060860242 L1269.9857752489331 697.5689501386018 L1269.9857752489331 698.9724589105317 L1209.0469416785204 687.3327871671053 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1209.0469416785204 765.8596190259615 L1269.9857752489331 796.6559754291611 L1269.9857752489331 841.507882111035 L1209.0469416785204 801.8942731277533 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1209.0469416785204 765.8596190259615 L1269.9857752489331 796.6559754291611 L1269.9857752489331 798.059484201091 L1209.0469416785204 766.9407001070425 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1203.2432432432431 460.2702702702703 L1275.7894736842104 406.6666666666667 L1275.7894736842104 412.280701754386 L1203.2432432432431 464.59459459459464 Z" fill="#a8550a"/>
+  <path d="M1203.2432432432431 560.5405405405405 L1275.7894736842104 536.8421052631579 L1275.7894736842104 542.4561403508773 L1203.2432432432431 564.8648648648649 Z" fill="#a8550a"/>
+  <path d="M1203.2432432432431 658.918918918919 L1275.7894736842104 664.561403508772 L1275.7894736842104 670.1754385964913 L1203.2432432432431 663.2432432432433 Z" fill="#a8550a"/>
+  <path d="M1203.2432432432431 757.2972972972973 L1275.7894736842104 792.280701754386 L1275.7894736842104 797.8947368421053 L1203.2432432432431 761.6216216216217 Z" fill="#a8550a"/>
+  <rect x="1275.7894736842104" y="394.3859649122807" width="11.929824561403509" height="456.84210526315786" fill="#2f3d47"/>
+  <rect x="1277.578947368421" y="394.3859649122807" width="1.7894736842105263" height="456.84210526315786" fill="#46586a"/>
+  <path d="M644.2105263157895 394.3859649122807 L541.3953488372093 314.4186046511628 L541.3953488372093 920.0 L644.2105263157895 851.2280701754386 Z" fill="#192024"/>
+  <path d="M635.9853121175031 559.8860859274384 L549.6205630354957 538.532059873646 L549.6205630354957 665.3853127833182 L635.9853121175031 660.0429491768075 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M635.9853121175031 559.8860859274384 L549.6205630354957 538.532059873646 L549.6205630354957 540.392524989925 L635.9853121175031 561.2895946993683 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M635.9853121175031 696.9681470994034 L549.6205630354957 712.15276654385 L549.6205630354957 830.3898458748866 L635.9853121175031 790.3221188260559 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M635.9853121175031 696.9681470994034 L549.6205630354957 712.15276654385 L549.6205630354957 714.0132316601291 L635.9853121175031 698.3716558713332 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M635.9853121175031 816.1257786838419 L549.6205630354957 863.0713624853374 L549.6205630354957 906.5457842248413 L635.9853121175031 850.4509663564781 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M635.9853121175031 816.1257786838419 L549.6205630354957 863.0713624853374 L549.6205630354957 864.9318276016165 L635.9853121175031 817.5292874557717 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M644.2105263157895 406.6666666666667 L541.3953488372093 330.69767441860466 L541.3953488372093 338.13953488372096 L644.2105263157895 412.280701754386 Z" fill="#a8550a"/>
+  <path d="M644.2105263157895 536.8421052631579 L541.3953488372093 503.25581395348837 L541.3953488372093 510.69767441860466 L644.2105263157895 542.4561403508773 Z" fill="#a8550a"/>
+  <path d="M644.2105263157895 664.561403508772 L541.3953488372093 672.5581395348837 L541.3953488372093 680.0 L644.2105263157895 670.1754385964913 Z" fill="#a8550a"/>
+  <path d="M644.2105263157895 792.280701754386 L541.3953488372093 841.8604651162791 L541.3953488372093 849.3023255813954 L644.2105263157895 797.8947368421053 Z" fill="#a8550a"/>
+  <rect x="525.5813953488372" y="314.4186046511628" width="15.813953488372093" height="605.5813953488372" fill="#2f3d47"/>
+  <rect x="536.6511627906976" y="314.4186046511628" width="2.3720930232558137" height="605.5813953488372" fill="#46586a"/>
+  <path d="M1275.7894736842104 394.3859649122807 L1378.6046511627906 314.4186046511628 L1378.6046511627906 920.0 L1275.7894736842104 851.2280701754386 Z" fill="#192024"/>
+  <path d="M1284.014687882497 448.8272843346498 L1370.379436964504 397.87100291523643 L1370.379436964504 500.3807796917498 L1284.014687882497 529.7637795275591 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1284.014687882497 448.8272843346498 L1370.379436964504 397.87100291523643 L1370.379436964504 399.7314680315155 L1284.014687882497 450.2307931065796 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1284.014687882497 563.1135777358443 L1370.379436964504 542.6198260172026 L1370.379436964504 665.3853127833182 L1284.014687882497 660.0429491768075 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1284.014687882497 563.1135777358443 L1370.379436964504 542.6198260172026 L1370.379436964504 544.4802911334817 L1284.014687882497 564.5170865077741 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1284.014687882497 678.8044662737942 L1370.379436964504 689.1476331681691 L1370.379436964504 830.3898458748866 L1284.014687882497 790.3221188260559 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1284.014687882497 678.8044662737942 L1370.379436964504 689.1476331681691 L1370.379436964504 691.0080982844482 L1284.014687882497 680.2079750457241 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1284.014687882497 816.8906668645884 L1370.379436964504 864.0401283860652 L1370.379436964504 906.5457842248413 L1284.014687882497 850.4509663564781 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1284.014687882497 816.8906668645884 L1370.379436964504 864.0401283860652 L1370.379436964504 865.9005935023443 L1284.014687882497 818.2941756365183 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1275.7894736842104 406.6666666666667 L1378.6046511627906 330.69767441860466 L1378.6046511627906 338.13953488372096 L1275.7894736842104 412.280701754386 Z" fill="#a8550a"/>
+  <path d="M1275.7894736842104 536.8421052631579 L1378.6046511627906 503.25581395348837 L1378.6046511627906 510.69767441860466 L1275.7894736842104 542.4561403508773 Z" fill="#a8550a"/>
+  <path d="M1275.7894736842104 664.561403508772 L1378.6046511627906 672.5581395348837 L1378.6046511627906 680.0 L1275.7894736842104 670.1754385964913 Z" fill="#a8550a"/>
+  <path d="M1275.7894736842104 792.280701754386 L1378.6046511627906 841.8604651162791 L1378.6046511627906 849.3023255813954 L1275.7894736842104 797.8947368421053 Z" fill="#a8550a"/>
+  <rect x="1378.6046511627906" y="314.4186046511628" width="15.813953488372093" height="605.5813953488372" fill="#2f3d47"/>
+  <rect x="1380.9767441860463" y="314.4186046511628" width="2.3720930232558137" height="605.5813953488372" fill="#46586a"/>
+  <path d="M541.3953488372093 314.4186046511628 L379.35483870967744 188.38709677419354 L379.35483870967744 1028.3870967741937 L541.3953488372093 920.0 Z" fill="#192024"/>
+  <path d="M528.4321080270067 364.45685247017593 L392.31807951988 277.5521300953128 L392.31807951988 447.2590738423029 L528.4321080270067 493.4728829686013 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M528.4321080270067 364.45685247017593 L392.31807951988 277.5521300953128 L392.31807951988 280.1327752566031 L528.4321080270067 366.317317586455 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M528.4321080270067 527.3493039976986 L392.31807951988 491.81992303076504 L392.31807951988 675.043804755945 L528.4321080270067 666.6412940057088 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M528.4321080270067 527.3493039976986 L392.31807951988 491.81992303076504 L392.31807951988 494.40056819205535 L528.4321080270067 529.2097691139777 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M528.4321080270067 693.1008316904438 L392.31807951988 709.8485282936875 L392.31807951988 902.8285356695869 L528.4321080270067 839.8097050428164 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M528.4321080270067 693.1008316904438 L392.31807951988 709.8485282936875 L392.31807951988 712.4291734549779 L528.4321080270067 694.9612968067229 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M528.4321080270067 875.1438960085289 L392.31807951988 949.3069270400049 L392.31807951988 1007.9599499374217 L528.4321080270067 919.7335870599429 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M528.4321080270067 875.1438960085289 L392.31807951988 949.3069270400049 L392.31807951988 951.8875722012953 L528.4321080270067 877.004361124808 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M541.3953488372093 330.69767441860466 L379.35483870967744 210.9677419354839 L379.35483870967744 221.29032258064518 L541.3953488372093 338.13953488372096 Z" fill="#a8550a"/>
+  <path d="M541.3953488372093 503.25581395348837 L379.35483870967744 450.32258064516134 L379.35483870967744 460.6451612903226 L541.3953488372093 510.69767441860466 Z" fill="#a8550a"/>
+  <path d="M541.3953488372093 672.5581395348837 L379.35483870967744 685.1612903225806 L379.35483870967744 695.483870967742 L541.3953488372093 680.0 Z" fill="#a8550a"/>
+  <path d="M541.3953488372093 841.8604651162791 L379.35483870967744 920.0 L379.35483870967744 930.3225806451613 L541.3953488372093 849.3023255813954 Z" fill="#a8550a"/>
+  <rect x="357.4193548387097" y="188.38709677419354" width="21.93548387096774" height="840.0000000000001" fill="#2f3d47"/>
+  <rect x="372.77419354838713" y="188.38709677419354" width="3.290322580645161" height="840.0000000000001" fill="#46586a"/>
+  <path d="M1378.6046511627906 314.4186046511628 L1540.6451612903224 188.38709677419354 L1540.6451612903224 1028.3870967741937 L1378.6046511627906 920.0 Z" fill="#192024"/>
+  <path d="M1391.567891972993 371.3394347765681 L1527.68192048012 286.6054392367623 L1527.68192048012 447.2590738423029 L1391.567891972993 493.4728829686013 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1391.567891972993 371.3394347765681 L1527.68192048012 286.6054392367623 L1527.68192048012 289.1860843980526 L1391.567891972993 373.19989989284716 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1391.567891972993 519.5064622963416 L1527.68192048012 481.5034942095808 L1527.68192048012 675.043804755945 L1391.567891972993 666.6412940057088 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1391.567891972993 519.5064622963416 L1527.68192048012 481.5034942095808 L1527.68192048012 484.0841393708711 L1391.567891972993 521.3669274126207 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1391.567891972993 692.1025557512706 L1527.68192048012 708.53540187057 L1527.68192048012 902.8285356695869 L1391.567891972993 839.8097050428164 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1391.567891972993 692.1025557512706 L1527.68192048012 708.53540187057 L1527.68192048012 711.1160470318604 L1391.567891972993 693.9630208675497 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1391.567891972993 868.7242691083098 L1527.68192048012 940.8625867745102 L1527.68192048012 1007.9599499374217 L1391.567891972993 919.7335870599429 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M1391.567891972993 868.7242691083098 L1527.68192048012 940.8625867745102 L1527.68192048012 943.4432319358006 L1391.567891972993 870.5847342245889 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1378.6046511627906 330.69767441860466 L1540.6451612903224 210.9677419354839 L1540.6451612903224 221.29032258064518 L1378.6046511627906 338.13953488372096 Z" fill="#a8550a"/>
+  <path d="M1378.6046511627906 503.25581395348837 L1540.6451612903224 450.32258064516134 L1540.6451612903224 460.6451612903226 L1378.6046511627906 510.69767441860466 Z" fill="#a8550a"/>
+  <path d="M1378.6046511627906 672.5581395348837 L1540.6451612903224 685.1612903225806 L1540.6451612903224 695.483870967742 L1378.6046511627906 680.0 Z" fill="#a8550a"/>
+  <path d="M1378.6046511627906 841.8604651162791 L1540.6451612903224 920.0 L1540.6451612903224 930.3225806451613 L1378.6046511627906 849.3023255813954 Z" fill="#a8550a"/>
+  <rect x="1540.6451612903224" y="188.38709677419354" width="21.93548387096774" height="840.0000000000001" fill="#2f3d47"/>
+  <rect x="1543.9354838709676" y="188.38709677419354" width="3.290322580645161" height="840.0000000000001" fill="#46586a"/>
+  <path d="M379.35483870967744 188.38709677419354 L60.0 -60.0 L60.0 1242.0 L379.35483870967744 1028.3870967741937 Z" fill="#192024"/>
+  <path d="M353.80645161290323 491.86329733340415 L85.54838709677419 426.3085496016346 L85.54838709677419 693.639846743295 L353.80645161290323 677.1845949535193 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M353.80645161290323 491.86329733340415 L85.54838709677419 426.3085496016346 L85.54838709677419 430.3085496016346 L353.80645161290323 494.44394249469445 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M353.80645161290323 775.4718197156287 L85.54838709677419 835.4219928081772 L85.54838709677419 1042.2988505747126 L353.80645161290323 918.8844621513944 Z" fill="#9C7650" opacity=".78"/>
+  <path d="M353.80645161290323 775.4718197156287 L85.54838709677419 835.4219928081772 L85.54838709677419 839.4219928081772 L353.80645161290323 778.0524648769191 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M353.80645161290323 960.7799856544807 L85.54838709677419 1102.7343471222682 L85.54838709677419 1203.2183908045977 L353.80645161290323 1030.4382470119522 Z" fill="#B8926A" opacity=".78"/>
+  <path d="M353.80645161290323 960.7799856544807 L85.54838709677419 1102.7343471222682 L85.54838709677419 1106.7343471222682 L353.80645161290323 963.3606308157711 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M379.35483870967744 210.9677419354839 L60.0 -25.0 L60.0 -9.0 L379.35483870967744 221.29032258064518 Z" fill="#a8550a"/>
+  <path d="M379.35483870967744 450.32258064516134 L60.0 346.0 L60.0 362.0 L379.35483870967744 460.6451612903226 Z" fill="#a8550a"/>
+  <path d="M379.35483870967744 685.1612903225806 L60.0 710.0 L60.0 726.0 L379.35483870967744 695.483870967742 Z" fill="#a8550a"/>
+  <path d="M379.35483870967744 920.0 L60.0 1074.0 L60.0 1090.0 L379.35483870967744 930.3225806451613 Z" fill="#a8550a"/>
+  <rect x="26.0" y="-60.0" width="34.0" height="1302.0" fill="#2f3d47"/>
+  <rect x="49.8" y="-60.0" width="5.1" height="1302.0" fill="#46586a"/>
+  <path d="M1540.6451612903224 188.38709677419354 L1860.0 -60.0 L1860.0 1242.0 L1540.6451612903224 1028.3870967741937 Z" fill="#192024"/>
+  <path d="M1566.1935483870966 258.70973284770946 L1834.4516129032259 89.97783301594859 L1834.4516129032259 344.9808429118774 L1566.1935483870966 435.48472775564414 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1566.1935483870966 258.70973284770946 L1834.4516129032259 89.97783301594859 L1834.4516129032259 93.97783301594859 L1566.1935483870966 261.29037800899977 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1566.1935483870966 524.5604380237737 L1834.4516129032259 473.47511462050124 L1834.4516129032259 693.639846743295 L1566.1935483870966 677.1845949535193 Z" fill="#7d6346" opacity=".78"/>
+  <path d="M1566.1935483870966 524.5604380237737 L1834.4516129032259 473.47511462050124 L1834.4516129032259 477.47511462050124 L1566.1935483870966 527.1410831850641 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1566.1935483870966 729.597921877058 L1834.4516129032259 769.2475769605837 L1834.4516129032259 1042.2988505747126 L1566.1935483870966 918.8844621513944 Z" fill="#8a6a48" opacity=".78"/>
+  <path d="M1566.1935483870966 729.597921877058 L1834.4516129032259 769.2475769605837 L1834.4516129032259 773.2475769605837 L1566.1935483870966 732.1785670383483 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1566.1935483870966 958.2069766692629 L1834.4516129032259 1099.0227077240515 L1834.4516129032259 1203.2183908045977 L1566.1935483870966 1030.4382470119522 Z" fill="#a88964" opacity=".78"/>
+  <path d="M1566.1935483870966 958.2069766692629 L1834.4516129032259 1099.0227077240515 L1834.4516129032259 1103.0227077240515 L1566.1935483870966 960.7876218305532 Z" fill="#d8b688" opacity=".35"/>
+  <path d="M1540.6451612903224 210.9677419354839 L1860.0 -25.0 L1860.0 -9.0 L1540.6451612903224 221.29032258064518 Z" fill="#a8550a"/>
+  <path d="M1540.6451612903224 450.32258064516134 L1860.0 346.0 L1860.0 362.0 L1540.6451612903224 460.6451612903226 Z" fill="#a8550a"/>
+  <path d="M1540.6451612903224 685.1612903225806 L1860.0 710.0 L1860.0 726.0 L1540.6451612903224 695.483870967742 Z" fill="#a8550a"/>
+  <path d="M1540.6451612903224 920.0 L1860.0 1074.0 L1860.0 1090.0 L1540.6451612903224 930.3225806451613 Z" fill="#a8550a"/>
+  <rect x="1860.0" y="-60.0" width="34.0" height="1302.0" fill="#2f3d47"/>
+  <rect x="1865.1" y="-60.0" width="5.1" height="1302.0" fill="#46586a"/>
+  <rect width="1920" height="1300" fill="url(#aiVig)"/>
+</svg>
+  </div>
+  <div class="abs eyebrow" id="eyeGo" style="left:0; right:0; top:84px; text-align:center; color:var(--cream);">Oct 22 · Go and see</div>
+  <div class="screen wide" id="gap" data-col="c" style="left:430px; top:150px; width:1060px;"><img src="artifacts/gap-analysis.png" alt=""><img class="ov" id="gapProc" src="artifacts/gap-analysis-process.png" alt=""><img class="ov" id="gapPeople" src="artifacts/gap-analysis-people.png" alt=""><div class="cap" id="gapCap"><b>OCT 22 · GAP ANALYSIS</b> · what changed, and why</div></div>
+  <div class="screen wide" id="wms" data-col="c" style="left:430px; top:150px; width:1060px;"><img src="artifacts/wms-locations.png" alt=""><div class="hl" id="hlWms" style="left:16px; top:241px; width:744px; height:50px;"></div><div class="cap" id="wmsCap"><b>NEW LOCATIONS</b> · no rules, no dimensions</div></div>
 
-  <!-- ===== line 8: the key line, alone ===== -->
+  <!-- ===== line 8: the key line, alone: Vince's own words as a quote, no face (INSTRUCTIONS #32 (1)) ===== -->
   <div class="abs" id="replen" style="left:330px; top:150px; width:1260px; filter:blur(2px); border-radius:16px; overflow:hidden;"><img src="artifacts/replen-log.png" alt="" style="display:block; width:100%;"></div>
-  <div class="abs" id="sun" style="left:932px; top:296px; width:56px; height:56px;">
-    <svg viewBox="0 0 56 56" style="overflow:hidden">
+  <div class="abs" id="sun" style="left:928px; top:236px; width:64px; height:64px;">
+    <svg id="sunSvg" viewBox="0 0 56 56" style="overflow:hidden">
       <g id="rays" stroke="#EAB62F" stroke-width="4" stroke-linecap="round"><path d="M28 3 L28 9 M28 47 L28 53 M3 28 L9 28 M47 28 L53 28 M10 10 L14 14 M42 42 L46 46 M46 10 L42 14 M10 46 L14 42"/></g>
       <circle id="disc" cx="28" cy="28" r="13" fill="#EAB62F"/>
       <circle id="shade" cx="28" cy="28" r="13" fill="#383F3B" style="transform:translateX(34px)"/>
     </svg>
   </div>
-  <div class="key" id="k1" style="top:392px;">The crews fixed the building <span id="kDay">by day</span>.</div>
-  <div class="key" id="k2" style="top:482px;">The system undid it <span id="kNight">by night</span>.</div>
+  <div class="q" id="q1" style="top:330px;"><i>“</i><span class="day">Every day</span> the <span id="qCrew" style="position:relative; display:inline-block;">warehousing crew<span id="qCrewUl" style="position:absolute; left:0; right:0; bottom:-2px; height:5px; border-radius:3px; background:var(--mustard); transform:scaleX(0); transform-origin:0 50%;"></span></span></div>
+  <div class="q" id="q2" style="top:407px;">was fixing the problems,</div>
+  <div class="q" id="q3" style="top:484px;">and the IT system was recreating</div>
+  <div class="q" id="q4" style="top:561px;">them <span id="kNight">every night</span>.<i>”</i></div>
+  <div class="abs" id="qBy" style="left:0; right:0; top:668px; text-align:center; font-family:var(--fb); font-weight:500; font-size:28px; color:var(--fog);">— Vince</div>
 
-  <!-- ===== lines 9-12: two tracks, the demo frame ===== -->
+  <!-- ===== lines 9-12: two tracks. Layout W (no widget: centre x 170 w 1060, tracker x 1300) everywhere except
+       10a, Vince on camera, layout D (widget x 30, centre x 620 w 780, tracker x 1430). Only the tracker moves. ===== -->
   <div class="stitle" id="t2">Two tracks, at once</div>
-  <div class="lane" id="lane1" style="top:200px;"><em>1</em>By hand<div class="ring" id="ring1"></div></div>
-  <div class="lane" id="lane2" style="top:340px;"><em>2</em>Fix the cause</div>
-  <div class="screen" id="count" data-col="c"><img src="artifacts/count-sheet.png" alt=""><div id="countMask" style="position:absolute; left:472px; top:163px; width:155px; height:166px; background:#fff; transform-origin:50% 100%;"></div><div class="hl" id="hlBy" style="left:626px; top:158px; width:104px; height:200px;"></div><div class="cap"><b>TRACK 1 · BY HAND</b> · the whole company on the floor, freezer too</div></div>
-  <div class="screen" id="naama" data-col="c">
-    <svg viewBox="0 0 780 418" fill="none" stroke="#383F3B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <g id="nDraw">
-        <path d="M30 372 L750 372" opacity=".45"/>
-        <circle cx="610" cy="118" r="48"/><path d="M610 76 L610 84 M652 118 L644 118 M610 160 L610 152 M568 118 L576 118" stroke-width="4"/>
-        <path d="M610 118 L619 94" stroke-width="5"/><path d="M610 118 L577 137" stroke-width="4"/>
-        <path d="M120 300 L520 300"/><path d="M120 300 L120 284 L520 284 L520 300"/>
-        <path d="M150 300 L188 370 M188 300 L150 370 M452 300 L490 370 M490 300 L452 370" stroke-width="4"/>
-        <path d="M132 284 C 130 262, 196 258, 204 284" stroke-width="4"/>
-        <circle cx="176" cy="254" r="22"/>
-        <path d="M202 284 C 232 238, 300 230, 362 244 C 420 256, 474 250, 508 284"/>
-        <path d="M262 251 L276 284 M330 241 L338 284" stroke-width="3.5" opacity=".6"/>
-        <path d="M600 372 L600 300 L748 300 M612 300 L612 372" stroke-width="4"/>
-        <path d="M628 300 L640 262 L700 262 L708 300" stroke-width="4"/>
-        <path d="M540 368 L562 368 L566 358 L548 356 Z M568 368 L590 368 L594 358 L576 356 Z" stroke-width="3.5"/>
-      </g>
-      <text class="z" id="z1" x="214" y="222" font-size="26" stroke="none">z</text>
-      <text class="z" id="z2" x="236" y="196" font-size="32" stroke="none">z</text>
-      <text class="z" id="z3" x="262" y="164" font-size="40" stroke="none">z</text>
-    </svg>
-    <div class="nm"><b>Na'ama</b><span>co-founder · 16-hour days</span></div>
-    <div class="cap"><b>TRACK 1 · BY HAND</b> · Na'ama slept at the warehouse</div>
+  <div class="lane" id="lane1" style="top:220px;"><em>1</em>By hand<div class="ring" id="ring1"></div></div>
+  <div class="lane" id="lane2" style="top:360px;"><em>2</em>Fix the cause</div>
+  <div class="screen" id="count" data-col="c"><img src="artifacts/count-sheet.png" alt=""><div id="countMask" style="position:absolute; left:472px; top:163px; width:155px; height:166px; background:#fff; transform-origin:50% 100%;"></div><div class="hl" id="hlBy" style="left:626px; top:158px; width:104px; height:200px;"></div><div class="cap" id="countCap"><b>TRACK 1 · BY HAND</b> · execs, sales, operators on the floor</div></div>
+  <div class="abs" id="crew" style="left:620px; top:716px; width:780px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 150">
+  <!-- Row 10a crew strip. Rise each #crew* 12px + fade, staggered 0.12 s, on "everyone"; on "24-7" spin
+       #dayNight 360deg once (origin 712px 75px, 1.2 s). Generated by make-crew.py. -->
+  <ellipse cx="300" cy="142" rx="300" ry="6" fill="#383F3B" opacity=".12"/>
+  <g id="crewExec">
+    <rect x="53" y="104" width="14" height="32" rx="5" fill="#1f2422"/><rect x="73" y="104" width="14" height="32" rx="5" fill="#1f2422"/>
+    <rect x="50" y="132" width="19" height="9" rx="4" fill="#121517"/><rect x="71" y="132" width="19" height="9" rx="4" fill="#121517"/>
+    <path d="M40 108 Q36 62 52 50 Q70 42 88 50 Q104 62 100 108 Q70 116 40 108 Z" fill="#383F3B"/>
+    <path d="M39 74 Q70 80 101 74 M39 92 Q70 98 101 92" stroke="#262e33" stroke-width="3" fill="none"/>
+    <path d="M70 50 V112" stroke="#262e33" stroke-width="2.5"/>
+    <circle cx="70" cy="34" r="14" fill="#C9A27E"/>
+    <path d="M55 32 Q55 14 70 14 Q85 14 85 32 Z" fill="#6B6F6C"/><rect x="54" y="28" width="32" height="6" rx="3" fill="#6B6F6C" opacity=".8"/>
+    <rect x="76" y="66" width="22" height="28" rx="2" fill="#B8926A"/><rect x="79" y="70" width="16" height="20" fill="#FAF7F1"/><rect x="83" y="64" width="8" height="5" rx="1" fill="#6B6F6C"/>
+    <path d="M50 60 Q64 86 80 82" stroke="#262e33" stroke-width="9" stroke-linecap="round" fill="none"/>
+  </g>
+  <g id="crewSales">
+    <rect x="169" y="104" width="14" height="32" rx="5" fill="#1f2422"/><rect x="189" y="104" width="14" height="32" rx="5" fill="#1f2422"/>
+    <rect x="166" y="132" width="19" height="9" rx="4" fill="#121517"/><rect x="187" y="132" width="19" height="9" rx="4" fill="#121517"/>
+    <path d="M156 108 Q152 62 168 50 Q186 42 204 50 Q220 62 216 108 Q186 116 156 108 Z" fill="#6A9D8A"/>
+    <path d="M155 74 Q186 80 217 74 M155 92 Q186 98 217 92" stroke="#4f7a6a" stroke-width="3" fill="none"/>
+    <path d="M186 50 V112" stroke="#4f7a6a" stroke-width="2.5"/>
+    <circle cx="186" cy="34" r="14" fill="#8d5f43"/>
+    <path d="M167 40 Q166 14 186 13 Q206 14 205 40 Q198 26 186 25 Q174 26 167 40 Z" fill="#6A9D8A"/>
+    <path d="M169 38 Q186 46 203 38" stroke="#E8E2D6" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="172" y="70" width="28" height="20" rx="3" fill="#1f2422"/><rect x="175" y="73" width="22" height="14" rx="1" fill="#D3E9E0"/>
+    <path d="M162 62 Q164 82 174 84 M210 62 Q208 82 198 84" stroke="#4f7a6a" stroke-width="9" stroke-linecap="round" fill="none"/>
+  </g>
+  <g id="crewOps1">
+    <rect x="285" y="104" width="14" height="32" rx="5" fill="#1f2422"/><rect x="305" y="104" width="14" height="32" rx="5" fill="#1f2422"/>
+    <rect x="282" y="132" width="19" height="9" rx="4" fill="#121517"/><rect x="303" y="132" width="19" height="9" rx="4" fill="#121517"/>
+    <path d="M272 108 Q268 62 284 50 Q302 42 320 50 Q336 62 332 108 Q302 116 272 108 Z" fill="#262e33"/>
+    <path d="M271 74 Q302 80 333 74 M271 92 Q302 98 333 92" stroke="#1b2125" stroke-width="3" fill="none"/>
+    <path d="M302 50 V112" stroke="#1b2125" stroke-width="2.5"/>
+    <path d="M280 54 L290 50 L292 108 L278 106 Z M324 54 L314 50 L312 108 L326 106 Z" fill="#D16C02"/>
+    <path d="M278 84 H292 M312 84 H326" stroke="#E8E2D6" stroke-width="4"/>
+    <circle cx="302" cy="34" r="14" fill="#e0b996"/>
+    <path d="M287 30 Q288 14 302 14 Q316 14 317 30 Z" fill="#FAF7F1"/><path d="M283 30 H321 Q322 34 318 34 H286 Q282 34 283 30 Z" fill="#E8E2D6"/>
+    <path d="M324 60 Q336 74 332 86" stroke="#1b2125" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <rect x="326" y="82" width="12" height="20" rx="3" fill="#EAB62F"/><rect x="328" y="84" width="8" height="6" fill="#1f2422"/>
+  </g>
+  <g id="crewSales2">
+    <rect x="401" y="104" width="14" height="32" rx="5" fill="#1f2422"/><rect x="421" y="104" width="14" height="32" rx="5" fill="#1f2422"/>
+    <rect x="398" y="132" width="19" height="9" rx="4" fill="#121517"/><rect x="419" y="132" width="19" height="9" rx="4" fill="#121517"/>
+    <path d="M388 108 Q384 62 400 50 Q418 42 436 50 Q452 62 448 108 Q418 116 388 108 Z" fill="#5a8a78"/>
+    <path d="M387 74 Q418 80 449 74 M387 92 Q418 98 449 92" stroke="#46705f" stroke-width="3" fill="none"/>
+    <path d="M418 50 V112" stroke="#46705f" stroke-width="2.5"/>
+    <circle cx="418" cy="34" r="14" fill="#a87454"/>
+    <path d="M403 32 Q403 14 418 14 Q433 14 433 32 Z" fill="#EAB62F"/><rect x="402" y="28" width="32" height="6" rx="3" fill="#EAB62F" opacity=".8"/>
+    <rect x="424" y="66" width="22" height="28" rx="2" fill="#B8926A"/><rect x="427" y="70" width="16" height="20" fill="#FAF7F1"/><rect x="431" y="64" width="8" height="5" rx="1" fill="#6B6F6C"/>
+    <path d="M398 60 Q412 86 428 82" stroke="#46705f" stroke-width="9" stroke-linecap="round" fill="none"/>
+  </g>
+  <g id="crewOps2">
+    <rect x="517" y="104" width="14" height="32" rx="5" fill="#1f2422"/><rect x="537" y="104" width="14" height="32" rx="5" fill="#1f2422"/>
+    <rect x="514" y="132" width="19" height="9" rx="4" fill="#121517"/><rect x="535" y="132" width="19" height="9" rx="4" fill="#121517"/>
+    <path d="M504 108 Q500 62 516 50 Q534 42 552 50 Q568 62 564 108 Q534 116 504 108 Z" fill="#383F3B"/>
+    <path d="M503 74 Q534 80 565 74 M503 92 Q534 98 565 92" stroke="#262e33" stroke-width="3" fill="none"/>
+    <path d="M534 50 V112" stroke="#262e33" stroke-width="2.5"/>
+    <path d="M512 54 L522 50 L524 108 L510 106 Z M556 54 L546 50 L544 108 L558 106 Z" fill="#D16C02"/>
+    <path d="M510 84 H524 M544 84 H558" stroke="#E8E2D6" stroke-width="4"/>
+    <circle cx="534" cy="34" r="14" fill="#d3a985"/>
+    <path d="M519 30 Q520 14 534 14 Q548 14 549 30 Z" fill="#FAF7F1"/><path d="M515 30 H553 Q554 34 550 34 H518 Q514 34 515 30 Z" fill="#E8E2D6"/>
+  </g>
+  <g id="dayNight">
+    <circle cx="712" cy="75" r="44" fill="#383F3B"/>
+    <path d="M712 31 A44 44 0 0 1 712 119 Z" fill="#EAB62F"/>
+    <circle cx="730" cy="75" r="11" fill="#F6D36B"/>
+    <path d="M690 62 a14 14 0 1 0 10 24 a11 11 0 1 1 -10 -24 Z" fill="#E8E2D6"/>
+    <circle cx="684" cy="96" r="2" fill="#E8E2D6"/><circle cx="696" cy="50" r="1.6" fill="#E8E2D6"/>
+  </g>
+  <circle cx="712" cy="75" r="48" fill="none" stroke="#383F3B" stroke-width="3" opacity=".35"/>
+  <text x="712" y="142" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="16" letter-spacing="2" fill="#383F3B">24-7</text>
+</svg>
   </div>
-  <div class="screen" id="slot" data-col="c"><img src="artifacts/slotting.png" alt=""><div class="hl" id="hlZone" style="left:14px; top:113px; width:482px; height:375px;"></div><div class="hl" id="hlCons" style="left:516px; top:384px; width:240px; height:57px;"></div><div class="cap"><b>TRACK 2 · FIX THE CAUSE</b> · fixed slots for fast movers, flexible for the rest</div></div>
-  <div class="screen" id="scan" data-col="c"><img src="artifacts/scan-qa.png" alt=""><div class="hl" id="hlModal" style="left:166px; top:136px; width:446px; height:221px;"></div><div class="cap"><b>BARCODE CHECKS</b> · receiving, picking, loading, delivery</div></div>
+  <div class="screen" id="naama" data-col="c">
+<svg style="position:absolute; left:0; top:0; width:100%; height:100%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 560">
+  <!-- Line 10, "...and Na'ama sleeping at the warehouse": the warehouse office at 2 a.m. Flat editorial
+       illustration, full-bleed in the 780x560 centre seat (replaces the line drawing in #naama). Keep clear:
+       the name card top-left (x 34-400, y 24-110) and the caption bar (y 512-560).
+       Animatable parts (CSS; transform-box: view-box):
+         #monitorGlow  opacity 1 -> .86 -> 1, irregular, about every 2-3 s (a screen refreshing, not a strobe)
+         #screenRows   the WMS rows on the monitor: translateY(0 -> -6px) once in a while (a list refreshing)
+         #minuteHand   rotate, origin 470px 128px: +6deg over the beat (the clock keeps going; it starts at 2:10)
+         #breath       Na'ama's back + blanket: scaleY(1 -> 1.015), origin 300px 392px, 3.6 s loop, ease in-out
+         #lampGlow     opacity .92 <-> 1, slow (optional)
+       No zzz: the breathing, the clock and the screen carry the motion. -->
+  <defs>
+    <linearGradient id="noWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d2428"/><stop offset="1" stop-color="#161b1e"/></linearGradient>
+    <radialGradient id="noLamp" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#F6D36B" stop-opacity=".42"/><stop offset=".5" stop-color="#EAB62F" stop-opacity=".12"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/></radialGradient>
+    <radialGradient id="noScreen" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#D3E9E0" stop-opacity=".30"/><stop offset="1" stop-color="#D3E9E0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="noWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121517"/><stop offset="1" stop-color="#1b2125"/></linearGradient>
+    <clipPath id="noWinClip"><rect x="566" y="64" width="176" height="196" rx="4"/></clipPath>
+  </defs>
+
+  <!-- room -->
+  <rect width="780" height="560" fill="url(#noWall)"/>
+  <rect y="424" width="780" height="136" fill="#13181b"/>
+  <rect y="420" width="780" height="6" fill="#262e33"/>
+
+  <!-- window onto the warehouse floor: racking, a few lights still on -->
+  <rect x="558" y="56" width="192" height="212" rx="6" fill="#2a3237"/>
+  <rect x="566" y="64" width="176" height="196" rx="4" fill="url(#noWin)"/>
+  <g clip-path="url(#noWinClip)">
+    <g fill="#262e33"><rect x="578" y="96" width="10" height="170"/><rect x="622" y="96" width="10" height="170"/><rect x="670" y="96" width="10" height="170"/><rect x="714" y="96" width="10" height="170"/></g>
+    <g fill="#222a2f"><rect x="578" y="132" width="146" height="5"/><rect x="578" y="172" width="146" height="5"/><rect x="578" y="212" width="146" height="5"/></g>
+    <g fill="#3a3a2c"><rect x="592" y="148" width="22" height="22"/><rect x="636" y="186" width="26" height="24"/><rect x="684" y="146" width="22" height="24"/></g>
+    <circle cx="610" cy="80" r="3" fill="#F6D36B"/><circle cx="700" cy="80" r="3" fill="#F6D36B" opacity=".6"/>
+    <path d="M600 82 L560 260 L660 260 Z" fill="#EAB62F" opacity=".05"/>
+  </g>
+  <path d="M654 64 V260" stroke="#2a3237" stroke-width="6"/>
+
+  <!-- wall clock: 2:10 -->
+  <g>
+    <circle cx="470" cy="128" r="40" fill="#E8E2D6"/><circle cx="470" cy="128" r="40" fill="none" stroke="#383F3B" stroke-width="6"/>
+    <g stroke="#6B6F6C" stroke-width="3"><path d="M470 94 V100 M504 128 H498 M470 162 V156 M436 128 H442"/></g>
+    <path d="M470 128 L488 117" stroke="#1F2422" stroke-width="5" stroke-linecap="round"/>
+    <path id="minuteHand" d="M470 128 L497 135" stroke="#1F2422" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="470" cy="128" r="4" fill="#D16C02"/>
+  </g>
+
+
+  <!-- desk lamp light (warm) and screen light (cool) on the scene -->
+  <g id="lampGlow"><ellipse cx="250" cy="330" rx="330" ry="230" fill="url(#noLamp)"/></g>
+
+  <!-- coat hook: hi-vis vest and hard hat -->
+  <g>
+    <rect x="712" y="292" width="34" height="6" rx="3" fill="#383F3B"/><circle cx="728" cy="300" r="5" fill="#6B6F6C"/>
+    <path d="M714 302 Q728 296 742 302 L752 410 Q728 420 704 410 Z" fill="#D16C02"/>
+    <path d="M708 356 H748 M706 378 H750" stroke="#E8E2D6" stroke-width="6"/>
+    <path d="M728 302 V412" stroke="#a85700" stroke-width="2"/>
+  </g>
+
+  <!-- desk -->
+  <rect x="70" y="330" width="460" height="14" rx="3" fill="#3a4246"/>
+  <rect x="70" y="330" width="460" height="4" rx="2" fill="#4c555a"/>
+  <rect x="88" y="344" width="14" height="80" fill="#2a3135"/><rect x="498" y="344" width="14" height="80" fill="#2a3135"/>
+  <rect x="380" y="344" width="132" height="70" fill="#2f363a"/><rect x="392" y="360" width="108" height="4" rx="2" fill="#3f474c"/><rect x="392" y="388" width="108" height="4" rx="2" fill="#3f474c"/>
+
+  <!-- monitor (the WMS still up) -->
+  <g>
+    <rect x="236" y="320" width="64" height="10" rx="3" fill="#2a3135"/><rect x="262" y="296" width="12" height="26" fill="#2a3135"/>
+    <rect x="176" y="186" width="186" height="116" rx="7" fill="#0f1315"/>
+    <rect x="183" y="193" width="172" height="102" rx="3" fill="#e9eef3"/>
+    <rect x="183" y="193" width="172" height="13" fill="#22313f"/>
+    <g id="screenRows"><g fill="#c9d3dc"><rect x="190" y="214" width="158" height="6" rx="1"/><rect x="190" y="226" width="158" height="6" rx="1"/><rect x="190" y="238" width="158" height="6" rx="1"/><rect x="190" y="250" width="158" height="6" rx="1"/><rect x="190" y="262" width="158" height="6" rx="1"/><rect x="190" y="274" width="158" height="6" rx="1"/></g>
+      <g fill="#e4572e"><rect x="314" y="226" width="30" height="6" rx="1"/><rect x="314" y="250" width="30" height="6" rx="1"/><rect x="314" y="274" width="30" height="6" rx="1"/></g></g>
+    <g id="monitorGlow"><ellipse cx="270" cy="250" rx="170" ry="120" fill="url(#noScreen)"/></g>
+  </g>
+
+  <!-- desk lamp -->
+  <g>
+    <ellipse cx="128" cy="330" rx="26" ry="5" fill="#383F3B"/>
+    <path d="M128 328 L148 268 L118 236" stroke="#383F3B" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M100 222 L140 232 L132 252 L94 240 Z" fill="#EAB62F"/><path d="M96 240 L132 252" stroke="#F6D36B" stroke-width="5"/>
+  </g>
+
+  <!-- papers, clipboard, mug, hard hat on the desk -->
+  <g>
+    <rect x="392" y="318" width="96" height="12" rx="1" fill="#E8E2D6" transform="rotate(-3 440 324)"/>
+    <rect x="398" y="310" width="90" height="10" rx="1" fill="#F4F1EA" transform="rotate(2 443 315)"/>
+    <rect x="148" y="314" width="22" height="16" rx="3" fill="#6A9D8A"/><path d="M170 318 Q180 322 170 326" stroke="#6A9D8A" stroke-width="3" fill="none"/>
+    <path d="M440 304 Q442 280 470 280 Q498 280 500 304 Z" fill="#FAF7F1"/><path d="M432 304 H508 Q510 310 504 310 H436 Q430 310 432 304 Z" fill="#E8E2D6"/><path d="M470 280 V304" stroke="#d8d2c6" stroke-width="3"/>
+  </g>
+
+  <!-- chair -->
+  <g>
+    <path d="M330 420 L310 470 M330 420 L356 470 M330 420 L330 474" stroke="#262e33" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="310" cy="474" r="6" fill="#1b2125"/><circle cx="356" cy="474" r="6" fill="#1b2125"/><circle cx="330" cy="478" r="6" fill="#1b2125"/>
+    <rect x="322" y="384" width="16" height="40" fill="#262e33"/>
+    <rect x="266" y="374" width="118" height="18" rx="8" fill="#2a3135"/>
+    <path d="M370 380 Q396 330 386 262 L406 262 Q418 334 388 392 Z" fill="#2a3135"/>
+  </g>
+
+  <!-- Na'ama, asleep at the desk: head on her folded arms, a blanket round her shoulders (faceless, by design) -->
+  <g id="breath">
+    <path d="M276 330 Q268 360 292 392 L376 392 Q392 360 380 318 Q364 290 330 290 Q296 292 276 330 Z" fill="#383F3B"/>
+    <!-- blanket: sage, with a mustard edge stripe -->
+    <path d="M262 324 Q270 286 318 280 Q370 276 392 312 Q404 350 390 396 L280 400 Q252 372 262 324 Z" fill="#6A9D8A"/>
+    <path d="M262 324 Q270 286 318 280 Q370 276 392 312" fill="none" stroke="#5a8a78" stroke-width="10"/>
+    <path d="M280 400 Q256 372 262 330" fill="none" stroke="#EAB62F" stroke-width="5" opacity=".8"/>
+    <path d="M300 300 Q320 340 314 398 M340 290 Q356 340 352 398" stroke="#5a8a78" stroke-width="3" fill="none" opacity=".7"/>
+  </g>
+  <!-- folded arms on the desk -->
+  <path d="M226 318 Q240 306 300 310 L318 326 L226 330 Z" fill="#4a524e"/>
+  <path d="M232 318 Q262 312 296 316" stroke="#5a625e" stroke-width="3" fill="none"/>
+  <ellipse cx="226" cy="324" rx="10" ry="6" fill="#C9A27E"/>
+  <!-- head resting on the arms, turned away; long dark curly hair -->
+  <g>
+    <ellipse cx="262" cy="296" rx="30" ry="24" fill="#3b2c22"/>
+    <path d="M236 294 Q232 266 262 262 Q296 260 298 290 Q304 306 292 318 Q286 300 278 296 Q262 300 250 312 Q236 310 236 294 Z" fill="#4a3628"/>
+    <g fill="none" stroke="#2c2018" stroke-width="3" opacity=".8"><path d="M246 276 q6 -6 12 0 q6 6 12 0"/><path d="M262 286 q6 -6 12 0 q6 6 12 0"/><path d="M286 300 q4 6 0 12"/></g>
+    <path d="M292 312 Q300 330 296 346 Q306 334 304 316 Z" fill="#3b2c22"/>
+  </g>
+</svg>
+    <div class="nm"><b>Na'ama</b><span>Vince's co-founder · 16-hour days</span></div>
+    <div class="cap"><b>TRACK 1 · BY HAND</b> · Na'ama slept there</div>
+  </div>
+  <div class="screen" id="slot" data-col="c"><img src="artifacts/slotting.png" alt=""><div class="hl" id="hlZone" style="left:19px; top:154px; width:655px; height:510px;"></div><div class="hl" id="hlCons" style="left:701px; top:521px; width:325px; height:77px;"></div><div class="cap"><b>TRACK 2 · FIX THE CAUSE</b> · fixed slots for fast movers, flexible for the rest</div></div>
+  <div class="screen" id="scan" data-col="c"><img src="artifacts/scan-qa.png" alt=""><div class="hl" id="hlModal" style="left:230px; top:188px; width:600px; height:292px;"></div><div class="cap"><b>BARCODE CHECKS</b> · receiving, picking, loading, delivery</div></div>
   <div class="screen" id="std" data-col="c"><img src="artifacts/standard-work.png" alt=""><div class="cap"><b>DAILY STANDARD WORK</b> · so it survives the next reorg</div></div>
   <div class="tracker" id="trk" data-col="r"><img src="artifacts/turnaround-tracker.png" alt=""><img class="over" id="trkTurn" src="artifacts/turnaround-tracker-turning.png" alt=""><div class="hl" id="hlCols" style="left:322px; top:93px; width:120px; height:216px;"></div><div class="lbl">The turnaround tracker</div></div>
 
@@ -263,24 +937,25 @@
 
   // ================= CUES: the voiceover ================= (vo.mjs reads this list; write names as shown on screen)
   const CAPS = [
-    [0.60, 6.73, "Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others."],
-    [7.78, 11.94, "When the rebuilt warehouse went live, customers got three items in four."],
-    [12.59, 14.71, "Pallets of fresh food rotted out back."],
-    [15.36, 18.13, "Frozen pizza dough sat out until the yeast woke up."],
-    [18.78, 20.85, "It was burning about a million dollars a month."],
-    [21.90, 25.64, "On October twenty-second, Vince found the cause. Not the crews."],
-    [26.29, 29.77, "The building had changed. The warehouse system's logic never did."],
-    [30.42, 34.36, "The crews fixed the building by day, and the system undid it by night."],
-    [36.01, 37.94, "So: two tracks, at once."],
-    [38.59, 44.78, "Track one, by hand: the whole company counting stock in the freezer, and Na'ama sleeping at the warehouse."],
-    [45.43, 47.63, "Track two rebuilt the system's logic."],
-    [48.28, 51.75, "Then barcode checks that stop mistakes, and daily standard work."],
-    [52.80, 55.32, "Customers got ninety-nine items in a hundred."],
-    [55.97, 59.12, "Lost stock fell to two percent, order errors to three."],
-    [59.77, 62.90, "The burn fell to two hundred sixty thousand a month by March."],
-    [63.55, 66.19, "By October twenty twenty-three, it was profitable."],
-    [67.44, 71.94, "You need to separate the symptom from the root cause.", 'VINCE'],   // VINCE'S OWN VOICE, cut from assets/vince-take.m4a at VINCE_LENS_OFFSET (his words, not the script's: INSTRUCTIONS #21)
-    [72.64, 75.97, "Talk to us, or run the same methods yourself with Lean AI."],
+    [0.60, 6.68, "Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others."],
+    [7.78, 11.89, "When the rebuilt warehouse went live, customers got three items in four."],
+    [12.59, 14.66, "Pallets of fresh food rotted out back."],
+    [15.36, 18.08, "Frozen pizza dough sat out until the yeast woke up."],
+    [18.78, 20.80, "It was burning about a million dollars a month."],
+    [21.90, 27.65, "On October twenty-second, Vince went to the floor and found the cause: the process, not the people."],
+    [28.35, 31.78, "The building had changed. The warehouse system's logic never did."],
+    [32.48, 40.12, "So every day the warehousing crew was fixing the problems, and the IT system was recreating them every night.", 'VINCE', 57.84, 65.48],   // VINCE'S OWN VOICE, cut from the dereverbed take at [takeIn, takeOut] (vo.mjs)
+    [41.42, 44.36, "Two tracks, at once. Track one, by hand."],
+    [44.86, 52.09, "So we got everyone, executive, sales team, operators. 24-7, we ran that until we cleaned up the warehouse.", 'VINCE', 81.99, 89.22],   // VINCE'S OWN VOICE, cut from the dereverbed take at [takeIn, takeOut] (vo.mjs)
+    [52.69, 53.71, "Na'ama slept there."],
+    [54.41, 56.56, "Track two rebuilt the system's logic."],
+    [57.26, 59.74, "Then barcode checks, and daily standard work."],
+    [60.84, 63.31, "Customers got ninety-nine items in a hundred."],
+    [64.01, 67.11, "Lost stock fell to two percent, order errors to three."],
+    [67.81, 70.89, "The burn fell to two hundred sixty thousand a month by March."],
+    [71.59, 74.18, "By October twenty twenty-three, it was profitable."],
+    [75.48, 78.98, "You need to separate the symptom from the root cause.", 'VINCE', 100.34, 103.84],   // VINCE'S OWN VOICE, cut from the dereverbed take at [takeIn, takeOut] (vo.mjs)
+    [80.18, 83.46, "Talk to us, or run the same methods yourself with Lean AI."],
   ];
 
   // ---- helpers ----
@@ -307,158 +982,200 @@
   const money = v => '$' + Math.round(v).toLocaleString('en-US');
 
   // ================= THE EXPERT CLIP =================
-  // Vince's real take (INSTRUCTIONS #21): 720x720, muted, clip time = take time (0-110.4 s; VINCE-TRANSCRIPT.md).
-  // (assets/expert-placeholder.mp4 is kept on disk but no longer used.)
+  // Vince's real take (VINCE-TRANSCRIPT.md): 720x720, muted, clip time = take time. Vince cues carry the take's
+  // in/out as CAPS[i][4] / CAPS[i][5]; lip sync: clip time = CAPS[i][4] + (t - CAPS[i][0]).
   const EXPERT_SRC = 'assets/expert-vince.mp4';
-  // Seconds into the take where he starts the lens line ("You need to separate the symptom from the root cause.",
-  // 100.34-103.84). vo.mjs cuts his audio from assets/vince-take.m4a at this same second: one number for voice and mouth.
-  const VINCE_LENS_OFFSET = 100.34;
-  // Where each muted appearance starts in the take (VINCE-TRANSCRIPT.md, "The muted appearances").
-  const EXPERT_IN = { intro: 9.30, rootCause: 42.20, tracks: 66.20 };
 
   // ================= TIMELINE (every time a measured word boundary, render/out/words.json) =================
-  // background: cold (lines 1-7) -> charcoal (key line) -> cream (two tracks .. lens) -> charcoal (close)
-  const L7END = 29.72, KEY = 30.42, SO = 36.06, CLOSE = CAPS[17][0], L17 = CAPS[16][0];
-  // The lens line's picture ends where the voice stops, not at the end of its 4.5 s slot (CAPS[16][1]).
-  // L17_SAID = his measured read from the take (100.34 -> 103.84 s, VINCE-TRANSCRIPT.md).
+  // cue starts, by index (19 cues, 0-18; Vince's own voice: 7 key line, 9 all hands, 17 lens)
+  const L2 = CAPS[1][0], L3 = CAPS[2][0], L4 = CAPS[3][0], L5 = CAPS[4][0], L6 = CAPS[5][0], L7 = CAPS[6][0];
+  const L7END = CAPS[6][1], KEY = CAPS[7][0], SO = CAPS[8][0], CLOSE = CAPS[18][0], L17 = CAPS[17][0];
+  // The lens line's picture ends where his voice stops (take 100.34 -> 103.84).
   const L17_SAID = 3.50, L17END = L17 + L17_SAID;
+  // the lens holds at full contrast (cream) to HAND, then hands over to the close's charcoal (round 4, art #5)
+  const HAND = CLOSE - 0.08;
+  // background: cold (lines 1-7) -> charcoal (key line) -> cream (two tracks .. lens) -> charcoal (close)
   track(stage, [[0, { backgroundColor: '#121517' }], [L7END, { backgroundColor: '#121517' }], [KEY, { backgroundColor: '#383F3B' }],
-    [SO - 0.05, { backgroundColor: '#383F3B' }], [SO + 0.75, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.5, { backgroundColor: '#FAF7F1' }], [CLOSE - 0.05, { backgroundColor: '#383F3B' }]]);
+    [SO - 0.05, { backgroundColor: '#383F3B' }], [SO + 0.75, { backgroundColor: '#FAF7F1' }], [HAND, { backgroundColor: '#FAF7F1' }], [HAND + 0.35, { backgroundColor: '#383F3B' }]]);
 
-  // ---- line 1: Vince, Cheetah, three others ----
-  const VINCE = 0.65, CHEETAH = 3.17, THREE = 5.90;
-  const L2 = 7.78;
-  win($('eyebrow'), CHEETAH, 12.25, { fi: 0.5 });
+  // ---- line 1: Vince (a still photo card, INSTRUCTIONS #24), Cheetah, three others ----
+  const VINCE = 0.65, COFOUNDER = 1.95, CHEETAH = 3.17, THREE = 5.90;
+  win($('badge'), VINCE - 0.05, L2 - 0.35, { fi: 0.4, fo: 0.35, dy: 16 });
+  win($('bdgNow'), COFOUNDER - 0.1, null, { fi: 0.35 });
+  win($('bdgWhen'), CHEETAH, null, { fi: 0.35 });
+  const L2_OUT = 11.85;   // line 2 is gone by 12.10 (round 4, art #1)
+  win($('eyebrow'), CHEETAH, L2_OUT, { fi: 0.5, fo: 0.25 });
   draw($('whMain'), CHEETAH + 0.1, 1.3, 0.12);
   ['acq1', 'acq2', 'acq3'].forEach((id, i) => { const g = $(id); tw(g, [{ opacity: 0 }, { opacity: 1 }], THREE + i * 0.15, 0.3, 'linear'); tw(g, [{ transform: 'translateX(80px)' }, { transform: 'translateX(0px)' }], THREE + i * 0.15, 0.6, POP); });
   win($('chipAcq'), THREE + 0.35, L2 + 0.1, { dy: 16 });
-  // a slow push on the warehouse through line 1, then it moves left for line 2 (one transform track)
-  track($('wh'), [[CHEETAH, { transform: 'translate(0px, 0px) scale(1)' }], [L2 + 0.05, { transform: 'translate(-10px, 6px) scale(1.01)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-620px, 80px) scale(.76)' }]]);
-  track($('wh'), [[0, { opacity: 1 }], [12.3, { opacity: 1 }], [12.65, { opacity: 0 }]]);
-  // eyebrow follows the warehouse to its style-frame seat
-  track($('eyebrow'), [[L2 + 0.05, { transform: 'translate(0px, 0px)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-590px, 50px)' }]]);
+  // a slow push on the warehouse through line 1 (visible: the photo card is a still now, so this carries the motion), then it moves left for line 2 (one transform track): x 780 -> 80
+  track($('wh'), [[CHEETAH, { transform: 'translate(0px, 0px) scale(1)' }], [L2 + 0.05, { transform: 'translate(-12px, 4px) scale(1.035)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-700px, 80px) scale(.76)' }]]);
+  track($('wh'), [[0, { opacity: 1 }], [L2_OUT, { opacity: 1 }], [L2_OUT + 0.25, { opacity: 0 }]]);
+  // eyebrow follows the warehouse to its style-frame seat (x 110, y 200)
+  track($('eyebrow'), [[L2 + 0.05, { transform: 'translate(0px, 0px)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-670px, 50px)' }]]);
 
   // ---- line 2: rebuilt, went live, three items in four ----
-  const REBUILT = 8.02, LIVE = 9.08, THREE_IN_FOUR = 10.62, FOUR = 11.43, L3 = 12.59;
+  const REBUILT = 8.02, LIVE = 9.08, THREE_IN_FOUR = 10.62, FOUR = 11.43;
   draw($('whRack'), REBUILT, 0.8, 0.04); draw($('whFreezer'), REBUILT + 0.35, 0.7, 0.1); draw($('whTags'), REBUILT + 0.7, 0.5);
-  track($('stamp'), [[0, { opacity: 0 }], [LIVE, { opacity: 0 }], [LIVE + 0.15, { opacity: 1 }], [12.3, { opacity: 1 }], [12.65, { opacity: 0 }]]);
+  track($('stamp'), [[0, { opacity: 0 }], [LIVE, { opacity: 0 }], [LIVE + 0.15, { opacity: 1 }], [L2_OUT, { opacity: 1 }], [L2_OUT + 0.25, { opacity: 0 }]]);
   tw($('stamp'), [{ transform: 'rotate(-8deg) scale(1.5)' }, { transform: 'rotate(-8deg) scale(1)' }], LIVE, 0.45, POP);
-  win($('pick'), THREE_IN_FOUR - 0.3, 12.3, { dy: 24 });
+  win($('pick'), THREE_IN_FOUR - 0.3, L2_OUT, { dy: 24, fo: 0.25 });
   win($('hlShort'), FOUR, null, { fi: 0.25 });
-  win($('chipFill'), THREE_IN_FOUR + 0.3, 12.3, { dy: 16 });
+  win($('chipFill'), THREE_IN_FOUR + 0.3, L2_OUT, { dy: 16, fo: 0.25 });
 
-  // ---- line 3: pallets rotted out back ----
-  const PALLETS = 12.64, ROTTED = 13.77, L4 = 15.36;
-  const fk = $('fk');
-  track(fk, [[0, { opacity: 1 }], [L4 - 0.4, { opacity: 1 }], [L4 - 0.05, { opacity: 0 }]]);
-  tw($('fkDump'), [{ opacity: 0 }, { opacity: 1 }], PALLETS - 0.05, 0.4, 'linear'); tw($('fkGround'), [{ opacity: 0 }, { opacity: 0.55 }], PALLETS - 0.05, 0.4, 'linear');
-  tw($('fkMove'), [{ opacity: 0 }, { opacity: 1 }], PALLETS + 0.15, 0.3, 'linear');
-  tw($('fkMove'), [{ transform: 'translateX(200px)' }, { transform: 'translateX(0px)' }], PALLETS + 0.15, 1.0, 'cubic-bezier(.25,.6,.3,1)');
-  tw($('fkPallet'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-18deg)' }], ROTTED, 0.6, EASE);
-  win($('chipShrink'), 13.07, L4 - 0.4, { dy: 16 });
+  // ---- line 3: pallets rotted out back (forklift-scene.svg; its default pose = arrived, forks raised) ----
+  const PALLETS = 12.64, ROTTED = 13.77;
+  const DRIVE = PALLETS, DRIVE_D = 1.0, LIFT = DRIVE + DRIVE_D - 0.6;   // the forks rise in the last 0.6 s of the drive-in
+  const FK_OUT = L4 - 0.56;   // 14.80: gone by 15.10, before the dough fades up (round 4, art #2)
+  track($('fk'), [[0, { opacity: 0 }], [L2_OUT + 0.2, { opacity: 0 }], [PALLETS - 0.2, { opacity: 1 }], [FK_OUT, { opacity: 1 }], [FK_OUT + 0.3, { opacity: 0 }]]);
+  const DRIVE_EASE = 'cubic-bezier(.25,.6,.3,1)';
+  for (const id of ['fkBody', 'fkLoadX']) tw($(id), [{ transform: 'translateX(220px)' }, { transform: 'translateX(0px)' }], DRIVE, DRIVE_D, DRIVE_EASE);
+  for (const id of ['fkCarriage', 'fkLoad']) tw($(id), [{ transform: 'translateY(150px)' }, { transform: 'translateY(0px)' }], LIFT, 0.6, EASE);
+  tw($('operator'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-6deg)' }], LIFT + 0.4, 0.5, EASE);
+  tw($('fkTip'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-24deg)' }], ROTTED, 0.6, EASE);
+  ['crate1', 'crate2', 'crate3'].forEach((id, i) => tw($(id), [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-70px, 150px)' }], ROTTED + 0.5 + i * 0.08, 0.5, 'cubic-bezier(.5,0,.9,.6)'));
+  JS.push(t => { $('fkLampGlow').style.opacity = (0.925 + 0.075 * Math.sin(t * 2.1)).toFixed(3); });
+  win($('chipShrink'), 13.07, FK_OUT, { dy: 16, fo: 0.3 });
 
-  // ---- line 4: frozen dough, the yeast woke up ----
-  const FROZEN = 15.41, SAT = 16.27, YEAST = 17.27, L5 = 18.78;
-  track($('dough'), [[0, { opacity: 1 }], [L5 - 0.4, { opacity: 1 }], [L5 - 0.05, { opacity: 0 }]]);
-  draw($('dShelf'), FROZEN - 0.2, 0.7, 0.08);
+  // ---- line 4: frozen dough, the yeast woke up (dough-box.svg: #shelf/#box/#puff/#frost inlined as dShelf/dBox/dPuff/dFrost) ----
+  const FROZEN = 15.41, SAT = 16.27, YEAST = 17.27;
+  track($('dough'), [[0, { opacity: 0 }], [FK_OUT + 0.3, { opacity: 0 }], [FROZEN + 0.05, { opacity: 1 }], [L5 - 0.3, { opacity: 1 }], [L5, { opacity: 0 }]]);   // hands straight to the counter: no blank frame, no overprint
   track($('dBox'), [[0, { opacity: 0 }], [FROZEN, { opacity: 0 }], [FROZEN + 0.3, { opacity: 1 }], [YEAST, { opacity: 1 }], [YEAST + 0.25, { opacity: 0 }]]);
   track($('dBox'), [[FROZEN, { transform: 'translateY(-40px)', easing: 'cubic-bezier(.3,1.3,.5,1)' }], [FROZEN + 0.55, { transform: 'translateY(0px) rotate(0deg)' }], [16.6, { transform: 'rotate(0deg)' }], [16.75, { transform: 'rotate(-2deg)' }], [16.9, { transform: 'rotate(2deg)' }], [17.05, { transform: 'rotate(-1.5deg)' }], [17.2, { transform: 'rotate(1deg)' }], [YEAST + 0.25, { transform: 'scale(1.06)' }]]);
+  track($('dFrost'), [[0, { opacity: 0 }], [FROZEN, { opacity: 0 }], [FROZEN + 0.3, { opacity: 0.6 }], [YEAST - 0.3, { opacity: 0.15 }], [YEAST, { opacity: 0 }]]);
+  track($('dFrost'), [[FROZEN, { transform: 'translateY(-40px)', easing: 'cubic-bezier(.3,1.3,.5,1)' }], [FROZEN + 0.55, { transform: 'translateY(0px)' }], [YEAST, { transform: 'translateY(-14px)' }]]);
   track($('dPuff'), [[0, { opacity: 0 }], [YEAST, { opacity: 0 }], [YEAST + 0.25, { opacity: 1 }]]);
   tw($('dPuff'), [{ transform: 'scale(.85)' }, { transform: 'scale(1)' }], YEAST, 0.5, POP);
-  win($('doughLbl'), FROZEN + 0.3, L5 - 0.4);
-  tw($('doughLbl'), [{ transform: 'translateY(0px)', color: '#FAF7F1' }, { transform: 'translateY(-34px)', color: '#F08A2C' }], YEAST, 0.5, POP);
-  win($('chipDough'), SAT, L5 - 0.4, { dy: 16 });
+  win($('doughLbl'), FROZEN + 0.3, L5 - 0.3, { fo: 0.3 });
+  tw($('doughLbl'), [{ color: '#FAF7F1' }, { color: '#F08A2C' }], YEAST, 0.4, 'linear');   // the label panel is in the same place in both states: the label never moves
+  win($('chipDough'), SAT, L5 - 0.3, { dy: 16, fo: 0.3 });
 
   // ---- line 5: the burn, still climbing at the last word ----
-  const BURNING = 19.04, MILLION = 19.60, MONTH_END = 20.87, L6 = 21.90;
-  win($('burn'), L5, L6 - 0.35, { fi: 0.3 });
-  win($('burnSub'), MILLION, L6 - 0.35, { dy: 14 });
+  const BURNING = 19.04, MILLION = 19.64, MONTH_END = 20.80;
+  const BURN_OUT = L6 - 0.6;   // gone by 21.55, when the aisle starts to fade up (round 4, art #3)
+  win($('burn'), L5 - 0.05, BURN_OUT, { fi: 0.3, fo: 0.25 });
+  win($('burnSub'), MILLION, BURN_OUT, { dy: 14, fo: 0.25 });
   JS.push(t => { const p = Math.min(1, Math.max(0, (t - BURNING) / (MONTH_END - BURNING))); $('burn').textContent = money(1e6 * (p < 1 ? p * (1.15 - 0.15 * p) : 1)); });
 
-  // ---- line 6: the root cause, Oct 22; not the crews ----
-  const OCTOBER = 22.06, FOUND = 23.68, NOT_CREWS = 24.85, L7 = 26.29;
-  win($('gap'), OCTOBER - 0.1, L7 - 0.2, { dy: 14, fo: 0.2 });
-  // the root-cause box writes in, top to bottom, on "found the cause" (box at x 529-998, y 438-673 in the 1040 x 743 shot)
-  tw($('gapRC'), [{ clipPath: 'inset(438px 42px 305px 529px)' }, { clipPath: 'inset(438px 42px 70px 529px)' }], FOUND, 0.8, 'cubic-bezier(.4,0,.3,1)');
-  win($('hlCrews'), NOT_CREWS - 0.45, NOT_CREWS + 0.55, { fi: 0.25, fo: 0.3 });
-  track($('gapStruck'), [[0, { opacity: 0 }], [NOT_CREWS, { opacity: 0 }], [NOT_CREWS + 0.3, { opacity: 1 }]]);
+  // ---- line 6: went to the floor (go and see), found the cause: the process, not the people (#33) ----
+  const OCTOBER = 22.10, WENT = 23.66, FOUND = 24.78, PROCESS = 26.02, NOT_PEOPLE = 27.00;
+  const AISLE_IN = L6 - 0.35, ROOT_OUT = KEY - 0.4;
+  track($('aisle'), [[0, { opacity: 0 }], [AISLE_IN, { opacity: 0 }], [AISLE_IN + 0.5, { opacity: 1 }], [ROOT_OUT, { opacity: 1 }], [ROOT_OUT + 0.35, { opacity: 0 }]]);
+  // the camera: a slow drift, then down into the aisle on "went to the floor" (2.5 s), then a slow drift that never freezes
+  track($('aisle'), [[AISLE_IN, { transform: 'translateY(0px) scale(1)' }], [WENT, { transform: 'translateY(0px) scale(1.012)', easing: 'cubic-bezier(.3,.2,.2,1)' }],
+    [WENT + 2.5, { transform: 'translateY(-220px) scale(1.06)' }], [ROOT_OUT + 0.35, { transform: 'translateY(-228px) scale(1.078)' }]]);
+  JS.push(t => { const c = $('ceilingLights'); if (c) c.style.opacity = (0.95 + 0.05 * Math.sin(t * 7.3) * Math.sin(t * 2.9)).toFixed(3); });
+  win($('eyeGo'), OCTOBER, ROOT_OUT, { fi: 0.5, fo: 0.35 });
+  win($('gap'), FOUND - 0.1, L7 - 0.25, { dy: 14, fo: 0.2 });
+  track($('gapProc'), [[0, { opacity: 0 }], [PROCESS, { opacity: 0 }], [PROCESS + 0.3, { opacity: 1 }]]);
+  track($('gapPeople'), [[0, { opacity: 0 }], [NOT_PEOPLE, { opacity: 0 }], [NOT_PEOPLE + 0.3, { opacity: 1 }]]);
+  JS.push(t => { $('gapCap').innerHTML = t < PROCESS ? '<b>OCT 22 · GAP ANALYSIS</b> · what changed, and why' : '<b>ROOT CAUSE</b> · the process, not the people'; });
 
-  // ---- line 7: the building changed; the system's logic never did ----
-  const CHANGED = 26.83, LOGIC = 28.72, HL_MOVE = 28.35;
-  win($('wms'), L7, KEY - 0.4, { fi: 0.3, fo: 0.35, dy: 10 });
+  // ---- line 7: the building changed; the system's logic never did (same footprint as the A3) ----
+  const CHANGED = 28.89, HL_MOVE = 30.35;   // the outline moves on "system's" and lands on "logic" (30.78)
+  win($('wms'), L7 - 0.05, ROOT_OUT, { fi: 0.3, fo: 0.35, dy: 10 });
   // one outline that moves: no-dimension rows -> the 886 panel (torn-down-aisle step dropped: the line is 3.4 s)
-  track($('hlWms'), [[0, { opacity: 0 }], [CHANGED, { opacity: 0 }], [CHANGED + 0.25, { opacity: 1 }], [KEY - 0.55, { opacity: 1 }], [KEY - 0.4, { opacity: 0 }]]);
-  track($('hlWms'), [[HL_MOVE, { left: '19px', top: '288px', width: '891px', height: '60px', easing: EASE }], [HL_MOVE + 0.45, { left: '935px', top: '221px', width: '317px', height: '470px' }]]);
+  track($('hlWms'), [[0, { opacity: 0 }], [CHANGED, { opacity: 0 }], [CHANGED + 0.25, { opacity: 1 }], [ROOT_OUT - 0.15, { opacity: 1 }], [ROOT_OUT, { opacity: 0 }]]);
+  track($('hlWms'), [[HL_MOVE, { left: '16px', top: '241px', width: '744px', height: '50px', easing: EASE }], [HL_MOVE + 0.45, { left: '772px', top: '185px', width: '273px', height: '412px' }]]);
   JS.push(t => { $('wmsCap').innerHTML = t < HL_MOVE ? '<b>NEW LOCATIONS</b> · no rules, no dimensions' : '<b>1 ITEM · UP TO 886 LOCATIONS</b> · old aisles still in the system'; });
 
-  // ---- line 8: the key line, alone ----
-  const BY_DAY = 31.70, AND_SYS = 32.52, BY_NIGHT = 33.80, KEY_OUT = 35.5;
-  win($('replen'), KEY, KEY_OUT, { fi: 0.6, fo: 0.5, peak: 0.03 });
-  win($('k1'), KEY, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
-  win($('k2'), AND_SYS, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
-  tw($('kDay'), [{ color: '#FAF7F1' }, { color: '#EAB62F' }], BY_DAY, 0.3, 'linear');
-  tw($('kNight'), [{ color: '#FAF7F1' }, { color: '#F08A2C' }], BY_NIGHT, 0.3, 'linear');
-  win($('sun'), BY_DAY, KEY_OUT, { fi: 0.3, fo: 0.45 });
-  tw($('sun'), [{ transform: 'rotate(-30deg) scale(.6)' }, { transform: 'rotate(0deg) scale(1)' }], BY_DAY, 0.5, POP);
-  tw($('rays'), [{ opacity: 1 }, { opacity: 0 }], BY_NIGHT, 0.4, 'linear');
-  tw($('disc'), [{ fill: '#EAB62F' }, { fill: '#B8BBB6' }], BY_NIGHT, 0.4, 'linear');
-  tw($('shade'), [{ transform: 'translateX(34px)' }, { transform: 'translateX(8px)' }], BY_NIGHT, 0.4, EASE);
+  // ---- line 8: the key line, alone: Vince's own words, phrase by phrase on his timing (no face) ----
+  const SO_WORD = 32.50, CREW = 33.72;   // round 4 audio: something on his first word, and a cue on "warehousing crew"
+  const EVERY_DAY = 32.68, WAS_FIXING = 34.62, AND_IT = 36.34, THEM = 39.14, EVERY_NIGHT = 39.34;
+  const KEY_OUT = CAPS[7][1] + 0.8;   // the text holds 0.8 s after his voice (T3)
+  win($('replen'), KEY, KEY_OUT, { fi: 0.6, fo: 0.45, peak: 0.03 });
+  track($('replen'), [[KEY, { transform: 'translateY(0px)' }], [KEY_OUT + 0.45, { transform: 'translateY(-48px)' }]]);
+  win($('q1'), EVERY_DAY - 0.06, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  win($('q2'), WAS_FIXING - 0.06, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  win($('q3'), AND_IT - 0.04, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  win($('qBy'), AND_IT + 0.15, KEY_OUT, { fi: 0.5, fo: 0.45 });
+  win($('q4'), THEM - 0.2, KEY_OUT, { fi: 0.4, fo: 0.45, dy: 14 });
+  win($('sun'), SO_WORD - 0.02, KEY_OUT, { fi: 0.3, fo: 0.45 });
+  tw($('sun'), [{ transform: 'rotate(-30deg) scale(.6)' }, { transform: 'rotate(0deg) scale(1)' }], SO_WORD - 0.02, 0.5, POP);
+  tw($('qCrewUl'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], CREW - 0.05, 0.5, EASE);
+  // the sun starts to set while he says "the IT system was recreating", then turns to a moon on "every night"
+  track($('sunSvg'), [[AND_IT + 0.9, { transform: 'translateY(0px)', easing: 'cubic-bezier(.4,0,.6,1)' }], [EVERY_NIGHT, { transform: 'translateY(14px)' }]]);
+  tw($('rays'), [{ opacity: 1 }, { opacity: 0 }], EVERY_NIGHT, 0.4, 'linear');
+  tw($('disc'), [{ fill: '#EAB62F' }, { fill: '#B8BBB6' }], EVERY_NIGHT, 0.4, 'linear');
+  tw($('shade'), [{ transform: 'translateX(34px)' }, { transform: 'translateX(8px)' }], EVERY_NIGHT, 0.4, EASE);
+  tw($('kNight'), [{ color: '#FAF7F1' }, { color: '#F08A2C' }], EVERY_NIGHT, 0.3, 'linear');
 
-  // ---- line 9: so, two tracks at once (cream) ----
-  const TWO_TRACKS = 36.67, L10 = 38.59, TRACK1 = 38.64, BY_HAND = 39.58;
-  const DEMO_OUT = 52.30;                         // the demo frame leaves just before line 13
+  // ---- line 9: two tracks, at once; track one, by hand (cream, layout W) ----
+  const TWO = 41.42, TRACK1 = 43.04;
+  const W_IN = CAPS[9][0], W_OUT = CAPS[9][1];   // Vince on camera, his own voice: in ON the cue (no pre-roll), out when he stops
+  const DEMO_OUT = CAPS[13][0] - 0.5;
+  const TRK_BACK = W_OUT + 0.26;                 // 52.35, after the count sheet has faded            // the demo frame leaves just before line 13
   win($('t2'), SO + 0.1, DEMO_OUT, { fi: 0.5 });
   win($('trk'), SO + 0.45, DEMO_OUT, { dy: 14 });
-  win($('lane1'), TWO_TRACKS, BY_HAND - 0.25, { dy: -20, fo: 0.25 });
-  win($('lane2'), TWO_TRACKS + 0.15, BY_HAND - 0.25, { dy: -20, fo: 0.25 });
+  // layout W <-> D: only the tracker moves (+130 px while the widget is up)
+  track($('trk'), [[W_IN, { left: '1300px', easing: EASE }], [W_IN + 0.5, { left: '1430px' }], [TRK_BACK, { left: '1430px', easing: EASE }], [TRK_BACK + 0.5, { left: '1300px' }]]);
+  win($('lane1'), TWO + 0.2, W_IN - 0.25, { dy: -20, fo: 0.2 });   // after the grey mid-fade (round 4, art #8); out before the widget rises
+  win($('lane2'), TWO + 0.35, W_IN - 0.25, { dy: -20, fo: 0.2 });
   track($('lane2').querySelector('em'), [[0, { opacity: 1 }], [TRACK1, { opacity: 1 }], [TRACK1 + 0.3, { opacity: 0.35 }]]);
-  win($('ring1'), TRACK1, BY_HAND - 0.25, { fi: 0.25, fo: 0.25 });
+  win($('ring1'), TRACK1, W_IN - 0.25, { fi: 0.25, fo: 0.2 });
 
-  // ---- line 10: track one by hand; Na'ama asleep at the warehouse ----
-  const WHOLE = 40.54, COUNTING = 41.15, NAAMA = 42.89, L11 = 45.43;
-  win($('count'), BY_HAND, NAAMA - 0.05, { fo: 0.25 });
-  track($('count'), [[BY_HAND, { transform: 'translate(0px, 14px)', easing: EASE }], [BY_HAND + 0.6, { transform: 'translate(0px, 0px)' }], ]);
-  win($('hlBy'), WHOLE, COUNTING + 0.8, { fi: 0.25 });
-  tw($('countMask'), [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], COUNTING, 0.72, 'steps(6, end)');
-  win($('naama'), NAAMA + 0.12, L11 - 0.2, { fi: 0.35, fo: 0.25 });
-  tw($('naama'), [{ transform: 'translateX(60px)' }, { transform: 'translateX(0px)' }], NAAMA, 0.6, EASE);
-  draw($('nDraw'), NAAMA, 0.9, 0.03);
-  // the z's drift up and fade, looping, so the frame breathes under the voice
-  JS.push(t => { ['z1', 'z2', 'z3'].forEach((id, i) => { const p = (((t - NAAMA - 0.6 - i * 0.45) % 1.6) + 1.6) % 1.6 / 1.6; const on = t > NAAMA + 0.6 + i * 0.45; const e = $(id); e.style.opacity = on ? (Math.sin(p * Math.PI)).toFixed(3) : 0; e.setAttribute('transform', `translate(${(p * 10).toFixed(1)} ${(-p * 18).toFixed(1)})`); }); });
+  // ---- line 10a: Vince on camera (layout D): everyone, executive, sales team, operators; 24-7; cleaned up ----
+  const EVERYONE = 45.33, EXECUTIVE = 46.19, SALES = 46.77, OPERATORS = 47.69, H24 = 49.09, CLEANED = 50.97;
+  const COUNT_IN = W_IN + 0.15, COUNT_OUT = W_OUT;   // the sheet is gone (52.34) before the tracker slides back (round 4, art #4)
+  track($('count'), [[0, { opacity: 0 }], [COUNT_IN, { opacity: 0 }], [COUNT_IN + 0.4, { opacity: 1 }], [COUNT_OUT, { opacity: 1 }], [COUNT_OUT + 0.25, { opacity: 0 }]]);
+  track($('count'), [[COUNT_IN, { transform: 'translate(0px, 14px)', easing: EASE }], [COUNT_IN + 0.6, { transform: 'translate(0px, 0px)' }], [COUNT_OUT, { transform: 'translate(0px, 0px)', easing: EASE }], [COUNT_OUT + 0.25, { transform: 'translate(-60px, 0px)' }]]);
+  tw($('countMask'), [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], EVERYONE, 0.72, 'steps(6, end)');
+  win($('hlBy'), EXECUTIVE - 0.1, OPERATORS + 0.6, { fi: 0.25, fo: 0.25 });
+  JS.push(t => { $('countCap').innerHTML = t < H24 ? '<b>TRACK 1 · BY HAND</b> · execs, sales, operators on the floor' : '<b>TRACK 1 · BY HAND</b> · round the clock until it was clean'; });
+  win($('crew'), COUNT_IN, COUNT_OUT, { fi: 0.4, fo: 0.25 });
+  [['crewExec', EXECUTIVE - 0.08], ['crewSales', SALES - 0.08], ['crewSales2', SALES + 0.04], ['crewOps1', OPERATORS - 0.08], ['crewOps2', OPERATORS + 0.04]]
+    .forEach(([id, at]) => win($(id), at, null, { fi: 0.3, dy: 12 }));
+  win($('dayNight'), H24 - 0.3, null, { fi: 0.3 });
+  tw($('dayNight'), [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], H24, 1.2, 'cubic-bezier(.45,0,.25,1)');
+  track($('trkTurn'), [[0, { opacity: 0 }], [CLEANED, { opacity: 0 }], [CLEANED + 0.15, { opacity: 1 }]]);
+  win($('hlCols'), CLEANED + 0.3, W_OUT + 0.2, { fi: 0.25, fo: 0.3 });
 
-  // ---- line 11: track two rebuilt the system's logic ----
-  const TRACK2 = 45.48, REBUILT2 = 46.06, LOGIC2 = 47.03, L12 = 48.28;
-  win($('slot'), TRACK2 - 0.02, 48.45, { dy: 14, fo: 0.25 });   // out as "barcode" (48.50) brings the scan screen
+  // ---- line 10b: Na'ama slept there (layout W; the warehouse office at 2 a.m., no zzz) ----
+  const NAAMA = CAPS[10][0], L11 = CAPS[11][0];
+  const N_IN = NAAMA - 0.25, N_OUT = L11 - 0.25;
+  win($('naama'), N_IN, N_OUT, { fi: 0.35, fo: 0.25 });
+  tw($('naama'), [{ transform: 'translateX(40px)' }, { transform: 'translateX(0px)' }], N_IN, 0.6, EASE);
+  // quiet motion: she breathes, the monitor refreshes, the clock's minute hand creeps on
+  JS.push(t => {
+    const b = $('breath'), g = $('monitorGlow'), r = $('screenRows'), m = $('minuteHand'); if (!b) return;
+    const k = t - N_IN;
+    b.style.transform = `scaleY(${(1 + 0.0075 * (1 - Math.cos(2 * Math.PI * Math.max(0, k) / 3.6))).toFixed(4)})`;
+    g.style.opacity = (1 - 0.14 * Math.max(0, 1 - Math.abs(k - 0.9) / 0.25) - 0.14 * Math.max(0, 1 - Math.abs(k - 1.75) / 0.25)).toFixed(3);
+    r.style.transform = `translateY(${k > 1.0 ? -6 : 0}px)`;
+    m.style.transform = `rotate(${(6 * Math.min(1, Math.max(0, k / (N_OUT - N_IN)))).toFixed(2)}deg)`;
+  });
+
+  // ---- line 11: track two rebuilt the system's logic (layout W) ----
+  const REBUILT2 = 55.04, LOGIC2 = 56.01;
+  const BARCODE = 57.44, CHECKS = 57.86, DAILY = 58.68;
+  win($('slot'), L11 - 0.05, BARCODE - 0.25, { dy: 14, fo: 0.25 });   // out as "barcode" brings the scan screen
   win($('hlZone'), REBUILT2, LOGIC2 - 0.1, { fi: 0.25, fo: 0.25 });
-  win($('hlCons'), LOGIC2, 48.3, { fi: 0.25, fo: 0.25 });
-  const TURN = 47.45;
-  track($('trkTurn'), [[0, { opacity: 0 }], [TURN, { opacity: 0 }], [TURN + 0.15, { opacity: 1 }]]);
-  win($('hlCols'), TURN + 0.3, TURN + 1.4, { fi: 0.25, fo: 0.3 });
+  win($('hlCons'), LOGIC2, BARCODE - 0.4, { fi: 0.25, fo: 0.25 });
 
-  // ---- line 12: barcode checks that stop mistakes; daily standard work ----
-  const BARCODE = 48.50, STOP = 49.41, DAILY = 50.66;
-  win($('scan'), BARCODE + 0.1, DAILY - 0.05, { dy: 14, fo: 0.25 });
-  win($('hlModal'), STOP, DAILY, { fi: 0.25, fo: 0.25 });
+  // ---- line 12: barcode checks, and daily standard work (layout W) ----
+  win($('scan'), BARCODE - 0.05, DAILY - 0.05, { dy: 14, fo: 0.25 });
+  win($('hlModal'), CHECKS - 0.1, DAILY - 0.1, { fi: 0.25, fo: 0.2 });
   win($('std'), DAILY + 0.1, DEMO_OUT, { dy: 20, fi: 0.35 });
 
-  // ---- the expert widget: one seat, four appearances ----
+  // ---- the expert widget: one seat, two appearances, each only while his own voice plays (#29) ----
   const EX = [
-    { s: VINCE, e: L2 - 0.35, l: 'Vince · now a Waya co-founder', r: 'in 2022, at Cheetah', off: EXPERT_IN.intro },
-    { s: L6 + 0.05, e: KEY - 0.4, l: 'Vince · took over as COO', r: 'the root cause', off: EXPERT_IN.rootCause },
-    { s: SO + 0.25, e: DEMO_OUT, l: 'Vince · Waya co-founder', r: 'the turnaround', off: EXPERT_IN.tracks },
-    { s: L17 - 0.3, e: L17END + 0.25, l: 'Vince · Waya co-founder', r: 'the Waya lens', off: null },
+    { s: W_IN, e: W_OUT, l: 'Vince · Waya co-founder', r: 'on the floor', cue: CAPS[9] },
+    { s: L17 - 0.3, e: L17END + 0.25, l: 'Vince · Waya co-founder', r: 'the Waya lens', cue: CAPS[17] },   // the lens keeps a silent 0.3 s pre-roll
   ];
   wins($('expert'), EX.map(x => [x.s, x.e]), { fi: 0.4, fo: 0.35, dy: 14 });
   JS.push(t => { const x = EX.find(x => t < x.e + 0.4) || EX[EX.length - 1]; $('barL').textContent = x.l; $('barR').textContent = x.r; });
-  // the lens window seeks the clip so VINCE_LENS_OFFSET lands on line 17's first word; muted windows start at EXPERT_IN
-  clip($('expertClip'), EXPERT_SRC, EX.map(x => [x.s, x.e + 0.35, x.off == null ? VINCE_LENS_OFFSET - (L17 - x.s) : x.off]), 4.0);
+  // lip sync: each window starts the clip at its cue's take in-point, shifted back by any pre-roll
+  // CLIP_LEAD: the audio review measured the picture one frame LATE against his voice at both on-camera moments
+  // (round 4, audio #1), so the clip runs 1/30 s ahead: clip time = CAPS[i][4] + (t - CAPS[i][0]) + CLIP_LEAD
+  const CLIP_LEAD = 0.05;
+  clip($('expertClip'), EXPERT_SRC, EX.map(x => [x.s, x.e + 0.35, x.cue[4] + (x.s - x.cue[0]) + CLIP_LEAD]), 4.0);
 
   // ---- line 13: ninety-nine items in a hundred ----
-  const L13 = 52.80, NINETY9 = 53.52, L14 = 55.97, LOST = 56.02, TWO_PCT = 56.85, ORDER_ERR = 57.89, THREE3 = 58.59, L15 = 59.77;
-  win($('pickFull'), L13 - 0.1, L15 - 0.3, { dy: 24 });
+  const L13 = CAPS[13][0], NINETY9 = 61.56, L14 = CAPS[14][0], LOST = 64.06, TWO_PCT = 64.89, ORDER_ERR = 65.93, THREE3 = 66.63, L15 = CAPS[15][0];
+  win($('pickFull'), L13 - 0.25, L15 - 0.3, { dy: 24 });   // comes up as the demo frame leaves: no empty frame
   win($('r1'), L13 + 0.2, LOST - 0.3, { fi: 0.35, fo: 0.25 });
   win($('r1n'), NINETY9, null, { fi: 0.3, dy: 30 });
-  win($('r1s'), 54.22, null);
+  win($('r1s'), NINETY9 + 0.7, null);
   // ---- line 14: lost stock, order errors (one card at a time, same geometry) ----
   win($('r2'), LOST, ORDER_ERR - 0.3, { fi: 0.3, fo: 0.25 });
   win($('r2n'), TWO_PCT, null, { fi: 0.3, dy: 30 });
@@ -468,46 +1185,52 @@
   win($('r3s'), THREE3 + 0.3, null);
 
   // ---- line 15: the burn runs down to $260K by March ----
-  const BURN2 = 59.89, THOUSAND_END = 61.75, BY_MARCH = 62.14, L16 = 63.55;
-  win($('burn2'), L15, L16 - 0.3, { fi: 0.3 });
-  wins($('burnEye'), [[L5 + 0.1, L6 - 0.35], [L15 + 0.05, L16 - 0.3]]);   // both appearances, one track
+  const BURN2_OUT = 71.84;   // holds into "By October" so the date never waits alone (round 4, art #9)
+  const BURN2 = 67.93, THOUSAND_END = 69.80, BY_MARCH = 70.18, L16 = CAPS[16][0];
+  win($('burn2'), L15, BURN2_OUT, { fi: 0.3, fo: 0.3 });
+  wins($('burnEye'), [[L5 + 0.1, BURN_OUT], [L15 + 0.05, BURN2_OUT]], { fo: 0.25 });   // both appearances, one track
   track($('burnEye'), [[L6, { color: '#B8BBB6' }], [L15 - 0.1, { color: '#B8BBB6' }], [L15, { color: '#6B6F6C' }]]);   // fog on cold, stone on cream
-  win($('burn2Sub'), BY_MARCH, L16 - 0.3, { dy: 14 });
+  win($('burn2Sub'), BY_MARCH, BURN2_OUT, { dy: 14, fo: 0.3 });
   JS.push(t => { const p = Math.min(1, Math.max(0, (t - BURN2) / (THOUSAND_END - BURN2))); const e = 1 - Math.pow(1 - p, 2); $('burn2').textContent = money(Math.round((1e6 - 740000 * e) / 1000) * 1000); });
 
   // ---- line 16: profitable, alone ----
-  const OCT23 = 63.74, PROFITABLE = 65.46, PROF_OUT = L17 - 0.45;   // gone before the lens comes up for Vince's first word
-  win($('profDate'), OCT23, PROF_OUT, { fi: 0.4, fo: 0.25 });
-  track($('profDate'), [[OCT23, { transform: 'translateY(-50px) scale(1.25)' }], [PROFITABLE - 0.45, { transform: 'translateY(-50px) scale(1.25)', easing: EASE }], [PROFITABLE + 0.05, { transform: 'translateY(0px) scale(1)' }]]);
+  const OCT23 = 71.78, PROFITABLE = 73.50, PROF_OUT = L17 - 0.45;   // gone before the lens comes up for Vince's first word
+  const OCT_IN = 72.18;   // on "twenty twenty-three", 1.3 s before "profitable" (it waited 1.9 s alone)
+  win($('profDate'), OCT_IN, PROF_OUT, { fi: 0.4, fo: 0.25 });
+  track($('profDate'), [[OCT_IN, { transform: 'translateY(-50px) scale(1.25)' }], [PROFITABLE - 0.45, { transform: 'translateY(-50px) scale(1.25)', easing: EASE }], [PROFITABLE + 0.05, { transform: 'translateY(0px) scale(1)' }]]);
   win($('prof'), PROFITABLE + 0.05, PROF_OUT, { fi: 0.35, fo: 0.25, dy: 30 });
 
-  // ---- line 17: the Waya lens (Vince's own voice) ----
-  // his words on the film = L17 + (take time - VINCE_LENS_OFFSET), take times from VINCE-TRANSCRIPT.md
-  const V = take => +(L17 + take - VINCE_LENS_OFFSET).toFixed(2);
-  const SYMPTOM = V(102.06), FROM_THE = V(102.76), ROOT_CAUSE = V(103.06);   // 69.16, 69.86, 70.16
-  // "Work both at once" is no longer spoken: it lands just after his last word and holds to the close (>= 1.2 s readable)
-  const BOTH = L17END + 0.1, AT_ONCE = BOTH + 0.1;
-  const LENS_OUT = CLOSE - 0.45;   // the lens cards stay up into the close's background fade and cross the wordmark: no blank frame
+  // ---- line 17: the Waya lens (Vince's own voice, on camera) ----
+  // his words on the film = L17 + (take time - CAPS[17][4]), take times from VINCE-TRANSCRIPT.md
+  const V = take => +(L17 + take - CAPS[17][4]).toFixed(2);
+  const SEP = 75.84;   // "separate" (words.json)
+  const SYMPTOM = V(102.06), FROM_THE = V(102.76), ROOT_CAUSE = V(103.06);   // 77.20, 77.90, 78.20
+  // "Work both at once" is not spoken. The gap before the close is 1.2 s now (T4), so it comes in on the tail of his
+  // "cause" to stay readable ~1.2 s before the hand-off to the close.
+  const BOTH = 78.75, AT_ONCE = BOTH;   // with the arrows, on the tail of "cause": full contrast 78.90 -> HAND (1.2 s)
+  const LENS_OUT = HAND;   // the lens cards stay up into the close's background fade and cross the wordmark: no blank frame
   win($('tLens'), L17 - 0.3, L17END + 0.35, { fi: 0.4, fo: 0.35 });
   // each card slides into its seat on the word that names it (seats: Symptom left 680, Cause left 1300)
-  win($('cSym'), SYMPTOM - 0.12, null, { fi: 0.3 }); win($('cCau'), ROOT_CAUSE - 0.12, null, { fi: 0.3 });
-  tw($('cSym'), [{ transform: 'translateX(-250px)' }, { transform: 'translateX(-320px)' }], SYMPTOM - 0.12, 0.6, EASE);
+  win($('cSym'), SEP - 0.12, null, { fi: 0.3 }); win($('cCau'), ROOT_CAUSE - 0.12, null, { fi: 0.3 });
+  tw($('cSym'), [{ transform: 'translateX(-250px)' }, { transform: 'translateX(-320px)' }], SEP - 0.12, 0.6, EASE);
+  // the Symptom card comes up on "separate" (round 4, art #7); on "symptom" its word turns rust (the failure)
+  tw($('cSym').querySelector('b'), [{ color: '#383F3B' }, { color: '#D16C02' }], SYMPTOM, 0.3, 'linear');
   tw($('cCau'), [{ transform: 'translateX(370px)' }, { transform: 'translateX(300px)' }], ROOT_CAUSE - 0.12, 0.6, EASE);
   win($('neq'), FROM_THE - 0.05, null, { fi: 0.3, dy: 12 });
   draw($('arw'), BOTH, 0.5, 0);
-  win($('both'), AT_ONCE, null, { fi: 0.25, dy: 14 });
+  win($('both'), AT_ONCE, null, { fi: 0.15, dy: 14 });
   // after the last word: a slow push-in on the lens, then it leaves as the close comes up
   // the paper cards darken with the background, then hand over to the wordmark with no empty frame
-  track($('lensGrp'), [[0, { opacity: 1 }], [CLOSE - 0.25, { opacity: 1 }], [CLOSE + 0.05, { opacity: 0 }]]);
-  track($('lensGrp'), [[CLOSE - 0.5, { filter: 'brightness(1)' }], [CLOSE - 0.05, { filter: 'brightness(0.42)' }]]);
+  track($('lensGrp'), [[0, { opacity: 1 }], [HAND, { opacity: 1 }], [HAND + 0.18, { opacity: 0 }]]);   // gone before the wordmark and the line can overprint it
+  track($('lensGrp'), [[HAND, { filter: 'brightness(1)' }], [HAND + 0.3, { filter: 'brightness(0.42)' }]]);
   track($('lensGrp'), [[AT_ONCE, { transform: 'translateY(0px) scale(1)', easing: 'cubic-bezier(.3,0,.6,1)' }], [LENS_OUT, { transform: 'translateY(0px) scale(1.04)', easing: 'cubic-bezier(.4,0,.7,1)' }],
-    [CLOSE + 0.05, { transform: 'translateY(210px) scale(1.045)' }]]);   // sinks away under the rising wordmark so the two never overprint
+    [HAND + 0.18, { transform: 'translateY(150px) scale(1.045)' }]]);   // sinks away under the rising wordmark so the two never overprint
 
   // ---- 18-19: the close (charcoal; the wordmark within 0.2 s of the line) ----
   const CLOSE_SAID = 3.28, CARD_HOLD = 2.6;          // the close line's measured length; the card holds after it
   const TALK = CLOSE + 0.05, LEAN = CLOSE + 2.60;     // "Talk" and "Lean" at the narrator's measured offsets
-  win($('logo'), CLOSE - 0.15, null, { fi: 0.5, dy: 16, base: 'translateX(-50%)' });
-  win($('cta'), CLOSE + 0.05, null, { fi: 0.5, dy: 18 });
+  win($('logo'), CLOSE + 0.05, null, { fi: 0.5, dy: 16, base: 'translateX(-50%)' });
+  win($('cta'), CLOSE + 0.15, null, { fi: 0.5, dy: 18 });
   win($('bCall'), TALK + 0.05, null, { fi: 0.35, dy: 16 });
   win($('bLean'), LEAN, null, { fi: 0.35, dy: 16 });
   win($('url'), LEAN + 0.4, null, { fi: 0.5 });
@@ -519,7 +1242,7 @@
   if (CAPTIONS) JS.push(t => { const c = CAPS.find(([a, b]) => t >= a && t < b); if (c) { cap.textContent = c[2]; cap.style.opacity = 1; } else cap.style.opacity = 0; });
 
   // ================= clock (leave as is) =================
-  // const DUR = 78.52;   <- literal mirror of the line below for vo.mjs's regex; keep it equal to CLOSE + CLOSE_SAID + CARD_HOLD
+  // const DUR = 86.06;   <- literal mirror of the line below for vo.mjs's regex; keep it equal to CLOSE + CLOSE_SAID + CARD_HOLD
   const DUR = Math.min(90, +(CLOSE + CLOSE_SAID + CARD_HOLD).toFixed(2));
   function scale() { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `translate(-50%, -50%) scale(${s})`; }
   addEventListener('resize', scale); scale();

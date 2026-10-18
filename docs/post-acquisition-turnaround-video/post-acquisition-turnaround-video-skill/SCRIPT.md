@@ -1,235 +1,253 @@
-# From $1M a month burn to profitable: post-acquisition turnaround video script (draft 2, 2026-10-16)
+# From $1M a month burn to profitable: post-acquisition turnaround video script (draft 3, 2026-10-18)
 
-**Draft 2** applies Oren's approval with changes (`INSTRUCTIONS.md` #10–13): the client is named (Cheetah
-Technologies), Na'ama gets one beat, and the lens line is Vince's own recorded voice. Row numbers are unchanged from
-draft 1 (`ART.md` refers to them).
-- **Changed lines:** 1 (names Cheetah Technologies), 6 (on-screen text adds "took over as COO"), 10 (the Na'ama beat),
-  11 (trimmed), 16 (shorter hold), 17 (Vince's voice, not the narrator).
-- **Word for word as in draft 1:** 2–9, 12–15, 18.
+**Draft 3** applies Oren's round of 2026-10-18 (`INSTRUCTIONS.md` #24–#33). Vince's own voice is now heard at three
+moments, cut from his real take (`VINCE-TRANSCRIPT.md`; his words are script material). Row numbers are kept from
+drafts 1–2: rows 10a, 10b and 10c replace row 10. **CHANGED** marks every row that differs from draft 2 as built
+(the cut measured at 78.52 s).
 
-**Length (planned, not yet measured): 84.3 s.** Planned at 2.7 words/s for Andrew neural at +5%, with ≥ 0.4 s of
-air before every line and 0.5 s before each new section's first line. The key line is held 1.2 s, "profitable" is held
-0.8 s, Vince's lens line gets a 4.5 s slot, and the close card holds 2.6 s. The narrator speaks 178 words (numbers
-counted as spoken) and Vince speaks 11.
-- At a slower 2.6 words/s: about 87 s, still under the 90 s hard limit.
-- At the pace the AP-margin video measured (about 2.9 words/s): about 79 s.
-- **Expected after voicing: 79–83 s.** The hard limit is 90.0 s and the floor is 60.0 s (`INSTRUCTIONS.md` #2).
-- If the measured cut runs over 86 s, apply the trim list in issue 13.
-- Vince's real line B can run longer than its 4.5 s slot; everything after it slides by the difference. At 6 s the
-  film is about 85.8 s planned, which is still fine.
+| Row | Change | Instruction |
+|---|---|---|
+| 1 | Picture only: a still photo card, no video | #24 |
+| 6 | New narrator line; new screen text; no widget | #33, #27, #26 |
+| 7 | Picture only: no widget | #26 |
+| 8 | The key line is Vince's own voice (his words); text alone, no face | #32 (1) |
+| 9 | Now also carries "Track one, by hand." | #32 (2) |
+| 10a | New: Vince on camera, own voice | #32 (2) |
+| 10b | Na'ama beat, shortened | #12 |
+| 12 | "that stop mistakes" cut for time (trim T1) | — |
+| 17 | Unchanged: his take words, already built | #32 (3) |
+| widget | On screen only while his own voice is heard | #29 |
+
+Word for word as built: 1–5, 7, 11, 13–16, 18.
+
+## Length: 86.5 s planned
+
+**How it is estimated:** the measured narrator lines in `render/out/vo-timing.txt` (2026-10-18), plus the real
+lengths of his three take segments, with the narrator estimated at the measured pace (~3.0 words/s) for the three new
+or changed narrator lines. Those three are not voiced yet; the uncertainty is about ±1 s.
+
+| Change from the measured 78.52 s cut | Δ |
+|---|---|
+| Line 6 rewritten (10 → 17 words, ~5.7 s) | +2.0 |
+| Key line: Vince 7.52 s instead of the narrator's 3.89 s, text held 0.8 s (T3) | +3.2 |
+| Two tracks: line 9 + "Track one, by hand." / Vince 7.06 s / "Na'ama slept there." replace lines 9–10 (with T2, T5) | +3.9 |
+| Line 12 shorter (T1) | −0.7 |
+| Gap before the close line (T4) | −0.5 |
+| **Planned total** | **86.5 s** (worst case about 88) |
+
+**Trims already applied to get under ~87 s, narrator first** (revert costs in brackets):
+
+| Trim | What | Saves |
+|---|---|---|
+| T1 | Line 12 "Then barcode checks that stop mistakes, and daily standard work." → "Then barcode checks, and daily standard work." The scanner's "scan blocked" screen still shows what they do. | 0.7 s |
+| T2 | Line 9 drops "So:". | 0.3 s |
+| T3 | Key-line text hold after his voice: 1.2 → 0.8 s. It is still on screen ~8.3 s. | 0.4 s |
+| T4 | Gap before the close line: 1.69 → 1.2 s. | 0.5 s |
+| T5 | Na'ama beat "Na'ama, his co-founder, slept there." → "Na'ama slept there." Her name card carries "co-founder". | 0.7 s |
+
+
+**If the voiced cut still runs over 88 s, cut in this order:**
+
+| Reserve | What | Saves |
+|---|---|---|
+| R1 | Put the Na'ama beat in the picture only: her illustration rises under Vince's "24-7, we ran that…", named on screen, and line 10b goes. Oren must accept a beat that is shown but not voiced (#12). | 2.1 s |
+| R2 | Line 2 → "At go-live, customers got three items in four." | 0.8 s |
+| R3 | Line 3 drops "fresh". | 0.3 s |
+| R4 | Key line starts on "every" (58.00), without "So". | 0.1 s |
+
+Hard limit 90.0 s; floor 60.0 s (`INSTRUCTIONS.md` #2). The `DUR` clamp in `video.html` (`Math.min(90, …)`) would
+cut the close card short rather than run over, so the review must check the card's hold, not only the duration.
 
 **Section budget (planned):**
 
-| Section | Time |
-|---|---|
-| Opening | 0.6–6.5 |
-| Pain | 7.0–22.2 (15.2 s, 18%) |
-| Root cause | 22.7–38.4 |
-| Two tracks | 38.9–54.4 |
-| Results | 54.9–71.5 |
-| The Waya lens (Vince) | 72.0–76.5 |
-| Close | 76.9–84.3 |
+| Section | Time | Note |
+|---|---|---|
+| Opening | 0.6–6.7 | |
+| Pain | 7.8–20.8 | 13.0 s, 15% |
+| Root cause | 21.9–40.75 | the key line in Vince's voice, 32.43–39.95 |
+| Two tracks | 41.25–60.2 | Vince on camera 44.75–51.81 |
+| Results | 61.3–74.6 | |
+| The Waya lens (Vince) | 75.9–79.4 | |
+| Close | 80.6–86.5 | |
 
-**Format:** landscape 1920x1080 only (`INSTRUCTIONS.md` #3). Embedded on `case-studies/post-acquisition-turnaround/`.
+## Vince on screen and on the soundtrack
 
-**Story in one paragraph:** Vince, a Waya co-founder, was at Cheetah Technologies, a food distributor that had
-just bought three regional distributors (about $24M in revenue between them) and rebuilt its warehouse to hold them.
-When the rebuilt warehouse went live in October 2022, it fell apart: customers got three items in four, pallets of
-fresh food rotted out back, a box of frozen pizza dough sat out until the yeast woke up, and the operation burned
-about $1M a month. Vince took over as COO, and on October 22 he found the cause, which was not the crews. The
-building had changed but the warehouse system's logic never had, so the crews fixed the building by day and the
-system undid it by night. Two tracks ran at once. On the first, by hand, the whole company counted stock in the
-freezer while Na'ama slept at the warehouse. On the second, the system's logic was rebuilt. Then came barcode checks
-that stop mistakes, and daily standard work. Fill rate passed 99%, shrink fell to about 2%, order errors to about 3%,
-the burn fell to about $260K a month by March 2023, and Cheetah was profitable by October 2023. In his own voice,
-Vince gives the Waya lens: separate the symptom from the cause, then work both at once.
+| Moment | Rows | Film (planned) | Take in → out | Length | Picture |
+|---|---|---|---|---|---|
+| Intro | 1 | 0.6–6.7 | — | — | **Still photo card, not a video widget** (#24) |
+| Root cause | 6–7 | 21.9–31.7 | — | — | **No Vince** (#26) |
+| (1) Key line | 8 | 32.43–39.95 | 57.90 → 65.42 | 7.52 s | **No face**: his words as text alone (#32) |
+| (2) All hands | 10a | 44.75–51.81 | 81.98 → 89.04 | 7.06 s | **Widget, on camera, unmuted**; in only while he speaks (#29) |
+| (3) The lens | 17 | 75.90–79.40 | 100.34 → 103.84 | 3.50 s | **Widget, on camera, unmuted** (as built) |
 
-**Protagonist:** Vince ("Vince, Waya co-founder"), told by a third-person narrator from his story in the doc. His
-role then, COO, is on screen at line 6. Real Vince appears only in the expert widget (Oren's clip; placeholder until
-it arrives, `INSTRUCTIONS.md` #7, #9). The clip is muted except on line 17, which is his own recorded audio
-(`INSTRUCTIONS.md` #11). In the 2022 scenes he is the house line-drawn figure (line 3, on a forklift at the dumpsters).
+The muted "talking" appearances (intro, rootCause, tracks in `video.html`'s EX list) all go. The clip is visible only
+in rows 10a and 17, each time cut at its take offset so mouth and voice share one number.
 
-**Named:**
-- In voice: Vince, Waya, Cheetah Technologies (once, line 1), Na'ama (once, line 10), Lean AI.
-- On screen: "Schedule a Call", "See Lean AI", gap analysis, "The Waya lens", COO.
-- Na'ama is respelled "Nah-ah-mah" by `render/pronunciations.json` (NAH-AH-MAH, `pronunciation-spec.md`); the
-  screen spells it Na'ama.
+## Story in one paragraph
 
-**Withheld:** Vince's and Na'ama's surnames, which aren't needed. $150M and "pre-pandemic" are left out: they don't
-earn their seconds (issue 3).
+Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had just bought three regional
+distributors and rebuilt its warehouse to hold them. When the rebuilt warehouse went live in October 2022, it fell
+apart: customers got three items in four, pallets of fresh food rotted out back, frozen pizza dough sat out until the
+yeast woke up, and the company burned about $1M a month. On October 22 Vince went to the floor and found the cause:
+the process, not the people. The building had changed but the warehouse system's logic never had. In his words, every
+day the warehousing crew was fixing the problems, and the IT system was recreating them every night. Two tracks ran at
+once. Track one was by hand: he got everyone, executives, sales, operators, and ran it 24-7 until the warehouse was
+clean, while Na'ama slept there. Track two rebuilt the system's logic. Then came barcode checks and daily standard
+work. Fill rate passed 99%, shrink fell to about 2%, order errors to about 3%, the burn fell to about $260K a month by
+March 2023, and the company was profitable by October 2023. Vince, to camera: "You need to separate the symptom from
+the root cause."
 
-**Look:** as `ART.md`. It is dark and cold through line 8, turns cream on "So: two tracks, at once", stays cream
-through the results and the lens, and closes on charcoal.
-
-**Soundtrack:**
-- A tense low drone from the first frame through line 7, with the crescendo under the key line (house rule 21).
-- A lift on line 9, then a build through the track beats, peaking on "profitable".
-- It settles under the lens: duck it fully under Vince's own audio, since his recording will be quieter and less
-  even than the narrator's. It stays audible on the card.
-
-## Expert widget on screen (planned; drives `VINCE-RECORDING.md`)
-
-| Appearance | Lines | Planned time | On screen | Audio |
-|---|---|---|---|---|
-| A, introduction | 1 | 0.6–6.5 | ~6 s | muted |
-| B, root cause | 6–7 | 22.7–31.5 | ~9 s | muted |
-| C, two tracks (demo frame) | 9–12 | 38.9–54.4 | ~15.5 s | muted |
-| D, the Waya lens | 17 | 72.0–76.5 | ~4.5 s | **Vince's own voice (line B of his recording)** |
-| **Total** | | | **~35 s → with 30% margin, a 46 s usable take (asked for ≥ 50 s)** | |
+**Protagonist, named, look, soundtrack:** as in draft 2, with these changes:
+- The intro is a still photo of Vince in a plain card (not the expert widget). Art's pick: a frame from the take or
+  the site headshot.
+- His three own-voice moments get the music fully ducked, and the room echo removed (#30) on all three, not only the
+  lens.
 
 ## The script
 
 | # | Time (planned) | What we see | Voiceover | On-screen text |
 |---|---|---|---|---|
-| 1 | 0:00.6–0:06.5 | Dark. The expert widget rises on "Vince" (the Vince clip, muted, square on the face) with his name card under it. On "Cheetah Technologies" a line-drawn warehouse draws in beside it, its plain-text label "Cheetah · DC-01" (`ART.md`: no logo). On "three others" three smaller line-drawn buildings slide in and join it. | Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others. | Vince · Waya co-founder / Cheetah Technologies · Fall 2022 / + 3 regional distributors · ~$24M revenue |
-| 2 | 0:07.0–0:11.4 | The widget leaves. Inside the warehouse: new racking draws in, a freezer, location labels multiplying ("rebuilt"). On "went live" a go-live stamp. On "three items in four" a real-looking customer pick list slides up: four lines, the fourth struck "SHORT". | When the rebuilt warehouse went live, customers got three items in four. | Go-live · Oct 2022 / Fill rate ~75% |
-| 3 | 0:11.8–0:14.4 | Darker. Out back, line-drawn pallets of produce with no labels, browning; line-drawn Vince on a forklift tips a pallet into a dumpster. | Pallets of fresh food rotted out back. | Shrink 28% in one week |
-| 4 | 0:14.8–0:18.5 | A box marked "FROZEN · pizza dough" on a dry-goods shelf; on "the yeast woke up" it swells like a balloon. | Frozen pizza dough sat out until the yeast woke up. | Frozen · in the dry warehouse |
-| 5 | 0:18.9–0:22.2 | A burn counter rises at centre and keeps climbing to the end of the line. | It was burning about a million dollars a month. | ~$1M / month · contribution margin burn |
-| 6 | 0:22.7–0:27.1 | The widget returns, left, its name card now reading "Vince · took over as COO". Centre: a one-page gap analysis (A3 layout), dated Oct 22, filling in; on "Not the crews" a "Crews?" box in its cause column is struck through. | On October twenty-second, Vince found the cause. Not the crews. | Vince · took over as COO / Oct 22 · Gap analysis / Root cause, found in a few hours / ~~Crews~~ |
-| 7 | 0:27.5–0:31.5 | Centre swaps to a real-looking warehouse system screen, its location table. On "The building had changed": new location rows with blank rules and blank dimensions. On "never did": old aisle rows (torn down) still active, then one item's row highlighted across a long scroll of locations. | The building had changed. The warehouse system's logic never did. | New locations · no rules, no dimensions / Old aisles · still in the system / 1 item · up to 886 locations |
-| 8 | 0:32.0–0:37.2 (held to 0:38.4) | **Key line, alone** (house rule 8), in the narrator's voice: everything dims to near-invisible; the line centred, a small sun on "by day" turning to a moon on "by night". On screen ≥ 2.5 s. | The crews fixed the building by day, and the system undid it by night. | The crews fixed the building by day. The system undid it by night. |
-| 9 | 0:38.9–0:40.6 | The screen warms to cream. Section title "Two tracks, at once". The demo frame: widget left, centre empty for a beat, the tracker right (fill rate, shrink, order errors, burn, by week, all still red). Two lane labels drop in under the title on "two tracks". | So: two tracks, at once. | Two tracks, at once / 1 · By hand · 2 · Fix the cause |
-| 10 | 0:41.0–0:47.7 | Lane 1 lights. Centre: a real-looking aisle-by-aisle count sheet, freezer locations, columns filling in on "counting stock"; line-drawn people in parkas with clipboards (execs, sales, engineers). On "Na'ama" the count sheet slides aside for a line-drawn Na'ama asleep on a cot in the warehouse office, a wall clock past midnight, her name card beside her. The Vince widget stays left. | Track one, by hand: the whole company counting stock in the freezer, and Na'ama sleeping at the warehouse. | Track 1 · by hand / The whole company on the floor / Na'ama · co-founder · 16-hour days |
-| 11 | 0:48.1–0:50.3 | Lane 2 lights. Centre: the warehouse system screen from line 7, rebuilt: fixed slots for fast movers, flexible slots for the rest, the zone map matching the new racking; the 886-location item collapses into one row. The tracker's first lines start to turn. | Track two rebuilt the system's logic. | Track 2 · fix the cause / Fixed slots for fast movers, flexible for the rest / One item, one location |
-| 12 | 0:50.7–0:54.4 | Centre: a handheld scanner screen, "Wrong item · scan blocked" (on "stop mistakes"); then a one-page daily standard-work sheet slides over it (on "daily standard work"). | Then barcode checks that stop mistakes, and daily standard work. | Barcode checks · receiving, picking, loading, delivery / Daily standard work |
-| 13 | 0:54.9–0:58.2 | Results on cream, one card at a time. The pick list from line 2 returns, every line ticked; card: fill rate. | Customers got ninety-nine items in a hundred. | Fill rate · ~75% → 99%+ |
-| 14 | 0:58.6–1:02.3 | Card 2 on "lost stock", then card 3 replaces it on "order errors". | Lost stock fell to two percent, order errors to three. | Shrink · ~17–18% → ~2% / Orders with an error · ~22% → ~3% |
-| 15 | 1:02.7–1:07.1 | The burn counter from line 5 returns and runs down, landing on $260K on "two hundred sixty thousand"; "Mar 2023" under it on "by March". | The burn fell to two hundred sixty thousand a month by March. | Burn · ~$1M/mo → ~$260K/mo · Mar 2023 |
-| 16 | 1:07.7–1:10.7 (held to 1:11.5) | The payoff alone: everything else dims; "Profitable" rises centred, "Oct 2023" under it. Music peak. | By October twenty twenty-three, it was profitable. | Profitable · Oct 2023 |
-| 17 | 1:12.0–1:16.5 | Section title "The Waya lens". The widget returns, left, **unmuted: Vince says the line himself**. Right: two cards, "Symptom" and "Cause", pull apart on "separate"; on "both at once" two arrows run into them together. Music ducked fully under him. | **Vince (own voice):** Separate the symptom from the cause, then work both at once. *(Narrator placeholder until the clip arrives; the narrator never says it in the final.)* | The Waya lens / Symptom ≠ cause / Work both at once |
-| 18 | 1:16.9–1:21.7 | The close: cream to charcoal with no blank frame (≤ 1.75 s); the Waya wordmark rises within 0.2 s of the line; on "Talk to us" the "Schedule a Call" button, on "Lean AI" the "See Lean AI" button. | Talk to us, or run the same methods yourself with Lean AI. | Have a problem like this one? / Schedule a Call · See Lean AI |
-| 19 | 1:21.7–1:24.3 | The close card holds. No voice; music settled but audible. | — | Waya wordmark / Have a problem like this one? / Schedule a Call · See Lean AI / wayaframes.com |
+| 1 | 0:00.6–0:06.7 | **CHANGED (picture, #24).** Dark. A still photo of Vince in a plain card (no video, no widget chrome) rises on "Vince", with his name card. On "Cheetah Technologies" the warehouse draws in beside it ("Cheetah · DC-01", no logo); on "three others" three smaller buildings slide in and join it. | Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others. | Vince · Waya co-founder / Cheetah Technologies · Fall 2022 / + 3 regional distributors · ~$24M revenue |
+| 2 | 0:07.8–0:11.9 | As built. | When the rebuilt warehouse went live, customers got three items in four. | Go-live · Oct 2022 / Fill rate ~75% |
+| 3 | 0:12.6–0:14.7 | As built, redrawn as a polished illustration (#25). | Pallets of fresh food rotted out back. | Shrink 28% in one week |
+| 4 | 0:15.4–0:18.1 | As built. | Frozen pizza dough sat out until the yeast woke up. | Frozen · in the dry warehouse |
+| 5 | 0:18.8–0:20.8 | As built. | It was burning about a million dollars a month. | ~$1M / month · contribution margin burn |
+| 6 | 0:21.9–0:27.6 | **CHANGED (#33, #27, #26). No Vince video.** On "went to the floor" the camera moves down into the warehouse aisles: Lean's "go and see". The one-page gap analysis (A3 layout) dated Oct 22 sits over it. In its cause column two boxes: on "the process" the "Process" box is circled in mustard; on "not the people" the "People" box fades to grey. It is not struck out (respect for people). | On October twenty-second, Vince went to the floor and found the cause: the process, not the people. | Oct 22 · Go and see / Root cause: the process, not the people |
+| 7 | 0:28.3–0:31.7 | **CHANGED (picture, #26): no Vince video.** The warehouse system location table, as built. | The building had changed. The warehouse system's logic never did. | New locations · no rules, no dimensions / Old aisles · still in the system / 1 item · up to 886 locations |
+| 8 | 0:32.43–0:39.95 (text held to 0:40.75) | **CHANGED (#32 (1)). Key line, alone, in Vince's own voice; no face.** Everything dims to near-invisible. His words rise centred, phrase by phrase on his timing: "Every day the warehousing crew was fixing the problems," with a small sun; then "and the IT system was recreating them every night." with the sun turning to a moon. Attribution "— Vince" small under it. On screen ≥ 2.5 s (≈ 8.3 s). Lower the crescendo's lead under him (house rule 21). | **Vince (own voice, take 57.90–65.42):** So every day the warehousing crew was fixing the problems, and the IT system was recreating them every night. | "Every day the warehousing crew was fixing the problems, and the IT system was recreating them every night." — Vince |
+| 9 | 0:41.25–0:44.25 | **CHANGED (#32 (2), T2).** The screen warms to cream. Section title "Two tracks, at once"; the tracker right; the two lane labels drop in on "Two tracks"; lane 1 lights on "Track one". The widget column stays empty here (#29). | Two tracks, at once. Track one, by hand. | Two tracks, at once / 1 · By hand · 2 · Fix the cause |
+| 10a | 0:44.75–0:51.81 | **NEW (#32 (2), #29). Vince on camera, own voice.** The widget rises at 44.45 (0.3 s before his first word, his mouth still closed at take 81.68) and leaves 0.25 s after "warehouse" (ends 52.06). Centre: the count sheet, aisle by aisle, freezer locations filling in, and polished illustrations of execs, sales and operators in parkas on "everyone, executive, sales team, operators". On "24-7" a day/night clock spins once; on "cleaned up the warehouse" the tracker's shrink and fill lines start to turn. | **Vince (own voice, take 81.98–89.04):** So we got everyone, executive, sales team, operators. 24-7, we ran that until we cleaned up the warehouse. | Track 1 · by hand / Execs · sales · operators on the floor / Round the clock until it was clean |
+| 10b | 0:52.41–0:53.91 | **CHANGED (#12, #28, T5).** The widget has gone. The count sheet slides aside for Na'ama, redrawn as a polished illustration: asleep on a cot in the warehouse office, a wall clock past midnight. Her name card. | Na'ama slept there. | Na'ama · Vince's co-founder · 16-hour days |
+| 11 | 0:54.61–0:56.76 | As built (lane 2 lights; the system screen rebuilt). | Track two rebuilt the system's logic. | Track 2 · fix the cause / Fixed slots for fast movers, flexible for the rest / One item, one location |
+| 12 | 0:57.46–1:00.16 | **CHANGED (T1, words only).** As built: the scanner's "Wrong item · scan blocked" on "barcode checks", then the standard-work sheet on "daily standard work". | Then barcode checks, and daily standard work. | Barcode checks · receiving, picking, loading, delivery / Daily standard work |
+| 13 | 1:01.26–1:03.73 | As built. | Customers got ninety-nine items in a hundred. | Fill rate · ~75% → 99%+ |
+| 14 | 1:04.43–1:07.53 | As built. | Lost stock fell to two percent, order errors to three. | Shrink · ~17–18% → ~2% / Orders with an error · ~22% → ~3% |
+| 15 | 1:08.23–1:11.31 | As built. | The burn fell to two hundred sixty thousand a month by March. | Burn · ~$1M/mo → ~$260K/mo · Mar 2023 |
+| 16 | 1:12.01–1:14.60 | As built (payoff alone). | By October twenty twenty-three, it was profitable. | Profitable · Oct 2023 |
+| 17 | 1:15.90–1:19.40 | As built: the lens, Vince on camera, own voice; echo removed (#30). | **Vince (own voice, take 100.34–103.84):** You need to separate the symptom from the root cause. | The Waya lens / Symptom ≠ cause / Work both at once |
+| 18 | 1:20.60–1:23.88 | As built (gap before it tightened, T4). | Talk to us, or run the same methods yourself with Lean AI. | Have a problem like this one? / Schedule a Call · See Lean AI |
+| 19 | 1:23.88–1:26.48 | As built: the close card holds 2.6 s. | — | Waya wordmark / Have a problem like this one? / Schedule a Call · See Lean AI / wayaframes.com |
 
 ## CAPS (paste into `video.html`)
 
-Planned times; the audio technician's measured timing replaces them. Names are spelled as on screen, and
-`render/pronunciations.json` respells "Waya" and "Na'ama" for the voice. Numbers are written as words.
+Planned times; the measured timing replaces them. Three cues are now Vince's own audio, marked `'VINCE'`, with the
+take in/out as 5th and 6th elements.
 
-Line 17 is Vince's own audio:
-- **Until the clip arrives:** voice it with the narrator as a clearly-marked placeholder.
-- **When it arrives:** cut his line B from the clip, place it at 72.0, and re-time everything after it to his measured
-  length.
+**Index shift:** the lens cue moves from `CAPS[16]` to `CAPS[18]`, and the close from `CAPS[17]` to `CAPS[19]`.
+`video.html` reads `L17 = CAPS[16][0]` and `CLOSE = CAPS[17][0]`; look these up by marker instead of by index.
+
+**`render/vo.mjs` needs a change before it can voice this:**
+- Today it handles one `'VINCE'` cue at `VINCE_LENS_OFFSET`.
+- Its automatic end ("the first pause ≥ 0.45 s after the first 1.5 s") **would cut cue 10a in half**: there is a 0.98 s
+  pause at take 85.24–86.22, between "operators." and "24-7".
+- Each Vince cue must be cut at its own explicit take in/out, with no leading-silence trim (the lip-sync rule).
 
 ```js
 const CAPS = [
-  [0.6, 6.5, 'Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others.'],
-  [7.0, 11.4, 'When the rebuilt warehouse went live, customers got three items in four.'],
-  [11.8, 14.4, 'Pallets of fresh food rotted out back.'],
-  [14.8, 18.5, 'Frozen pizza dough sat out until the yeast woke up.'],
-  [18.9, 22.2, 'It was burning about a million dollars a month.'],
-  [22.7, 27.1, 'On October twenty-second, Vince found the cause. Not the crews.'],
-  [27.5, 31.5, "The building had changed. The warehouse system's logic never did."],
-  [32.0, 37.2, 'The crews fixed the building by day, and the system undid it by night.'],
-  [38.9, 40.6, 'So: two tracks, at once.'],
-  [41.0, 47.7, "Track one, by hand: the whole company counting stock in the freezer, and Na'ama sleeping at the warehouse."],
-  [48.1, 50.3, "Track two rebuilt the system's logic."],
-  [50.7, 54.4, 'Then barcode checks that stop mistakes, and daily standard work.'],
-  [54.9, 58.2, 'Customers got ninety-nine items in a hundred.'],
-  [58.6, 62.3, 'Lost stock fell to two percent, order errors to three.'],
-  [62.7, 67.1, 'The burn fell to two hundred sixty thousand a month by March.'],
-  [67.7, 70.7, 'By October twenty twenty-three, it was profitable.'],
-  [72.0, 76.5, 'Separate the symptom from the cause, then work both at once.'], // VINCE'S OWN VOICE (narrator placeholder until the clip)
-  [76.9, 81.7, 'Talk to us, or run the same methods yourself with Lean AI.'],
+  [0.60, 6.68, "Vince, now a Waya co-founder, was at Cheetah Technologies, a food distributor that had bought three others."],
+  [7.78, 11.89, "When the rebuilt warehouse went live, customers got three items in four."],
+  [12.59, 14.66, "Pallets of fresh food rotted out back."],
+  [15.36, 18.08, "Frozen pizza dough sat out until the yeast woke up."],
+  [18.78, 20.80, "It was burning about a million dollars a month."],
+  [21.90, 27.60, "On October twenty-second, Vince went to the floor and found the cause: the process, not the people."],
+  [28.30, 31.73, "The building had changed. The warehouse system's logic never did."],
+  [32.43, 39.95, "So every day the warehousing crew was fixing the problems, and the IT system was recreating them every night.", 'VINCE', 57.90, 65.42],
+  [41.25, 44.25, "Two tracks, at once. Track one, by hand."],
+  [44.75, 51.81, "So we got everyone, executive, sales team, operators. 24-7, we ran that until we cleaned up the warehouse.", 'VINCE', 81.98, 89.04],
+  [52.41, 53.91, "Na'ama slept there."],
+  [54.61, 56.76, "Track two rebuilt the system's logic."],
+  [57.46, 60.16, "Then barcode checks, and daily standard work."],
+  [61.26, 63.73, "Customers got ninety-nine items in a hundred."],
+  [64.43, 67.53, "Lost stock fell to two percent, order errors to three."],
+  [68.23, 71.31, "The burn fell to two hundred sixty thousand a month by March."],
+  [72.01, 74.60, "By October twenty twenty-three, it was profitable."],
+  [75.90, 79.40, "You need to separate the symptom from the root cause.", 'VINCE', 100.34, 103.84],
+  [80.60, 83.88, "Talk to us, or run the same methods yourself with Lean AI."],
 ];
-// DUR = 84.3 (planned: speech ends 81.7; the close card holds 2.6 s). Hard limit 90.0.
+// DUR = 86.48 (planned: close line ends 83.88; the card holds 2.6 s). Hard limit 90.0.
+// New narrator lines to voice: CAPS[5], CAPS[8], CAPS[10], CAPS[12]. All others reuse the cached clips.
 ```
 
-## Where every claim comes from (`FACTS.md`, `INSTRUCTIONS.md`)
+## Where the new and changed claims come from
 
-| Line | Claim | Source |
+| Row | Claim | Source |
 |---|---|---|
-| 1 | Cheetah Technologies, named | [Oren] `INSTRUCTIONS.md` #10 ("You can explicitly name Cheetah Technologies and Na'ama"); [ABOUT] "Cheetah" |
-| 1 | Vince, Waya co-founder; at the company in 2022 | [ABOUT] (co-founded Cheetah); [DOC] story |
-| 1 | a food distributor; bought three regional distributors; ~$24M revenue (screen); fall 2022 | [DOC] "September 2022"; [PAGE] eyebrow "Food distribution" |
-| 2 | rebuilt warehouse (racking, freezer, hundreds of locations); go-live Oct 2022; 3 of every 4 items; fill rate ~75% | [PAGE][DOC] |
-| 3 | 100+ pallets of fresh food rotting out back; Vince forklifting food into dumpsters (picture only); shrink 28% in one week | [DOC] story; [PAGE] |
-| 4 | frozen pizza dough in the dry warehouse until the yeast woke up, "like a hot air balloon" | [DOC] story |
-| 5 | ~$1M a month in contribution margin burn | [PAGE][DOC] |
-| 6 | Vince took over as COO (screen); Oct 22, root cause "in a few hours"; gap analysis; tempting to blame the crews | [DOC] story; [PAGE] |
-| 7 | WMS logic never updated; new locations no rules, many no dimensions; old aisles still in the system; single SKUs across up to 886 locations | [PAGE][DOC] |
-| 8 | "The crews fix the building by day and the system undoes it by night." (past tense here) | [DOC] story |
-| 9 | two tracks at once | [PAGE] |
-| 10 | track one by hand; corporate staff on the floor; execs, sales, engineers, supply chain counting in a freezer; "the whole company" | [PAGE]; [DOC] story |
-| 10 | Na'ama (Waya co-founder) slept at the warehouse; 16-hour days (screen) | [DOC]; `INSTRUCTIONS.md` #12 |
-| 11 | WMS rebuilt into hybrid slotting, re-zoned to new racking, consolidation instead of scattering | [PAGE] |
-| 12 | barcode scanning with QA hard-stops across receiving, picking, loading, delivery; daily standard work | [PAGE] |
-| 13–16 | fill rate ~75% → 99%+; shrink ~17–18% → ~2%; errors ~22% → ~3%; burn ~$1M/mo → ~$260K/mo (Mar 2023); profitable (Oct 2023) | [PAGE][DOC] |
-| 17 | the Waya lens, in Vince's voice | [PAGE] "Separate the symptom from the cause, run manual triage and the systemic fix at the same time"; `INSTRUCTIONS.md` #11 |
-| 18–19 | "Talk to us … or run the same methods yourself with Lean AI"; "Schedule a Call"; "See Lean AI"; "Have a problem like one of these?" (adapted to "this one") | [PAGE] closing CTA |
+| 6 | Oct 22, Vince found the root cause; "went to the floor" | [DOC] story; Oren's wording (#33); [TAKE] 44.94 "I dove in with employees and looked at their systems" |
+| 6 | "the process, not the people" | Oren (#33, #27: "align with the principles of Lean"); [PAGE] "It was tempting to blame the crews. The gap analysis found something more precise" |
+| 8 | crews fix by day, the system recreates the problems by night | [TAKE] 57.90–65.42; [DOC] "The crews fix the building by day and the system undoes it by night" |
+| 10a | everyone (executives, sales, operators) on the floor; 24-7 until the warehouse was clean | [TAKE] 81.98–89.04; [DOC] execs, sales, engineers, supply chain counting in a freezer; [PAGE] corporate staff on the floor |
+| 10b | Na'ama slept at the warehouse; 16-hour days (screen) | [DOC]; #12 |
+| 17 | "separate the symptom from the root cause" | [TAKE] 100.34–103.84; [PAGE] the Waya lens |
+
+**For the producer:** add `[TAKE]` (`VINCE-TRANSCRIPT.md`) to `FACTS.md`'s sources, with these three segments as
+facts. They are Vince's own first-hand account, and they are now in the film.
+
+## Where his words differ from FACTS.md, and how the screen handles it
+
+1. **"IT system" (key line) vs "warehouse system".** The narrator's line 7 says "warehouse system", and Vince says "IT
+   system" a second later. They mean the same thing.
+   - Screen: his line is a quote, so it is printed verbatim with "— Vince". Line 7's on-screen system is the same
+     warehouse-system screen, so the picture ties the two words together.
+   - It is not changed to "warehouse system" on screen, because a quote must match the voice.
+2. **"24-7" (Vince, about the whole operation) vs "16-hour days" (FACTS, about Na'ama).** These are two different
+   claims and they don't conflict: the operation ran round the clock, and Na'ama worked 16-hour days.
+   - "24-7" is new and comes only from the take. The screen paraphrases it as "Round the clock until it was clean"
+     (row 10a) rather than printing "24/7" next to "16-hour days".
+   - Na'ama's card keeps "16-hour days" from the doc. Oren may prefer to drop "16-hour days" from her card so the two
+     numbers never sit near each other.
+3. **"executive, sales team, operators" vs FACTS "execs, sales, engineers and supply chain".** Operators are new;
+   engineers and supply chain are not said.
+   - Screen: "Execs · sales · operators", his three, so screen and voice match. Engineers and supply chain are dropped
+     from the screen too, since nothing in the voice names them.
+4. **"warehousing crew" vs "crews".** Same meaning. The quote is verbatim.
+5. **"cleaned up the warehouse"** generalises the doc's daily triage (staging lanes, top 1,000 items, one location per
+   SKU, cycle counts). Consistent with it; no fix needed.
+6. **"I dove in with employees and looked at their systems"** (take) vs Oren's "went to the floor". These are
+   compatible: going and seeing, with the people who do the work, is what Lean means by it. Row 6's picture shows both,
+   the aisles and the system.
+7. **The lens: "root cause" (Vince) vs the page's "cause"**, and "then work both at once" is not spoken. That was
+   already decided; the screen's "Work both at once" lands after his last word, as built.
+8. **"Led the turnaround" (take, muted parts) vs "took over as COO" (#16).** Not in the film's audio now. The COO card
+   on row 6 was attached to the widget, which has gone (#26). It needs a new home or is dropped (decision 3 below).
 
 ## Narrative issues (for the producer)
 
-1. **Resolved: identity.** Oren lifted the anonymity for this video (`INSTRUCTIONS.md` #10, house rule 4 overridden).
-   Note for Oren: the case study page still says "Company names are withheld" and the page itself never names
-   Cheetah. A video on that page that names the company contradicts the line under it.
-   Recommendation: when the video goes on the page, either drop that line or make it say "Company names are withheld
-   except where the founders' own company is the case." Na'ama (website owner of the page copy) should make that edit.
-2. **RESOLVED (Oren, 2026-10-16): "Fix it" — line 1 now says "now a Waya co-founder".** **"Vince, Waya co-founder, was at Cheetah Technologies"** is the producer's suggested wording. It reads as if he
-   were already a Waya co-founder in 2022.
-   - Draft 1 had "now a Waya co-founder", which was dropped for time (−0.7 s).
-   - Nobody watching will think Waya employed him at Cheetah, so it is kept as is.
-   - If Oren wants to be exact, use "Vince, now a Waya co-founder, …" (+0.7 s).
-3. **$150M / pre-pandemic left out.** "Cheetah had been a hundred-and-fifty-million-dollar company" would raise the
-   stakes (it fell to ~$30M), but it costs ~3 s and opens a second story (the pandemic). Not worth its seconds at
-   this length.
-4. **COO is on screen only** (line 6 name card). Voicing "Vince took over as COO" costs ~2.6 s.
-   - FACTS.md does not say exactly when he took over. The doc's story has him running it "command and control"
-     through the crisis, so the card sits at the root-cause beat.
-   - Oren: confirm he took over as COO during the crisis, not before it.
-5. **The Na'ama beat is merged into the track-one line**, to save the air of a separate line (~1.1 s):
-   - The line is long (6.7 s) but holds two pictures, one per phrase.
-   - Her role is on screen ("Na'ama · co-founder"), not in voice.
-   - "16-hour days" is on screen only.
-   - She is drawn as the house line-drawn figure, asleep on a cot. Her kit clip (`assets/expert-naama.mp4`) is not
-     used: a second expert widget would break the demo frame (house rule 10), and the scene is 2022, not today.
-   - The cot, the office and the clock past midnight are invented details for "slept at the warehouse".
-6. **Line 11 trimmed to "Track two rebuilt the system's logic."** "For the new building" is dropped for time; the
-   picture carries it (the zone map matching the new racking), and line 7 already set it up.
-7. **Vince's lens line is his own audio.**
-   - **Risks:** his recording will differ in level, room tone and pace from the narrator. The audio technician should
-     match level (the same loudness as the narrator), add light room-tone smoothing, and duck the music fully under him.
-   - **Timing:** if his line runs past 4.5 s, the close slides later (budget above).
-   - **Picture:** the clip must show him saying exactly these words, with his mouth in sync. The widget clip is cut
-     from that take at that spot rather than looped there.
-8. **Jargon translated in the voice; the site's terms on screen.**
+1. **Two tracks: nothing said twice, and the order matches the screens.**
+   - The narrator names the tracks (row 9) and gives track two (row 11) and the follow-up (row 12).
+   - Vince gives track one in his own words (10a); the narrator adds only Na'ama (10b).
+   - "The whole company counting stock in the freezer" is gone: his "we got everyone…" replaces it. The freezer stays
+     in the picture.
+   - His own "first track was the IT system" (69.38–76.20) is not used, so the film's order stays lane 1 = by hand,
+     lane 2 = fix the cause, as the screens show.
+2. **"So" opens both of his first two lines.**
+   - In the key line, "So" works as a hinge after line 7 ("…never did. So every day…"). Keep it; cutting it saves only
+     0.1 s and risks clipping into the word.
+   - In 10a it follows "Track one, by hand.", which also reads naturally.
+3. **The widget is absent from most of the demo frame** (#29 over house rule 2: "the expert is there through the
+   method"). Oren's instruction wins. The art director must recompose rows 9, 10b, 11 and 12 without the left column,
+   or let the centre and the tracker use the space. The demo frame's three columns are no longer the standing layout
+   for this video.
+4. **Row 8 breaks the "nothing frozen" risk if the text sits still for 8 s.** Reveal it phrase by phrase on his word
+   times (VINCE-TRANSCRIPT words, film time = take − 25.47), with the sun turning to a moon on "every night".
+5. **Line 6 with "the process, not the people"**: the screen greys "People" out rather than striking it through.
+   Striking a box labelled "People" would read as dismissing people, against Lean's respect for people.
+6. **Na'ama now gets 1.5 s of voice** ("Na'ama slept there."). It reads cleanly after his "…cleaned up the warehouse".
+   Her name card says who she is. Revert T5 (+0.7 s) to say "his co-founder" in the voice.
+7. **The pain share drops to 15%** (13.0 s of 86.5 s), the bottom of the band. Fine.
+8. **Level and room:** Vince is now on the soundtrack for 18.1 s, three different stretches of one take.
+   - Match every one to the narrator's gated level, with the same de-echo, so the three sound like one person in one
+     room (#23, #30).
+   - Duck the music fully under each one.
+9. **Unchanged invented-for-illustration list** (draft 2, issue 11), plus: the day/night clock spin, the parkas, and
+   the "go and see" camera move.
 
-   | Site term | In the voice |
-   |---|---|
-   | fill rate | "three items in four" / "ninety-nine items in a hundred" |
-   | shrink | "lost stock" |
-   | WMS | "warehouse system" |
-   | cycle counting | "counting stock" |
-   | QA hard-stops | "barcode checks that stop mistakes" |
-   | hybrid slotting | "rebuilt the system's logic" |
-9. **"Not the crews"** is a firmer wording of the page's "It was tempting to blame the crews."
-10. **On-time delivery is left out** (Oren did not ask for it back). Adding it costs ~2 s.
-11. **Invented for illustration (flag to Oren):** the text on every screen is made up. The facts behind each screen
-    are real. That covers:
-    - the pick list and its items;
-    - the gap-analysis one-pager's text;
-    - the location table's rows and codes;
-    - the count sheet;
-    - "Wrong item · scan blocked";
-    - the standard-work sheet;
-    - the tracker's weekly in-between values;
-    - the parkas;
-    - Na'ama's cot, office and clock;
-    - the "Cheetah · DC-01" label (`ART.md`).
-12. **Close card wording** adapts the page's "Have a problem like one of these?" to "Have a problem like this one?".
-13. **Trim list if the measured cut runs long** (in order):
-    1. Shorten the key-line hold to 1.0 s (−0.2 s).
-    2. Line 2 → "At go-live, customers got three items in four." (−1 s, but adds jargon).
-    3. Drop "fresh" in line 3 (−0.4 s).
-    4. Line 1 → drop "that had bought three others" and keep "+ 3 regional distributors" on screen (−1.5 s, but
-       weakens "post-acquisition").
+## Decisions for Oren
 
-    If it runs under ~76 s, add back "for the new building" (line 11) and "now a" (line 1).
-14. **Pain share:** lines 2–5 take 15.2 s of 84.3 s (18%), inside the 15–20% band.
-
-## Questions only Oren can answer
-
-1. Do you want "Company names are withheld" on the case study page changed, now that the video names Cheetah (issue 1)?
-2. Did Vince take over as COO during the crisis (issue 4)?
-3. "Vince, Waya co-founder" or "Vince, now a Waya co-founder" (+0.7 s) in line 1?
-4. On the close card, which button is primary, "Schedule a Call" or "See Lean AI", and where should the embed link?
+1. **Planned 86.5 s with trims T1–T5 applied** (worst case about 88). OK, or revert any of them? Each revert's cost
+   is listed above.
+2. **Reserve trim R1, if the voiced cut runs long:** show Na'ama under Vince's "24-7" instead of voicing her line
+   (−2.1 s)?
+3. **"took over as COO"** has lost its place on the widget's name card (no widget at 22–30). Put it on row 6's A3 as
+   "Vince · COO", or drop it?
+4. **Na'ama's "16-hour days"** card next to Vince's "24-7": keep it or drop it (issue 2 in the differences list)?
+5. **The intro still:** a frame from his take (matches the clip later) or the site headshot?

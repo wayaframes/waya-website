@@ -36,7 +36,7 @@ PLAN = json.load(open(os.path.join(here, 'music-plan.json'), encoding='utf-8'))
 # "derive" in the plan ties the lens duck, calm_at, the payoff crescendo's end and dur to the MEASURED timing sheet
 # (out/vo-timing.txt, written by vo.mjs), so they follow the expert's own line whatever its length:
 #   lens: the row tagged [VINCE ...]; close: the last row; dur = max(out/vo.wav's length = the page's DUR, close end + card_hold)
-#   duck = [lens start - duck_pad[0], lens end + duck_pad[1], duck_db, duck_ramp]
+#   duck = [[row start - duck_pad[0], row end + duck_pad[1], duck_db, duck_ramp] for EVERY [VINCE] row]
 #   calm_at = lens start - calm_before_lens; the last crescendo ends at lens start - cresc_end_before_lens
 def derive(plan):
     d = plan.get('derive')
@@ -47,7 +47,10 @@ def derive(plan):
     for line in open(sheet, encoding='utf-8'):
         m = re.match(r'\s*([\d.]+)s\s+([\d.]+)s', line)
         if m: rows.append((float(m.group(1)), float(m.group(2)), 'VINCE' in line))
-    lens = next((r for r in rows if r[2]), None); close = rows[-1]
+    # every [VINCE ...] row is the expert's own voice: the bed ducks fully under each (draft 3: three of them);
+    # the LAST one is the lens, which calm_at and the payoff crescendo's end are tied to
+    vrows = [r for r in rows if r[2]]
+    lens = vrows[-1] if vrows else None; close = rows[-1]
     out = dict(plan)
     close_end = close[0] + close[1]
     # the page's DUR may be derived, so read it where vo.mjs wrote it: out/vo.wav is padded to the page's window.__DUR
@@ -59,7 +62,7 @@ def derive(plan):
     if lens:
         ls, le = lens[0], lens[0] + lens[1]
         pad = d.get('duck_pad', [0.1, 0.1])
-        out['duck'] = [[round(ls - pad[0], 2), round(le + pad[1], 2), float(d.get('duck_db', -15)), float(d.get('duck_ramp', 0.8))]]
+        out['duck'] = [[round(r[0] - pad[0], 2), round(r[0] + r[1] + pad[1], 2), float(d.get('duck_db', -15)), float(d.get('duck_ramp', 0.8))] for r in vrows]
         out['calm_at'] = round(ls - float(d.get('calm_before_lens', 0.24)), 2)
         if 'cresc_end_before_lens' in d and plan.get('crescendo'):
             c = [list(w) for w in plan['crescendo']] if isinstance(plan['crescendo'][0], (list, tuple)) else [list(plan['crescendo'])]

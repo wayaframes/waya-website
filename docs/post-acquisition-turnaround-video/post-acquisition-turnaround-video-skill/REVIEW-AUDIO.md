@@ -514,3 +514,225 @@ His phrases (silencedetect on `cue-16.wav`) and words (`VINCE-TRANSCRIPT.md`, fi
 2. **Optional:** add a visual on "separate" (67.80) to break the 1.45 s still beside his face.
 3. **Producer:** "Work both at once" on screen vs his spoken line (content). "Profitable" hold (item 9, unchanged).
 4. **Fix 4: done** by the other session; the words are in `VINCE-TRANSCRIPT.md` and the lens constants use them.
+
+## Round 4: draft 3 (2026-10-18)
+
+**What was reviewed:**
+- `render/out/video-final.mp4`: 86.06 s.
+- Vince speaks in his own voice three times, all cut from `assets/vince-take-clean.wav` (dereverbed):
+
+  | Moment | Film | Take | Face |
+  |---|---|---|---|
+  | Key line | 32.48–40.12 | 57.84–65.48 | no face |
+  | All-hands | 44.86–52.09 | 81.99–89.22 | on camera |
+  | Lens | 75.48–78.98 | 100.34–103.84 | on camera |
+
+- `mix.mjs` skips its voice compressor over his spans.
+
+**How it was measured:**
+- `node audit.mjs`: all checks pass (no OVER, no pushed, air 0.5–1.3 s).
+- A page sweep at 0.05 s steps.
+- An MP4 pixel scan with the widget masked.
+- Full-resolution blank-frame checks.
+- Speech-gated levels on `vo.wav`, `vo-comp.wav` and the MP4.
+- Cross-correlation along take → clean wav → film, and MOV picture → clip → film.
+- Echo measured on the gaps inside his speech.
+
+**Note:** I ran `python music.py` once while reading the plan, which rewrites `out/music.wav`. It is deterministic: a
+second run gives the same md5 (bdef8393…), and its inputs (the plan and `vo-timing.txt`) predate the final. So
+`music.wav` is unchanged from the one in the final mix.
+
+### Measured: pass
+
+| Check | Result | Evidence |
+|---|---|---|
+| Total ≤ 90 s; card ≥ 2.6 s | **PASS** | 86.06 s; speech ends 83.46; the card holds 2.60 s |
+| Loudness | **PASS** | −16.1 LUFS, LRA 3.5 LU, true peak −2.0 dBTP |
+| #24: no Vince video 0–6 s | **PASS** | A still (`assets/vince-headshot.jpeg`) in the badge card, 0.80–7.65 |
+| #26: no Vince video 22–30 s | **PASS** | The widget is hidden (`display:none`) at 0.5, 3, 23, 30 and 36 s |
+| #29: no muted talking video | **PASS** | The widget is up only from 44.86 (fading in as he starts; clip 81.99) to 52.44 (clip 89.57; he stopped at 89.22 and is silent until 90.38), and from 75.18 to 79.6 (clip 100.04–104.36: silent before "You", and the pause before "and attack…"). It is the page's only `<video>` |
+| His audio on the take's timeline | **PASS** | clean wav vs `vince-take.m4a`: 0 ms at all three spans (corr 0.98). `vo.wav` and the final vs clean at the cue mapping: 0 ms at all three spans (corr 0.97). The 30 ms lag from round 3 is gone |
+| The widget seeks exactly | **PASS** | `expertClip.currentTime` = cue take time + (t − cue start) to the ms at 44.86, 45.0, 46.19, 49.09, 52.09, 52.4, 75.18, 75.48, 77.2, 78.98, 79.5 |
+| No doubled voice | **PASS** | Autocorrelation peak (15–600 ms) over each span is 0.128 / 0.131 / 0.144: no second copy. The clip has no audio stream and is `muted`; `vo.mjs` lays each span once |
+| #30: echo | **PASS** | See the echo table below |
+| His level vs the narrator | **PASS** | Speech-gated in `vo.wav`: Vince −15.0 / −14.8 / −15.0 dBFS; narrator lines −13.6 to −16.1. Uncompressed, he still sits mid-range in `vo-comp` (−14.8 / −14.5 / −14.7) |
+| Music under his spans | **PASS** | 22.3 / 26.8 / 29.0 dB under his speech (duck −15 dB, 0.8 s ramps; derived windows 32.38–40.22, 44.76–52.19, 75.38–79.08) |
+| Lens → close (voice silent 78.98–80.18, 1.2 s) | **PASS** | Mix −44 dBFS for 0.25 s at 79.0, then −39 → −31. The picture moves; no blank frame 79–80.4 |
+
+**#30 echo, measured on the gaps inside his speech.** "Floor" is the quieter half of each gap; "decay" is the time to
+fall 25 dB after the end of a phrase.
+
+| Track | Gap floor, re his speech | Decay to −25 dB |
+|---|---|---|
+| Raw take | −32 to −39 dB | 20–70 ms |
+| `vince-take-clean.wav` | −41 to −53 dB | 0–30 ms |
+
+- The dereverb took about 10–14 dB of room tail out of his pauses and shortened the tails.
+- In the final, the gaps are filled by the music bed, not by room: −21 to −28 dB under him on the key line (the dark
+  crescendo), −24 to −36 dB elsewhere. The residual tail sits under the bed.
+
+### Phrase-by-visual (every line; Δ = visual on − naming word)
+
+- **Word sources:** `words.json` for the narrator; Vince's take words (transcript) mapped to film time.
+- **No visual is more than 0.7 s off its phrase, and none is under the wrong line.**
+
+| Line | Word → visual (on) | Δ |
+|---|---|---|
+| 1 | Vince 0.65 → badge 0.80; co-founder 1.95 → "now a Waya co-founder" 2.05; Cheetah 3.17 → eyebrow 3.45 / "In 2022 · at Cheetah" 3.35; three 5.90 → acquired buildings 6.05 / chip 6.45 | +0.15 / +0.10 / +0.28 / +0.18 / +0.15 / +0.55 |
+| 2 | rebuilt 8.02 → racks draw 8.02; went 9.08 → stamp 9.20; three 10.62 → pick list 10.55 / chip 11.15; four 11.43 → SHORT 11.60 | 0.00 / +0.12 / −0.07 / +0.53 / +0.17 |
+| 3 | Pallets 12.64 → forklift scene 12.65; rotted 13.77 → tip 13.77; fresh 13.07 → shrink chip 13.30 | +0.01 / 0.00 / +0.23 |
+| 4 | Frozen 15.41 → shelf 15.30 / box 15.60; sat 16.27 → chip 16.50; yeast 17.27 → swell 17.40 | −0.11 / +0.19 / +0.23 / +0.13 |
+| 5 | burning 19.04 → counter 18.90; million 19.64 → sub 19.85 | −0.14 / +0.21 |
+| 6 | October 22.10 → aisle 21.80 / eyebrow 22.35; went (to the floor) 23.66 → aisle push starts 23.66; found 24.78 → gap analysis 24.90; process 26.10 → "process" 26.20; not 27.00 → "not the people" 27.15 | −0.30 / +0.25 / 0.00 / +0.12 / +0.10 / +0.15 |
+| 7 | changed 28.89 → outline 29.05; logic 30.78 → outline moves 30.35 | +0.16 / −0.43 |
+| 8 (Vince, no face) | every (day) 32.68 → q1 32.85 / sun 32.80; was fixing 34.62 → q2 34.80; and the IT 36.34 → q3 36.50 / "by night" tag 36.75; them every night 39.14 → q4 39.15 / moon 39.34 | +0.17 / +0.12 / +0.18 / +0.16 / +0.41 / +0.01 |
+| 9 | Two 41.42 → lanes 41.55 / title 41.80; Track (one) 43.04 → ring 43.20 | +0.13 / +0.38 / +0.16 |
+| 10 (Vince, on camera) | So 44.86 → widget 45.10 / count + crew 45.25; everyone 45.33 → count fills 45.33; executive 46.19 → exec 46.30; sales 46.77 → sales 46.85; operators 47.69 → ops 47.80; 24-7 49.09 → day/night dial 48.95; cleaned 50.97 → tracker turns 51.05 | +0.24 / +0.39 / 0.00 / +0.11 / +0.08 / +0.11 / −0.14 / +0.08 |
+| 11 | Na'ama 52.69 → Na'ama 52.65 | −0.04 |
+| 12 | Track (two) 54.46 → slotting 54.60; rebuilt 55.04 → zone 55.20; logic 56.01 → one row 56.15 | +0.14 / +0.16 / +0.14 |
+| 13 | barcode 57.44 → scanner 57.60; checks 57.86 → blocked 57.90; daily 58.68 → standard work 59.00 | +0.16 / +0.04 / +0.32 |
+| 14 | Customers 60.89 → pick list 60.80; ninety-nine 61.56 → number 61.75 | −0.09 / +0.19 |
+| 15 | Lost 64.06 → card 64.25; two 64.89 → 65.05; order 65.93 → card 66.10; three 66.63 → 66.80 | +0.19 / +0.16 / +0.17 / +0.17 |
+| 16 | burn 67.93 → counter 68.00; by March 70.18 → "Mar 2023" 70.40 | +0.07 / +0.22 |
+| 17 | October 71.78 → "Oct 2023" 71.80; profitable 73.50 → "Profitable" 73.75 (alone 1.45 s) | +0.02 / +0.25 |
+| 18 (Vince, on camera) | You 75.48 → widget + title 75.40; symptom 77.20 → card 77.25; from 77.90 → ≠ 78.00; root 78.20 → Cause 78.25 | −0.08 / +0.05 / +0.10 / +0.05 |
+| 19 | Talk 80.23 → wordmark 80.30 / Schedule a Call 80.50; Lean 82.78 → See Lean AI 83.00 | +0.07 / +0.27 / +0.22 |
+
+### Fix list (Round 4)
+
+1. **Lip sync: his voice leads his mouth by 1 frame (33 ms) on both on-camera spans** (44.86–52.09 and 75.48–78.98).
+   This is not over 1 frame, but it is at the limit and in the direction viewers notice most (audio early).
+   - **Measured:**
+     - Voice: 0 ms against the take, at both spans.
+     - Page: seeks exactly.
+     - `assets/expert-vince.mp4` shows the original MOV's picture **+1 frame late** (motion cross-correlation at
+       81–90 s and 99.5–108.5 s, corr 0.99 / 0.98).
+   - **Why it changed:** in round 3 a 30 ms audio lag cancelled this; the clean-wav cut removed that lag.
+   - **Fix:** re-cut `expert-vince.mp4` from the MOV one frame earlier, so clip time = take time exactly. That is the
+     source fix: re-check B = 0. Or, in `video.html` (the animation director's), add 1/30 s to the clip in-point:
+     `x.cue[4] + (x.s - x.cue[0]) + 1/30`. Re-measure after either.
+2. **Close card music is too loud:** 15.7 dB under the voice level (target about 20; round 3 measured 17.9).
+   - **Fix:** `"calm_level": 0.7` in `music-plan.json` (−3.1 dB from `calm_at`), then `python music.py` and
+     `node mix.mjs`.
+3. **Two tracks and the results crept up:** the bed is 11.5–12.9 dB under speech on lines 9 and 11–17 (target about
+   14; round 3 was 12.5–14.1).
+   - The plan is unchanged. The shift comes from `music.py`'s peak normalisation now that the key-line crescendo is
+     ducked under Vince.
+   - **Fix:** `node mix.mjs --music -14.5` (or make it the default), with `tension_gain_db` 4.5 → 6.0 so the
+     problem section stays at 14–17.6 dB under. Item 2 then needs only `calm_level` 0.8. Re-measure.
+4. **32.43–32.63: six blank frames** (flat charcoal) open the key line, under Vince's "So" (32.54).
+   - This is legal (a blank crossfade ≤ 0.8 s), but his first word lands on an empty frame.
+   - **Fix (`video.html`):** bring the sun or `q1` in on "So", or start the dim `replen` at KEY − 0.2.
+5. **33.0–34.5: the key line is still for 1.5 s,** at the limit, with no face. Only the slow drift of the dimmed
+   background moves between `q1` (32.85) and `q2` (34.80).
+   - **Fix (`video.html`):** a cue on "warehousing crew" (33.72), for example the sun starting its arc or a
+     highlight under "the warehousing crew".
+6. **Advisory:**
+   - 75.6–77.0 (1.4 s) is still beside his face on the lens; his face carries it.
+   - "Profitable" is alone 1.45 s (item 9).
+   - "Work both at once" is on screen but not spoken.
+   - The 0.5 s dark cold open is unchanged.
+   - The key-line text hold (40.12–41.42) swells the dark crescendo to 5.5 dB under voice level with no speech: this
+     is planned, and it ends at the lift on "Two".
+
+### Round 4: fixes 2 and 3 applied (production mode, at the coordinator's request)
+
+**What changed:**
+- **File:** only `render/music-plan.json`. `mix.mjs` is back at its `--music -13` default, and `music.py` is
+  unchanged.
+- **Rebuilt:** `out/music.wav` (md5 12e14971…) and the audio-only test mix `out/audio-final.wav` (−16.0 LUFS, LRA
+  3.6, TP −2.0).
+- **Not run:** the picture mix.
+
+**First attempt, rejected:** `--music -14.5` with `tension_gain_db` 6.0.
+- It overshot the results to 14.7–15.7 dB under, and it moved the problem section 1.5 dB quieter.
+- **The reason:** `music.py` normalises to the bed's peak, which is in the dark section. Raising `tension_gain_db`
+  lowers everything else by the same amount, so it cannot hold the problem section in place.
+
+**Applied:**
+- The bright-section presets were lowered instead:
+
+  | Preset | vol now | was | Change |
+  |---|---|---|---|
+  | steady | 0.72 | 1.05 | −3.3 dB |
+  | build | 0.97 | 1.15 | −1.5 dB |
+  | drive | 0.72 | 0.85 | −1.5 dB |
+  | full | 0.72 | 0.85 | −1.5 dB |
+
+- `calm_level` 0.6, which is −4.4 dB from `calm_at` 75.24.
+- `tension_gain_db` stays at 4.5.
+
+**Measured on the audio-only mix** (speech-gated, the bed under the voice):
+
+| Section | Round 4 final | Now | Target |
+|---|---|---|---|
+| Problem, lines 1–7 | 15.4 / 14.1 / 14.1 / 17.6 / 12.2 / 14.4 / 10.8 | **identical** | unchanged ✓ |
+| "Two tracks, at once. Track one, by hand." (line 9) | 11.5 | 12.9 | ~14. The last 1 dB is the tail of the dark crescendo (it ends 41.30 and its pads release over 1.2 s) under "Two"; it is planned, so I left it |
+| Na'ama, track two, barcode (lines 11–13) | 12.3–12.9 | 13.2–14.3 | ~14 ✓ |
+| Results (lines 14–17) | 11.8–12.8 | 13.2–14.2 | ~14 ✓ |
+| Close line | 20.9 | 25.3 | — |
+| **Close card** | 15.7 | **20.1** | ~20 ✓ |
+| Under Vince | 22.3 / 26.8 / 29.0 | 22.3 / 28.3 / 33.4 | present ✓ |
+| Lens → close dip | −44 dBFS for 0.25 s | −48.5 dBFS for 0.25 s at 79.0, then −43 → −33 | no hole (> −60) ✓ |
+
+- **No doubling:** the autocorrelation peak is 0.145.
+- **Next:** the coordinator re-mixes onto the new picture with a plain `node mix.mjs`, and these settings apply.
+
+## Round 5: quick re-check (2026-10-18)
+
+`render/out/video-final.mp4`: 86.06 s, with `CLIP_LEAD = 1/30` and the round-4 music plan.
+
+| Check | Result | Measured |
+|---|---|---|
+| Lip sync on both on-camera moments (target 0 ± ½ frame) | **FAIL, blocker** | See below |
+| Section gaps in the picture mix | **PASS** | Identical to the audio-only test. Problem 15.4 / 14.1 / 14.1 / 17.6 / 12.2 / 14.4 / 10.8; "Two tracks" 12.9; lines 11–17 13.2–14.3; close card 20.1 dB under; under Vince 22.3 / 28.3 / 33.4. −16.0 LUFS, LRA 3.6, TP −2.0 |
+| Blank frames 32.4–32.7 | **PASS (minor)** | 2 flat frames left, 32.43–32.47 (was 6); content from 32.50, under "So" (32.54) |
+| Blank frames 79.5–80.5 | **PASS** | None. 80.27 is dim (the wordmark rising) but has content |
+| "Warehousing crew" cue breaks the 33.0–34.5 still | **PASS** | No still ≥ 1.0 s between 32.5 and 34.9 in the sweep or the masked MP4 scan |
+| Total and card hold | **PASS** | 86.06 s; speech ends 83.46, so the card holds 2.60 s |
+
+### Lip sync: the picture is still about 1 frame behind the voice
+
+**Measured end to end:** the film's widget motion against the original MOV's motion, film → take mapping.
+
+| Moment | Picture vs MOV | Correlation | Voice vs take |
+|---|---|---|---|
+| All-hands | **+1.00 frame** (late) | 0.99 | 0 ms (corr 0.97) |
+| Lens | **+1.00 frame** (late) | 0.98 | 0 ms (corr 0.98) |
+
+`CLIP_LEAD` is applied in the page: `currentTime` is the take time + 0.033 at every point checked.
+
+**Why one frame of lead was not enough:** the cue offsets are not whole frames.
+- The film → take shifts are 37.13 s (1113.9 frames) and 24.86 s (745.8 frames).
+- The browser shows the frame at or before `currentTime`, so about 0.9 / 0.8 of a frame is lost to truncation.
+- On top of that, `expert-vince.mp4` is itself 1 frame behind the MOV.
+
+| CLIP_LEAD | Displayed vs the voice |
+|---|---|
+| none (round 4) | ≈ 1.9 frames late |
+| 1/30 (now) | ≈ 0.9 frame late (measured +1.0) |
+| **0.05** (1 frame + ½ frame) | **+0.1 / +0.2 frame early** |
+
+With 0.05, the seek lands mid-frame and the floor picks the intended frame: about 3 ms on the all-hands and 7 ms on the
+lens.
+
+**Fix (`video.html`, the animation director's):**
+- Set `const CLIP_LEAD = 0.05;` (2/30 also works: +0.1 / +0.2 frame). Re-render.
+- I re-measure by the same end-to-end method: target 0 ± ½ frame on both moments.
+
+**Blockers:** only this one.
+
+### Round 5 re-check: `CLIP_LEAD = 0.05`, re-rendered (2026-10-18): lip sync **PASS**
+
+Measured the same way as above on the new `render/out/video-final.mp4` (86.06 s).
+
+| Moment | Picture vs the original MOV | Voice vs the take | Net |
+|---|---|---|---|
+| All-hands (44.86–52.09) | **+0.02 frame** (corr 0.98) | **0 ms** (corr 0.97) | ≈ 0.7 ms |
+| Lens (75.48–78.98) | **+0.00 frame** (corr 0.98) | **0 ms** (corr 0.98) | ≈ 0 ms |
+
+- **Target:** 0 ± ½ frame. Both moments are well inside it.
+- **Cross-checks:**
+  - The page seeks to take time + 0.050 at every point checked.
+  - The all-hands pixel match against the clip is consistent: 92 of 111 frames at the mapped frame.
+- **No blockers remain** on the audio and sync side.

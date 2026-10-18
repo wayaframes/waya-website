@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 560" width="780" height="560">
+  <!-- Line 10, "...and Na'ama sleeping at the warehouse": the warehouse office at 2 a.m. Flat editorial
+       illustration, full-bleed in the 780x560 centre seat (replaces the line drawing in #naama). Keep clear:
+       the name card top-left (x 34-400, y 24-110) and the caption bar (y 512-560).
+       Animatable parts (CSS; transform-box: view-box):
+         #monitorGlow  opacity 1 -> .86 -> 1, irregular, about every 2-3 s (a screen refreshing, not a strobe)
+         #screenRows   the WMS rows on the monitor: translateY(0 -> -6px) once in a while (a list refreshing)
+         #minuteHand   rotate, origin 470px 128px: +6deg over the beat (the clock keeps going; it starts at 2:10)
+         #breath       Na'ama's back + blanket: scaleY(1 -> 1.015), origin 300px 392px, 3.6 s loop, ease in-out
+         #lampGlow     opacity .92 <-> 1, slow (optional)
+       No zzz: the breathing, the clock and the screen carry the motion. -->
+  <defs>
+    <linearGradient id="noWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d2428"/><stop offset="1" stop-color="#161b1e"/></linearGradient>
+    <radialGradient id="noLamp" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#F6D36B" stop-opacity=".42"/><stop offset=".5" stop-color="#EAB62F" stop-opacity=".12"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/></radialGradient>
+    <radialGradient id="noScreen" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#D3E9E0" stop-opacity=".30"/><stop offset="1" stop-color="#D3E9E0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="noWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121517"/><stop offset="1" stop-color="#1b2125"/></linearGradient>
+    <clipPath id="noWinClip"><rect x="566" y="64" width="176" height="196" rx="4"/></clipPath>
+  </defs>
+
+  <!-- room -->
+  <rect width="780" height="560" fill="url(#noWall)"/>
+  <rect y="424" width="780" height="136" fill="#13181b"/>
+  <rect y="420" width="780" height="6" fill="#262e33"/>
+
+  <!-- window onto the warehouse floor: racking, a few lights still on -->
+  <rect x="558" y="56" width="192" height="212" rx="6" fill="#2a3237"/>
+  <rect x="566" y="64" width="176" height="196" rx="4" fill="url(#noWin)"/>
+  <g clip-path="url(#noWinClip)">
+    <g fill="#262e33"><rect x="578" y="96" width="10" height="170"/><rect x="622" y="96" width="10" height="170"/><rect x="670" y="96" width="10" height="170"/><rect x="714" y="96" width="10" height="170"/></g>
+    <g fill="#222a2f"><rect x="578" y="132" width="146" height="5"/><rect x="578" y="172" width="146" height="5"/><rect x="578" y="212" width="146" height="5"/></g>
+    <g fill="#3a3a2c"><rect x="592" y="148" width="22" height="22"/><rect x="636" y="186" width="26" height="24"/><rect x="684" y="146" width="22" height="24"/></g>
+    <circle cx="610" cy="80" r="3" fill="#F6D36B"/><circle cx="700" cy="80" r="3" fill="#F6D36B" opacity=".6"/>
+    <path d="M600 82 L560 260 L660 260 Z" fill="#EAB62F" opacity=".05"/>
+  </g>
+  <path d="M654 64 V260" stroke="#2a3237" stroke-width="6"/>
+
+  <!-- wall clock: 2:10 -->
+  <g>
+    <circle cx="470" cy="128" r="40" fill="#E8E2D6"/><circle cx="470" cy="128" r="40" fill="none" stroke="#383F3B" stroke-width="6"/>
+    <g stroke="#6B6F6C" stroke-width="3"><path d="M470 94 V100 M504 128 H498 M470 162 V156 M436 128 H442"/></g>
+    <path d="M470 128 L488 117" stroke="#1F2422" stroke-width="5" stroke-linecap="round"/>
+    <path id="minuteHand" d="M470 128 L497 135" stroke="#1F2422" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="470" cy="128" r="4" fill="#D16C02"/>
+  </g>
+
+
+  <!-- desk lamp light (warm) and screen light (cool) on the scene -->
+  <g id="lampGlow"><ellipse cx="250" cy="330" rx="330" ry="230" fill="url(#noLamp)"/></g>
+
+  <!-- coat hook: hi-vis vest and hard hat -->
+  <g>
+    <rect x="712" y="292" width="34" height="6" rx="3" fill="#383F3B"/><circle cx="728" cy="300" r="5" fill="#6B6F6C"/>
+    <path d="M714 302 Q728 296 742 302 L752 410 Q728 420 704 410 Z" fill="#D16C02"/>
+    <path d="M708 356 H748 M706 378 H750" stroke="#E8E2D6" stroke-width="6"/>
+    <path d="M728 302 V412" stroke="#a85700" stroke-width="2"/>
+  </g>
+
+  <!-- desk -->
+  <rect x="70" y="330" width="460" height="14" rx="3" fill="#3a4246"/>
+  <rect x="70" y="330" width="460" height="4" rx="2" fill="#4c555a"/>
+  <rect x="88" y="344" width="14" height="80" fill="#2a3135"/><rect x="498" y="344" width="14" height="80" fill="#2a3135"/>
+  <rect x="380" y="344" width="132" height="70" fill="#2f363a"/><rect x="392" y="360" width="108" height="4" rx="2" fill="#3f474c"/><rect x="392" y="388" width="108" height="4" rx="2" fill="#3f474c"/>
+
+  <!-- monitor (the WMS still up) -->
+  <g>
+    <rect x="236" y="320" width="64" height="10" rx="3" fill="#2a3135"/><rect x="262" y="296" width="12" height="26" fill="#2a3135"/>
+    <rect x="176" y="186" width="186" height="116" rx="7" fill="#0f1315"/>
+    <rect x="183" y="193" width="172" height="102" rx="3" fill="#e9eef3"/>
+    <rect x="183" y="193" width="172" height="13" fill="#22313f"/>
+    <g id="screenRows"><g fill="#c9d3dc"><rect x="190" y="214" width="158" height="6" rx="1"/><rect x="190" y="226" width="158" height="6" rx="1"/><rect x="190" y="238" width="158" height="6" rx="1"/><rect x="190" y="250" width="158" height="6" rx="1"/><rect x="190" y="262" width="158" height="6" rx="1"/><rect x="190" y="274" width="158" height="6" rx="1"/></g>
+      <g fill="#e4572e"><rect x="314" y="226" width="30" height="6" rx="1"/><rect x="314" y="250" width="30" height="6" rx="1"/><rect x="314" y="274" width="30" height="6" rx="1"/></g></g>
+    <g id="monitorGlow"><ellipse cx="270" cy="250" rx="170" ry="120" fill="url(#noScreen)"/></g>
+  </g>
+
+  <!-- desk lamp -->
+  <g>
+    <ellipse cx="128" cy="330" rx="26" ry="5" fill="#383F3B"/>
+    <path d="M128 328 L148 268 L118 236" stroke="#383F3B" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M100 222 L140 232 L132 252 L94 240 Z" fill="#EAB62F"/><path d="M96 240 L132 252" stroke="#F6D36B" stroke-width="5"/>
+  </g>
+
+  <!-- papers, clipboard, mug, hard hat on the desk -->
+  <g>
+    <rect x="392" y="318" width="96" height="12" rx="1" fill="#E8E2D6" transform="rotate(-3 440 324)"/>
+    <rect x="398" y="310" width="90" height="10" rx="1" fill="#F4F1EA" transform="rotate(2 443 315)"/>
+    <rect x="148" y="314" width="22" height="16" rx="3" fill="#6A9D8A"/><path d="M170 318 Q180 322 170 326" stroke="#6A9D8A" stroke-width="3" fill="none"/>
+    <path d="M440 304 Q442 280 470 280 Q498 280 500 304 Z" fill="#FAF7F1"/><path d="M432 304 H508 Q510 310 504 310 H436 Q430 310 432 304 Z" fill="#E8E2D6"/><path d="M470 280 V304" stroke="#d8d2c6" stroke-width="3"/>
+  </g>
+
+  <!-- chair -->
+  <g>
+    <path d="M330 420 L310 470 M330 420 L356 470 M330 420 L330 474" stroke="#262e33" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="310" cy="474" r="6" fill="#1b2125"/><circle cx="356" cy="474" r="6" fill="#1b2125"/><circle cx="330" cy="478" r="6" fill="#1b2125"/>
+    <rect x="322" y="384" width="16" height="40" fill="#262e33"/>
+    <rect x="266" y="374" width="118" height="18" rx="8" fill="#2a3135"/>
+    <path d="M370 380 Q396 330 386 262 L406 262 Q418 334 388 392 Z" fill="#2a3135"/>
+  </g>
+
+  <!-- Na'ama, asleep at the desk: head on her folded arms, a blanket round her shoulders (faceless, by design) -->
+  <g id="breath">
+    <path d="M276 330 Q268 360 292 392 L376 392 Q392 360 380 318 Q364 290 330 290 Q296 292 276 330 Z" fill="#383F3B"/>
+    <!-- blanket: sage, with a mustard edge stripe -->
+    <path d="M262 324 Q270 286 318 280 Q370 276 392 312 Q404 350 390 396 L280 400 Q252 372 262 324 Z" fill="#6A9D8A"/>
+    <path d="M262 324 Q270 286 318 280 Q370 276 392 312" fill="none" stroke="#5a8a78" stroke-width="10"/>
+    <path d="M280 400 Q256 372 262 330" fill="none" stroke="#EAB62F" stroke-width="5" opacity=".8"/>
+    <path d="M300 300 Q320 340 314 398 M340 290 Q356 340 352 398" stroke="#5a8a78" stroke-width="3" fill="none" opacity=".7"/>
+  </g>
+  <!-- folded arms on the desk -->
+  <path d="M226 318 Q240 306 300 310 L318 326 L226 330 Z" fill="#4a524e"/>
+  <path d="M232 318 Q262 312 296 316" stroke="#5a625e" stroke-width="3" fill="none"/>
+  <ellipse cx="226" cy="324" rx="10" ry="6" fill="#C9A27E"/>
+  <!-- head resting on the arms, turned away; long dark curly hair -->
+  <g>
+    <ellipse cx="262" cy="296" rx="30" ry="24" fill="#3b2c22"/>
+    <path d="M236 294 Q232 266 262 262 Q296 260 298 290 Q304 306 292 318 Q286 300 278 296 Q262 300 250 312 Q236 310 236 294 Z" fill="#4a3628"/>
+    <g fill="none" stroke="#2c2018" stroke-width="3" opacity=".8"><path d="M246 276 q6 -6 12 0 q6 6 12 0"/><path d="M262 286 q6 -6 12 0 q6 6 12 0"/><path d="M286 300 q4 6 0 12"/></g>
+    <path d="M292 312 Q300 330 296 346 Q306 334 304 316 Z" fill="#3b2c22"/>
+  </g>
+</svg>

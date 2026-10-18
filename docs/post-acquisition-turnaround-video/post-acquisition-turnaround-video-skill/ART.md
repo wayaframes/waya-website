@@ -3,6 +3,10 @@
 Designed against `SCRIPT.md` draft 1 (2026-10-16). Landscape only (`INSTRUCTIONS.md` #3).
 Style frames: `artifacts/style/style-frame-1..4-*.png` (rebuild: `node artifacts/style/shoot-frames.mjs`).
 
+> **Round 2 and Draft 3 (2026-10-18) override the row 1, 3, 6–12 compositions below.** Read "Draft 3" at the end first.
+> See "Round 2" at the end of this file. Stills: `artifacts/style/style-frame-5..8-*.png`
+> (rebuild: `node artifacts/style/shoot-frames2.mjs`).
+
 ## Direction
 
 The 12-weeks house look, applied to an operations story. The picture runs from night to morning. Lines 1–7 are
@@ -249,3 +253,275 @@ dough story. They are not the client's catalogue.
 6. **The placeholder** is deliberately loud. When Oren's clip arrives, check it is ≥ 46 s usable (the script's
    widget table) and framed so the face sits in the top 30% of a square crop, which matches `object-position:
    center 30%` and the bar covering the top 52 px.
+
+
+## Round 2 (2026-10-18): Oren's notes #24, #25, #26, #28
+
+### A new illustration register for the two story beats
+The forklift (line 3) and Na'ama (line 10) move from house line drawings to flat editorial illustration. That
+means filled shapes with no outlines, two tones per surface (base plus a lighter top edge), soft radial light,
+soft ground shadows, and faceless figures. The colours are the film's tokens plus darker shades of them:
+- mustard for the forklift and the lamps
+- sage for the dumpster and the blanket
+- tan for wood
+- rust for hi-vis vests and spoiling produce
+- charcoal and the cold slates for the night
+
+The warehouse line art for lines 1–2 stays as it is. It is a diagram of the building; these two are scenes with
+people in them, and the change of register reads as "now we are on the floor".
+
+### Line 3 · forklift (#25): `assets/line/forklift-scene.svg`
+- **Placement.** Same budget as the old drawing: 760x520 at left 160, top 300. The scene shows the yard at night: a
+  corrugated wall, one wall lamp, a mustard counterbalance forklift with mast, carriage, forks, overhead guard,
+  counterweight and wheels, and an operator in a hard hat and hi-vis vest. The operator has no face; he suggests
+  Vince without portraying him. There is a sage dumpster with its lid open, and abandoned pallets of browning
+  produce along the wall. The scene's edges fade into `--cold`, so no box shows.
+- **Default pose.** Arrived, with the pallet raised just above the dumpster rim.
+- **Parts and moves** (CSS transforms, `transform-box: view-box`; the header comment in the SVG repeats them):
+
+| Part | Move | Timing |
+|---|---|---|
+| `#fkBody` | translateX(+220px) → 0 | on "Pallets", 1.0 s, ease-out |
+| `#fkCarriage` | translateY(+150px) → 0 (forks rise) | last 0.6 s of the drive-in |
+| `#fkLoad` | same translateX as `#fkBody` and same translateY as `#fkCarriage` | as above |
+| `#fkTip` | rotate(0) → rotate(-24deg), origin 140px 290px | on "rotted", 0.6 s |
+| `#crate1`, `#crate2`, `#crate3` | translate(-70px, 150px), 0.08 s apart | after the tip, 0.5 s, ease-in |
+| `#fkLampGlow` | opacity .85 ↔ 1, slow | optional |
+| `#operator` | rotate(-6deg), origin 492px 236px (turns toward the load) | optional |
+
+- **Why `#fkLoad` sits at root level.** It is not inside `#fkBody`, so a clip-path can make the crates disappear
+  behind the dumpster's front wall as they fall in, with no fading. That is why it needs the duplicated
+  transforms. The forklift's lamp is `#fkLampGlow` (renamed), so it no longer clashes with the Na'ama SVG's
+  `#lampGlow`. The four scene SVGs (forklift, Na'ama, aisle, crew strip) now share no ids and can be inlined
+  on one page as they are.
+- **On screen.** The chip "28% shrink in one week" stays at 1000, 440. Still: `style-frame-5-forklift-tip.png`, mid-tip.
+
+### Line 10 · Na'ama (#28): `assets/line/naama-office.svg`
+- **Placement.** Full-bleed in the centre seat (`#naama`), replacing the line drawing. Draft 3 moves it to
+  the wide layout W, 1060x761; see "Draft 3" below. The SVG is vector, so it scales clean.
+- **The scene.** The warehouse office at 2:10 a.m.: a desk lamp's warm pool, the warehouse system still up on the
+  monitor (cool mint glow, red rows), a wall clock, and a window onto the dark racking. Na'ama is asleep at the
+  desk, head on her folded arms, long dark curls, a sage blanket with a mustard edge round her shoulders. Her
+  hard hat is on the desk and her hi-vis vest hangs on the hook. It is quiet, warm and adult. No zzz.
+- **Changes to `#naama` in `video.html`.**
+  - Inline the SVG at `inset:0` (width 780, height 560).
+  - Set `#naama { background:#161b1e }`.
+  - Name card colours: `#naama .nm b { color: var(--cream) }` and `#naama .nm span { color: var(--fog) }`.
+    The name card stays at 34, 28.
+  - Keep the caption bar.
+  - Remove the `z1`–`z3` texts and their JS.
+- **Clear zones.** The art keeps the name area (y < 110, x < 400) and the caption band (y > 512) clear.
+- **Motion** (subtle; something always moving, house rule 13):
+  - `#breath`: scaleY 1 → 1.015, origin 300px 392px, 3.6 s ease-in-out loop
+  - `#monitorGlow`: opacity 1 → .86 → 1 at irregular 2–3 s intervals
+  - `#screenRows`: a −6 px refresh jump once in the beat
+  - `#minuteHand`: +6deg over the beat, origin 470px 128px
+  - `#lampGlow`: optional
+- **Still:** `style-frame-6-naama-office-wide.png` (draft 3, layout W).
+
+### 0–6 s · Vince's still card (#24): `assets/vince-headshot.jpeg`
+- **Source.** The image is copied from the site's `assets/images/headshots/vince-headshot.jpeg` (800x800).
+- **Shape.** Deliberately unlike the 560x560 video widget: a horizontal badge, 600x236, radius 28, at x 80,
+  y 400 on the cold stage. Fill `--cold2`, border `--cold3`, the dark-stage shadow.
+- **Photo.** Round, 168 px, `object-position: 50% 30%`, with a 5 px cream ring.
+- **Text, right of the photo.**
+  - "IN 2022 · AT CHEETAH": Space Grotesk 17 / 700 caps, mustard, +0.14em
+  - "Vince": 54 / 700 cream
+  - "now a Waya co-founder": Plus Jakarta Sans 24, fog
+- **Motion.** It rises 16 px on "Vince" and leaves before line 2. No live dot, no bar, no video, so it cannot read
+  as a call.
+- **Moved to make room.** The eyebrow goes to x 780, y 150. The warehouse goes to x 780, y 220, width 1000.
+  The "+3 regional distributors" chip goes to x 1260, y 880.
+- **Markup:** the `.badge` rules in `artifacts/style/frames2.html`.
+- **Still:** `style-frame-7-vince-still-card.png`.
+
+### 22–30 s · no Vince video (#26): proposal (SUPERSEDED by "Draft 3" below: no name chip, footprint x 430 w 1060)
+- **Widget.** The widget stays out from line 6 until the demo frame (line 9). Its space goes to the screens.
+- **Screens.** The gap analysis and the warehouse location table share one wide footprint, x 380, y 150,
+  width 1160, centred on the stage:
+  - gap analysis: height 773
+  - location table: height 689, about 0.91 of the shot's native size, so legible
+  - the two cross-fade in place, so the eye never re-finds the screen
+- **Name chip.** Above the screen, at x 380, y 40, a compact version of the still card (a pill, 84 px tall)
+  carries what the widget bar used to say: a 60 px round photo, then "Vince" 30 / 700 cream, "took over as COO"
+  22 fog, "· OCT 22, 2022" 15 caps mustard. It fades in with the gap analysis and holds through line 7.
+  It is a still, not a video.
+- **Re-mapped highlight boxes.** Computed from the measured boxes, scaled to the new footprint; stage px as
+  x, y, w x h.
+
+| Screen | Region | x, y | w x h |
+|---|---|---|---|
+| Gap analysis | crews row | 444, 680 | 491x39 |
+| Gap analysis | root-cause box | 970, 639 | 523x262 |
+| Location table | no-dimension rows | 397, 413 | 814x55 |
+| Location table | torn-down aisles | 397, 468 | 814x55 |
+| Location table | SKU panel | 1225, 352 | 299x450 |
+
+  Inside each screen element (`left/top` relative to the screen): subtract 380, 150.
+- **Still:** removed; replaced by `style-frame-9-go-and-see-a3.png`.
+
+### Round 2 advice
+1. **#27 is still open** (line 6 rewritten so it is about process, not people). The gap analysis's
+   "Crews: labor, training, effort · does not explain it" row still fits that framing: the analysis tests the
+   people explanation and rejects it in favour of the process. If the new line 6 drops "crews" altogether,
+   re-word that row to "Labor and training" and keep the strike. It is a one-line change in `gap-analysis.html`
+   plus a re-shoot.
+2. **Two registers in one film** (line art for the building, illustration for the people) is a deliberate choice.
+   If Oren wants one register, the warehouse in lines 1–2 is the one to redraw in the illustration style, at the
+   same size and with the same group ids.
+3. **The dough (line 4, `dough-box.svg`) is still the old stick style** and now sits between two illustrated beats.
+   I recommend redrawing it in the same register (a cardboard case on a steel shelf, puffing up). It is not in
+   Oren's list, so ask first. `vince-forklift.svg` is superseded by `forklift-scene.svg`.
+
+
+## Draft 3 (SCRIPT.md draft 3, 2026-10-18): rows 6–12 without the widget
+
+Vince is seen on camera only in rows 10a and 17. Everywhere else his seat is empty, so the screens take the space.
+Stills: `artifacts/style/style-frame-9..12-*.png` and `style-frame-6-naama-office-wide.png`
+(`node artifacts/style/shoot-frames2.mjs`).
+
+### Two demo layouts (both top-aligned at 140, under the 56 px section title)
+- **W (wide, no widget):** rows 9, 10b, 11, 12. Centre screen at x 170, width 1060; tracker at x 1300, width 450.
+  Centre + gap + tracker is 1580 px, centred on the stage.
+- **D (with widget):** row 10a only. Widget at x 30 (560x560), centre at x 620, width 780, tracker at x 1430,
+  width 450. These are the original demo-frame numbers.
+- **Switching.** Only the tracker moves between layouts:
+  - At 44.45, as the widget rises, translateX +130px over 0.5 s (EASE).
+  - At 52.06, as the widget leaves, translateX back.
+  - The centre never morphs: its contents change at the same moments (lane cards → count sheet at 10a; count
+    sheet → Na'ama at 10b), and each item has its own geometry.
+- **Every `data-col`** (l / c / r) still holds; the audit's top-alignment check passes in both layouts.
+
+### Row 6 · "went to the floor … the process, not the people" (21.9–27.6)
+- **Aisle.** Cold stage. `assets/line/aisle-scene.svg` (1920x1300, the Lean "go and see") fills the stage at
+  left 0, top 0. On "went to the floor" the camera moves down into the aisle: translateY(0 → −220px) plus
+  scale(1 → 1.06), origin 960px 640px, over 2.5 s, ease-out, then a slow drift (scale +0.01 over the rest of row 6
+  and row 7, so it never freezes). `#ceilingLights` can flicker .9 ↔ 1.
+- **Eyebrow.** "OCT 22 · GO AND SEE" (20 / 700 caps, cream, +0.14em) centred at top 84. It fades in with the move.
+- **The A3.** Rises at x 430, y 150, width 1060 (height 757) as the move settles. It uses the dark-stage screen
+  style (the shadow `0 30px 80px rgba(0,0,0,.45)`, a 1 px white 8% border). Caption bar "ROOT CAUSE · the
+  process, not the people".
+  - "Vince · COO" is on the A3's owner line (the producer's decision), so no name chip is needed.
+  - The A3 has three states (`artifacts/gap-analysis*.png`, variants of one page):
+
+| State | When | Shot |
+|---|---|---|
+| neutral, root cause empty | entry | `gap-analysis.png` |
+| "Process" circled in mustard, root cause filled ("The process, not the people. …") | cross-fade 0.3 s on "the process" | `gap-analysis-process.png` |
+| "People" greyed (not struck: respect for people) | cross-fade 0.3 s on "not the people" | `gap-analysis-people.png` |
+
+  - Measured boxes (stage px; in-screen = minus 430, 150):
+
+| Region | x, y | w x h |
+|---|---|---|
+| People card | 488, 634 | 218x118 |
+| Process card | 718, 634 | 218x118 |
+| Root-cause box | 969, 597 | 478x240 |
+
+  - The mustard ring is baked into the shots. If the animation director prefers a drawn ring, use the neutral
+    shot plus a 3.5 px mustard outline at the Process box, inset −7, radius 12.
+- **Retired.** `gap-analysis-struck.png` is no longer produced; the file on disk is stale, so drop its
+  reference from `video.html`.
+
+### Row 7 · the warehouse system (28.3–31.7)
+- **Placement.** The aisle keeps drifting. `artifacts/wms-locations.png` cross-fades in at the same footprint,
+  x 430, y 150, width 1060 (height 629). The eyebrow stays. The caption bar sequence is as built.
+- **Highlights**, one at a time (stage px; in-screen = minus 430, 150):
+
+| Region | x, y | w x h |
+|---|---|---|
+| No-dimension rows | 446, 391 | 744x50 |
+| Torn-down aisles | 446, 440 | 744x50 |
+| SKU panel | 1202, 335 | 273x412 |
+
+- **Short line.** If the measured line is under 3.5 s, drop the torn-down-aisles highlight (accepted rule).
+- **Hand-off.** The aisle and the screen fade toward the key line, and the stage goes cold → charcoal as before.
+
+### Row 8 · the key line as Vince's quote (32.43–39.95, text held to 40.75)
+- **Layout.** Charcoal. Everything else at 0.03 or gone. The quote is set in Space Grotesk 64 / 700, line-height
+  1.2, cream, centred in x 160–1760, starting at top 330. Four lines:
+  - "“Every day the warehousing crew"
+  - "was fixing the problems,"
+  - "and the IT system was recreating"
+  - "them every night.”"
+- **Colour.** The quote marks are fog, weight 500. "Every day" is mustard; "every night" is #F08A2C.
+- **Phrase by phrase on his timing.** Lines 1–2 rise together (14 px, 0.5 s) on "Every day". Lines 3–4 rise on
+  "and the IT system".
+- **Sun to moon.** The sun icon (64 px, mustard) sits at x 928, y 236. It turns into a fog-coloured moon on
+  "every night" (crescent wipe, 0.4 s).
+- **Attribution.** "— Vince" in Plus Jakarta Sans 28 / 500 fog, centred at top 668. It fades in with the
+  second phrase.
+- **Hold.** It holds the whole 8.3 s. No face, no widget.
+- **Still:** `style-frame-10-key-line-quote.png`.
+
+### Row 9 · "Two tracks, at once. Track one, by hand." (41.25–44.25)
+- **Layout W.** Charcoal → cream, then the title.
+- **Tracker.** `turnaround-tracker.png` (all red) at x 1300, label "The turnaround tracker".
+- **Lane cards.** They sit in the centre column, 900x110 each, at x 250, y 220 and y 360 (paper, Space Grotesk
+  44 / 700). They drop in on "Two tracks", and lane 1's mustard ring lights on "Track one".
+- **Widget column.** Empty, as the script says (#29).
+
+### Row 10a · Vince on camera (44.75–51.81, widget 44.45–52.06)
+- **Layout D.** The widget rises at the seat, bar "Vince · Waya co-founder", right label "on the floor". The
+  tracker slides to x 1430, and the lane cards fold away.
+- **Count sheet.** `count-sheet.png` rises at x 620, y 140, width 780, in its 560 px card. Caption "TRACK 1 ·
+  BY HAND · execs, sales, operators on the floor".
+- **Crew strip.** `assets/line/crew-strip.svg` (780x150) sits under the card at x 620, y 716.
+  - On "everyone, executive, sales team, operators", the five figures `#crewExec`, `#crewSales`, `#crewOps1`,
+    `#crewSales2`, `#crewOps2` rise 12 px and fade in, 0.12 s apart.
+  - On "24-7", `#dayNight` spins 360° once (origin 712px 75px, 1.2 s).
+  - On "cleaned up the warehouse", the tracker cross-fades to `turnaround-tracker-turning.png`.
+- **Clutter.** This is the only demo moment with four elements. They are all small and on the same top line,
+  and it lasts 7 s, so it is acceptable. Drop the crew strip if the review calls it clutter.
+- **Still:** `style-frame-11-track1-vince-on-camera.png`.
+
+### Row 10b · Na'ama (52.41–53.91)
+- **Layout W.** The widget leaves and the tracker slides back to x 1300. The count sheet slides out left
+  (−60 px, fade). The Na'ama card comes in at x 170, y 140, 1060x761: `naama-office.svg` full-bleed,
+  `background:#161b1e`.
+- **Text.** The name card at 34, 28 reads "Na'ama" (44 / 700 cream) and "Vince's co-founder · 16-hour days"
+  (24 fog). The caption reads "TRACK 1 · BY HAND · Na'ama slept there".
+- **Motion.** As in Round 2. With a 1.5 s beat, the breathing and the monitor flicker are enough.
+- **Cot or desk.** The script says "asleep on a cot"; the illustration has her asleep at the desk under a blanket.
+  It reads as "slept there" in 1.5 s, where a cot needs more frame. I kept the desk. Say if Oren wants the cot.
+- **Still:** `style-frame-6-naama-office-wide.png`.
+
+### Row 11 · track two (54.61–56.76)
+- **Layout W.** `slotting.png` at x 170, y 140, width 1060 (height 707), caption "TRACK 2 · FIX THE CAUSE ·
+  fixed slots for fast movers, flexible for the rest". The tracker stays at x 1300 (turning).
+- **Highlights** (stage px; in-screen = minus 170, 140):
+
+| Region | x, y | w x h |
+|---|---|---|
+| Zone map | 189, 294 | 655x510 |
+| Consolidation box | 871, 661 | 325x77 |
+
+- **Still:** `style-frame-12-track2-wide.png`.
+
+### Row 12 · barcode checks, standard work (57.46–60.16)
+- **Layout W.** `scan-qa.png` at x 170, y 140, width 1060 (height 642); the hard-stop modal highlight is at
+  400, 328, 600x292. Then `standard-work.png` (1060 wide, height 503) rises 20 px over it on "daily standard
+  work".
+- **Captions** as built. The tracker stays at x 1300.
+
+### New and changed files (draft 3)
+- **Artifacts:** `artifacts/gap-analysis.html` (People/Process cards, owner "Vince · COO", root-cause text,
+  variants `process` and `people`), shot as `gap-analysis.png`, `gap-analysis-process.png` and
+  `gap-analysis-people.png`.
+- **Illustrations:** `assets/line/aisle-scene.svg` (generated by `assets/line/make-aisle.py`) and
+  `assets/line/crew-strip.svg` (generated by `assets/line/make-crew.py`).
+
+
+## Row 4 · the dough, redrawn (2026-10-18)
+- **The drawing.** `assets/line/dough-box.svg` is now in the illustration register:
+  - Steel dry-goods shelving with flour sacks and cans either side, to say this is the dry warehouse.
+  - A kraft corrugated case with a dark label panel.
+  - In the puffed state, the risen dough forces the flaps open and splits the seam.
+  - Same 520x420 budget at left 450, top 280.
+- **Ids unchanged:** `#shelf`, `#box`, `#puff`. There is a new optional `#frost`: cold breath that fades out
+  as the box warms.
+- **Animation.** Cross-fade `#box` → `#puff` on "the yeast woke up", with a scale from 0.85 to 1.0 about
+  240px 330px (POP), as built. `video.html` inlines these as `dBox` / `dPuff`, so map the new groups to those ids.
+- **Label.** The dark label panel (x 166–314, y 264–318) sits under the page's typeset label "FROZEN / pizza
+  dough" (cream) at left 600, top 548. It is in the same place in both states, so the label never moves.
+- **Stills:** `artifacts/style/style-frame-13-dough-normal.png` and `style-frame-14-dough-puffed.png`.

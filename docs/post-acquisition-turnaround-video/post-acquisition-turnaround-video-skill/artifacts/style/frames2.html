@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Style frames, round 2</title>
+<style>
+@font-face { font-family:'Space Grotesk'; font-weight:500; src:url('../../assets/fonts/SpaceGrotesk-Medium.woff2'); }
+@font-face { font-family:'Space Grotesk'; font-weight:600; src:url('../../assets/fonts/SpaceGrotesk-SemiBold.woff2'); }
+@font-face { font-family:'Space Grotesk'; font-weight:700; src:url('../../assets/fonts/SpaceGrotesk-Bold.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:400; src:url('../../assets/fonts/PlusJakartaSans-Regular.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:500; src:url('../../assets/fonts/PlusJakartaSans-Medium.woff2'); }
+@font-face { font-family:'Plus Jakarta Sans'; font-weight:600; src:url('../../assets/fonts/PlusJakartaSans-SemiBold.woff2'); }
+:root{--cream:#FAF7F1;--paper:#F4F1EA;--charcoal:#383F3B;--ink:#1F2422;--stone:#6B6F6C;--fog:#B8BBB6;--mint:#D3E9E0;--rust:#D16C02;--mustard:#EAB62F;--sage:#6A9D8A;--cold:#121517;--cold2:#1b2125;--cold3:#262e33;--fd:'Space Grotesk',sans-serif;--fb:'Plus Jakarta Sans',sans-serif}
+html,body{margin:0;background:#000}
+.f{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:var(--fb);display:none}
+.f.on{display:block}
+.abs{position:absolute}
+.abs > svg{display:block;width:100%;height:auto}
+.chip{position:absolute;background:var(--cold2);border:1px solid var(--cold3);border-radius:14px;padding:16px 22px;color:var(--cream);font-family:var(--fd);font-size:28px;font-weight:500;display:flex;gap:14px;align-items:center}
+.chip b{color:var(--rust);font-size:40px;font-weight:700}
+.eyebrow{font-family:var(--fd);font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--fog)}
+.stitle{position:absolute;left:0;right:0;top:48px;text-align:center;font-family:var(--fd);font-weight:700;font-size:56px;letter-spacing:-.02em;color:var(--charcoal)}
+.tile{position:absolute;left:30px;top:140px;width:560px;height:560px;border-radius:22px;background:#fff;border:1px solid rgba(56,63,59,.14);box-shadow:0 24px 70px rgba(31,36,34,.18);overflow:hidden}
+.tile .bar{position:absolute;left:0;right:0;top:0;height:52px;z-index:2;background:var(--charcoal);color:var(--cream);font-family:var(--fd);font-weight:600;font-size:19px;display:flex;align-items:center;padding:0 18px;gap:10px}
+.tile .bar i{width:12px;height:12px;border-radius:50%;background:#5fd38a;box-shadow:0 0 0 4px rgba(95,211,138,.25)}
+.tile .bar span{margin-left:auto;font-weight:500;opacity:.7}
+.tile .body{position:absolute;inset:52px 0 0 0;background:var(--mint)}
+.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.screen{position:absolute;left:620px;top:140px;width:780px;height:560px;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(31,36,34,.16);border:1px solid rgba(56,63,59,.14);background:#fff}
+.screen > img{display:block;width:100%}
+.screen .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 20px;background:#1F2422;color:var(--cream);font-family:var(--fd);font-size:20px;font-weight:500;letter-spacing:.02em}
+.screen .cap b{font-weight:700}
+.tracker{position:absolute;left:1430px;top:140px;width:450px;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(31,36,34,.14);border:1px solid rgba(56,63,59,.14);background:#fff}
+.tracker img{display:block;width:100%}
+.tracker .lbl{position:absolute;left:0;right:0;top:0;padding:10px 16px;background:rgba(31,36,34,.92);color:var(--cream);font-family:var(--fd);font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+/* Na'ama seat: the illustration full-bleed, name card in cream over the dark wall */
+#naama .art{position:absolute;inset:0} #naama .art svg{display:block;width:100%;height:100%}
+#naama .nm{position:absolute;left:34px;top:28px;font-family:var(--fd)}
+#naama .nm b{display:block;font-size:44px;font-weight:700;color:var(--cream);letter-spacing:-.02em}
+#naama .nm span{display:block;font-family:var(--fb);font-size:24px;color:var(--fog);margin-top:2px}
+/* the still card of Vince (line 1): a horizontal badge with a round photo, nothing like the square video widget */
+.badge{position:absolute;display:flex;align-items:center;gap:30px;background:var(--cold2);border:1px solid var(--cold3);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.badge .ph{flex:none;border-radius:50%;overflow:hidden;box-shadow:0 0 0 5px var(--cream),0 0 0 6px rgba(0,0,0,.4)}
+.badge .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.badge .tx b{display:block;font-family:var(--fd);font-weight:700;color:var(--cream);letter-spacing:-.02em}
+.badge .tx span{display:block;color:var(--fog)}
+.badge .tx em{display:block;font-style:normal;font-family:var(--fd);font-weight:700;letter-spacing:.14em;color:var(--mustard)}
+.wide{position:absolute;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08);background:#fff}
+.wide img{display:block;width:100%}
+.wide .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 20px;background:#1F2422;color:var(--cream);font-family:var(--fd);font-size:20px;font-weight:500}
+</style></head><body>
+
+<!-- 5. line 3: the forklift tips the rotten pallet into the dumpster (tip in progress) -->
+<section class="f" id="f5" style="background:var(--cold)">
+  <div class="abs" data-svg="../../assets/line/forklift-scene.svg" style="left:160px;top:300px;width:760px"></div>
+  <div class="chip" style="left:1000px;top:440px"><b>28%</b>shrink in one week</div>
+</section>
+
+<!-- 6. row 10b: Na'ama, wide layout W (no widget): centre x 170 w 1060, tracker x 1300 -->
+<section class="f" id="f6" style="background:var(--cream)">
+  <div class="stitle">Two tracks, at once</div>
+  <div class="screen" id="naama" style="left:170px;width:1060px;height:761px;background:#161b1e"><div class="art" data-svg="../../assets/line/naama-office.svg"></div>
+    <div class="nm"><b>Na'ama</b><span>Vince's co-founder · 16-hour days</span></div>
+    <div class="cap"><b>TRACK 1 · BY HAND</b> · Na'ama slept there</div></div>
+  <div class="tracker" style="left:1300px"><img src="../turnaround-tracker.png"><div class="lbl">The turnaround tracker</div></div>
+</section>
+
+<!-- 7. line 1 (0-6 s): the still card of Vince, beside the warehouse -->
+<section class="f" id="f7" style="background:var(--cold)">
+  <div class="badge" style="left:80px;top:400px;width:600px;height:236px;padding:0 34px">
+    <div class="ph" style="width:168px;height:168px"><img src="../../assets/vince-headshot.jpeg"></div>
+    <div class="tx"><em style="font-size:17px;margin-bottom:10px">IN 2022 · AT CHEETAH</em><b style="font-size:54px">Vince</b><span style="font-size:24px;margin-top:4px">now a Waya co-founder</span></div>
+  </div>
+  <div class="abs eyebrow" style="left:780px;top:150px">FALL 2022 · CHEETAH TECHNOLOGIES</div>
+  <div class="abs" data-svg="../../assets/line/warehouse.svg" style="left:780px;top:220px;width:1000px"></div>
+  <div class="chip" style="left:1260px;top:880px"><b style="color:var(--mustard)">+3</b>regional distributors · ~$24M revenue</div>
+</section>
+
+<!-- 9. row 6: go and see. The aisle behind (mid tilt-down), the A3 over it in the wide root-cause footprint -->
+<section class="f" id="f9" style="background:var(--cold)">
+  <div class="abs" data-svg="../../assets/line/aisle-scene.svg" style="left:0;top:-110px;width:1920px;transform:scale(1.03);transform-origin:960px 640px"></div>
+  <div class="abs eyebrow" style="left:0;right:0;top:84px;text-align:center;color:var(--cream)">OCT 22 · GO AND SEE</div>
+  <div class="wide" style="left:430px;top:150px;width:1060px"><img src="../gap-analysis-people.png"><div class="cap"><b>ROOT CAUSE</b> · the process, not the people</div></div>
+</section>
+
+<!-- 10. row 8: Vince's words as a quote, alone (his voice; no face) -->
+<section class="f" id="f10" style="background:var(--charcoal)">
+  <svg class="abs" viewBox="0 0 64 64" style="left:928px;top:236px;width:64px" fill="none"><circle cx="32" cy="32" r="13" fill="#EAB62F"/><g stroke="#EAB62F" stroke-width="4" stroke-linecap="round"><path d="M32 6V12M32 52V58M6 32H12M52 32H58M13.6 13.6L17.8 17.8M46.2 46.2L50.4 50.4M13.6 50.4L17.8 46.2M46.2 17.8L50.4 13.6"/></g></svg>
+  <div class="abs" style="left:160px;right:160px;top:330px;text-align:center;font-family:var(--fd);font-weight:700;font-size:64px;line-height:1.2;letter-spacing:-.02em;color:var(--cream)">
+    <span style="color:var(--fog);font-weight:500">“</span><span style="color:var(--mustard)">Every day</span> the warehousing crew<br>was fixing the problems,<br>
+    and the IT system was recreating<br>them <span style="color:#F08A2C">every night</span>.<span style="color:var(--fog);font-weight:500">”</span></div>
+  <div class="abs" style="left:0;right:0;top:668px;text-align:center;font-family:var(--fb);font-weight:500;font-size:28px;color:var(--fog)">— Vince</div>
+</section>
+
+<!-- 11. row 10a: the one demo moment WITH the widget (layout D): Vince on camera, his own voice -->
+<section class="f" id="f11" style="background:var(--cream)">
+  <div class="stitle">Two tracks, at once</div>
+  <div class="tile"><div class="bar"><i></i>Vince · Waya co-founder <span>on the floor</span></div><div class="body"><video id="v" src="../../assets/expert-vince.mp4" muted playsinline preload="auto"></video></div></div>
+  <div class="screen" style="height:560px"><img src="../count-sheet.png"><div class="cap"><b>TRACK 1 · BY HAND</b> · execs, sales, operators on the floor</div></div>
+  <div class="abs" data-svg="../../assets/line/crew-strip.svg" style="left:620px;top:716px;width:780px"></div>
+  <div class="tracker"><img src="../turnaround-tracker.png"><div class="lbl">The turnaround tracker</div></div>
+</section>
+
+<!-- 12. row 11: layout W again (widget gone): the rebuilt system, wide -->
+<section class="f" id="f12" style="background:var(--cream)">
+  <div class="stitle">Two tracks, at once</div>
+  <div class="screen" style="left:170px;width:1060px;height:auto"><img src="../slotting.png"><div class="cap"><b>TRACK 2 · FIX THE CAUSE</b> · fixed slots for fast movers, flexible for the rest</div></div>
+  <div class="tracker" style="left:1300px"><img src="../turnaround-tracker-turning.png"><div class="lbl">The turnaround tracker</div></div>
+</section>
+
+<!-- 13/14. row 4: the dough, normal (13) and puffed (14); label typeset as in video.html -->
+<section class="f" id="f13" style="background:var(--cold)">
+  <div class="abs" data-svg="../../assets/line/dough-box.svg" style="left:450px;top:280px;width:520px"></div>
+  <div class="abs" style="left:600px;top:548px;width:180px;text-align:center;font-family:var(--fd);color:var(--cream);line-height:1.1"><div style="font-size:22px;font-weight:700;letter-spacing:.12em">FROZEN</div><div style="font-size:20px;font-weight:500">pizza dough</div></div>
+  <div class="chip" style="left:990px;top:540px"><b>Frozen</b>in the dry warehouse</div>
+</section>
+<section class="f" id="f14" style="background:var(--cold)">
+  <div class="abs" data-svg="../../assets/line/dough-box.svg" style="left:450px;top:280px;width:520px"></div>
+  <div class="abs" style="left:600px;top:548px;width:180px;text-align:center;font-family:var(--fd);color:var(--cream);line-height:1.1"><div style="font-size:22px;font-weight:700;letter-spacing:.12em">FROZEN</div><div style="font-size:20px;font-weight:500">pizza dough</div></div>
+  <div class="chip" style="left:990px;top:540px"><b>Frozen</b>in the dry warehouse</div>
+</section>
+
+<script>
+const f = new URLSearchParams(location.search).get('f') || '5';
+document.getElementById('f' + f).classList.add('on');
+window.__seekVideo = async () => { const v = document.getElementById('v'); if (!v || !v.closest('.f.on')) return;
+  if (v.readyState < 2) await new Promise(r => v.addEventListener('loadeddata', r, { once: true }));
+  v.currentTime = Math.min(3, (v.duration || 6) / 2); await new Promise(r => v.addEventListener('seeked', r, { once: true })); };
+window.__pose = () => {   // line 3 still: mid-tip; row 4 stills: normal / puffed
+  const on = document.querySelector('.f.on');
+  if (on.id === 'f13') { on.querySelector('#puff').style.display = 'none'; return; }
+  if (on.id === 'f14') { on.querySelector('#box').style.display = 'none'; on.querySelector('#frost').style.display = 'none'; return; }
+  const q = id => document.getElementById(id); if (!q('fkTip')) return;
+  const set = (el, t, o) => { el.style.transformBox = 'view-box'; if (o) el.style.transformOrigin = o; el.style.transform = t; };
+  set(q('fkTip'), 'rotate(-20deg)', '140px 290px');
+  set(q('crate1'), 'translate(-26px, 40px)'); set(q('crate2'), 'translate(-14px, 22px)'); set(q('crate3'), 'translate(-22px, 30px)');
+};
+</script>
+</body></html>

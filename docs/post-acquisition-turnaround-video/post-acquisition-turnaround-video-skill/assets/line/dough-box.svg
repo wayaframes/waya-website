@@ -1,8 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" fill="none" stroke="#C9CCC7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Line art for script line 4. #shelf + #box are the frozen dough on a dry shelf; #puff is the swollen box
-       (crossfade #box -> #puff on "the yeast woke up", or scale #puff from the box's base at 150,330).
-       The label text is drawn as type in the page, not here: FROZEN · pizza dough. -->
-  <g id="shelf"><path d="M40 330 L480 330"/><path d="M60 330 L60 400 M460 330 L460 400"/><path d="M40 200 L480 200" opacity=".45"/></g>
-  <g id="box"><path d="M150 330 L150 250 L330 250 L330 330"/><path d="M150 250 L180 228 L360 228 L330 250 M360 228 L360 308 L330 330"/></g>
-  <g id="puff" stroke="#D16C02"><path d="M150 330 C 110 300, 105 205, 175 170 C 230 140, 300 140, 345 175 C 400 215, 380 300, 330 330 Z"/><path d="M190 200 C 220 185, 260 185, 290 198" opacity=".6"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" width="520" height="420">
+  <!-- Row 4, "Frozen pizza dough sat out until the yeast woke up": flat editorial illustration (same register as
+       forklift-scene.svg / naama-office.svg), same 520x420 budget at left 450, top 280.
+       Groups (ids unchanged):
+         #shelf  dry-goods steel shelving, flour sacks and cans either side (context: this is the DRY warehouse)
+         #box    the frozen case, normal: kraft corrugated, a dark label panel on its face at x 166-314, y 264-318,
+                 where the page's typeset label sits (FROZEN / pizza dough, cream)
+         #puff   the same case swollen by the risen dough: seams split, dough bulging out of the top flaps
+       Cross-fade #box -> #puff on "the yeast woke up" with a scale 0.85 -> 1, origin 240px 330px (POP).
+       The label panel stays at the same place in both states, so the HTML label never moves.
+       #frost  optional: cold breath fading off the box (opacity .6 -> 0 as it warms, over the line). -->
+  <defs>
+    <radialGradient id="dbLight" cx="50%" cy="30%" r="60%"><stop offset="0" stop-color="#EAB62F" stop-opacity=".14"/><stop offset="1" stop-color="#EAB62F" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="260" cy="215" rx="250" ry="200" fill="url(#dbLight)"/>
+  <g id="shelf">
+    <!-- uprights -->
+    <rect x="36" y="60" width="12" height="350" rx="2" fill="#2f3d47"/><rect x="472" y="60" width="12" height="350" rx="2" fill="#2f3d47"/>
+    <rect x="38" y="60" width="3" height="350" fill="#46586a"/><rect x="474" y="60" width="3" height="350" fill="#46586a"/>
+    <!-- upper shelf with dry goods -->
+    <rect x="36" y="186" width="448" height="12" rx="2" fill="#4a524e"/><rect x="36" y="186" width="448" height="3" fill="#6B6F6C"/>
+    <g>
+      <path d="M62 186 Q58 140 76 128 H116 Q134 140 130 186 Z" fill="#E8E2D6"/><rect x="74" y="150" width="44" height="16" rx="2" fill="#6A9D8A"/>
+      <path d="M140 186 Q136 146 152 136 H186 Q202 146 198 186 Z" fill="#dcd5c7"/><rect x="150" y="156" width="38" height="14" rx="2" fill="#6A9D8A"/>
+      <g fill="#8a939a"><rect x="372" y="148" width="26" height="38" rx="3"/><rect x="402" y="148" width="26" height="38" rx="3"/><rect x="432" y="148" width="26" height="38" rx="3"/></g>
+      <g fill="#D16C02" opacity=".85"><rect x="372" y="160" width="26" height="12"/><rect x="402" y="160" width="26" height="12"/><rect x="432" y="160" width="26" height="12"/></g>
+    </g>
+    <!-- the shelf the case sits on -->
+    <rect x="36" y="330" width="448" height="14" rx="2" fill="#4a524e"/><rect x="36" y="330" width="448" height="3" fill="#6B6F6C"/>
+    <rect x="36" y="400" width="448" height="10" rx="2" fill="#383F3B"/>
+    <g fill="#E8E2D6"><path d="M62 330 Q58 296 74 288 H108 Q122 296 120 330 Z"/></g><rect x="70" y="302" width="40" height="13" rx="2" fill="#6A9D8A"/>
+    <g fill="#8a939a"><rect x="400" y="294" width="26" height="36" rx="3"/><rect x="430" y="294" width="26" height="36" rx="3"/></g>
+    <g fill="#D16C02" opacity=".85"><rect x="400" y="305" width="26" height="12"/><rect x="430" y="305" width="26" height="12"/></g>
+    <!-- a dry-aisle tag on the shelf edge -->
+    <rect x="214" y="334" width="92" height="9" rx="2" fill="#FAF7F1"/><rect x="220" y="336" width="34" height="5" fill="#383F3B"/>
+  </g>
+
+  <g id="box">
+    <ellipse cx="248" cy="331" rx="104" ry="5" fill="#000" opacity=".4"/>
+    <!-- top face -->
+    <path d="M150 250 L180 228 L360 228 L330 250 Z" fill="#d8b688"/>
+    <path d="M240 250 L270 228" stroke="#b8956d" stroke-width="3"/>
+    <!-- side -->
+    <path d="M330 250 L360 228 L360 308 L330 330 Z" fill="#9C7650"/>
+    <!-- front -->
+    <rect x="150" y="250" width="180" height="80" fill="#C49A6C"/>
+    <rect x="150" y="250" width="180" height="4" fill="#d8b688"/>
+    <rect x="232" y="250" width="16" height="80" fill="#b8956d" opacity=".55"/>
+    <rect x="166" y="264" width="148" height="54" rx="4" fill="#1f2422"/>
+    <path d="M300 270 l6 0 M303 267 l0 6" stroke="#D3E9E0" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <g id="puff">
+    <ellipse cx="248" cy="331" rx="118" ry="6" fill="#000" opacity=".4"/>
+    <!-- risen dough forcing the flaps open -->
+    <path d="M150 236 C 140 168, 214 132, 262 140 C 322 134, 384 168, 360 236 Z" fill="#EFE3C8"/>
+    <path d="M178 196 C 206 168, 252 160, 290 170" stroke="#d9c9a6" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="232" cy="184" r="4" fill="#d9c9a6"/><circle cx="300" cy="196" r="3" fill="#d9c9a6"/>
+    <!-- flaps bent back -->
+    <path d="M150 238 L120 214 L176 206 Z" fill="#d8b688"/><path d="M360 232 L392 206 L338 204 Z" fill="#c4a272"/>
+    <!-- swollen case: bowed sides, split seam -->
+    <path d="M150 238 C 136 268, 138 306, 150 330 L330 330 C 342 306, 344 266, 334 236 Z" fill="#C49A6C"/>
+    <path d="M334 236 C 352 226, 368 222, 372 230 C 380 266, 374 300, 360 310 L330 330 C 344 306, 346 266, 334 236 Z" fill="#9C7650"/>
+    <path d="M150 238 C 136 268, 138 306, 150 330" stroke="#d8b688" stroke-width="3" fill="none"/>
+    <path d="M240 236 C 238 260, 244 276, 240 300" stroke="#7a5a3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M240 236 C 236 248, 246 252, 242 262" stroke="#EFE3C8" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="166" y="264" width="148" height="54" rx="4" fill="#1f2422"/>
+    <path d="M318 248 l10 -6 M150 290 l-10 2" stroke="#D16C02" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g id="frost" opacity=".6" fill="none" stroke="#D3E9E0" stroke-width="3" stroke-linecap="round">
+    <path d="M200 224 C 194 216, 206 212, 200 204"/><path d="M256 222 C 250 214, 262 210, 256 202"/><path d="M312 224 C 306 216, 318 212, 312 204"/>
+  </g>
 </svg>
