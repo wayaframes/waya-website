@@ -593,410 +593,197 @@
   }
 
   /* ------------------------------------------------------------------ anim: one per Solutions page
-     Margins and Cash: the AP invoice line as a working machine. Invoices ride a belt through
-     Receive, Extract line items and Verify; gears turn on one drive shaft; each station drops
-     cost into its bin; a Gross margin dial reads short of Target.
-       1 Measure the gap: the Extract bin fills far higher; the gap is bracketed on the dial.
-       2 Find the cause: a lens opens the Extract housing: typed twice, checked line by line,
-         batches wait. Everything else dims.
-       3 Build the fix: the extra arms retract, a gear "Built into the app" drops in, invoices
-         go one at a time, the bin drains, the needle reaches Target, "Standard work" locks on.
-     No numbers or amounts. Two clocks: t (the story, 0–8s, then held) and clock (the motion,
-     always running while visible). Every frame is a pure function of both. */
+     Margins and Cash, "follow the money": money (dots) flows along a process line into a
+     "Margin kept" meter. 1) one station leaks and the meter stops short of its full outline;
+     2) everything dims but the leak, tagged with causes from the cases; 3) the station is
+     rebuilt, the leak stops, the meter fills. No numbers or amounts. Every visual state is a
+     pure function of time t, so reduced motion simply renders the end time. */
 
-  var MACHINE_END = 8;
+  var MONEY_END = 4;
   function seg(t, a, b) { return clamp01((t - a) / (b - a)); }
   function ease(x) { return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
-
-  function machineState(t) {
+  function moneyState(t) {
     var e = function (a, b) { return ease(seg(t, a, b)); };
-    var stage = t < 2.6 ? 0 : (t < 5.2 ? 1 : 2);
+    var undim = e(2.8, 3.2);
     return {
-      stage: stage,
-      progress: stage === 0 ? seg(t, 0, 2.6) : (stage === 1 ? seg(t, 2.6, 5.2) : seg(t, 5.2, MACHINE_END)),
-      fillLow: 0.26 * e(0.2, 2.2),
-      fillHigh: 0.88 * e(0.2, 2.2) - 0.62 * e(6.2, 7.2),
-      gap: e(1.6, 2.1) * (1 - e(7.0, 7.4)),
-      needle: 155 - 120 * e(6.4, 7.6),
-      onTarget: e(7.2, 7.6),
-      dim: e(2.6, 3.0) * (1 - e(5.6, 6.0)),
-      lens: e(2.6, 3.0) * (1 - e(5.6, 6.0)),
-      lensSlide: 1 - e(2.6, 3.2),
-      inspect: e(2.7, 3.1) * (1 - e(5.6, 6.0)),
-      arms: e(3.0, 3.4) * (1 - e(5.2, 5.6)),
-      armsUp: e(5.2, 5.6),
-      lensLabels: e(3.4, 3.8) * (1 - e(5.2, 5.5)),
-      queue: 4 * e(2.8, 4.2) * (1 - e(6.0, 6.8)),
-      batchLabel: e(3.2, 3.6) * (1 - e(6.0, 6.4)),
-      bunch: 1 - e(6.0, 7.0),
-      fixedRate: e(6.2, 6.6),
-      newGear: e(5.8, 6.4),
-      gearLabel: e(6.3, 6.7),
-      oneAtATime: e(6.6, 7.0),
-      flowOk: e(6.0, 6.6),
-      plate: e(7.2, 7.7)
+      frame: t < 1.4 ? 0 : (t < 2.7 ? 1 : 2),
+      leak: t >= 0.3 && t < 2.7,
+      fill: 0.55 * e(0.4, 1.3) + 0.45 * e(3.0, 3.9),
+      target: e(0.9, 1.3),
+      gapLabel: e(0.9, 1.3) * (1 - e(3.4, 3.8)),
+      dim: e(1.4, 1.8) * (1 - undim),
+      scale: 1 + 0.15 * e(1.4, 1.8) * (1 - undim),
+      tags: [1.7, 1.9, 2.1].map(function (a) { return e(a, a + 0.35) * (1 - e(2.7, 3.0)); }),
+      fixed: e(2.7, 3.1)
     };
   }
 
-  function gearPath(r, teeth) {
-    var d = '', n = teeth * 2, ri = r * 0.78;
-    for (var i = 0; i < n; i++) {
-      var a0 = (i / n) * Math.PI * 2, a1 = ((i + 1) / n) * Math.PI * 2, rr = i % 2 ? ri : r;
-      var p0 = [rr * Math.cos(a0 + 0.06), rr * Math.sin(a0 + 0.06)], p1 = [rr * Math.cos(a1 - 0.06), rr * Math.sin(a1 - 0.06)];
-      d += (i ? ' L' : 'M') + r2(p0[0]) + ',' + r2(p0[1]) + ' L' + r2(p1[0]) + ',' + r2(p1[1]);
-    }
-    return d + ' Z';
-  }
-  function polar(cx, cy, r, deg) { var a = deg * Math.PI / 180; return [r2(cx + r * Math.cos(a)), r2(cy - r * Math.sin(a))]; }
-
-  function animMachine(el, ctx) {
+  function animMoney(el, ctx) {
     var rm = !!(ctx && ctx.reducedMotion);
     var steps = arr(ctx && ctx.group && ctx.group.steps);
     var fallback = ['Measure the gap', 'Find the cause on the floor', 'Build the fix into the system'];
+    var captions = fallback.map(function (f, i) { return (i + 1) + ' ' + (txt(steps[i] && steps[i].title) || f); });
 
-    el.classList.add('dc-anim', 'dc-anim-machine');
+    el.classList.add('dc-anim', 'dc-anim-money');
     if (rm) el.classList.add('dc-rm');
-
-    /* stage strip */
-    var strip = h('div', 'dc-stages');
-    var segs = fallback.map(function (f, i) {
-      var s = h('div', 'dc-stage');
-      var n = h('span', 'dc-stage-n', String(i + 1));
-      var lab = h('span', 'dc-stage-t', txt(steps[i] && steps[i].title) || f);
-      var bar = h('span', 'dc-stage-bar');
-      var fillBar = h('span', 'dc-stage-fill');
-      bar.appendChild(fillBar);
-      s.appendChild(bar);
-      s.appendChild(n);
-      s.appendChild(lab);
-      strip.appendChild(s);
-      return { el: s, fill: fillBar };
-    });
+    var cap = h('p', 'dc-anim-cap');
     var box = h('div', 'dc-anim-box');
     var svg = svgEl('svg', { 'class': 'dc-anim-svg', focusable: 'false', 'aria-hidden': 'true' });
     box.appendChild(svg);
-    el.appendChild(strip);
+    el.appendChild(cap);
     el.appendChild(box);
 
-    var uidM = 'dcm' + Math.floor(Math.random() * 1e6);
-    var G = null;
-
-    function label(parent, x, y, str, cls, anchor, plate, fs) {
-      var g = svgEl('g', { 'class': 'dc-k-label' });
-      if (plate) {
-        var w = str.length * fs * 0.57 + 10, lx = anchor === 'start' ? x - 5 : (anchor === 'end' ? x - w + 5 : x - w / 2);
-        g.appendChild(svgEl('rect', { 'class': 'dc-k-plate', x: r2(lx), y: r2(y - fs - 1), width: r2(w), height: r2(fs + 7), rx: 3 }));
-      }
-      g.appendChild(svgEl('text', { 'class': 'dc-k-t ' + (cls || ''), x: r2(x), y: r2(y), 'text-anchor': anchor || 'middle' }, str));
-      parent.appendChild(g);
-      return g;
-    }
-    /* one or two lines, for narrow layouts */
-    function label2(parent, x, y, lines, cls, anchor, fs) {
-      var g = svgEl('g', { 'class': 'dc-k-label' });
-      lines.forEach(function (ln, i) {
-        g.appendChild(svgEl('text', { 'class': 'dc-k-t ' + (cls || ''), x: r2(x), y: r2(y - (lines.length - 1 - i) * (fs + 2)), 'text-anchor': anchor || 'middle' }, ln));
-      });
-      parent.appendChild(g);
-      return g;
+    var capIndex = -1, capTimer = 0;
+    function setCaption(i, instant) {
+      if (i === capIndex) return;
+      capIndex = i;
+      clearTimeout(capTimer);
+      if (instant) { cap.textContent = captions[i]; cap.classList.remove('is-out'); return; }
+      cap.classList.add('is-out');
+      capTimer = setTimeout(function () { cap.textContent = captions[i]; cap.classList.remove('is-out'); }, 160);
     }
 
+    var G = null;                                      /* geometry + element refs, rebuilt on resize */
     function layout() {
       var W = box.clientWidth, H = box.clientHeight;
-      if (!(W > 240 && H > 200)) return false;
+      if (!(W > 200 && H > 100)) return false;
       if (G && G.W === W && G.H === H) return true;
       while (svg.firstChild) svg.removeChild(svg.firstChild);
       svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       svg.setAttribute('width', W);
       svg.setAttribute('height', H);
 
-      var N = W < 640;
-      var fs = N ? 11 : 13;
-      var beltY = N ? 70 : 92, bt = N ? 10 : 14;
-      var cw = N ? 18 : 32, ch = N ? 14 : 22;
-      var hy0 = N ? 26 : 30, hy1 = N ? 88 : 118;
-      var by0 = N ? 110 : 148, bh = N ? 60 : 80, bw = N ? 34 : 56;
-      var gearY = N ? 222 : 278, gr = N ? 18 : 26;
-      var R = N ? 30 : 58, gx = W - R - (N ? 44 : 56), gy = N ? 70 : 120;
-      var beltEnd = gx - R - (N ? 10 : 26), x0b = N ? 8 : 14;
-      var a = N ? 58 : 170, b = beltEnd - (N ? 32 : 90), m = (a + b) / 2;
-      var spacing = m - a;
-      var hw = N ? 50 : Math.min(150, spacing * 0.5);
-      var stX = [a, m, b];
-      var LR = N ? 40 : Math.min(72, spacing * 0.55);
-      var v = N ? 30 : 56, sp = N ? 44 : 78;
-
-      var defs = svgEl('defs');
-      var clip = svgEl('clipPath', { id: uidM + 'l' });
-      clip.appendChild(svgEl('circle', { cx: 0, cy: 0, r: LR - 2 }));
-      defs.appendChild(clip);
-      svg.appendChild(defs);
+      var narrow = W < 520;
+      var Ly = Math.round(H * 0.36);
+      var mW = narrow ? 24 : 30, mH = narrow ? 80 : 96;
+      var mx = W - mW - 2, mTop = Ly - mH / 2, mBot = Ly + mH / 2;
+      var x0 = 0, xEnd = mx - 6;
+      var a = narrow ? 72 : 96, b = mx - 30;
+      var bw = narrow ? 28 : 38, bh = narrow ? 22 : 26;
+      var st = [0, 1, 2, 3].map(function (i) { return r2(a + (i + 0.5) * (b - a) / 4); });
+      var leakX = st[2];
 
       var dimG = svgEl('g');
+      dimG.appendChild(svgEl('path', { 'class': 'dc-m-line', d: 'M' + x0 + ',' + Ly + ' H' + r2(xEnd) }));
+      dimG.appendChild(svgEl('path', { 'class': 'dc-m-line', d: 'M' + r2(xEnd - 6) + ',' + (Ly - 4) + ' L' + r2(xEnd) + ',' + Ly + ' L' + r2(xEnd - 6) + ',' + (Ly + 4) }));
+      dimG.appendChild(svgEl('text', { 'class': 'dc-m-t', x: 0, y: Ly - 14, 'text-anchor': 'start' }, 'Revenue in'));
+      st.forEach(function (x, i) {
+        if (i === 2) return;
+        dimG.appendChild(svgEl('rect', { 'class': 'dc-m-station', x: r2(x - bw / 2), y: r2(Ly - bh / 2), width: bw, height: bh, rx: 3 }));
+      });
+      dimG.appendChild(svgEl('rect', { 'class': 'dc-m-meter', x: mx, y: mTop, width: mW, height: mH, rx: 3 }));
+      var fill = svgEl('rect', { 'class': 'dc-m-fill', x: mx, width: mW, y: mBot, height: 0, rx: 3 });
+      dimG.appendChild(fill);
+      var target = svgEl('path', { 'class': 'dc-m-target', d: 'M' + (mx - 5) + ',' + mTop + ' H' + (mx + mW + 5) });
+      dimG.appendChild(target);
+      dimG.appendChild(svgEl('text', { 'class': 'dc-m-t', x: W, y: mBot + 17, 'text-anchor': 'end' }, 'Margin kept'));
+      var gapT = svgEl('text', { 'class': 'dc-m-t dc-m-gap', x: mx - 9, y: r2(mTop + mH * 0.22 + 4), 'text-anchor': 'end' }, 'The gap');
+      dimG.appendChild(gapT);
       svg.appendChild(dimG);
 
-      /* drive shaft, rods, gears */
-      dimG.appendChild(svgEl('line', { 'class': 'dc-k-shaft', x1: 6, x2: r2(b + (N ? 36 : 70)), y1: gearY, y2: gearY }));
-      dimG.appendChild(svgEl('rect', { 'class': 'dc-k-solid', x: 0, y: gearY - (N ? 9 : 12), width: N ? 10 : 14, height: N ? 18 : 24, rx: 2 }));
-      var gears = stX.map(function (x) {
-        dimG.appendChild(svgEl('line', { 'class': 'dc-k-rod', x1: r2(x), x2: r2(x), y1: hy1, y2: gearY }));
-        var g = svgEl('g');
-        g.appendChild(svgEl('path', { 'class': 'dc-k-gear', d: gearPath(gr, N ? 9 : 11) }));
-        g.appendChild(svgEl('circle', { 'class': 'dc-k-hub', r: r2(gr * 0.28) }));
-        dimG.appendChild(g);
-        return { g: g, x: x };
-      });
-
-      /* cost bins */
-      var bins = stX.map(function (x) {
-        var bx = r2(x - bw / 2);
-        dimG.appendChild(svgEl('rect', { 'class': 'dc-k-binbg', x: bx, y: by0, width: bw, height: bh }));
-        var f = svgEl('rect', { 'class': 'dc-k-cost', x: bx, width: bw, y: by0 + bh, height: 0 });
-        dimG.appendChild(f);
-        dimG.appendChild(svgEl('path', { 'class': 'dc-k-bin', d: 'M' + bx + ',' + by0 + ' V' + (by0 + bh) + ' H' + r2(x + bw / 2) + ' V' + by0 }));
-        return { fill: f, x: x };
-      });
-      var coins = [0, 1, 2, 3].map(function () { var cn = svgEl('circle', { 'class': 'dc-k-coin', r: N ? 4 : 6, cx: r2(stX[0]), cy: hy1 }); cn.style.display = 'none'; return dimG.appendChild(cn); });
-
-      /* belt with rollers and moving tread */
-      dimG.appendChild(svgEl('rect', { 'class': 'dc-k-solid', x: x0b, y: beltY, width: r2(beltEnd - x0b), height: bt, rx: bt / 2 }));
-      var tread = svgEl('line', { 'class': 'dc-k-tread', x1: x0b + bt / 2, x2: r2(beltEnd - bt / 2), y1: beltY + bt / 2, y2: beltY + bt / 2 });
-      dimG.appendChild(tread);
-
-      /* invoice cards on the belt */
-      var cardsG = svgEl('g');
-      dimG.appendChild(cardsG);
-      var beltLen = beltEnd - x0b;
+      var dotsG = svgEl('g');
+      svg.appendChild(dotsG);
+      var v = narrow ? 46 : 64, I = 0.6;
+      var len = xEnd - x0;
       var pool = [];
-      var poolN = Math.ceil(beltLen / (sp * 0.45)) + 4;
-      for (var p = 0; p < poolN; p++) {
-        var cg = svgEl('g', { 'class': 'dc-k-card' });
-        cg.appendChild(svgEl('rect', { x: 0, y: 0, width: cw, height: ch, rx: 2 }));
-        cg.appendChild(svgEl('line', { x1: r2(cw * 0.18), x2: r2(cw * 0.82), y1: r2(ch * 0.35), y2: r2(ch * 0.35) }));
-        cg.appendChild(svgEl('line', { x1: r2(cw * 0.18), x2: r2(cw * 0.6), y1: r2(ch * 0.68), y2: r2(ch * 0.68) }));
-        cardsG.appendChild(cg);
-        pool.push(cg);
-      }
+      var poolN = Math.ceil(len / (v * I)) + 6;
+      for (var p = 0; p < poolN; p++) pool.push(dotsG.appendChild(svgEl('circle', { 'class': 'dc-m-dot', r: narrow ? 3 : 3.5, cx: -20, cy: Ly })));
 
-      /* intake chute */
-      dimG.appendChild(svgEl('path', { 'class': 'dc-k-housing', d: N ? 'M2,40 H30 L26,68 H8 Z' : 'M2,42 H54 L44,' + (beltY - 2) + ' H14 Z' }));
-      if (N) label2(dimG, 0, 112, ['Invoices', 'in'], 'b', 'start', fs);
-      else label(dimG, 0, 26, 'Invoices in', 'b', 'start', false, fs);
+      var leakG = svgEl('g');
+      leakG.appendChild(svgEl('rect', { 'class': 'dc-m-station', x: r2(leakX - bw / 2), y: r2(Ly - bh / 2), width: bw, height: bh, rx: 3 }));
+      var fixedR = svgEl('rect', { 'class': 'dc-m-fixed', x: r2(leakX - bw / 2), y: r2(Ly - bh / 2), width: bw, height: bh, rx: 3 });
+      var check = svgEl('path', { 'class': 'dc-m-check', d: 'M' + r2(leakX - 7) + ',' + Ly + ' l5,5 l9,-10' });
+      leakG.appendChild(fixedR);
+      leakG.appendChild(check);
+      svg.appendChild(leakG);
 
-      /* station housings over the belt */
-      var names = [['Receive'], N ? ['Extract', 'line items'] : ['Extract line items'], ['Verify']];
-      var housings = stX.map(function (x, i) {
-        var hsg = svgEl('rect', { 'class': 'dc-k-housing', x: r2(x - hw / 2), y: hy0, width: r2(hw), height: hy1 - hy0, rx: 4 });
-        dimG.appendChild(hsg);
-        label2(dimG, x, hy0 - 8, names[i], 'b', 'middle', fs);
-        return hsg;
+      var tagWords = ['Typed twice', 'Every cart checked', 'Cash fronted'];
+      var tagSize = narrow ? 12 : 12.5;
+      var tagW = 0;
+      tagWords.forEach(function (w) { tagW = Math.max(tagW, w.length * tagSize * 0.56); });
+      var tagX = r2(Math.max(tagW / 2 + 2, Math.min(leakX, W - 76 - tagW / 2)));
+      var tagY0 = Ly + bh / 2 + 30;
+      var tagsG = svgEl('g');
+      var stem = svgEl('path', { 'class': 'dc-m-stem', d: 'M' + leakX + ',' + r2(Ly + bh / 2 + 4) + ' V' + r2(tagY0 - 13) });
+      tagsG.appendChild(stem);
+      var tags = tagWords.map(function (w, j) {
+        return tagsG.appendChild(svgEl('text', { 'class': 'dc-m-t dc-m-tag', x: tagX, y: tagY0 + j * 16, 'text-anchor': 'middle' }, w));
       });
+      svg.appendChild(tagsG);
 
-      /* dial gauge */
-      var arcL = polar(gx, gy, R, 180), arcR = polar(gx, gy, R, 0);
-      dimG.appendChild(svgEl('path', { 'class': 'dc-k-dial', d: 'M' + arcL + ' A' + R + ',' + R + ' 0 0 1 ' + arcR + ' Z' }));
-      var t0 = polar(gx, gy, R * 0.74, 35), t1 = polar(gx, gy, R * 1.08, 35);
-      dimG.appendChild(svgEl('line', { 'class': 'dc-k-target', x1: t0[0], y1: t0[1], x2: t1[0], y2: t1[1] }));
-      var tl = polar(gx, gy, R + (N ? 5 : 8), 35);
-      label(dimG, tl[0] + 2, tl[1] - 2, 'Target', 'b', 'start', false, fs);
-      label(dimG, gx, gy + (N ? 17 : 24), 'Gross margin', 'b', 'middle', false, fs);
-      var gapArc = svgEl('path', { 'class': 'dc-k-gaparc' });
-      dimG.appendChild(gapArc);
-      var gapLab = label(dimG, gx, r2(gy - R - (N ? 12 : 18)), 'The gap', 'b', 'middle', false, fs);
-      var needle = svgEl('line', { 'class': 'dc-k-needle', x1: gx, y1: gy });
-      var needleOk = svgEl('line', { 'class': 'dc-k-needle ok', x1: gx, y1: gy });
-      dimG.appendChild(needle);
-      dimG.appendChild(needleOk);
-      dimG.appendChild(svgEl('circle', { 'class': 'dc-k-solid', cx: gx, cy: gy, r: N ? 4 : 6 }));
-
-      /* --- undimmed layer: the problem and the fix --- */
-      var topG = svgEl('g');
-      svg.appendChild(topG);
-
-      /* queue of waiting batches before Extract */
-      var qx = m - hw / 2 - (N ? 3 : 14) - cw, qdx = N ? 1.5 : 3, qdy = N ? 4 : 7;
-      var queue = [0, 1, 2, 3].map(function (j) {
-        var qg = svgEl('g', { 'class': 'dc-k-card dc-k-wait', transform: 'translate(' + r2(qx - j * qdx) + ',' + r2(beltY - ch - j * qdy) + ')' });
-        qg.appendChild(svgEl('rect', { x: 0, y: 0, width: cw, height: ch, rx: 2 }));
-        qg.appendChild(svgEl('line', { x1: r2(cw * 0.18), x2: r2(cw * 0.82), y1: r2(ch * 0.35), y2: r2(ch * 0.35) }));
-        topG.appendChild(qg);
-        return qg;
-      });
-      var batchLab = N ? label(topG, qx + cw / 2, beltY + bt + 15, 'Batches wait', 'b', 'middle', true, fs)
-        : label(topG, qx + cw / 2 - 4, beltY - ch - 3 * qdy - 10, 'Batches wait', 'b', 'middle', true, fs);
-
-      /* the new gear, built into the app */
-      var ngx = m + (N ? 30 : 48);
-      var newGear = svgEl('g');
-      newGear.appendChild(svgEl('path', { 'class': 'dc-k-gear ok', d: gearPath(gr, N ? 9 : 11) }));
-      newGear.appendChild(svgEl('circle', { 'class': 'dc-k-hub', r: r2(gr * 0.28) }));
-      topG.appendChild(newGear);
-      var gearLab = label(topG, ngx, gearY + gr + (N ? 15 : 19), 'Built into the app', 'b', 'middle', true, fs);
-      var oneLab = N ? label(topG, (m + b) / 2, beltY + bt + 15, 'One at a time', 'b', 'middle', true, fs)
-        : label(topG, (m + b) / 2, beltY - ch - 14, 'One at a time', 'b', 'middle', true, fs);
-
-      /* Standard work plate */
-      var pw = N ? 84 : 112, ph = N ? 16 : 20;
-      var plate = svgEl('g');
-      plate.appendChild(svgEl('rect', { 'class': 'dc-k-plate-ok', x: r2(m - pw / 2), y: r2(hy1 - ph - 4), width: pw, height: ph, rx: 3 }));
-      plate.appendChild(svgEl('text', { 'class': 'dc-k-t dc-k-plate-t', x: r2(m), y: r2(hy1 - 4 - ph / 2 + fs * 0.36), 'text-anchor': 'middle' }, 'Standard work'));
-      topG.appendChild(plate);
-
-      /* the lens over Extract line items */
-      var lensG = svgEl('g');
-      var lensInner = svgEl('g', { 'clip-path': 'url(#' + uidM + 'l)' });
-      lensInner.appendChild(svgEl('circle', { 'class': 'dc-k-lensbg', r: LR }));
-      var s = LR / 72;
-      lensInner.appendChild(svgEl('rect', { 'class': 'dc-k-solid', x: r2(-LR), y: r2(38 * s), width: r2(LR * 2), height: r2(8 * s) }));
-      var work = svgEl('g', { 'class': 'dc-k-card' });
-      work.appendChild(svgEl('rect', { x: r2(-30 * s), y: r2(-6 * s), width: r2(60 * s), height: r2(44 * s), rx: 3 }));
-      [6, 16, 26].forEach(function (y) { work.appendChild(svgEl('line', { x1: r2(-22 * s), x2: r2(22 * s), y1: r2(y * s), y2: r2(y * s) })); });
-      lensInner.appendChild(work);
-      var armsG = svgEl('g');
-      var armL = svgEl('path', { 'class': 'dc-k-arm' }), armR = svgEl('path', { 'class': 'dc-k-arm' }), armC = svgEl('path', { 'class': 'dc-k-arm' });
-      var tipL = svgEl('circle', { 'class': 'dc-k-tip', r: r2(3.5 * s) }), tipR = svgEl('circle', { 'class': 'dc-k-tip', r: r2(3.5 * s) });
-      var pointer = svgEl('path', { 'class': 'dc-k-tip' });
-      [armL, armR, armC, tipL, tipR, pointer].forEach(function (n) { armsG.appendChild(n); });
-      lensInner.appendChild(armsG);
-      lensG.appendChild(lensInner);
-      lensG.appendChild(svgEl('line', { 'class': 'dc-k-handle', x1: r2(LR * 0.72), y1: r2(LR * 0.72), x2: r2(LR * 1.12), y2: r2(LR * 1.12) }));
-      lensG.appendChild(svgEl('circle', { 'class': 'dc-k-rim', r: LR }));
-      var lensLabs = svgEl('g');
-      label(lensLabs, 0, LR + (N ? 14 : 18), 'Typed twice', 'b', 'middle', true, fs);
-      label(lensLabs, 0, LR + (N ? 14 : 18) + fs + 6, 'Checked line by line', 'b', 'middle', true, fs);
-      lensG.appendChild(lensLabs);
-      svg.appendChild(lensG);
-
-      G = { W: W, H: H, N: N, s: s, beltY: beltY, bt: bt, cw: cw, ch: ch, hy1: hy1, by0: by0, bh: bh, gearY: gearY, gr: gr,
-        R: R, gx: gx, gy: gy, x0b: x0b, beltEnd: beltEnd, beltLen: beltLen, m: m, hw: hw, LR: LR, v: v, sp: sp, stX: stX, ngx: ngx,
-        dimG: dimG, gears: gears, bins: bins, coins: coins, tread: tread, pool: pool, housing2: housings[1],
-        gapArc: gapArc, gapLab: gapLab, needle: needle, needleOk: needleOk, queue: queue, batchLab: batchLab,
-        newGear: newGear, gearLab: gearLab, oneLab: oneLab, plate: plate, lensG: lensG, armsG: armsG,
-        armL: armL, armR: armR, armC: armC, tipL: tipL, tipR: tipR, pointer: pointer, lensLabs: lensLabs };
-      render(lastT, lastClock);
+      G = { W: W, H: H, Ly: Ly, x0: x0, xEnd: xEnd, leakX: leakX, v: v, I: I, len: len, mBot: mBot, mH: mH,
+        dimG: dimG, fill: fill, target: target, gapT: gapT, pool: pool, leakG: leakG, fixedR: fixedR, check: check,
+        stem: stem, tags: tags, bh: bh };
+      render(lastT);
       return true;
     }
 
-    var lastT = 0, lastClock = 0;
-    function op(n, v) { n.style.opacity = String(r2(clamp01(v))); }
-
-    function render(t, clock) {
-      lastT = t; lastClock = clock;
-      var S = machineState(Math.min(t, MACHINE_END));
-      segs.forEach(function (sg, i) {
-        sg.el.classList.toggle('is-active', i === S.stage);
-        sg.el.classList.toggle('is-done', i < S.stage);
-        sg.fill.style.transform = 'scaleX(' + r2(i < S.stage ? 1 : (i === S.stage ? S.progress : 0)) + ')';
-      });
+    var lastT = 0;
+    function render(t) {
+      lastT = t;
+      var s = moneyState(Math.min(t, MONEY_END + 1));
+      setCaption(s.frame, rm || t === 0);
       if (!G) return;
-      var g = G;
-      op(g.dimG, 1 - 0.6 * S.dim);
+      G.dimG.style.opacity = String(r2(1 - 0.7 * s.dim));
+      var fh = s.fill * G.mH;
+      G.fill.setAttribute('y', r2(G.mBot - fh));
+      G.fill.setAttribute('height', r2(fh));
+      G.target.style.opacity = String(r2(s.target));
+      G.gapT.style.opacity = String(r2(s.gapLabel));
+      G.leakG.setAttribute('transform', 'translate(' + G.leakX + ',' + G.Ly + ') scale(' + r2(s.scale) + ') translate(' + (-G.leakX) + ',' + (-G.Ly) + ')');
+      G.fixedR.style.opacity = String(r2(s.fixed));
+      G.check.style.opacity = String(r2(s.fixed));
+      var tagMax = 0;
+      G.tags.forEach(function (n, j) { n.style.opacity = String(r2(s.tags[j])); tagMax = Math.max(tagMax, s.tags[j]); });
+      G.stem.style.opacity = String(r2(tagMax));
 
-      /* gears and tread: steady rotation */
-      var ang = (clock * 40) % 360;
-      g.gears.forEach(function (gr) { gr.g.setAttribute('transform', 'translate(' + r2(gr.x) + ',' + g.gearY + ') rotate(' + r2(ang) + ')'); });
-      var dropH = g.gearY - g.hy1;
-      g.newGear.setAttribute('transform', 'translate(' + r2(g.ngx) + ',' + r2(g.gearY - (1 - S.newGear) * dropH) + ') rotate(' + r2(-ang + 16) + ')');
-      op(g.newGear, S.newGear * 4);
-      g.tread.style.strokeDashoffset = px(-(clock * g.v) % 20);
-
-      /* cards: batches of three before the fix, evenly spaced after */
-      var P = g.beltLen / g.v, flow = (clock + P) * g.v, used = 0;
-      var kMax = Math.floor(flow / g.sp) + 2;
-      for (var k = kMax; k >= 0 && used < g.pool.length; k--) {
-        var u = flow - k * g.sp + ((k % 3) - 1) * 0.55 * g.sp * S.bunch;
-        if (u < -g.cw) continue;
-        if (u > g.beltLen) break;
-        var c = g.pool[used++];
-        var x = g.x0b + u;
-        c.setAttribute('transform', 'translate(' + r2(x) + ',' + r2(g.beltY - g.ch) + ')');
-        c.setAttribute('class', 'dc-k-card' + (S.flowOk > 0.5 && x > g.m + g.hw / 2 ? ' ok' : ''));
-        c.style.opacity = '1';
+      /* money: dot k enters at time k·I (flow clock starts one full line earlier, so the line is busy) */
+      var P = G.len / G.v, tau = t + P, used = 0;
+      var kMax = Math.floor(tau / G.I), kMin = Math.max(0, Math.floor((tau - P - 1) / G.I));
+      for (var k = kMax; k >= kMin && used < G.pool.length; k--) {
+        var x = G.x0 + (tau - k * G.I) * G.v;
+        var tReach = k * G.I + (G.leakX - G.x0) / G.v - P;
+        var leaked = k % 3 === 1 && tReach >= 0.3 && tReach < 2.7;
+        var cx, cy, op;
+        if (leaked && x > G.leakX) {
+          var dt = (x - G.leakX) / G.v;
+          if (dt > 0.5) continue;
+          cx = G.leakX + (k % 2 ? 1 : -1) * dt * 22;
+          cy = G.Ly + 0.5 * 260 * dt * dt;
+          op = 1 - dt / 0.5;
+        } else {
+          if (x > G.xEnd) continue;
+          cx = x; cy = G.Ly; op = 1 - 0.7 * s.dim;
+        }
+        var c = G.pool[used++];
+        c.setAttribute('cx', r2(cx));
+        c.setAttribute('cy', r2(cy));
+        c.style.opacity = String(r2(op));
       }
-      for (; used < g.pool.length; used++) g.pool[used].style.opacity = '0';
-
-      /* cost bins and falling coins */
-      var levels = [S.fillLow, S.fillHigh, S.fillLow];
-      g.bins.forEach(function (bn, i) {
-        var hgt = levels[i] * g.bh;
-        bn.fill.setAttribute('y', r2(g.by0 + g.bh - hgt));
-        bn.fill.setAttribute('height', r2(hgt));
-      });
-      var fast = 0.4 + 1.2 * S.fixedRate;
-      [[0, 1.6, 0], [1, fast, 0], [1, fast, 0.5], [2, 1.6, 0.8]].forEach(function (cdef, j) {
-        var coin = g.coins[j], period = cdef[1];
-        var ph = ((clock + cdef[2] * period) % period + period) % period;
-        if (t <= 0 || ph > 0.45 || (j === 2 && S.fixedRate > 0.5)) { coin.style.display = 'none'; return; }
-        coin.style.display = '';
-        var top = g.hy1 + 4, bottom = g.by0 + g.bh - levels[cdef[0]] * g.bh - 5;
-        var q = ph / 0.45;
-        coin.setAttribute('cx', r2(g.stX[cdef[0]] + (j === 2 ? 8 : 0)));
-        coin.setAttribute('cy', r2(top + (bottom - top) * q * q));
-      });
-
-      /* dial */
-      var tip = polar(g.gx, g.gy, g.R * 0.86, S.needle);
-      [g.needle, g.needleOk].forEach(function (n) { n.setAttribute('x2', tip[0]); n.setAttribute('y2', tip[1]); });
-      op(g.needleOk, S.onTarget);
-      op(g.needle, 1 - S.onTarget);
-      var rr = g.R + (g.N ? 5 : 8), p0 = polar(g.gx, g.gy, rr, S.needle), p1 = polar(g.gx, g.gy, rr, 35);
-      g.gapArc.setAttribute('d', 'M' + p0 + ' A' + rr + ',' + rr + ' 0 0 1 ' + p1);
-      op(g.gapArc, S.gap);
-      op(g.gapLab, S.gap);
-
-      /* the inspection */
-      op(g.housing2, 1);
-      g.housing2.style.fillOpacity = String(r2(1 - 0.85 * S.inspect));
-      g.queue.forEach(function (q, j) { op(q, S.queue - j); });
-      op(g.batchLab, S.batchLab);
-      var lx = g.m + S.lensSlide * Math.min(g.W * 0.2, 160), ly = g.beltY + (g.N ? 6 : 10);
-      g.lensG.setAttribute('transform', 'translate(' + r2(lx) + ',' + r2(ly) + ')');
-      op(g.lensG, S.lens);
-      g.lensG.style.display = S.lens > 0.001 ? '' : 'none';
-      op(g.lensLabs, S.lensLabels);
-      if (S.lens > 0.001) {
-        var sc = g.s, bob = 3 * sc * Math.sin(clock * 14), bob2 = 3 * sc * Math.sin(clock * 14 + Math.PI);
-        var lineY = (6 + 10 * (Math.floor(clock * 2.5) % 3)) * sc;
-        var pts = function (list) { return 'M' + list.map(function (p) { return r2(p[0] * sc) + ',' + r2(p[1] * sc); }).join(' L'); };
-        g.armL.setAttribute('d', pts([[-66, -50], [-44, -30], [-12, -8 + bob / sc]]));
-        g.armR.setAttribute('d', pts([[66, -50], [44, -30], [12, -8 + bob2 / sc]]));
-        g.armC.setAttribute('d', pts([[70, 40], [52, 30], [30, lineY / sc]]));
-        g.tipL.setAttribute('cx', r2(-12 * sc)); g.tipL.setAttribute('cy', r2(-8 * sc + bob));
-        g.tipR.setAttribute('cx', r2(12 * sc)); g.tipR.setAttribute('cy', r2(-8 * sc + bob2));
-        g.pointer.setAttribute('d', 'M' + r2(30 * sc) + ',' + r2(lineY) + ' l' + r2(-8 * sc) + ',' + r2(-4 * sc) + ' v' + r2(8 * sc) + ' Z');
-        g.armsG.setAttribute('transform', 'translate(0,' + r2(-g.LR * S.armsUp) + ')');
-        op(g.armsG, S.arms);
-      }
-
-      /* the fix */
-      op(g.gearLab, S.gearLabel);
-      op(g.oneLab, S.oneAtATime);
-      g.plate.setAttribute('transform', 'translate(0,' + r2(-(1 - S.plate) * 16) + ')');
-      op(g.plate, S.plate);
+      for (; used < G.pool.length; used++) G.pool[used].setAttribute('cx', -20);
     }
 
     if ('ResizeObserver' in window) new ResizeObserver(function () { try { layout(); } catch (e) { /* static */ } }).observe(box);
     layout();
 
     if (rm || !('IntersectionObserver' in window) || typeof window.requestAnimationFrame !== 'function') {
-      render(MACHINE_END, 3.3);
+      render(MONEY_END);
       return;
     }
 
-    /* story plays once at 40% in view; the machine keeps running gently while visible */
-    var elapsed = 0, clock = 0, visible = false, started = false, raf = 0, prev = 0;
+    /* play once at 40% in view; the flow keeps going calmly while visible, paused when not */
+    var elapsed = 0, visible = false, started = false, raf = 0, prev = 0;
     function tick(now) {
       raf = 0;
       if (!visible) return;
-      var dt = prev ? Math.min(0.1, Math.max(0, (now - prev) / 1000)) : 0;
+      var dt = prev ? Math.min(0.05, (now - prev) / 1000) : 0;
       prev = now;
       elapsed += dt;
-      clock += dt;
-      render(elapsed, clock);
+      render(elapsed);
       raf = window.requestAnimationFrame(tick);
     }
     function run() { if (!raf) { prev = 0; raf = window.requestAnimationFrame(tick); } }
-    render(0, 0);
+    render(0);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         visible = e.isIntersecting;
@@ -1010,7 +797,8 @@
     btn.setAttribute('aria-label', 'Replay the illustration');
     btn.addEventListener('click', function () {
       elapsed = 0;
-      render(0, clock);
+      capIndex = -1;
+      render(0);
       if (started) run();
     });
     /* outside the aria-hidden container, so the control stays reachable */
@@ -1019,8 +807,9 @@
 
   function anim(el, ctx) {
     if (!el || !ctx) return;
-    if (ctx.groupId === 'margins-and-cash') animMachine(el, ctx);
+    if (ctx.groupId === 'margins-and-cash') animMoney(el, ctx);
     /* scaling-through-change and faster-service: not built yet, container stays empty */
   }
+
   WP.register('c', { strip: strip, hero: hero, cases: cases, chart: chart, anim: anim });
 })();

@@ -414,97 +414,47 @@ html.design-c .dc-rm .dc-ridge { will-change: auto; }
   html.design-c .dc-route:hover { transform: none; }
 }
 
-
-/* ===================================================================== anim: Margins and Cash, the AP machine
-   Height is reserved here (this file loads before the JS), so filling the container shifts nothing.
-   Replay sits just after the container and pulls itself up into the reserved space.
-   charcoal = machine, rust = cost and the problem, sage = the fix, mustard = the lens rim only. */
+/* ===================================================================== anim: Margins and Cash, "follow the money"
+   Height is reserved by this file (it loads before the JS), so filling the container shifts nothing.
+   The Replay button sits just after the container and pulls itself up into the reserved space. */
 
 html.design-c .proof-anim[data-group="margins-and-cash"] {
   position: relative;
-  height: 426px;
+  height: 262px;
   max-width: 1040px;
   margin-left: auto; margin-right: auto;
 }
-html.design-c .dc-stages {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;
-  height: 46px;
-  margin: 0 0 10px;
+html.design-c .dc-anim-cap {
+  height: 24px;
+  margin: 0 0 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: 15px; line-height: 24px;
+  color: var(--waya-charcoal);
+  text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: opacity 160ms var(--ease-standard);
 }
-html.design-c .dc-stage {
-  position: relative;
-  display: flex; align-items: baseline; gap: 8px;
-  padding: 10px 2px 0;
-  min-width: 0;
-  color: var(--dc-muted);
-  transition: color 200ms var(--ease-standard);
-}
-html.design-c .dc-stage-bar {
-  position: absolute; left: 0; right: 0; top: 0;
-  height: 4px; border-radius: 2px;
-  background: var(--border-1);
-  overflow: hidden;
-}
-html.design-c .dc-stage-fill {
-  position: absolute; inset: 0;
-  background: var(--waya-rust);
-  transform: scaleX(0); transform-origin: 0 50%;
-}
-html.design-c .dc-stage.is-done .dc-stage-fill { background: color-mix(in srgb, var(--waya-rust) 45%, transparent); }
-html.design-c .dc-stage-n {
-  flex: none;
-  font-family: var(--font-display); font-weight: 700; font-size: 15px;
-}
-html.design-c .dc-stage-t {
-  min-width: 0;
-  font-family: var(--font-display); font-weight: 600; font-size: 14px; line-height: 1.25;
-}
-html.design-c .dc-stage.is-active { color: var(--waya-charcoal); }
-html.design-c .dc-stage.is-active .dc-stage-n { color: var(--waya-rust); }
-
-html.design-c .dc-anim-box { position: relative; width: 100%; height: 340px; }
+html.design-c .dc-anim-cap.is-out { opacity: 0; }
+html.design-c .dc-anim-box { position: relative; width: 100%; height: 200px; }
 html.design-c .dc-anim-svg {
   position: absolute; left: 0; top: 0;
   width: 100%; height: 100%;
   display: block; overflow: visible;
 }
-
-html.design-c .dc-k-solid { fill: var(--waya-charcoal); }
-html.design-c .dc-k-shaft { stroke: var(--waya-charcoal); stroke-width: 5; stroke-linecap: round; }
-html.design-c .dc-k-rod { stroke: var(--waya-charcoal); stroke-width: 2.5; }
-html.design-c .dc-k-gear { fill: var(--waya-charcoal); stroke: var(--waya-charcoal); stroke-width: 1; stroke-linejoin: round; }
-html.design-c .dc-k-gear.ok { fill: var(--waya-sage); stroke: var(--dc-sage-deep); stroke-width: 2; }
-html.design-c .dc-k-hub { fill: var(--waya-paper); }
-html.design-c .dc-k-binbg { fill: var(--waya-paper); }
-html.design-c .dc-k-bin { fill: none; stroke: var(--waya-charcoal); stroke-width: 2.5; stroke-linejoin: round; }
-html.design-c .dc-k-cost { fill: var(--waya-rust); }
-html.design-c .dc-k-coin { fill: var(--waya-rust); stroke: var(--waya-paper); stroke-width: 1.5; }
-html.design-c .dc-k-tread { stroke: var(--waya-paper); stroke-width: 2; stroke-dasharray: 8 12; }
-html.design-c .dc-k-card rect { fill: var(--waya-cream); stroke: var(--waya-charcoal); stroke-width: 2; }
-html.design-c .dc-k-card line { stroke: var(--waya-charcoal); stroke-width: 1.5; }
-html.design-c .dc-k-card.ok rect { stroke: var(--dc-sage-deep); }
-html.design-c .dc-k-card.ok line { stroke: var(--dc-sage-deep); }
-html.design-c .dc-k-card.dc-k-wait rect { stroke: var(--waya-rust); stroke-width: 2.25; }
-html.design-c .dc-k-card.dc-k-wait line { stroke: var(--waya-rust); }
-html.design-c .dc-k-housing { fill: var(--waya-charcoal); stroke: var(--waya-charcoal); stroke-width: 2.5; stroke-linejoin: round; }
-html.design-c .dc-k-dial { fill: var(--waya-cream); stroke: var(--waya-charcoal); stroke-width: 2.5; stroke-linejoin: round; }
-html.design-c .dc-k-target { stroke: var(--dc-sage-deep); stroke-width: 4; stroke-linecap: round; }
-html.design-c .dc-k-needle { stroke: var(--waya-charcoal); stroke-width: 3; stroke-linecap: round; }
-html.design-c .dc-k-needle.ok { stroke: var(--dc-sage-deep); }
-html.design-c .dc-k-gaparc { fill: none; stroke: var(--waya-rust); stroke-width: 3; stroke-linecap: round; }
-html.design-c .dc-k-t {
-  font-family: var(--font-body); font-size: 13px;
+html.design-c .dc-m-line { fill: none; stroke: var(--waya-charcoal); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+html.design-c .dc-m-station { fill: var(--waya-cream); stroke: var(--waya-charcoal); stroke-width: 1.75; }
+html.design-c .dc-m-fixed { fill: var(--waya-sage); stroke: var(--dc-sage-deep); stroke-width: 1.75; }
+html.design-c .dc-m-check { fill: none; stroke: var(--waya-cream); stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+html.design-c .dc-m-meter { fill: none; stroke: var(--waya-charcoal); stroke-width: 1.5; stroke-dasharray: 4 3; }
+html.design-c .dc-m-fill { fill: var(--waya-sage); }
+html.design-c .dc-m-target { fill: none; stroke: var(--waya-charcoal); stroke-width: 1.75; stroke-dasharray: 4 3; }
+html.design-c .dc-m-dot { fill: var(--waya-rust); }
+html.design-c .dc-m-stem { fill: none; stroke: var(--waya-rust); stroke-width: 1.25; stroke-dasharray: 2 3; }
+html.design-c .dc-m-t {
+  font-family: var(--font-body); font-size: 12.5px;
   fill: var(--waya-charcoal);
 }
-html.design-c .dc-k-t.b { font-weight: 600; }
-html.design-c .dc-k-plate { fill: var(--waya-paper); stroke: var(--border-1); stroke-width: 1; }
-html.design-c .dc-k-plate-ok { fill: var(--dc-sage-deep); }
-html.design-c .dc-k-plate-t { fill: var(--waya-cream); font-weight: 700; }
-html.design-c .dc-k-lensbg { fill: var(--waya-cream); }
-html.design-c .dc-k-rim { fill: none; stroke: var(--waya-mustard); stroke-width: 5; }
-html.design-c .dc-k-handle { stroke: var(--waya-charcoal); stroke-width: 7; stroke-linecap: round; }
-html.design-c .dc-k-arm { fill: none; stroke: var(--waya-rust); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
-html.design-c .dc-k-tip { fill: var(--waya-rust); }
+html.design-c .dc-m-gap { font-weight: 600; }
+html.design-c .dc-m-tag { font-weight: 600; }
 
 html.design-c .dc-anim-replay {
   position: relative; z-index: 1;
@@ -528,15 +478,12 @@ html.design-c .dc-anim-replay:focus-visible {
 }
 
 @media (max-width: 640px) {
-  html.design-c .proof-anim[data-group="margins-and-cash"] { height: 400px; }
-  html.design-c .dc-stages { height: 60px; gap: 8px; margin-bottom: 10px; }
-  html.design-c .dc-stage { flex-direction: column; gap: 1px; }
-  html.design-c .dc-stage-n { font-size: 13px; }
-  html.design-c .dc-stage-t { font-size: 11px; }
-  html.design-c .dc-anim-box { height: 300px; }
-  html.design-c .dc-k-t { font-size: 11px; }
+  html.design-c .proof-anim[data-group="margins-and-cash"] { height: 240px; }
+  html.design-c .dc-anim-cap { font-size: 14px; }
+  html.design-c .dc-anim-box { height: 180px; }
+  html.design-c .dc-m-t { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html.design-c .dc-anim-replay { display: none; }
-  html.design-c .dc-stage { transition: none; }
+  html.design-c .dc-anim-cap { transition: none; }
 }
