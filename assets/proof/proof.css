@@ -68,9 +68,6 @@
 
 /* Four steps (Scaling Through Change) sit in four columns */
 .proof-steps:has(> li:nth-child(4)) { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1140px; gap: 18px; }
-/* The per-page process animation above the steps; empty until a design draws it */
-.proof-anim { max-width: 1040px; margin: 40px auto 0; }
-.proof-anim:empty { display: none; }
 
 /* Story cards: one case as chart, problem, diagnosis, fix, results */
 .proof-stories { display: grid; gap: 44px; margin: 44px auto 0; max-width: 1040px; }
