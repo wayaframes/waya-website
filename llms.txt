@@ -29,6 +29,10 @@
 - [The Waya Experiments Platform](https://www.wayaframes.com/experiment-platform/detail/): Waya Experiments Platform: find product-market fit by testing core business assumptions with paying customers, not AI output. Run it in 12 Weeks to PMF.
 - [4 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 4 weeks to increase your margins with Lean AI, for mission-driven operators. Find what is hurting your margin, fix the root cause, and keep the method running.
 - [Free Planning Guide: The Plan That Reaches The Work – Waya](https://www.wayaframes.com/planning-guide/): A free 90-minute system for turning quarterly objectives into tasks your team actually works on. Six steps, four traps, four real examples from our own work.
+- [Privacy Policy](https://www.wayaframes.com/privacy-policy/): What Waya collects through its services, website, and calls, why we collect it, who processes it for us, how long we keep it, and what your rights are.
+- [Terms of Service](https://www.wayaframes.com/terms-of-service/): The terms for Waya's methodology services, the programs we sell, and wayaframes.com: acceptable use, your content, refunds, fees, and liability.
+- [How Waya Handles Your Data](https://www.wayaframes.com/data-handling/): What Waya stores from your sessions, where it is stored, who can see it, how it is protected, and how to get a copy of it or have it deleted.
+- [Support](https://www.wayaframes.com/support/): How to get help with Waya's services and programs, and how to ask for a copy of your data, a correction, or deletion, and what happens next.
 
 ## Frequently asked questions
 
