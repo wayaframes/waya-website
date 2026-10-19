@@ -1,0 +1,110 @@
+/* Home page: big wins by solution. Three review versions (A cards, B dark panel, C rows);
+   keep one and delete the rest. Tokens only. */
+.home-wins { background: var(--waya-cream); }
+.home-wins .tone-sage    { --tone: var(--waya-sage); }
+.home-wins .tone-rust    { --tone: var(--waya-rust); }
+.home-wins .tone-mustard { --tone: var(--waya-mustard); }
+.home-wins .hw { margin-top: 48px; }
+.home-wins .hw[hidden] { display: none; }
+.home-wins .hw-val { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.home-wins .hw-cta { margin-top: 44px; display: flex; gap: 22px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.home-wins .hw-all { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-rust); }
+.home-wins .hw-all:hover { text-decoration: underline; }
+.home-wins a:focus-visible { outline: 2px solid var(--waya-rust); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- A · Cards ---------- */
+.hw-a { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.hw-card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--waya-paper); border: 1px solid var(--border-1); border-radius: 22px;
+  padding: 34px 30px 28px; overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+.hw-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--tone); }
+.hw-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); }
+.hw-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.15; letter-spacing: -0.01em; }
+.hw-card h3 a { color: var(--waya-charcoal); }
+.hw-card .hw-promise { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--fg-2); }
+.hw-card .hw-wins { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 0; }
+.hw-card .hw-wins li + li { border-top: 1px solid var(--border-1); }
+.hw-card .hw-wins a { display: grid; gap: 3px; padding: 16px 0; color: inherit; }
+.hw-card .hw-val { font-size: 32px; line-height: 1.05; color: var(--waya-charcoal); }
+.hw-card .hw-wins a:hover .hw-val { color: var(--tone); }
+.hw-card .hw-lbl { font-size: 14px; line-height: 1.45; color: var(--fg-1); }
+.hw-card .hw-case { font-family: var(--font-display); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2); }
+.hw-card .hw-more { margin-top: auto; padding-top: 18px; font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-rust); }
+.hw-card .hw-more span { display: inline-block; transition: transform var(--dur-base) var(--ease-standard); }
+.hw-card:hover .hw-more span { transform: translateX(4px); }
+
+/* ---------- B · Dark panel ---------- */
+.hw-panel {
+  position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: var(--waya-ink); border-radius: 28px; overflow: hidden;
+  box-shadow: var(--shadow-3);
+}
+.hw-panel::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 80% at 10% 0%, color-mix(in srgb, var(--waya-sage) 22%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 95% 100%, color-mix(in srgb, var(--waya-rust) 16%, transparent), transparent 70%);
+}
+.hw-col { position: relative; display: flex; flex-direction: column; padding: 44px 34px 36px; }
+.hw-col + .hw-col { border-left: 1px solid color-mix(in srgb, var(--waya-cream) 12%, transparent); }
+.hw-col .hw-idx { font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; color: var(--tone); }
+.hw-col h3 { margin-top: 14px; font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.15; }
+.hw-col h3 a { color: var(--waya-cream); }
+.hw-col .hw-promise { margin-top: 10px; font-size: 14.5px; line-height: 1.55; color: color-mix(in srgb, var(--waya-cream) 66%, transparent); }
+.hw-col .hw-hero { display: grid; gap: 6px; margin-top: 30px; padding-top: 24px; border-top: 2px solid var(--tone); color: inherit; }
+.hw-col .hw-hero .hw-val { font-size: 44px; line-height: 1; color: var(--waya-cream); }
+.hw-col .hw-hero .hw-lbl { font-size: 14px; line-height: 1.45; color: color-mix(in srgb, var(--waya-cream) 78%, transparent); }
+.hw-col .hw-wins { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 14px; }
+.hw-col .hw-wins a { display: grid; gap: 2px; color: inherit; }
+.hw-col .hw-wins .hw-val { font-size: 20px; color: var(--waya-mint); }
+.hw-col .hw-wins .hw-lbl { font-size: 13.5px; line-height: 1.45; color: color-mix(in srgb, var(--waya-cream) 66%, transparent); }
+.hw-col a:hover .hw-val { color: var(--tone); }
+.hw-col .hw-more { margin-top: auto; padding-top: 28px; font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--waya-mustard); }
+.hw-col .hw-more:hover { color: var(--waya-cream); }
+
+/* ---------- C · Editorial rows ---------- */
+.hw-c { border-top: 1px solid color-mix(in srgb, var(--waya-charcoal) 22%, transparent); }
+.hw-row {
+  position: relative; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.55fr) 40px;
+  gap: 40px; align-items: center; padding: 36px 26px;
+  border-bottom: 1px solid color-mix(in srgb, var(--waya-charcoal) 22%, transparent);
+  transition: background var(--dur-base) var(--ease-standard);
+}
+.hw-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--tone); transition: width var(--dur-base) var(--ease-standard); }
+.hw-row:hover { background: color-mix(in srgb, var(--tone) 9%, var(--waya-cream)); }
+.hw-row:hover::before { width: 5px; }
+.hw-row .hw-idx { font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; color: var(--tone); }
+.hw-row h3 { margin-top: 8px; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.1; letter-spacing: -0.015em; }
+.hw-row h3 a { color: var(--waya-charcoal); }
+.hw-row .hw-stretch::after { content: ''; position: absolute; inset: 0; }   /* the whole row is the link */
+.hw-row .hw-promise { margin-top: 8px; font-size: 15px; line-height: 1.55; color: var(--fg-2); max-width: 360px; }
+.hw-row .hw-wins { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.hw-row .hw-wins li { display: grid; gap: 6px; align-content: start; padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--tone) 55%, transparent); }
+.hw-row .hw-val { font-size: 26px; line-height: 1.05; color: var(--waya-charcoal); }
+.hw-row .hw-lbl { font-size: 13.5px; line-height: 1.45; color: var(--fg-2); }
+.hw-row .hw-arrow { font-family: var(--font-display); font-size: 26px; color: var(--waya-rust); transition: transform var(--dur-base) var(--ease-standard); }
+.hw-row:hover .hw-arrow { transform: translateX(6px); }
+
+/* ---------- Review switcher (local and preview hosts only) ---------- */
+.hw-switch {
+  position: fixed; left: 16px; bottom: 16px; z-index: 60; display: flex; align-items: center; gap: 4px; padding: 6px;
+  background: var(--waya-ink); border-radius: 999px; box-shadow: var(--shadow-3); font-family: var(--font-display);
+}
+.hw-switch span { padding: 0 8px 0 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--waya-cream) 70%, transparent); }
+.hw-switch a { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: var(--waya-cream); font-weight: 700; font-size: 13px; }
+.hw-switch a[aria-current="true"] { background: var(--waya-rust); }
+
+@media (max-width: 960px) {
+  .hw-a, .hw-panel { grid-template-columns: minmax(0, 1fr); }
+  .hw-col + .hw-col { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--waya-cream) 12%, transparent); }
+  .hw-row { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 30px 18px; }
+  .hw-row .hw-arrow { display: none; }
+}
+@media (max-width: 640px) {
+  .hw-row .hw-wins { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .hw-col { padding: 34px 24px 30px; }
+  .hw-col .hw-hero .hw-val { font-size: 38px; }
+}
