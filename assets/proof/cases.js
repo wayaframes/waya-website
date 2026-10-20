@@ -1,4 +1,4 @@
-/* Case results and "Solutions" groups: the one source the proof components read.
+/* Case results and case study groups: the one source the proof components read.
    Every number here is copied from the case study pages; change both together.
    headline/metrics: before/after are numbers for charts (null when a value is not numeric),
    fmtBefore/fmtAfter are the text to show, better says which direction is an improvement. */
@@ -360,8 +360,8 @@ window.WAYA_CASES = {
 
 window.WAYA_GROUPS = {
   "margins-and-cash": {
-    title: "Margins and Cash",
-    url: "/solutions/margins-and-cash/",
+    title: "Improving Margins",
+    url: "/case-studies/improving-margins/",
     hook: "Revenue is up. Margin isn't, and cash is tied up in the work.",
     promise: "Find where margin and cash leak out of the operation, fix the cause, and keep the gain.",
     promiseLines: ["Find where margin and cash leak out of the operation,", "fix the cause,", "and keep the gain."],
@@ -377,8 +377,8 @@ window.WAYA_GROUPS = {
     root: "ops-intro-call"
   },
   "scaling-through-change": {
-    title: "Scaling Through Change",
-    url: "/solutions/scaling-through-change/",
+    title: "Scaling",
+    url: "/case-studies/scaling/",
     hook: "An acquisition, a lost supplier, or a growth plan with seven priorities. The business still has to run.",
     promise: "Keep the company running while the plan changes underneath it.",
     programLabel: "the Scale Up Program",
@@ -394,8 +394,8 @@ window.WAYA_GROUPS = {
     root: "waya-consultation"
   },
   "faster-service": {
-    title: "Faster Service",
-    url: "/solutions/faster-service/",
+    title: "Improving Customer Outcomes",
+    url: "/case-studies/improving-customer-outcomes/",
     hook: "Customers wait hours for an answer. Patients wait months for a procedure.",
     promise: "Cut the time between someone asking and your team delivering.",
     programLabel: "the Operations Audit",

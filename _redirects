@@ -55,7 +55,3 @@
 /.claude/*     /    301
 /.github/*     /    301
 /.gitignore    /    301
-
-# Solutions has no index page; the hub of all results stands in for it
-/solutions/    /case-studies/    301
-/solutions     /case-studies/    301
