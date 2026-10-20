@@ -27,7 +27,7 @@
 - [Set Up Lean AI](https://www.wayaframes.com/lean-ai/setup/): Install the Waya MCP in Claude in about five minutes. Choose your variant, Claude plan, and environment, then connect the Wayaframes to your AI assistant.
 - [Product Market Fit Program](https://www.wayaframes.com/experiment-platform/cohort/): The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.
 - [The Waya Experiments Platform](https://www.wayaframes.com/experiment-platform/detail/): Waya Experiments Platform: find product-market fit by testing core business assumptions with paying customers, not AI output. Run it in 12 Weeks to PMF.
-- [4 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 4 weeks to increase your margins with Lean AI, for mission-driven operators. Find what is hurting your margin, fix the root cause, and keep the method running.
+- [8 Weeks to Higher Margins](https://www.wayaframes.com/lean-ai/cohort/): 8 weeks to increase your margins with Lean AI, for mission-driven operators. Find what is hurting your margin, fix the root cause, and keep the method running.
 - [Free Planning Guide: The Plan That Reaches The Work – Waya](https://www.wayaframes.com/planning-guide/): A free 90-minute system for turning quarterly objectives into tasks your team actually works on. Six steps, four traps, four real examples from our own work.
 
 ## Frequently asked questions
@@ -300,7 +300,7 @@ A: $3,000 for the full 12-week program. The first program starts the second week
 
 A: Apply through the button above. Because the program is small and founder fit matters, enrollment runs through a short application and a conversation before you are in.
 
-### 4 Weeks to Higher Margins
+### 8 Weeks to Higher Margins
 Source: https://www.wayaframes.com/lean-ai/cohort/
 
 **Q: Who is this program for?**
