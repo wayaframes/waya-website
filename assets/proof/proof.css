@@ -59,6 +59,10 @@
 .proof-steps p.proof-step-seen { margin-top: 18px; }
 .proof-step-seen a { color: var(--waya-charcoal); font-weight: 600; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--waya-rust) 50%, transparent); text-underline-offset: 3px; }
 .proof-step-seen a:hover { color: var(--waya-rust); }
+/* The A3 strip shared by the three category pages */
+.proof-a3-lead { margin: 28px auto 0; max-width: 720px; text-align: center; font-size: 17px; line-height: 1.55; color: var(--fg-1); }
+.proof-steps.proof-a3 { margin-top: 28px; }
+.proof-a3-methods { margin: 28px auto 0; max-width: 820px; text-align: center; font-size: 15px; line-height: 1.55; color: var(--fg-2); }
 /* Arrows between steps: the order matters */
 .proof-steps li:not(:last-child)::after {
   content: '→'; position: absolute; right: -17px; top: 34px; z-index: 1;
