@@ -166,9 +166,22 @@
   letter-spacing: 0.14em; text-transform: uppercase;
 }
 .flow-case-k { color: var(--waya-rust); }
+/* A3 Thinking: one band across all three steps */
+.flow-band { max-width: 1000px; margin: 32px auto 0; display: flex; align-items: center; gap: 14px; }
+.flow-band::before, .flow-band::after {
+  content: ''; flex: 1; height: 12px; margin-top: 12px;
+  border-top: 2px solid var(--waya-sage);
+}
+.flow-band::before { border-left: 2px solid var(--waya-sage); border-top-left-radius: 6px; }
+.flow-band::after { border-right: 2px solid var(--waya-sage); border-top-right-radius: 6px; }
+.flow-band-label {
+  font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--waya-cream); background: var(--waya-sage); border-radius: 999px; padding: 7px 16px; white-space: nowrap;
+}
+.flow-band-note { font-size: 13.5px; color: var(--fg-2); white-space: nowrap; }
 .flow {
   list-style: none; padding: 0;
-  max-width: 1000px; margin: 32px auto 0;
+  max-width: 1000px; margin: 18px auto 0;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
 }
 .flow-step {
@@ -304,6 +317,8 @@
   .frames.cols-3 { grid-template-columns: 1fr; }
   .frame.featured { padding: 30px 26px; }
   .flow { grid-template-columns: 1fr; gap: 36px; }
+  .flow-band { flex-wrap: wrap; justify-content: center; }
+  .flow-band::before, .flow-band::after { display: none; }
   .flow-step { grid-row: auto; grid-template-rows: none; }
   .flow-step:not(:last-child)::after { top: auto; right: auto; bottom: -30px; left: calc(50% - 11px); transform: rotate(90deg); }
   .flow-back svg { display: none; }
@@ -435,7 +450,7 @@
   <div class="container">
     <p class="section-eyebrow">Case Studies</p>
     <h2 class="section-title">Results from real companies</h2>
-    <p class="section-lead">The same methods Lean AI runs, used by our team inside eight companies.</p>
+    <p class="section-lead">The same methods Lean AI runs, used by our team on eight real problems.</p>
 
     <div class="cs-carousel" id="csCarousel" role="region" aria-roledescription="carousel" aria-label="Case studies">
       <ul class="cs-track" id="csTrack">
@@ -511,11 +526,12 @@
       <p>Monthly revenue is stuck at $500K against an $800K target. Ops already cut its error rate from 50% to 5%, and revenue still hasn't moved.</p>
     </div>
 
+    <div class="flow-band"><span class="flow-band-label">A3 Thinking</span><span class="flow-band-note">runs all three steps</span></div>
     <ol class="flow" aria-label="The three steps">
       <li class="flow-step">
         <span class="flow-n" aria-hidden="true">1</span>
         <h3>Define</h3>
-        <span class="flow-tools"><span class="flow-tool">A3 Thinking</span></span>
+        <span class="flow-tools"><span class="flow-tool">Define the gap</span></span>
         <p>Pin the problem down with data: what's happening, what should be, and how big the gap is.</p>
         <div class="flow-ex">
           <span class="flow-ex-k">In the example</span>
@@ -604,8 +620,8 @@
 <!-- =============== FINAL CTA =============== -->
 <section id="book" class="final-cta">
   <h2>Solve the real problem</h2>
-  <p>Join early access to get Lean AI in your assistant. When you want a specialist in the room, we're here.</p>
-  <div class="section-cta" style="margin-top: 40px;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#early-access">Sign Up for Early Access</a></div>
+  <p>Join early access to get Lean AI in your assistant. When you want operators in the room, join the next 8 Weeks to Higher Margins cohort.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;"><a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="#early-access">Sign Up for Early Access</a><a class="btn-ghost-dark" style="padding: 16px 30px; font-size: 15px;" href="/lean-ai/cohort/">See the program</a></div>
 </section>
 
 <!-- =============== EARLY ACCESS SIGNUP =============== -->
@@ -649,10 +665,10 @@
       <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
     </div>
     <div>
-      <p class="foot-heading">About us</p>
+      <p class="foot-heading">About Us</p>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/about-us/">About us</a></li>
+        <li><a href="/about-us/">About Us</a></li>
       </ul>
     </div>
     <div>
@@ -673,6 +689,7 @@
       </ul>
     </div>
     <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_button=footer">Schedule a Call</a>
       <div class="social-row">
         <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
