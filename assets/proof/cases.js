@@ -365,15 +365,15 @@ window.WAYA_GROUPS = {
     hook: "Revenue is up. Margin isn't, and cash is tied up in the work.",
     promise: "Find where margin and cash leak out of the operation, fix the cause, and keep the gain.",
     promiseLines: ["Find where margin and cash leak out of the operation,", "fix the cause,", "and keep the gain."],
-    programLabel: "4 Weeks to Higher Margins Program",
+    programLabel: "8 Weeks to Higher Margins Program",
     steps: [
       { title: "Measure the gap", method: "Gap analysis", seen: ["ap-automation-margin", "cash-float"], text: "Put a cost on every step and a number on the cash tied up, against where you need to be." },
       { title: "Find the cause on the floor", method: "A3, root cause analysis", seen: ["ap-automation-margin", "warehouse-quality"], text: "Walk the real process: double entry, inspecting every cart, paying suppliers before customers pay you." },
       { title: "Build the fix into the system", method: "Kaizen, standard work", seen: ["warehouse-quality", "ap-automation-margin"], text: "Change the process and the software together, then keep the metric visible so the gain holds." }
     ],
     cases: ["ap-automation-margin", "warehouse-quality", "cash-float"],
-    bridge: "The methods behind these results (measuring the gap, finding the cause on the floor, and building the fix into the system) are what we run with you in the Waya 4 Weeks to Higher Margins program. A Waya expert will guide you to work on your own margin problem while you learn alongside other operators who are doing it.\n\nOur Lean AI Platform keeps the method running after the four weeks end.",
-    program: { name: "4 Weeks to Higher Margins", url: "/lean-ai/cohort/" },
+    bridge: "The methods behind these results (measuring the gap, finding the cause on the floor, and building the fix into the system) are what we run with you in the Waya 8 Weeks to Higher Margins program. A Waya expert will guide you to work on your own margin problem while you learn alongside other operators who are doing it.\n\nOur Lean AI Platform keeps the method running after the eight weeks end.",
+    program: { name: "8 Weeks to Higher Margins", url: "/lean-ai/cohort/" },
     root: "ops-intro-call"
   },
   "scaling-through-change": {
