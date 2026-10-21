@@ -174,6 +174,12 @@ window.WAYA_CASES = {
         }
       ]
     },
+    video: {
+      "src": "/assets/video/cash-float-video.mp4",
+      "poster": "/assets/video/cash-float-video-poster.jpg",
+      "duration": "1:49",
+      "caption": "Watch how the cash float fell 90%"
+    },
     headline: { label: "Cash fronted for product", before: 100, after: 8, unit: "%", fmtBefore: "~100%", fmtAfter: "~8%", better: "down" },
     metrics: [
       { label: "Working capital freed", before: null, after: 1, unit: "$M", fmtBefore: "", fmtAfter: "~$1M", better: "up" },
@@ -299,6 +305,12 @@ window.WAYA_CASES = {
           "fmtAfter": "70%"
         }
       ]
+    },
+    video: {
+      "src": "/assets/video/customer-support-video.mp4",
+      "poster": "/assets/video/customer-support-video-poster.jpg",
+      "duration": "1:49",
+      "caption": "Watch how first response went from 22 hours to 6 minutes"
     },
     headline: { label: "First response", before: 1320, after: 6, unit: "min", fmtBefore: "22 hours", fmtAfter: "6 minutes", better: "down" },
     metrics: [
