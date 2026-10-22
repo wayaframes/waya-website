@@ -1,0 +1,115 @@
+{
+  "$comment": "Waya legal pages reference. THIS FILE is the source of truth for the version, the date, the page URLs and the short notices pasted into other tools (GoHighLevel forms, emails, booking pages). The wording of the pages themselves is the HTML in privacy-policy/, terms-of-service/, data-handling/ and support/. scripts/check_legal.py checks the pages against this file. Change the page, then this file, then run the script. A snippet marked draft is not live anywhere until its ticket is done.",
+  "version": "2026-10-22",
+  "updated": "2026-10-22",
+  "owner": "Oren",
+  "reviewer": "Vince",
+
+  "entity": {
+    "name": "Waterbear LLC",
+    "trading_as": "Waya",
+    "address": "5013 S. Louise Ave, Unit 646, Sioux Falls, SD 57108, United States",
+    "contact_email": "info@wayaframes.com"
+  },
+
+  "promises": {
+    "$comment": "Numbers the pages state. If one changes, the page, the DSAR runbook (waya-mcp/docs/legal/DSAR_RUNBOOK.md) and the matching snippet change in the same round.",
+    "data_request_days": 30,
+    "data_request_clock": "receipt",
+    "backup_expiry_days": 30,
+    "call_recording_retention_years": 2,
+    "support_response_business_days": 2
+  },
+
+  "pages": {
+    "privacy-policy": {
+      "title": "Privacy Policy",
+      "path": "/privacy-policy/",
+      "url": "https://www.wayaframes.com/privacy-policy/",
+      "last_updated": "2026-10-22"
+    },
+    "terms-of-service": {
+      "title": "Terms of Service",
+      "path": "/terms-of-service/",
+      "url": "https://www.wayaframes.com/terms-of-service/",
+      "last_updated": "2026-10-22"
+    },
+    "data-handling": {
+      "title": "How Waya Handles Your Data",
+      "path": "/data-handling/",
+      "url": "https://www.wayaframes.com/data-handling/",
+      "last_updated": "2026-10-22"
+    },
+    "support": {
+      "title": "Support",
+      "path": "/support/",
+      "url": "https://www.wayaframes.com/support/",
+      "last_updated": "2026-10-22"
+    }
+  },
+
+  "snippets": {
+    "$comment": "Short notices to paste as written. status: draft = wording agreed in principle but not live (see ticket); live = pasted in every surface listed in waya-mcp/docs/legal/surfaces.md.",
+
+    "call_recording_booking": {
+      "status": "draft",
+      "ticket": 202,
+      "use": ["booking page, under the calendar"],
+      "text": "This call may be recorded and transcribed so we can follow up with you and prepare our work together. We will ask before we start. If you would rather not be recorded, just say so and we will leave the recorder off. More in our Privacy Policy: https://www.wayaframes.com/privacy-policy/"
+    },
+    "call_recording_confirmation_email": {
+      "status": "draft",
+      "ticket": 202,
+      "use": ["booking confirmation email, one short paragraph near the top"],
+      "text": "A note about your call: we may record and transcribe it so we can follow up with you and prepare our work together. We will ask before we start, and if you would rather not be recorded, just say so and we will leave the recorder off. We keep call recordings and transcripts for up to 2 years, then delete them. Details are in our Privacy Policy: https://www.wayaframes.com/privacy-policy/"
+    },
+    "call_recording_invite": {
+      "status": "draft",
+      "ticket": 202,
+      "use": ["calendar invite description, one line"],
+      "text": "This call may be recorded and transcribed. We will ask before we start. Privacy Policy: https://www.wayaframes.com/privacy-policy/"
+    },
+    "call_recording_opening_line": {
+      "status": "draft",
+      "ticket": 202,
+      "use": ["spoken at the start of every call, before the recorder starts"],
+      "text": "Before we start, I would like to record and transcribe this call so we can follow up. Is that all right? If not, no problem, I will leave the recorder off."
+    },
+    "form_footer": {
+      "status": "draft",
+      "ticket": 219,
+      "use": ["every GHL form"],
+      "text": "We use what you send to respond to you and to email you about Waya. You can unsubscribe at any time. See our Privacy Policy: https://www.wayaframes.com/privacy-policy/"
+    },
+    "email_footer": {
+      "status": "draft",
+      "ticket": 219,
+      "use": ["every GHL email and sequence"],
+      "text": "Waterbear LLC, operating as Waya, 5013 S. Louise Ave, Unit 646, Sioux Falls, SD 57108, United States. You are receiving this because you contacted us or we thought Waya might help your business. Unsubscribe with the link in this email, or reply and we will stop."
+    },
+    "checkout_terms": {
+      "status": "draft",
+      "ticket": 219,
+      "use": ["program checkout page, directly above or below the pay button"],
+      "text": "By buying you accept our Terms of Service: https://www.wayaframes.com/terms-of-service/ . Refunds: you can cancel for a full refund at any time before the program's first session. Once the program has started, the fee is not refundable. If we cancel the program, you get a full refund. After the program: you can keep your access to the services for a fee. We will tell you the price first, and we charge only if you agree to continue. You can cancel at any time by emailing info@wayaframes.com; a cancellation takes effect at the end of the period you have paid for."
+    },
+    "program_booking_terms": {
+      "status": "draft",
+      "ticket": 219,
+      "use": ["program booking page", "program booking confirmation email"],
+      "text": "Your fee is fully refundable until your first session. To cancel before then, email info@wayaframes.com. Once the program has started, the fee is not refundable. If we cancel the program, you get a full refund. After the program ends you can choose to keep your access for a fee; we tell you the price first and charge only if you agree. Our Terms of Service: https://www.wayaframes.com/terms-of-service/"
+    },
+    "continued_access_offer": {
+      "status": "draft",
+      "ticket": 219,
+      "use": ["the offer sent before a program ends"],
+      "text": "You can keep your access after your program ends, for a fee of {price}. We charge only if you say yes. You can cancel at any time by emailing info@wayaframes.com; a cancellation takes effect at the end of the period you have paid for."
+    },
+    "cancellation_reply": {
+      "status": "draft",
+      "ticket": 217,
+      "use": ["the reply to a cancellation email"],
+      "text": "We have received your request to cancel. Your access continues until {end_date}, the end of the period you have paid for, and you will not be charged again. You can still ask us to export or delete your data at any time."
+    }
+  }
+}
