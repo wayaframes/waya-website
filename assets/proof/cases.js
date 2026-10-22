@@ -137,6 +137,8 @@ window.WAYA_CASES = {
     video: {
       "src": "/assets/video/post-acquisition-turnaround-video-skill.mp4",
       "poster": "/assets/video/post-acquisition-turnaround-video-skill-poster.jpg",
+      "portrait": "/assets/video/post-acquisition-turnaround-video-skill-portrait.mp4",
+      "portraitPoster": "/assets/video/post-acquisition-turnaround-video-skill-portrait-poster.jpg",
       "duration": "1:26",
       "caption": "Watch how a $1M monthly burn became a profitable operation"
     },
