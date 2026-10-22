@@ -188,6 +188,76 @@
         ph.capture('carousel_interacted', { direction: id === 'carNext' ? 'next' : 'prev' });
       });
     });
+
+    wireVideoEvents(ph);
+  }
+
+  /* ---- Video events: video_play, video_progress (25/50/75), video_pause, video_completed ----
+     Media events don't bubble, so these listen on document in the capture phase. That also
+     covers the <video> the story cards create when their tile is clicked. */
+  function wireVideoEvents(ph) {
+    var state = typeof WeakMap === 'function' ? new WeakMap() : null;
+    function stateFor(v) {
+      if (!state) return { plays: 0, milestones: {} };
+      var s = state.get(v);
+      if (!s) { s = { plays: 0, milestones: {} }; state.set(v, s); }
+      return s;
+    }
+    function srcPath(v) {
+      try { return new URL(v.currentSrc || v.src, location.href).pathname; } catch (e) { return v.currentSrc || null; }
+    }
+    function placement(v) {
+      if (v.closest('.proof-story')) return 'story_card';
+      if (v.closest('.case-video'))  return 'case_page';
+      return 'page';
+    }
+    function percent(v) {
+      return v.duration > 0 && isFinite(v.duration) ? Math.floor((v.currentTime / v.duration) * 100) : null;
+    }
+    function props(v, extra) {
+      var src = srcPath(v);
+      var story = v.closest('.proof-story');
+      var out = {
+        page: location.pathname,
+        video_src: src,
+        video_name: src ? src.split('/').pop().replace(/\.[a-z0-9]+$/i, '') : null,
+        video_duration: v.duration > 0 && isFinite(v.duration) ? Math.round(v.duration) : null,
+        placement: placement(v),
+        case_study: story ? story.id : null
+      };
+      for (var k in extra) if (extra.hasOwnProperty(k)) out[k] = extra[k];
+      return out;
+    }
+    function isVideo(t) { return t && t.tagName === 'VIDEO'; }
+
+    document.addEventListener('play', function (e) {
+      var v = e.target; if (!isVideo(v)) return;
+      var s = stateFor(v);
+      s.plays += 1;
+      ph.capture('video_play', props(v, { resumed: s.plays > 1, current_time: Math.round(v.currentTime) }));
+    }, true);
+
+    document.addEventListener('pause', function (e) {
+      var v = e.target; if (!isVideo(v) || v.ended) return;     // the browser pauses at the end too
+      ph.capture('video_pause', props(v, { current_time: Math.round(v.currentTime), percent_watched: percent(v) }));
+    }, true);
+
+    document.addEventListener('ended', function (e) {
+      var v = e.target; if (!isVideo(v)) return;
+      ph.capture('video_completed', props(v, {}));
+    }, true);
+
+    document.addEventListener('timeupdate', function (e) {
+      var v = e.target; if (!isVideo(v)) return;
+      var p = percent(v); if (p === null) return;
+      var s = stateFor(v);
+      [25, 50, 75].forEach(function (m) {
+        if (p >= m && !s.milestones[m]) {
+          s.milestones[m] = true;
+          ph.capture('video_progress', props(v, { percent_watched: m }));
+        }
+      });
+    }, true);
   }
 
   /* ---- Consent banner ---- */
