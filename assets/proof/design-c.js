@@ -3,6 +3,9 @@
    with labelled gridlines in the real unit, two labelled x positions, and a straight line from
    the before value to the after value. Lines go down when the number went down. Value labels
    are the fmtBefore / fmtAfter text from cases.js, never computed. Nothing is normalised.
+   Two optional chart fields: `axisMin` starts the y-axis above zero (the line is drawn without
+   the area wash, since a filled area implies a zero base), and `zones` ([left, right] labels)
+   draws two dashed boxes, one around each point, labelled on top.
    Vanilla ES2018, no dependencies. Styles live in design-c.css under html.design-c. */
 (function () {
   'use strict';
@@ -173,9 +176,12 @@
     return { step: step, n: n, max: +(step * n).toPrecision(6) };
   }
   function scaleFor(ch, a, b) {
-    var sc = niceScale(Math.max(a, b), INTEGER_UNITS.test(txt(ch.unit)));
+    var min = num(ch.axisMin);
+    if (!(isFinite(min) && min > 0 && min < Math.min(a, b))) min = 0;
+    var sc = niceScale(Math.max(a, b) - min, INTEGER_UNITS.test(txt(ch.unit)));
     /* a share can't pass 100%: cap percent axes there */
-    if (sc && txt(ch.unit) === '%' && Math.max(a, b) <= 100 && sc.max > 100) sc = { step: 25, n: 4, max: 100 };
+    if (sc && !min && txt(ch.unit) === '%' && Math.max(a, b) <= 100 && sc.max > 100) sc = { step: 25, n: 4, max: 100 };
+    if (sc) sc.min = min;                              /* sc.max is the span above sc.min */
     return sc;
   }
   function tickLabel(v, unit) {
@@ -224,21 +230,27 @@
       var tfs = compact ? 10.5 : 12, vfs = compact ? 12.5 : 14;
       var titleSide = !compact && W >= 480;
       var ticks = [];
-      for (var i = 0; i <= scale.n; i++) ticks.push(+(i * scale.step).toPrecision(6));
+      for (var i = 0; i <= scale.n; i++) ticks.push(+(scale.min + i * scale.step).toPrecision(6));
       var tickW = 0;
       ticks.forEach(function (v) { tickW = Math.max(tickW, estWidth(tickLabel(v, ch.unit), tfs)); });
 
       var pl = r2(tickW + 10 + (titleSide ? 24 : 0));
-      var pt = (titleSide ? 12 : (compact ? 26 : 30)) + vfs;
+      /* zone labels sit above their boxes; on narrow charts they wrap to two lines */
+      var zones = arr(ch.zones).map(txt).filter(Boolean);
+      if (zones.length !== 2) zones = null;
+      var zfs = compact ? 10.5 : 12;
+      var zoneW = (W - (tickW + 10 + (titleSide ? 24 : 0)) - 12) / 2 - 10;
+      var zWrap = !!zones && zones.some(function (z) { return z.indexOf(' ') > 0 && estWidth(z, zfs) > zoneW - 8; });
+      var pt = (titleSide ? 12 : (compact ? 26 : 30)) + vfs + (zones ? (zWrap ? 2 : 1) * (zfs + 4) + 4 : 0);
       var pr = W - 12, pb = H - (compact ? 22 : 30);
       var pw = pr - pl, ph = pb - pt;
       if (!(pw > 60 && ph > 40)) return false;
-      function Y(v) { return r2(pb - (v / scale.max) * ph); }
+      function Y(v) { return r2(pb - ((v - scale.min) / scale.max) * ph); }
 
       var g = svgEl('g', { 'class': 'dc-c-grid' });
-      ticks.forEach(function (v) {
+      ticks.forEach(function (v, i) {
         var y = Y(v);
-        g.appendChild(svgEl('line', { 'class': v === 0 ? 'dc-c-baseline' : 'dc-c-gridline', x1: pl, x2: pr, y1: y, y2: y }));
+        g.appendChild(svgEl('line', { 'class': i === 0 ? 'dc-c-baseline' : 'dc-c-gridline', x1: pl, x2: pr, y1: y, y2: y }));
         g.appendChild(svgEl('text', { 'class': 'dc-c-tick', x: pl - 8, y: y, dy: '0.35em', 'text-anchor': 'end' }, tickLabel(v, ch.unit)));
       });
       svg.appendChild(g);
@@ -269,6 +281,22 @@
       bx = r2(bx); ax = r2(ax);
       var by = Y(b), ay = Y(a);
 
+      if (zones) {
+        var mid = (bx + ax) / 2, gap = 5, zTop = r2(pt - 8), zH = r2(pb - zTop);
+        [[pl + 2, mid - gap, zones[0], 'before'], [mid + gap, pr - 2, zones[1], 'after']].forEach(function (z) {
+          svg.appendChild(svgEl('rect', { 'class': 'dc-c-zone dc-c-zone-' + z[3], x: r2(z[0]), y: zTop, width: r2(z[1] - z[0]), height: zH, rx: 8 }));
+          var cx = r2((z[0] + z[1]) / 2), words = z[2].split(' ');
+          var lines = [z[2]];
+          if (zWrap && words.length > 1) {
+            var half = Math.ceil(words.length / 2);
+            lines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
+          }
+          lines.forEach(function (ln, i) {
+            svg.appendChild(svgEl('text', { 'class': 'dc-c-zone-label', x: cx, y: r2(zTop - 7 - (lines.length - 1 - i) * (zfs + 3)), 'text-anchor': 'middle' }, ln));
+          });
+        });
+      }
+
       /* x-axis labels, kept inside the box */
       [[bx, txt(ch.xBefore)], [ax, txt(ch.xAfter)]].forEach(function (p) {
         if (!p[1]) return;
@@ -285,10 +313,10 @@
       if (down) {
         svg.appendChild(svgEl('line', { 'class': 'dc-c-guide', x1: bx, x2: ax, y1: by, y2: by }));
         fill = svgEl('path', { 'class': 'dc-c-fill dc-c-fill-down', d: 'M' + bx + ',' + by + ' L' + ax + ',' + by + ' L' + ax + ',' + ay + ' Z' });
-      } else {
+      } else if (!scale.min) {
         fill = svgEl('path', { 'class': 'dc-c-fill dc-c-fill-up', d: 'M' + bx + ',' + pb + ' L' + ax + ',' + pb + ' L' + ax + ',' + ay + ' L' + bx + ',' + by + ' Z' });
       }
-      svg.appendChild(fill);
+      if (fill) svg.appendChild(fill);
 
       var line = svgEl('path', { 'class': 'dc-c-line', d: 'M' + bx + ',' + by + ' L' + ax + ',' + ay });
       svg.appendChild(line);
@@ -308,6 +336,11 @@
           svg.appendChild(vB);
           var wb = textWidth(vB, bLab, vfs);
           vB.setAttribute('x', r2(Math.min(Math.max(bx, wb / 2 + 2), W - wb / 2 - 2)));
+        } else if (zones) {
+          vB = svgEl('text', { 'class': 'dc-c-val dc-c-val-before', y: r2(by - 12), 'text-anchor': 'middle' }, bLab);
+          svg.appendChild(vB);
+          var wz = textWidth(vB, bLab, vfs);
+          vB.setAttribute('x', r2(Math.max(bx, pl + wz / 2 + 6)));
         } else {
           vB = svgEl('text', { 'class': 'dc-c-val dc-c-val-before', x: r2(bx - 11), y: r2(by - 7), 'text-anchor': 'end' }, bLab);
           svg.appendChild(vB);
@@ -336,7 +369,7 @@
       f = clamp01(p);
       if (!geo || !parts) return;
       parts.line.style.strokeDashoffset = px(geo.L * (1 - f));
-      parts.fill.style.opacity = String(r2(f));
+      if (parts.fill) parts.fill.style.opacity = String(r2(f));
       toggle(parts.pB, f > 0); toggle(parts.vB, f > 0);
       toggle(parts.pA, f >= 1); toggle(parts.vA, f >= 1);
     }

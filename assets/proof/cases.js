@@ -205,7 +205,7 @@ window.WAYA_CASES = {
     method: "Annual and quarterly planning",
     summary: "We cut seven unranked goals to three objectives set on the real bottleneck.",
     timeframe: null,
-    chart: { label: "ARR", axis: "ARR ($M)", before: 7.3, after: 10, unit: "$M", fmtBefore: "$7.3M", fmtAfter: "~$10M", better: "up", xBefore: "Before the offsite", xAfter: "End of Q1" },
+    chart: { label: "ARR", axis: "ARR ($M)", before: 7.3, after: 10, unit: "$M", fmtBefore: "$7.3M", fmtAfter: "~$10M", better: "up", xBefore: "Before the offsite", xAfter: "End of Q1", axisMin: 6 },
     story: {
       "problem": "The company planned to triple revenue, but the CEO's goals were six or seven, unranked, and the team named prioritization as its top blocker.",
       "diagnosis": "The goals lived in one person's head, so each function worked toward a different one and \"urgent\" was the only signal.",
@@ -247,7 +247,7 @@ window.WAYA_CASES = {
     method: "A3, Kaikaku, scenario planning",
     summary: "We built the company's own warehouse and direct sourcing in 14 months, while the old business kept running.",
     timeframe: "14 months from July 2018",
-    chart: { label: "Revenue through its own warehouse", axis: "Annualized revenue ($M)", before: 75, after: 155, unit: "$M", fmtBefore: "0% of ~$75M", fmtAfter: "100% of ~$155M", better: "up", xBefore: "Jul 2018", xAfter: "14 months later" },
+    chart: { label: "Annualized revenue", axis: "Annualized revenue ($M)", before: 75, after: 155, unit: "$M", fmtBefore: "~$75M", fmtAfter: "~$155M", better: "up", xBefore: "Jul 2018", xAfter: "14 months later", zones: ["Reliant on supplier", "Vertically integrated"] },
     story: {
       "problem": "The whole business ran on one supplier. In July 2018, at about $75M in annualized revenue, that supplier said the partnership no longer worked.",
       "diagnosis": "Getting better at buying from the supplier couldn't fix depending on it. The system itself was the constraint, so it needed a redesign, not small improvements.",
@@ -258,9 +258,9 @@ window.WAYA_CASES = {
       ],
       "results": [
         {
-          "label": "Revenue through its own warehouse",
-          "fmtBefore": "0% of ~$75M",
-          "fmtAfter": "100% of ~$155M"
+          "label": "Revenue during the transition",
+          "fmtBefore": "~$75M",
+          "fmtAfter": "~$155M"
         },
         {
           "label": "Time to rebuild",
@@ -274,7 +274,7 @@ window.WAYA_CASES = {
         }
       ]
     },
-    headline: { label: "Revenue through its own warehouse", before: 0, after: 155, unit: "$M", fmtBefore: "0% of ~$75M", fmtAfter: "100% of ~$155M", better: "up" },
+    headline: { label: "Annualized revenue", before: 75, after: 155, unit: "$M", fmtBefore: "~$75M", fmtAfter: "~$155M", better: "up" },
     metrics: [
       { label: "Time to rebuild the supply chain", before: null, after: 14, unit: "months", fmtBefore: "", fmtAfter: "14 months", better: "down" },
       { label: "Supply model", before: null, after: null, unit: "", fmtBefore: "One supplier", fmtAfter: "Owned warehouses, direct sourcing", better: "up" }
