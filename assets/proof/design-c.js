@@ -283,8 +283,8 @@
 
       if (zones) {
         var mid = (bx + ax) / 2, gap = 5, zTop = r2(pt - 8), zH = r2(pb - zTop);
-        [[pl + 2, mid - gap, zones[0]], [mid + gap, pr - 2, zones[1]]].forEach(function (z) {
-          svg.appendChild(svgEl('rect', { 'class': 'dc-c-zone', x: r2(z[0]), y: zTop, width: r2(z[1] - z[0]), height: zH, rx: 8 }));
+        [[pl + 2, mid - gap, zones[0], 'before'], [mid + gap, pr - 2, zones[1], 'after']].forEach(function (z) {
+          svg.appendChild(svgEl('rect', { 'class': 'dc-c-zone dc-c-zone-' + z[3], x: r2(z[0]), y: zTop, width: r2(z[1] - z[0]), height: zH, rx: 8 }));
           var cx = r2((z[0] + z[1]) / 2), words = z[2].split(' ');
           var lines = [z[2]];
           if (zWrap && words.length > 1) {
