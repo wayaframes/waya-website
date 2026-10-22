@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Turnaround poster card</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  Poster card for the post-acquisition turnaround video, in the house style of the case-study posters
+  (assets/video/cash-float-video-poster.jpg and its portrait twin): cream field, letter-spaced label,
+  the old value struck in rust, a mustard arrow, the new result big in sage, one caption line.
+  Default: a 1920x1080 landscape card. ?layout=portrait: a 1080x1920 card, stacked.
+  Shot by artifacts/shoot-poster.mjs, then downscaled to 1280x720 / 720x1280 JPGs.
+-->
+<style>
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400; src: url('../assets/fonts/SpaceGrotesk-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 500; src: url('../assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 600; src: url('../assets/fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 700; src: url('../assets/fonts/SpaceGrotesk-Bold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 400; src: url('../assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 500; src: url('../assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 600; src: url('../assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family: 'Plus Jakarta Sans'; font-weight: 700; src: url('../assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2'); }
+  :root {
+    --cream:#FAF7F1; --stone:#6B6F6C; --line:#C9CCC7;
+    --rust:#D16C02; --mustard:#EAB62F; --sage:#6A9D8A;
+    --fd:'Space Grotesk', system-ui, sans-serif; --fb:'Plus Jakarta Sans', system-ui, sans-serif;
+    /* landscape sizes (1920x1080) */
+    --label-size:38px; --label-ls:.26em;
+    --old-size:76px; --new-size:164px; --cap-size:28px;
+    --shift:34px;            /* the house posters sit their block a little below centre */
+  }
+  html, body { margin:0; padding:0; background:var(--cream); }
+  body { width:1920px; height:1080px; overflow:hidden; }
+  #stage { position:relative; width:1920px; height:1080px; overflow:hidden; background:var(--cream); color:var(--stone); }
+  .card { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:calc(2 * var(--shift)); box-sizing:border-box; }
+
+  .label { font-family:var(--fd); font-weight:700; font-size:var(--label-size); line-height:1; letter-spacing:var(--label-ls); margin-right:calc(-1 * var(--label-ls)); text-transform:uppercase; color:var(--stone); white-space:nowrap; }
+
+  .row { display:flex; align-items:baseline; margin-top:62px; }
+  .old { position:relative; font-family:var(--fd); font-weight:700; font-size:var(--old-size); line-height:1; letter-spacing:-.01em; color:var(--rust); opacity:.85; white-space:nowrap; }
+  /* the strike: one straight, round-capped bar, a touch tilted, overhanging the word at both ends */
+  .old .strike { position:absolute; left:-.22em; right:-.1em; top:.47em; height:.07em; border-radius:.035em; background:var(--rust); transform:rotate(-2.3deg); transform-origin:50% 50%; }
+  .new { font-family:var(--fd); font-weight:700; font-size:var(--new-size); line-height:1; letter-spacing:-.035em; color:var(--sage); white-space:nowrap; }
+  .arrow { display:block; flex:none; }
+  .arrow path { fill:none; stroke:var(--mustard); stroke-linecap:butt; stroke-linejoin:miter; }
+  .row .arrow { width:68px; height:46px; margin:0 76px 0 68px; position:relative; top:-7px; align-self:baseline; }
+
+  .caption { font-family:var(--fb); font-weight:400; font-size:var(--cap-size); line-height:1; color:var(--stone); white-space:nowrap; margin-top:172px; }
+
+  /* the small chart, drawn like the site's own (cases.js chart: "Monthly burn ($M)"): the burn in Oct 2022 falling
+     to the zero line by Oct 2023 (profitable, just crossed over; no number past that) */
+  .chart { display:block; overflow:visible; }
+  .chart .zero { stroke:#B8BBB6; stroke-width:3; stroke-dasharray:2 8; stroke-linecap:round; }
+  .chart .seg { stroke:url(#cm); stroke-width:4.5; stroke-linecap:round; fill:none; }
+  .chart .d0 { fill:var(--rust); fill-opacity:.85; }
+  .chart .d1 { fill:var(--sage); }
+  .chart text { font-family:var(--fb); font-weight:500; font-size:19px; fill:var(--stone); letter-spacing:.02em; }
+  .oldcol { position:relative; }
+  .oldcol .chart { position:absolute; left:50%; top:calc(100% + 20px); transform:translateX(-50%); }
+
+  /* portrait (1080x1920) */
+  body.portrait { width:1080px; height:1920px; }
+  .portrait #stage { width:1080px; height:1920px; }
+  .portrait { --label-size:34px; --label-ls:.24em; --old-size:98px; --new-size:188px; --cap-size:30px; --shift:62px; }
+  .portrait .row { flex-direction:column; align-items:center; margin-top:110px; }
+  .portrait .oldcol { display:flex; flex-direction:column; align-items:center; }
+  .portrait .oldcol .chart { position:static; transform:none; margin-top:54px; }
+  .portrait .row .arrow { width:52px; height:76px; margin:66px 0 58px; top:0; align-self:center; }
+  .portrait .caption { margin-top:104px; }
+  .arrow-down { display:none; }
+  .portrait .arrow-right { display:none; }
+  .portrait .arrow-down { display:block; }
+  .portrait .chart { width:400px; height:122px; }
+</style>
+</head>
+<body>
+<script>
+  // ?layout=portrait sets the stacked 1080x1920 card; anything else is the 1920x1080 landscape card.
+  if (new URLSearchParams(location.search).get('layout') === 'portrait') document.body.classList.add('portrait');
+</script>
+<div id="stage">
+  <div class="card">
+    <div class="label">Contribution margin</div>
+    <div class="row">
+      <div class="oldcol">
+        <div class="old">~$1M/mo burn<i class="strike"></i></div>
+        <svg class="chart" width="340" height="104" viewBox="0 0 260 80" aria-hidden="true">
+          <defs>
+            <linearGradient id="cm" gradientUnits="userSpaceOnUse" x1="16" y1="0" x2="244" y2="0">
+              <stop offset="0" stop-color="#D16C02" stop-opacity=".85"/>
+              <stop offset="1" stop-color="#6A9D8A"/>
+            </linearGradient>
+          </defs>
+          <line class="zero" x1="0" y1="48" x2="260" y2="48"/>
+          <path class="seg" d="M16 10 L244 48"/>
+          <circle class="d0" cx="16" cy="10" r="6.5"/>
+          <circle class="d1" cx="244" cy="48" r="6.5"/>
+          <text x="9" y="78" text-anchor="start">Oct 2022</text>
+          <text x="251" y="78" text-anchor="end">Oct 2023</text>
+        </svg>
+      </div>
+      <svg class="arrow arrow-right" viewBox="0 0 64 44" aria-hidden="true"><path d="M0 22 H58 M38 3 L57 22 L38 41" stroke-width="10.5"/></svg>
+      <svg class="arrow arrow-down" viewBox="0 0 52 76" aria-hidden="true"><path d="M26 0 V69 M7 50 L26 69 L45 50" stroke-width="12"/></svg>
+      <div class="new">Profitable</div>
+    </div>
+    <div class="caption">Cheetah · 2023 · told by Vince</div>
+  </div>
+</div>
+</body>
+</html>

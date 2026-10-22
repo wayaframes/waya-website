@@ -525,3 +525,53 @@ Stills: `artifacts/style/style-frame-9..12-*.png` and `style-frame-6-naama-offic
 - **Label.** The dark label panel (x 166–314, y 264–318) sits under the page's typeset label "FROZEN / pizza
   dough" (cream) at left 600, top 548. It is in the same place in both states, so the label never moves.
 - **Stills:** `artifacts/style/style-frame-13-dough-normal.png` and `style-frame-14-dough-puffed.png`.
+
+
+## Portrait cut, 1080x1920 (round 5, 2026-10-22)
+Same cues, same timeline, same scenes, recomposed for a phone held upright. It is a second layout in the same page:
+`video.html?layout=mobile`. The seats are in the `if (MOBILE)` block at the top of the script; the few moves that
+differ are `lay(landscape, portrait)` values in the timeline. The landscape path reads neither, so every landscape
+frame is byte-identical to the approved cut (all 2,582 frames hashed before and after).
+
+- **Grid.** One centred column, 60 px gutters. Screens are 960 wide: the wide shots (1060) are zoomed to 960, the
+  count sheet (780) up to 960, so every outline inside a screen keeps its own coordinates (Chromium zooms left/top
+  too, hence `seat()` divides by the zoom). Captions on the screens are 24 px on the frame and may wrap.
+- **Lines 1–2.** Vince's card at x 240, y 380; the eyebrow centred at y 700 and the warehouse (x 30, y 760, 1000 wide)
+  under it; the "+3" chip centred at y 1400. On "rebuilt" the warehouse goes up to x 140, y 300 at 0.8 and the
+  eyebrow to y 250; the pick list (920 wide) at x 80, y 900, the fill-rate chip centred at y 1440; the stamp at
+  x 372, y 479, on the warehouse as in landscape.
+- **Lines 3–5.** The forklift 1000 wide at x 40, y 520, its chip centred at y 1260. The dough 780 wide at x 150, y 560
+  with its typeset label scaled with it (x 375, y 962, zoom 1.5), chip at y 1270. The burn counter centred at
+  y 800, its eyebrow at 770, the sub line at 1020 (and the same seats for the $260K run-down).
+- **Lines 6–7.** The aisle fills the tall frame: 3400 wide at x −1160, y −120, so the vanishing point sits at x 540,
+  y 985; the camera move is the landscape one about the frame's centre. "Oct 22 · Go and see" is a chip centred at
+  y 500 (in the tall frame the ceiling lights run down the centre, through any bare centred line); the A3 and the
+  system screen at x 60, y 600, 960 wide.
+- **Line 8.** The quote in six lines (the same four reveals): "Every day the / warehousing crew / was fixing the
+  problems, / and the IT system / was recreating / them every night." at 64 px, tops 690, 844, 921, 1075; the sun at
+  x 508, y 596; "— Vince" at y 1182; the blurred replenishment log 1200 wide behind it.
+- **Lines 9–12, the demo frame.** The title at y 250. The tracker (450, native) centred under it at x 315, y 370.
+  The lanes 960 wide at x 60, y 880 and 1030. The centre screens at x 60, y 780, 960 wide. In 10a the widget takes
+  the left of the tracker's row (460 square at x 70, y 370) and the tracker slides right to x 560: it leaves 0.35 s
+  before the widget fades up and comes back once the widget has gone. The count sheet at x 60, y 870 (960 wide), the
+  crew strip 960 wide under it at y 1470.
+- **Lines 13–16.** The full pick list 900 wide at x 90, y 420; the result rows at x 90, y 1000. "Profitable" at y 980
+  and "Oct 2023" at y 1120, clear of the lens widget (bottom 904) as it fades up.
+- **Line 17, the lens.** The title at y 310; the widget 460 square (the same size as in 10a, house rule 12) centred
+  at x 310, y 430 (it changes seat between its two appearances, while it is off); the cards 440x220 side by side under it, Symptom at x 70 and Cause at x 570
+  (each slides 70 px into its seat, as in landscape), "≠" between them; the arrows up into the cards' centres; "Work
+  both at once" centred at y 1412.
+- **The close.** 1.15x the landscape card so it reads on a phone: the wordmark 115 high at y 640, the question 64 px
+  at 820, the buttons (zoom 1.15) at 950, wayaframes.com 27 px at 1130.
+- **Type.** Nothing new under 22 px: the screen captions 24 px; the tracker label, the widget bar, the eyebrows and
+  the crew's "24-7" lifted to 22 px; Na'ama's name card back to its landscape 44 / 24 px after the zoom.
+- **Render.** The sandbox Chromium cannot play H.264, so the expert's clip is a VP9 copy passed in with `?clip=`
+  (`render.mjs --clip render/out/expert-vince.webm`); the same take, the same in/out points.
+
+## Posters (round 5, 2026-10-22)
+`artifacts/poster-card.html` (landscape 1920x1080; `?layout=portrait` 1080x1920), shot by
+`node artifacts/shoot-poster.mjs` to `render/out/` and downscaled to the site's 1280x720 and 720x1280 JPGs. The cash
+float card's style: cream field, letter-spaced label, the old value struck in rust, a mustard arrow, "Profitable" big
+in sage, one caption line. The small chart is two dots joined by one line, drawn like the site's own chart ("Monthly burn ($M)"):
+the burn in Oct 2022 falling to the dotted zero line by Oct 2023 (profitable, just crossed over). No other number,
+no running-time chip.
