@@ -84,10 +84,18 @@ window.WAYA_CASES = {
         }
       ]
     },
-    headline: { label: "Carts with a picking error", before: 72, after: 10, unit: "%", fmtBefore: "~72%", fmtAfter: "~10%", better: "down" },
+    video: {
+      "src": "/assets/video/warehouse-quality-video.mp4",
+      "poster": "/assets/video/warehouse-quality-video-poster.jpg",
+      "portrait": "/assets/video/warehouse-quality-video-portrait.mp4",
+      "portraitPoster": "/assets/video/warehouse-quality-video-portrait-poster.jpg",
+      "duration": "1:57",
+      "caption": "Watch how gross margin went from 10% to 20–25%"
+    },
+    headline: { label: "Gross margin", before: 10, after: 22.5, unit: "%", fmtBefore: "~10%", fmtAfter: "20–25%", better: "up" },
     metrics: [
-      { label: "Gross margin", before: 10, after: 22.5, unit: "%", fmtBefore: "~10%", fmtAfter: "20–25%", better: "up" },
-      { label: "QC staff per 100 orders", before: 7, after: 2, unit: "FTE", fmtBefore: "7 FTEs", fmtAfter: "2 FTEs", better: "down" }
+      { label: "Carts with a picking error", before: 72, after: 10, unit: "%", fmtBefore: "~72%", fmtAfter: "~10%", better: "down" },
+      { label: "Carts requiring QC", before: 100, after: 30, unit: "%", fmtBefore: "100%", fmtAfter: "30%", better: "down" }
     ]
   },
   "post-acquisition-turnaround": {
@@ -99,7 +107,7 @@ window.WAYA_CASES = {
     method: "A3, gap analysis",
     summary: "We found the warehouse system was never updated for the new racking, and rebuilt it while triaging by hand.",
     timeframe: "To October 2023",
-    chart: { label: "Shrink", axis: "Shrink (%)", before: 18, after: 2, unit: "%", fmtBefore: "~17–18%", fmtAfter: "~2%", better: "down", xBefore: "After go-live", xAfter: "After the fix" },
+    chart: { label: "Contribution margin", axis: "Monthly burn ($M)", before: 1, after: 0, unit: "$M", fmtBefore: "~$1M/mo burn", fmtAfter: "Profitable", better: "down", xBefore: "After go-live", xAfter: "Oct 2023" },
     story: {
       "problem": "After three acquisitions, fulfillment fell apart: fill rate near 75%, shrink at 17–18%, on-time delivery as low as 24%, and about $1M a month in contribution margin burned.",
       "diagnosis": "The warehouse had been rebuilt with new racking and hundreds of new locations, but the warehouse system's logic was never updated. The system undid the crews' work faster than they could clear it.",
@@ -177,6 +185,8 @@ window.WAYA_CASES = {
     video: {
       "src": "/assets/video/cash-float-video.mp4",
       "poster": "/assets/video/cash-float-video-poster.jpg",
+      "portrait": "/assets/video/cash-float-video-portrait.mp4",
+      "portraitPoster": "/assets/video/cash-float-video-portrait-poster.jpg",
       "duration": "1:49",
       "caption": "Watch how the cash float fell 90%"
     },
@@ -188,14 +198,14 @@ window.WAYA_CASES = {
   },
   "planning-okrs": {
     url: "/case-studies/planning-okrs/",
-    title: "Cutting seven goals to three",
+    title: "ARR increased from $7.3M to $10M",
     kicker: "14-person startup · Planning",
     company: null,
     industry: "Software",
     method: "Annual and quarterly planning",
     summary: "We cut seven unranked goals to three objectives set on the real bottleneck.",
     timeframe: null,
-    chart: { label: "Company goals", axis: "Company goals (count)", before: 7, after: 3, unit: "goals", fmtBefore: "6–7 unranked", fmtAfter: "3 objectives", better: "down", xBefore: "Before the offsite", xAfter: "After" },
+    chart: { label: "ARR", axis: "ARR ($M)", before: 7.3, after: 10, unit: "$M", fmtBefore: "$7.3M", fmtAfter: "~$10M", better: "up", xBefore: "Before the offsite", xAfter: "End of Q1" },
     story: {
       "problem": "The company planned to triple revenue, but the CEO's goals were six or seven, unranked, and the team named prioritization as its top blocker.",
       "diagnosis": "The goals lived in one person's head, so each function worked toward a different one and \"urgent\" was the only signal.",
@@ -206,14 +216,14 @@ window.WAYA_CASES = {
       ],
       "results": [
         {
+          "label": "ARR",
+          "fmtBefore": "$7.3M",
+          "fmtAfter": "~$10M by end of Q1"
+        },
+        {
           "label": "Company goals",
           "fmtBefore": "6–7 unranked",
           "fmtAfter": "3 objectives, 17 key results"
-        },
-        {
-          "label": "ARR, as the company went on to grow",
-          "fmtBefore": "$7.3M",
-          "fmtAfter": "~$10M"
         },
         {
           "label": "Team",
@@ -222,9 +232,9 @@ window.WAYA_CASES = {
         }
       ]
     },
-    headline: { label: "Company goals", before: 7, after: 3, unit: "goals", fmtBefore: "6–7 unranked", fmtAfter: "3 objectives", better: "down" },
+    headline: { label: "ARR", before: 7.3, after: 10, unit: "$M", fmtBefore: "$7.3M", fmtAfter: "~$10M", better: "up" },
     metrics: [
-      { label: "ARR, as the company went on to grow", before: 7.3, after: 10, unit: "$M", fmtBefore: "$7.3M", fmtAfter: "~$10M", better: "up" },
+      { label: "Company goals", before: 7, after: 3, unit: "goals", fmtBefore: "6–7 unranked", fmtAfter: "3 objectives", better: "down" },
       { label: "Team", before: 14, after: 24, unit: "people", fmtBefore: "14 people", fmtAfter: "24 people", better: "up" }
     ]
   },
@@ -237,7 +247,7 @@ window.WAYA_CASES = {
     method: "A3, Kaikaku, scenario planning",
     summary: "We built the company's own warehouse and direct sourcing in 14 months, while the old business kept running.",
     timeframe: "14 months from July 2018",
-    chart: { label: "Annualized revenue", axis: "Revenue ($M)", before: 75, after: 155, unit: "$M", fmtBefore: "~$75M", fmtAfter: "~$155M", better: "up", xBefore: "Jul 2018", xAfter: "14 months later" },
+    chart: { label: "Revenue through its own warehouse", axis: "Annualized revenue ($M)", before: 75, after: 155, unit: "$M", fmtBefore: "0% of ~$75M", fmtAfter: "100% of ~$155M", better: "up", xBefore: "Jul 2018", xAfter: "14 months later" },
     story: {
       "problem": "The whole business ran on one supplier. In July 2018, at about $75M in annualized revenue, that supplier said the partnership no longer worked.",
       "diagnosis": "Getting better at buying from the supplier couldn't fix depending on it. The system itself was the constraint, so it needed a redesign, not small improvements.",
@@ -248,14 +258,14 @@ window.WAYA_CASES = {
       ],
       "results": [
         {
+          "label": "Revenue through its own warehouse",
+          "fmtBefore": "0% of ~$75M",
+          "fmtAfter": "100% of ~$155M"
+        },
+        {
           "label": "Time to rebuild",
           "fmtBefore": "",
           "fmtAfter": "14 months"
-        },
-        {
-          "label": "Revenue during the transition",
-          "fmtBefore": "~$75M",
-          "fmtAfter": "~$155M"
         },
         {
           "label": "Supply model",
@@ -264,9 +274,9 @@ window.WAYA_CASES = {
         }
       ]
     },
-    headline: { label: "Time to rebuild the supply chain", before: null, after: 14, unit: "months", fmtBefore: "", fmtAfter: "14 months", better: "down" },
+    headline: { label: "Revenue through its own warehouse", before: 0, after: 155, unit: "$M", fmtBefore: "0% of ~$75M", fmtAfter: "100% of ~$155M", better: "up" },
     metrics: [
-      { label: "Revenue during the transition", before: 75, after: 155, unit: "$M", fmtBefore: "~$75M", fmtAfter: "~$155M", better: "up" },
+      { label: "Time to rebuild the supply chain", before: null, after: 14, unit: "months", fmtBefore: "", fmtAfter: "14 months", better: "down" },
       { label: "Supply model", before: null, after: null, unit: "", fmtBefore: "One supplier", fmtAfter: "Owned warehouses, direct sourcing", better: "up" }
     ]
   },
@@ -309,6 +319,8 @@ window.WAYA_CASES = {
     video: {
       "src": "/assets/video/customer-support-video.mp4",
       "poster": "/assets/video/customer-support-video-poster.jpg",
+      "portrait": "/assets/video/customer-support-video-portrait.mp4",
+      "portraitPoster": "/assets/video/customer-support-video-portrait-poster.jpg",
       "duration": "1:49",
       "caption": "Watch how first response went from 22 hours to 6 minutes"
     },
@@ -353,6 +365,14 @@ window.WAYA_CASES = {
           "fmtAfter": "11.4"
         }
       ]
+    },
+    video: {
+      "src": "/assets/video/hospital-patient-wait-video.mp4",
+      "poster": "/assets/video/hospital-patient-wait-video-poster.jpg",
+      "portrait": "/assets/video/hospital-patient-wait-video-portrait.mp4",
+      "portraitPoster": "/assets/video/hospital-patient-wait-video-portrait-poster.jpg",
+      "duration": "1:50",
+      "caption": "Watch how the patient wait went from 5 months to 2"
     },
     headline: { label: "Referral to procedure wait", before: 5, after: 2, unit: "months", fmtBefore: "5 months", fmtAfter: "2 months", better: "down" },
     metrics: [

@@ -17,3 +17,6 @@ Each has a `-poster.jpg` next to it.
   then `node render.mjs --cap 0`, `node vo.mjs`, `python music.py`, `node mix.mjs`; the result lands in `render/out/`
   (gitignored) and is copied here.
 - `post-acquisition-turnaround-video-watercolor/`: the Python renderer, fonts and its own README.
+
+## Next
+The portrait cut and the new posters: `PORTRAIT-PROMPT.md` is the brief for that session.
