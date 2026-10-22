@@ -84,6 +84,14 @@ window.WAYA_CASES = {
         }
       ]
     },
+    video: {
+      "src": "/assets/video/warehouse-quality-video.mp4",
+      "poster": "/assets/video/warehouse-quality-video-poster.jpg",
+      "portrait": "/assets/video/warehouse-quality-video-portrait.mp4",
+      "portraitPoster": "/assets/video/warehouse-quality-video-portrait-poster.jpg",
+      "duration": "1:57",
+      "caption": "Watch how gross margin went from 10% to 20–25%"
+    },
     headline: { label: "Gross margin", before: 10, after: 22.5, unit: "%", fmtBefore: "~10%", fmtAfter: "20–25%", better: "up" },
     metrics: [
       { label: "Carts with a picking error", before: 72, after: 10, unit: "%", fmtBefore: "~72%", fmtAfter: "~10%", better: "down" },
@@ -177,6 +185,8 @@ window.WAYA_CASES = {
     video: {
       "src": "/assets/video/cash-float-video.mp4",
       "poster": "/assets/video/cash-float-video-poster.jpg",
+      "portrait": "/assets/video/cash-float-video-portrait.mp4",
+      "portraitPoster": "/assets/video/cash-float-video-portrait-poster.jpg",
       "duration": "1:49",
       "caption": "Watch how the cash float fell 90%"
     },
@@ -309,6 +319,8 @@ window.WAYA_CASES = {
     video: {
       "src": "/assets/video/customer-support-video.mp4",
       "poster": "/assets/video/customer-support-video-poster.jpg",
+      "portrait": "/assets/video/customer-support-video-portrait.mp4",
+      "portraitPoster": "/assets/video/customer-support-video-portrait-poster.jpg",
       "duration": "1:49",
       "caption": "Watch how first response went from 22 hours to 6 minutes"
     },
@@ -353,6 +365,14 @@ window.WAYA_CASES = {
           "fmtAfter": "11.4"
         }
       ]
+    },
+    video: {
+      "src": "/assets/video/hospital-patient-wait-video.mp4",
+      "poster": "/assets/video/hospital-patient-wait-video-poster.jpg",
+      "portrait": "/assets/video/hospital-patient-wait-video-portrait.mp4",
+      "portraitPoster": "/assets/video/hospital-patient-wait-video-portrait-poster.jpg",
+      "duration": "1:50",
+      "caption": "Watch how the patient wait went from 5 months to 2"
     },
     headline: { label: "Referral to procedure wait", before: 5, after: 2, unit: "months", fmtBefore: "5 months", fmtAfter: "2 months", better: "down" },
     metrics: [

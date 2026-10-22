@@ -47,7 +47,7 @@
         "url": "https://www.wayaframes.com/assets/images/og/waya-og.jpg"
       },
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14"
+      "dateModified": "2026-10-22"
     },
     {
       "@type": "BreadcrumbList",
@@ -91,7 +91,7 @@
         "Kaizen"
       ],
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14",
+      "dateModified": "2026-10-22",
       "image": "https://www.wayaframes.com/assets/images/og/waya-og.jpg",
       "mainEntityOfPage": {
         "@id": "https://www.wayaframes.com/case-studies/warehouse-quality/#webpage"
@@ -102,6 +102,23 @@
       "author": {
         "@id": "https://www.wayaframes.com/#organization"
       },
+      "publisher": {
+        "@id": "https://www.wayaframes.com/#organization"
+      },
+      "video": {
+        "@id": "https://www.wayaframes.com/case-studies/warehouse-quality/#video"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.wayaframes.com/case-studies/warehouse-quality/#video",
+      "name": "Margin up 15 points, with better quality",
+      "description": "How a food distributor cut QC from 100% of carts to 30% while carts with a picking error fell from about 72% to 10% and gross margin doubled.",
+      "thumbnailUrl": "https://www.wayaframes.com/assets/video/warehouse-quality-video-poster.jpg",
+      "contentUrl": "https://www.wayaframes.com/assets/video/warehouse-quality-video.mp4",
+      "uploadDate": "2026-10-22",
+      "duration": "PT1M57S",
+      "inLanguage": "en-US",
       "publisher": {
         "@id": "https://www.wayaframes.com/#organization"
       }
@@ -158,6 +175,29 @@
       <h1>Margin up 15 points, with better quality</h1>
       <p class="sub">QC went from 100% of carts to 30%, and carts with a picking error fell from ~72% to ~10%.</p>
     </div>
+  </div>
+</section>
+
+<!-- =============== VIDEO =============== -->
+<section class="case-video">
+  <div class="container">
+    <div class="video-wrap">
+      <video controls playsinline preload="metadata" poster="/assets/video/warehouse-quality-video-poster.jpg" aria-label="Video: how Cheetah raised warehouse gross margin from about 10% to 20–25% with better picking quality"
+        data-portrait-src="/assets/video/warehouse-quality-video-portrait.mp4" data-portrait-poster="/assets/video/warehouse-quality-video-portrait-poster.jpg">
+        <source src="/assets/video/warehouse-quality-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 

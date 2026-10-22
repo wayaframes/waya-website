@@ -47,7 +47,7 @@
         "url": "https://www.wayaframes.com/assets/images/og/waya-og.jpg"
       },
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14"
+      "dateModified": "2026-10-22"
     },
     {
       "@type": "BreadcrumbList",
@@ -92,7 +92,7 @@
         "5 Whys"
       ],
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14",
+      "dateModified": "2026-10-22",
       "image": "https://www.wayaframes.com/assets/images/og/waya-og.jpg",
       "mainEntityOfPage": {
         "@id": "https://www.wayaframes.com/case-studies/customer-support/#webpage"
@@ -183,10 +183,22 @@
 <section class="case-video">
   <div class="container">
     <div class="video-wrap">
-      <video controls playsinline preload="metadata" poster="/assets/video/customer-support-video-poster.jpg" aria-label="Video: how Cheetah cut its first support response from 22 hours to 6 minutes">
+      <video controls playsinline preload="metadata" poster="/assets/video/customer-support-video-poster.jpg" aria-label="Video: how Cheetah cut its first support response from 22 hours to 6 minutes"
+        data-portrait-src="/assets/video/customer-support-video-portrait.mp4" data-portrait-poster="/assets/video/customer-support-video-portrait-poster.jpg">
         <source src="/assets/video/customer-support-video.mp4" type="video/mp4">
       </video>
     </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 

@@ -47,7 +47,7 @@
         "url": "https://www.wayaframes.com/assets/images/og/waya-og.jpg"
       },
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14"
+      "dateModified": "2026-10-22"
     },
     {
       "@type": "BreadcrumbList",
@@ -92,7 +92,7 @@
         "5 Whys"
       ],
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14",
+      "dateModified": "2026-10-22",
       "image": "https://www.wayaframes.com/assets/images/og/waya-og.jpg",
       "mainEntityOfPage": {
         "@id": "https://www.wayaframes.com/case-studies/hospital-patient-wait/#webpage"
@@ -103,6 +103,23 @@
       "author": {
         "@id": "https://www.wayaframes.com/#organization"
       },
+      "publisher": {
+        "@id": "https://www.wayaframes.com/#organization"
+      },
+      "video": {
+        "@id": "https://www.wayaframes.com/case-studies/hospital-patient-wait/#video"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.wayaframes.com/case-studies/hospital-patient-wait/#video",
+      "name": "Cutting a 5-month patient wait to 2",
+      "description": "How a regional hospital GI suite cut the wait for a procedure from 5 months to 2 with faster room turnover and better pre-op readiness.",
+      "thumbnailUrl": "https://www.wayaframes.com/assets/video/hospital-patient-wait-video-poster.jpg",
+      "contentUrl": "https://www.wayaframes.com/assets/video/hospital-patient-wait-video.mp4",
+      "uploadDate": "2026-10-22",
+      "duration": "PT1M50S",
+      "inLanguage": "en-US",
       "publisher": {
         "@id": "https://www.wayaframes.com/#organization"
       }
@@ -159,6 +176,29 @@
       <h1>Cutting a 5-month patient wait to 2</h1>
       <p class="sub">Faster room turnover and better pre-op readiness in a GI suite.</p>
     </div>
+  </div>
+</section>
+
+<!-- =============== VIDEO =============== -->
+<section class="case-video">
+  <div class="container">
+    <div class="video-wrap">
+      <video controls playsinline preload="metadata" poster="/assets/video/hospital-patient-wait-video-poster.jpg" aria-label="Video: how a hospital GI suite cut the wait for a procedure from 5 months to 2"
+        data-portrait-src="/assets/video/hospital-patient-wait-video-portrait.mp4" data-portrait-poster="/assets/video/hospital-patient-wait-video-portrait-poster.jpg">
+        <source src="/assets/video/hospital-patient-wait-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 

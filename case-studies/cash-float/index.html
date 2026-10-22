@@ -47,7 +47,7 @@
         "url": "https://www.wayaframes.com/assets/images/og/waya-og.jpg"
       },
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14"
+      "dateModified": "2026-10-22"
     },
     {
       "@type": "BreadcrumbList",
@@ -91,7 +91,7 @@
         "gap analysis"
       ],
       "datePublished": "2026-09-28",
-      "dateModified": "2026-10-14",
+      "dateModified": "2026-10-22",
       "image": "https://www.wayaframes.com/assets/images/og/waya-og.jpg",
       "mainEntityOfPage": {
         "@id": "https://www.wayaframes.com/case-studies/cash-float/#webpage"
@@ -116,7 +116,7 @@
       "description": "How a food distributor cut its cash float 90%, freed about $1M of working capital, and no longer needed its supplier's line of credit.",
       "thumbnailUrl": "https://www.wayaframes.com/assets/video/cash-float-video-poster.jpg",
       "contentUrl": "https://www.wayaframes.com/assets/video/cash-float-video.mp4",
-      "uploadDate": "2026-10-21",
+      "uploadDate": "2026-10-22",
       "duration": "PT1M49S",
       "inLanguage": "en-US",
       "publisher": {
@@ -182,10 +182,22 @@
 <section class="case-video">
   <div class="container">
     <div class="video-wrap">
-      <video controls playsinline preload="metadata" poster="/assets/video/cash-float-video-poster.jpg" aria-label="Video: how Cheetah cut its cash float 90% and freed about $1M of working capital">
+      <video controls playsinline preload="metadata" poster="/assets/video/cash-float-video-poster.jpg" aria-label="Video: how Cheetah cut its cash float 90% and freed about $1M of working capital"
+        data-portrait-src="/assets/video/cash-float-video-portrait.mp4" data-portrait-poster="/assets/video/cash-float-video-portrait-poster.jpg">
         <source src="/assets/video/cash-float-video.mp4" type="video/mp4">
       </video>
     </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 
