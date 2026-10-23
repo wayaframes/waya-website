@@ -107,7 +107,7 @@ window.WAYA_CASES = {
     method: "A3, gap analysis",
     summary: "We found the warehouse system was never updated for the new racking, and rebuilt it while triaging by hand.",
     timeframe: "To October 2023",
-    chart: { label: "Contribution margin", axis: "Monthly burn ($M)", before: 1, after: 0, unit: "$M", fmtBefore: "~$1M/mo burn", fmtAfter: "Profitable", better: "down", xBefore: "After go-live", xAfter: "Oct 2023" },
+    chart: { label: "Contribution margin", axis: "Monthly burn ($M)", before: 1, after: 0, unit: "$M", fmtBefore: "~$1M/mo burn", fmtAfter: "Profitable", better: "down", xBefore: "Oct 2022", xAfter: "Oct 2023" },
     story: {
       "problem": "After three acquisitions, fulfillment fell apart: fill rate near 75%, shrink at 17–18%, on-time delivery as low as 24%, and about $1M a month in contribution margin burned.",
       "diagnosis": "The warehouse had been rebuilt with new racking and hundreds of new locations, but the warehouse system's logic was never updated. The system undid the crews' work faster than they could clear it.",
