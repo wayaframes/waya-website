@@ -30,8 +30,9 @@ If they upload or paste specific pages, work with those.
 If no path is given, ask: "Which directory or pages should I audit?"
 
 Always read these files alongside the HTML:
+- `index.html` — the source of truth for nav and footer (`docs/WEBSITE-CHECKLIST.md`, section 0); every other page must match its `<header class="nav">` and `<footer>`
 - `_data/faq.json` — canonical FAQ source
-- `_data/nav.json` — canonical navigation structure
+- `_data/nav.json` — a copy of the nav and footer links in `index.html`; if the two disagree, `index.html` wins and `nav.json` is the stale one
 - `_data/schema.json` — canonical service names and descriptions
 
 ### 2. Run all checks in `references/checks.md`
@@ -66,16 +67,24 @@ The reference definition is `_data/utm.json` in this repo. Read it; do not rely 
 - Each page declares `window.WAYA_ATTR_DEFAULTS` with a `utm_campaign` of the form `<product>_<audience>_<period>` using a product token from `products`.
 - Run `python scripts/check_utm.py` and report its failures verbatim instead of re-deriving them.
 
-### Canonical footer structure (4 columns, left to right)
-1. Logo + caption: "We have walked the path, faced the storms, and know how critical a guide can be."
-2. About us: Home, About us
-3. Services: Scale Up Program, Financial Model Preparation, Data Room Preparation, Fundraising Narrative
-4. Social: LinkedIn (naamamoran), YouTube (@Waya-Frames), Substack (@themessymiddlefiles)
-- Bottom bar: "© Copyright 2026 – WayaFrames – All rights reserved."
+### Canonical footer structure (5 columns, left to right)
+Copied from the `<footer>` in `index.html`. If it has changed since, `index.html` wins.
+1. Logo (links to `/`) + caption: "We have walked the path, faced the storms, and know how critical a guide can be."
+2. About Us: Home (`/`), About Us (`/about-us/`)
+3. Programs: Scale Up Program (`/scale-up-program/`), 12 Weeks to PMF (`/experiment-platform/cohort/`), 8 Weeks to Higher Margins (`/lean-ai/cohort/`)
+4. Case Studies: Improving Margins (`/case-studies/improving-margins/`), Scaling (`/case-studies/scaling/`), Improving Customer Outcomes (`/case-studies/improving-customer-outcomes/`), All case studies (`/case-studies/`)
+5. Schedule a Call button (`waya-consultation?utm_button=footer`), then social: LinkedIn (naamamoran), YouTube (@Waya-Frames)
+- Bottom bar, legal links: Privacy Policy (`/privacy-policy/`), Terms of Service (`/terms-of-service/`), How We Handle Your Data (`/data-handling/`), Support (`/support/`)
+- Bottom bar, copyright: "© Copyright 2026 – Waterbear LLC – All rights reserved."
 
 ### Canonical nav structure
-Home → About Us → Services (dropdown) → Schedule a Call (CTA button)
-Services dropdown order: Scale Up Program, Fundraising Narrative, Data Room Preparation, Financial Model Preparation, Operations Audit
+Copied from the `<header class="nav">` in `index.html`. If it has changed since, `index.html` wins.
+Home → About Us → Case Studies (dropdown) → Programs (dropdown) → Schedule a Call (CTA button, `waya-consultation?utm_button=nav`)
+Case Studies dropdown order: Improving Margins, Scaling, Improving Customer Outcomes, All case studies
+Programs dropdown order: Scale Up Program, 12 Weeks to PMF, 8 Weeks to Higher Margins
+
+### Page titles
+Titles end " – Waya" (en dash), not "WayaFrames" (`docs/WEBSITE-CHECKLIST.md`, section 2). Check 6.1 has the full rule.
 
 ### Brand voice rules (flag violations)
 - No emoji in body copy or headings
