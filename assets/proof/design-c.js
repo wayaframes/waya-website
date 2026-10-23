@@ -277,7 +277,11 @@
         bx = pl + Math.max(28, estWidth(bLab, vfs) + 16);
         ax = pr - Math.max(28, pw * 0.14);
       }
-      if (ax - bx < 60) { bx = pl + pw * 0.2; ax = pr - pw * 0.2; }
+      if (ax - bx < 60) {
+        bx = pl + pw * 0.2; ax = pr - pw * 0.2;
+        if (down) { ax = Math.min(ax, pr - (estWidth(aLab, vfs) + 16)); bx = Math.max(pl + 16, Math.min(bx, ax - 30)); }
+        else { bx = Math.max(bx, pl + estWidth(bLab, vfs) + 16); ax = Math.min(pr - 16, Math.max(ax, bx + 30)); }
+      }
       bx = r2(bx); ax = r2(ax);
       var by = Y(b), ay = Y(a);
 
@@ -297,14 +301,24 @@
         });
       }
 
-      /* x-axis labels, kept inside the box */
+      /* x-axis labels, kept inside the box, and pushed apart when the points sit close together */
+      var xl = [];
       [[bx, txt(ch.xBefore)], [ax, txt(ch.xAfter)]].forEach(function (p) {
         if (!p[1]) return;
         var t = svgEl('text', { 'class': 'dc-c-x', y: r2(pb + (compact ? 15 : 19)), 'text-anchor': 'middle' }, p[1]);
         svg.appendChild(t);
         var w = textWidth(t, p[1], tfs);
-        t.setAttribute('x', r2(Math.min(Math.max(p[0], pl + w / 2 - 4), W - w / 2 - 2)));
+        var x = Math.min(Math.max(p[0], pl + w / 2 - 4), W - w / 2 - 2);
+        t.setAttribute('x', r2(x));
+        xl.push({ t: t, w: w, x: x });
       });
+      if (xl.length === 2) {
+        var over = (xl[0].x + xl[0].w / 2 + 8) - (xl[1].x - xl[1].w / 2);
+        if (over > 0) {
+          var x0 = Math.max(xl[0].w / 2 + 2, xl[0].x - over / 2), x1 = Math.min(W - xl[1].w / 2 - 2, x0 + xl[0].w / 2 + 8 + xl[1].w / 2);
+          xl[0].t.setAttribute('x', r2(x0)); xl[1].t.setAttribute('x', r2(x1));
+        }
+      }
       svg.appendChild(svgEl('line', { 'class': 'dc-c-xtick', x1: bx, x2: bx, y1: pb, y2: pb + 4 }));
       svg.appendChild(svgEl('line', { 'class': 'dc-c-xtick', x1: ax, x2: ax, y1: pb, y2: pb + 4 }));
 
@@ -335,7 +349,7 @@
           vB = svgEl('text', { 'class': 'dc-c-val dc-c-val-before', y: r2(by - 11), 'text-anchor': 'middle' }, bLab);
           svg.appendChild(vB);
           var wb = textWidth(vB, bLab, vfs);
-          vB.setAttribute('x', r2(Math.min(Math.max(bx, wb / 2 + 2), W - wb / 2 - 2)));
+          vB.setAttribute('x', r2(Math.min(Math.max(bx, pl + wb / 2 + 4), W - wb / 2 - 2)));
         } else if (zones) {
           vB = svgEl('text', { 'class': 'dc-c-val dc-c-val-before', y: r2(by - 12), 'text-anchor': 'middle' }, bLab);
           svg.appendChild(vB);
@@ -432,7 +446,7 @@
 
     var body = h('span', 'dc-card-body');
     var big = lead(c, chart);
-    body.appendChild(sr(joinSentences([txt(c.kicker), sentence(big), big !== m ? sentence(m) : ''])));
+    body.appendChild(sr(joinSentences([txt(c.kicker), sentence(big), txt(big.label) !== txt(m.label) ? sentence(m) : ''])));
     var after = txt(big.fmtAfter);
     if (after) body.appendChild(hide(h('span', 'dc-after', after)));
     var label = txt(big.label);
