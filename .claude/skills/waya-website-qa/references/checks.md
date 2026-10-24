@@ -15,10 +15,12 @@ Scan every instance of each product name. Flag any capitalisation or spelling va
 that doesn't match the canonical names in SKILL.md. Check headings, body copy,
 nav, footer, alt text, meta tags, JSON-LD, and button labels.
 
-**1.2 — "WayaFrames" vs "Waya"**
-"Waya" (short form) is acceptable in informal body copy only. It must never appear
-in headings, CTAs, service names, or JSON-LD. Flag any short-form usage outside
-of body copy.
+**1.2 — "Waya" vs "WayaFrames"**
+"Waya" is the company name as `index.html` ships it: titles end " – Waya", the JSON-LD
+`Organization` and `WebSite` `name` is "Waya", the logo alt text is "Waya", and headings
+use it ("Everything you need to know about working with Waya"). Do not flag "Waya" in
+any of those places. "WayaFrames" is the JSON-LD `alternateName` and the name of the
+AI-enabled frameworks ("What are WayaFrames?"); check its spelling under 1.1.
 
 **1.3 — Service name agreement across pages**
 For each service, confirm the name is spelled identically on every page that
@@ -81,13 +83,18 @@ Every internal link (`href` pointing to `/page/`) must resolve to a page that ac
 exists in the site directory. Flag any link pointing to a non-existent page or a
 deprecated URL (e.g., `/fundraising-audit/` instead of `/fundraising-narrative/`).
 
-**3.5 — Footer service links**
-Verify all four service links in the footer point to the correct canonical URLs. Verify
-the social links point to the three correct profiles. Verify the logo links to the homepage.
+**3.5 — Footer links**
+Verify the footer matches the canonical footer in SKILL.md (copied from `index.html`):
+the three Programs links and four Case Studies links point to their canonical URLs, the
+footer Schedule a Call button carries `utm_button=footer`, the social links point to the
+two profiles (LinkedIn, YouTube), the four legal links resolve, the copyright line reads
+"© Copyright 2026 – Waterbear LLC – All rights reserved.", and the logo links to the homepage.
 
 **3.6 — Nav links and dropdown order**
-Confirm nav links match `_data/nav.json`. Confirm the Services dropdown lists all
-five services in the correct order. Confirm the CTA button points to the correct URL.
+Confirm nav links match the `<header class="nav">` block in `index.html` (copied into
+`_data/nav.json`; if the two disagree, `index.html` wins). Confirm the Case Studies
+dropdown (four items) and the Programs dropdown (three items) list their items in the
+order in SKILL.md. Confirm the CTA button points to the correct URL.
 
 **3.7 — No dead or placeholder links**
 Flag any `href="#"`, `href="javascript:void(0)"`, `href="TBD"`, or obviously
@@ -110,7 +117,8 @@ intentional (some fragments are brand voice — use judgment), and run-on senten
 **4.3 — Punctuation**
 Flag missing full stops, double spaces, inconsistent use of em dash vs en dash vs
 hyphen. The brand uses em dash (—) with spaces on both sides. Flag hyphens used
-where em dashes should appear.
+where em dashes should appear. Exception: the en dash in the " – Waya" title suffix and
+in the footer copyright line is how `index.html` ships them; do not flag it.
 
 **4.4 — Oxford comma**
 The brand uses the Oxford comma. Flag any list of three or more items missing it.
@@ -154,8 +162,10 @@ meta descriptions.
 ## CATEGORY 6: Structural and Navigation Integrity
 
 **6.1 — Page title tags**
-Every page must have a `<title>` tag. It must include "WayaFrames" and a
-page-specific description. Flag missing titles or generic titles ("Home", "Page").
+Every page must have a `<title>` tag: 45–60 characters, front-loaded with the page's
+subject, ending " – Waya" (`docs/WEBSITE-CHECKLIST.md`, section 2). Titles do not need
+"WayaFrames". Flag missing titles, generic titles ("Home", "Page"), titles that do not
+end " – Waya", and titles outside 45–60 characters.
 
 **6.2 — Meta descriptions**
 Every page must have a `<meta name="description">` tag with 120–160 characters.

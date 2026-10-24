@@ -113,36 +113,6 @@
   border-radius: 8px; padding: 3px 10px;
 }
 
-/* Frame cards: what's inside the MCP */
-.frames { margin-top: 52px; display: grid; grid-template-columns: 1fr; gap: 24px; }
-.frames.cols-3 { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
-.frame {
-  background: var(--waya-cream);
-  border: 1px solid var(--border-1); border-radius: 18px;
-  padding: 32px 30px; box-shadow: var(--shadow-1);
-  display: flex; flex-direction: column;
-}
-.frame.featured { padding: 36px 36px; }
-.frame.supporting { background: var(--waya-paper); box-shadow: none; padding: 28px 26px; }
-.frame .tag {
-  font-family: var(--font-display); font-weight: 700; font-size: 12px;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--waya-rust); margin-bottom: 10px;
-}
-.frame .prompt { align-self: flex-start; margin-top: 16px; }
-.frame h3 {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 20px; line-height: 1.2; letter-spacing: -0.015em;
-  color: var(--waya-charcoal); margin-bottom: 10px;
-}
-.frame.featured h3 { font-size: 24px; }
-.frame.supporting h3 { font-size: 17px; }
-.frame p { font-size: 15px; line-height: 1.6; color: var(--fg-2); }
-.frame.supporting p { font-size: 14px; }
-.submodules-label {
-  margin: 36px 0 0; text-align: center;
-  font-size: 14.5px; color: var(--fg-2);
-}
 /* Responsive 16:9 video embed */
 .video-wrap {
   margin: 44px auto 0; max-width: 900px;
@@ -314,8 +284,6 @@
 .signup-form-card iframe { width: 100%; height: 469px; border: none; border-radius: 8px; display: block; }
 
 @media (max-width: 720px) {
-  .frames.cols-3 { grid-template-columns: 1fr; }
-  .frame.featured { padding: 30px 26px; }
   .flow { grid-template-columns: 1fr; gap: 36px; }
   .flow-band { flex-wrap: wrap; justify-content: center; }
   .flow-band::before, .flow-band::after { display: none; }
@@ -388,9 +356,9 @@
       <div class="body-block">
         <p class="section-eyebrow">The Challenge</p>
         <p>Most fixes chase a symptom. The loudest complaint gets the budget, a fix goes in, and a month later the same problem is back, because no one stopped to ask why it was happening.</p><p>Lean AI puts a structured problem-solving method inside your assistant. It runs on <strong>A3 thinking</strong>: define the problem and the gap, <strong>find the root causes</strong> with evidence, then test a fix before you roll it out.</p>
-        <div class="section-cta"><a class="btn-rust" href="#whats-inside">See the Frameworks</a></div>
+        <div class="section-cta"><a class="btn-rust" href="#loop">See How It Works</a></div>
       </div>
-      <img src="/assets/images/challenge/operations-audit.jpg" width="1408" height="768" loading="lazy" alt="A leadership team working through a problem around a conference table">
+      <img src="/assets/images/challenge/lean-ai-glass-wall.jpg" width="1408" height="768" loading="lazy" alt="Vince mapping a process with a marker on a glass wall">
     </div>
   </div>
 </section>
@@ -409,38 +377,6 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- =============== WHAT'S INSIDE =============== -->
-<section id="whats-inside">
-  <div class="container">
-    <p class="section-eyebrow">WayaFrames</p>
-    <h2 class="section-title">One method, with the tools it needs</h2>
-    <p class="section-lead">There are no commands to learn. Tell your assistant what's wrong in your own words, and Lean AI opens A3 thinking. Each framework facilitates a proven method with you, step by step, and you finish with a real deliverable.</p>
-    <div class="frames">
-      <article class="frame featured">
-        <span class="tag">The backbone</span>
-        <h3>A3 Thinking</h3>
-        <p>A3 is the problem-solving method the other WayaFrames run inside. It pins down the problem, measures the gap between where you are and where you need to be, finds the root causes, and designs countermeasures to test. It adjusts its depth to the problem, from a fifteen-minute pass to a multi-week effort, and opens gap analysis, experiment design, or impact vs effort at the step where you need them.</p>
-      </article>
-    </div>
-
-    <p class="submodules-label">Inside A3 thinking. Each one can also be used on its own:</p>
-    <div class="frames cols-3">
-      <article class="frame supporting">
-        <h3>Gap Analysis</h3>
-        <p>Turns a vague, contested problem into a set of validated root causes. It tightens the problem statement against SMART-P criteria, then picks the method: 5 Whys for a contained issue, Fishbone when it crosses departments.</p>
-      </article>
-      <article class="frame supporting">
-        <h3>Experiment Design</h3>
-        <p>Turns root causes into small, testable experiments with clear success criteria, and runs the test, learn, and revise loop.</p>
-      </article>
-      <article class="frame supporting">
-        <h3>Impact vs Effort</h3>
-        <p>Ranks competing options (gaps, experiments, fixes) by impact against effort, so you act on the two or three that matter and park the rest.</p>
-      </article>
     </div>
   </div>
 </section>
@@ -480,13 +416,13 @@
         </li>
         <li class="cs-card" role="group" aria-roledescription="slide" aria-label="5 of 8">
           <p class="cs-kind">14-person startup · Planning</p>
-          <h3>Seven goals cut to three; ARR went on to grow from $7.3M to $10M</h3>
+          <h3>ARR increased from $7.3M to $10M in one quarter</h3>
           <p>We cut seven unranked goals to three objectives set on the real bottleneck.</p>
           <a class="cs-more" href="/case-studies/planning-okrs/">Read more →</a>
         </li>
         <li class="cs-card" role="group" aria-roledescription="slide" aria-label="6 of 8">
           <p class="cs-kind">Cheetah · Supply chain</p>
-          <h3>Revenue grew from $75M to $155M while replacing the only supplier</h3>
+          <h3>Revenue grew from $75M to $155M while becoming vertically integrated</h3>
           <p>We built the company's own warehouse and direct sourcing in 14 months, while the old business kept running.</p>
           <a class="cs-more" href="/case-studies/sole-supplier/">Read more →</a>
         </li>
@@ -542,7 +478,7 @@
         <span class="flow-n" aria-hidden="true">2</span>
         <h3>Diagnose</h3>
         <span class="flow-tools"><span class="flow-tool">Gap Analysis</span></span>
-        <p>Get from what to why, with 5 Whys or Fishbone, until the root cause is backed by evidence.</p>
+        <p>Get from what to why, until the root cause is backed by evidence.</p>
         <div class="flow-ex">
           <span class="flow-ex-k">In the example</span>
           <p>A 5 Whys chain traces the bad leads to a targeting spec no one owns.</p>
@@ -552,7 +488,7 @@
         <span class="flow-n" aria-hidden="true">3</span>
         <h3>Fix</h3>
         <span class="flow-tools"><span class="flow-tool">Experiment Design</span><span class="flow-tool">Impact vs Effort</span></span>
-        <p>Turn root causes into tests, rank them, run the best one, and watch the number.</p>
+        <p>Turn the root causes into tests, run them, and watch the number.</p>
         <div class="flow-ex">
           <span class="flow-ex-k">In the example</span>
           <p>Test a new targeting spec with a clear owner and track revenue against the target.</p>

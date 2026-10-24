@@ -55,3 +55,11 @@
 /.claude/*     /    301
 /.github/*     /    301
 /.gitignore    /    301
+
+# Retired Solutions pages (renamed to Case Studies); the live legal pages linked here until Oct 2026
+/solutions/margins-and-cash          /case-studies/improving-margins/            301
+/solutions/margins-and-cash/         /case-studies/improving-margins/            301
+/solutions/scaling-through-change    /case-studies/scaling/                      301
+/solutions/scaling-through-change/   /case-studies/scaling/                      301
+/solutions/faster-service            /case-studies/improving-customer-outcomes/  301
+/solutions/faster-service/           /case-studies/improving-customer-outcomes/  301

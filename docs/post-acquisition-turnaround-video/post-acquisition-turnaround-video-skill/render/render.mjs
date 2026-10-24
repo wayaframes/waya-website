@@ -2,6 +2,7 @@
 //   node render.mjs                 -> out/waya-experiment-program.mp4 (1920x1080, 30 fps, 60 s)
 //   node render.mjs --stills 3,12   -> out/still-3.0.png, out/still-12.0.png (for review; 12.25 -> still-12.25.png)
 //   node render.mjs --fps 30 --cap 0  (cap=0 renders without the voiceover captions)
+//   node render.mjs --layout mobile --clip render/out/expert-vince.webm --crf 16 --out out/video-portrait-nocap.mp4   (the 1080x1920 cut)
 import { launch } from './browser.mjs';
 import ffmpegPath from 'ffmpeg-static';
 import { spawn } from 'node:child_process';
@@ -18,7 +19,9 @@ const stills = opt('stills', null);
 const LAYOUT = opt('layout', 'desktop');            // desktop (1920x1080) or mobile (1080x1920)
 const [VW, VH] = LAYOUT === 'mobile' ? [1080, 1920] : [1920, 1080];
 const outDir = resolve(here, 'out'); mkdirSync(outDir, { recursive: true });
-const url = pathToFileURL(resolve(here, '../video.html')).href + `?autoplay=0&ui=0&cap=${CAP}&layout=${LAYOUT}`;
+const CRF = opt('crf', '18');                       // x264 quality; the portrait cut uses 16 to land near the site's other files (10-16 MB)
+const CLIP = opt('clip', null);                     // e.g. render/out/expert-vince.webm where this browser cannot play H.264
+const url = pathToFileURL(resolve(here, '../video.html')).href + `?autoplay=0&ui=0&cap=${CAP}&layout=${LAYOUT}` + (CLIP ? `&clip=${encodeURIComponent(CLIP)}` : '');
 
 const browser = await launch(['--disable-gpu-vsync', '--font-render-hinting=none']);
 const page = await browser.newPage({ viewport: { width: VW, height: VH }, deviceScaleFactor: 1 });
@@ -43,7 +46,7 @@ if (stills) {
 
 const total = Math.round(DUR * FPS);
 const outFile = resolve(here, opt('out', 'out/video-nocap.mp4'));
-const ff = spawn(ffmpegPath, ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'medium', '-movflags', '+faststart', outFile], { stdio: ['pipe', 'inherit', 'inherit'] });
+const ff = spawn(ffmpegPath, ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', CRF, '-preset', 'medium', '-movflags', '+faststart', outFile], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
 for (let f = 0; f < total; f++) {
   const t = f / FPS;

@@ -5,7 +5,9 @@
 <title>Waya · post-acquisition turnaround</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
-  Post-acquisition turnaround (Cheetah Technologies). Landscape 1920x1080 only (INSTRUCTIONS #3).
+  Post-acquisition turnaround (Cheetah Technologies). Landscape 1920x1080; ?layout=mobile is the portrait cut,
+  1080x1920: same cues, same timeline, every scene recomposed by the MOBILE block (seats) and lay() (moves).
+  The landscape path never reads either, so its frames are byte-identical to the approved cut.
   A 1920x1080 stage; every element absolutely positioned; every motion a Web Animation created at load,
   paused, and seeked by one clock (window.__seek). Rules that cost us whole review rounds:
    - ONE animation per CSS property per element. Anything that changes a property more than once goes through track().
@@ -932,8 +934,67 @@
   const CAPTIONS = params.get('cap') !== '0';
   const EASE = 'cubic-bezier(.2,.7,.2,1)', POP = 'cubic-bezier(.2,1.4,.4,1)';
   const A = [], JS = [], CLIPS = [];
-  const W = 1920, H = 1080;          // landscape only (INSTRUCTIONS #3)
+  const MOBILE = params.get('layout') === 'mobile';   // the portrait cut (1080x1920)
+  const W = MOBILE ? 1080 : 1920, H = MOBILE ? 1920 : 1080;
+  const lay = (land, mob) => MOBILE ? mob : land;     // a value that differs between the cuts: landscape first
   const stage = $('stage');
+
+  // ================= MOBILE: every scene's seat in the 1080x1920 frame (landscape never runs this) =================
+  // One centred column, 60 px gutters. Screens are 960 wide: the wide ones (1060) are zoomed to 960, the count sheet
+  // (780) up to 960, so every outline inside them keeps its own coordinates. Chromium zooms left/top as well, hence /z.
+  // Captions on the screens are 24 px on the frame and may wrap.
+  if (MOBILE) {
+    stage.style.width = W + 'px'; stage.style.height = H + 'px';
+    const seat = (id, x, y, w, z = 1) => { const s = $(id).style; if (z !== 1) s.zoom = z; if (x != null) s.left = x / z + 'px'; if (y != null) s.top = y / z + 'px'; if (w != null) s.width = w / z + 'px'; };
+    const full = (id, y) => { const s = $(id).style; s.left = '0px'; s.right = '0px'; s.textAlign = 'center'; s.top = y + 'px'; };
+    const centre = (id, y) => { const el = $(id), r = document.createElement('div'); r.style.cssText = `position:absolute; left:0; right:0; top:${y}px; display:flex; justify-content:center;`; el.parentNode.insertBefore(r, el); r.appendChild(el); el.style.position = 'relative'; el.style.left = el.style.top = 'auto'; };
+    const capOn = (id, z) => { const c = $(id).querySelector('.cap'); c.style.fontSize = (24 / z).toFixed(2) + 'px'; c.style.whiteSpace = 'normal'; c.style.lineHeight = '1.3'; };
+    const ZW = 960 / 1060, ZC = 960 / 780;   // the wide screens down to 960, the count sheet up to 960
+    // lines 1-2: Vince's card over the warehouse, then the warehouse up top with the pick list under it
+    seat('badge', 240, 380); full('eyebrow', 700); seat('wh', 30, 760); centre('chipAcq', 1400);
+    seat('stamp', 372, 479); seat('pick', 80, 900); centre('chipFill', 1440);
+    // lines 3-5: the forklift, the dough, the burn
+    seat('fk', 40, 520, 1000); centre('chipShrink', 1260);
+    seat('dough', 150, 560, 780); seat('doughLbl', 375, 962, 270, 1.5); centre('chipDough', 1270);
+    for (const [id, y] of [['burnEye', 770], ['burn', 800], ['burnSub', 1020], ['burn2', 800], ['burn2Sub', 1020]]) $(id).style.top = y + 'px';
+    // lines 6-7: the aisle fills the tall frame (vanishing point at x 540, y 985), the A3 and the system screen over it
+    seat('aisle', -1160, -120, 3400); $('aisle').style.transformOrigin = '1700px 1100px';
+    // the eyebrow becomes a chip: in the tall frame the ceiling lights run down the centre, through any centred line
+    centre('eyeGo', 500); Object.assign($('eyeGo').style, { background: 'var(--cold2)', border: '1px solid var(--cold3)', borderRadius: '14px', padding: '10px 22px', fontSize: '22px' });
+    seat('gap', 60, 600, 960, ZW); capOn('gap', ZW); seat('wms', 60, 600, 960, ZW); capOn('wms', ZW);
+    // line 8: the key line in six short lines (the same four reveals), the sun above it
+    seat('replen', -60, 540, 1200); seat('sun', 508, 596);
+    $('q1').insertBefore(document.createElement('br'), $('qCrew')); $('q3').innerHTML = 'and the IT system<br>was recreating';
+    for (const [id, y] of [['q1', 690], ['q2', 844], ['q3', 921], ['q4', 1075]]) { const s = $(id).style; s.left = s.right = '70px'; s.top = y + 'px'; s.whiteSpace = 'normal'; }
+    $('qBy').style.top = '1182px';
+    // lines 9-12, the demo frame: the title; the tracker centred under it (in 10a the widget takes the left and the
+    // tracker slides right: lay() on its track); the centre screen under them
+    $('t2').style.top = '250px'; seat('lane1', 60, 880, 960); seat('lane2', 60, 1030, 960);
+    seat('trk', 315, 370);
+    seat('count', 60, 870, 960, ZC); $('count').style.height = '470px'; capOn('count', ZC); seat('crew', 60, 1470, 960);
+    for (const id of ['naama', 'slot', 'scan', 'std']) { seat(id, 60, 780, 960, ZW); capOn(id, ZW); }
+    // Na'ama's name card back to its landscape sizes after the zoom
+    $('naama').querySelector('.nm b').style.fontSize = (44 / ZW).toFixed(2) + 'px'; $('naama').querySelector('.nm span').style.fontSize = (24 / ZW).toFixed(2) + 'px';
+    // lines 13-16: the results under the full pick list, the burn, profitable
+    seat('pickFull', 90, 420, 900); for (const id of ['r1', 'r2', 'r3']) seat(id, 90, 1000, 900);
+    $('prof').style.top = '980px'; $('profDate').style.top = '1120px';   // clear of the lens widget (430-904) as it fades up
+    // line 17, the lens: the widget (460, as in 10a: house rule 12) centred under the title, the two cards side by side
+    // under it, the arrows up into them
+    $('tLens').style.top = '310px'; $('lensGrp').style.transformOrigin = '540px 1100px';
+    for (const id of ['cSym', 'cCau']) { seat(id, 320, 940, 440); $(id).style.height = '220px'; }
+    seat('neq', 515, 1002); seat('arrows', 0, 1160, 1080); $('arrows').querySelector('svg').setAttribute('viewBox', '0 0 1080 240');
+    const ar = $('arw').querySelectorAll('path'); ['M290 220 L290 18', 'M272 40 L290 18 L308 40', 'M790 220 L790 18', 'M772 40 L790 18 L808 40'].forEach((d, i) => ar[i].setAttribute('d', d));
+    seat('both', 0, 1412, 1080);
+    // the close, 1.15x the landscape card so it reads on a phone
+    Object.assign($('logo').style, { top: '640px', height: '115px' }); Object.assign($('cta').style, { top: '820px', fontSize: '64px' });
+    $('bCall').parentElement.id = 'btnRow'; seat('btnRow', null, 950, null, 1.15); Object.assign($('url').style, { top: '1130px', fontSize: '27px' });
+    const c = $('cap').style; c.maxWidth = '960px'; c.whiteSpace = 'normal'; c.bottom = '160px';
+    // small type carried over from landscape, lifted to 22 px on the tall frame
+    Object.assign($('trk').querySelector('.lbl').style, { fontSize: '22px', padding: '6px 16px' });
+    Object.assign($('expert').querySelector('.bar').style, { fontSize: '22px', padding: '0 14px' });
+    $('crew').querySelector('text').setAttribute('font-size', '18');
+    for (const id of ['eyebrow', 'burnEye', 'bdgWhen']) $(id).style.fontSize = '22px';
+  }
 
   // ================= CUES: the voiceover ================= (vo.mjs reads this list; write names as shown on screen)
   const CAPS = [
@@ -984,7 +1045,9 @@
   // ================= THE EXPERT CLIP =================
   // Vince's real take (VINCE-TRANSCRIPT.md): 720x720, muted, clip time = take time. Vince cues carry the take's
   // in/out as CAPS[i][4] / CAPS[i][5]; lip sync: clip time = CAPS[i][4] + (t - CAPS[i][0]).
-  const EXPERT_SRC = 'assets/expert-vince.mp4';
+  // ?clip= swaps in a VP9 copy of the same take where the browser cannot play H.264 (the sandbox Chromium):
+  // ffmpeg -i assets/expert-vince.mp4 -c:v libvpx-vp9 -crf 32 -b:v 0 -an render/out/expert-vince.webm
+  const EXPERT_SRC = params.get('clip') || 'assets/expert-vince.mp4';
 
   // ================= TIMELINE (every time a measured word boundary, render/out/words.json) =================
   // cue starts, by index (19 cues, 0-18; Vince's own voice: 7 key line, 9 all hands, 17 lens)
@@ -1009,10 +1072,10 @@
   ['acq1', 'acq2', 'acq3'].forEach((id, i) => { const g = $(id); tw(g, [{ opacity: 0 }, { opacity: 1 }], THREE + i * 0.15, 0.3, 'linear'); tw(g, [{ transform: 'translateX(80px)' }, { transform: 'translateX(0px)' }], THREE + i * 0.15, 0.6, POP); });
   win($('chipAcq'), THREE + 0.35, L2 + 0.1, { dy: 16 });
   // a slow push on the warehouse through line 1 (visible: the photo card is a still now, so this carries the motion), then it moves left for line 2 (one transform track): x 780 -> 80
-  track($('wh'), [[CHEETAH, { transform: 'translate(0px, 0px) scale(1)' }], [L2 + 0.05, { transform: 'translate(-12px, 4px) scale(1.035)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-700px, 80px) scale(.76)' }]]);
+  track($('wh'), [[CHEETAH, { transform: 'translate(0px, 0px) scale(1)' }], [L2 + 0.05, { transform: 'translate(-12px, 4px) scale(1.035)', easing: EASE }], [L2 + 0.65, { transform: lay('translate(-700px, 80px) scale(.76)', 'translate(110px, -460px) scale(.8)') }]]);   // portrait: up to x 140, y 300
   track($('wh'), [[0, { opacity: 1 }], [L2_OUT, { opacity: 1 }], [L2_OUT + 0.25, { opacity: 0 }]]);
   // eyebrow follows the warehouse to its style-frame seat (x 110, y 200)
-  track($('eyebrow'), [[L2 + 0.05, { transform: 'translate(0px, 0px)', easing: EASE }], [L2 + 0.65, { transform: 'translate(-670px, 50px)' }]]);
+  track($('eyebrow'), [[L2 + 0.05, { transform: 'translate(0px, 0px)', easing: EASE }], [L2 + 0.65, { transform: lay('translate(-670px, 50px)', 'translate(0px, -450px)') }]]);
 
   // ---- line 2: rebuilt, went live, three items in four ----
   const REBUILT = 8.02, LIVE = 9.08, THREE_IN_FOUR = 10.62, FOUR = 11.43;
@@ -1108,7 +1171,10 @@
   win($('t2'), SO + 0.1, DEMO_OUT, { fi: 0.5 });
   win($('trk'), SO + 0.45, DEMO_OUT, { dy: 14 });
   // layout W <-> D: only the tracker moves (+130 px while the widget is up)
-  track($('trk'), [[W_IN, { left: '1300px', easing: EASE }], [W_IN + 0.5, { left: '1430px' }], [TRK_BACK, { left: '1430px', easing: EASE }], [TRK_BACK + 0.5, { left: '1300px' }]]);
+  // (portrait: the tracker sits centred under the title, x 315, and slides right to x 560 beside the widget)
+  // (it shares the widget's row there, so it leaves before the widget fades up and comes back once it has gone)
+  const TRK_W = lay('1300px', '315px'), TRK_D = lay('1430px', '560px'), TRK_GO = lay(W_IN, W_IN - 0.35), TRK_RET = lay(TRK_BACK, W_OUT + 0.4);
+  track($('trk'), [[TRK_GO, { left: TRK_W, easing: EASE }], [TRK_GO + 0.5, { left: TRK_D }], [TRK_RET, { left: TRK_D, easing: EASE }], [TRK_RET + 0.5, { left: TRK_W }]]);
   win($('lane1'), TWO + 0.2, W_IN - 0.25, { dy: -20, fo: 0.2 });   // after the grey mid-fade (round 4, art #8); out before the widget rises
   win($('lane2'), TWO + 0.35, W_IN - 0.25, { dy: -20, fo: 0.2 });
   track($('lane2').querySelector('em'), [[0, { opacity: 1 }], [TRACK1, { opacity: 1 }], [TRACK1 + 0.3, { opacity: 0.35 }]]);
@@ -1163,6 +1229,9 @@
     { s: L17 - 0.3, e: L17END + 0.25, l: 'Vince · Waya co-founder', r: 'the Waya lens', cue: CAPS[17] },   // the lens keeps a silent 0.3 s pre-roll
   ];
   wins($('expert'), EX.map(x => [x.s, x.e]), { fi: 0.4, fo: 0.35, dy: 14 });
+  // portrait: 460 square both times (house rule 12), at the left of the demo frame (the tracker beside it), then
+  // centred for the lens; the seat changes while the widget is off (between the two windows)
+  if (MOBILE) { const SWAP = (EX[0].e + EX[1].s) / 2; for (const [p, a, b] of [['left', 70, 310], ['top', 370, 430], ['width', 460, 460], ['height', 460, 460]]) track($('expert'), [[0, { [p]: a + 'px' }], [SWAP, { [p]: a + 'px' }], [SWAP + 0.01, { [p]: b + 'px' }]]); }
   JS.push(t => { const x = EX.find(x => t < x.e + 0.4) || EX[EX.length - 1]; $('barL').textContent = x.l; $('barR').textContent = x.r; });
   // lip sync: each window starts the clip at its cue's take in-point, shifted back by any pre-roll
   // CLIP_LEAD: the audio review measured the picture one frame LATE against his voice at both on-camera moments
@@ -1212,10 +1281,11 @@
   win($('tLens'), L17 - 0.3, L17END + 0.35, { fi: 0.4, fo: 0.35 });
   // each card slides into its seat on the word that names it (seats: Symptom left 680, Cause left 1300)
   win($('cSym'), SEP - 0.12, null, { fi: 0.3 }); win($('cCau'), ROOT_CAUSE - 0.12, null, { fi: 0.3 });
-  tw($('cSym'), [{ transform: 'translateX(-250px)' }, { transform: 'translateX(-320px)' }], SEP - 0.12, 0.6, EASE);
+  // (portrait: both cards start from x 320; seats Symptom 70, Cause 570)
+  tw($('cSym'), [{ transform: lay('translateX(-250px)', 'translateX(-180px)') }, { transform: lay('translateX(-320px)', 'translateX(-250px)') }], SEP - 0.12, 0.6, EASE);
   // the Symptom card comes up on "separate" (round 4, art #7); on "symptom" its word turns rust (the failure)
   tw($('cSym').querySelector('b'), [{ color: '#383F3B' }, { color: '#D16C02' }], SYMPTOM, 0.3, 'linear');
-  tw($('cCau'), [{ transform: 'translateX(370px)' }, { transform: 'translateX(300px)' }], ROOT_CAUSE - 0.12, 0.6, EASE);
+  tw($('cCau'), [{ transform: lay('translateX(370px)', 'translateX(320px)') }, { transform: lay('translateX(300px)', 'translateX(250px)') }], ROOT_CAUSE - 0.12, 0.6, EASE);
   win($('neq'), FROM_THE - 0.05, null, { fi: 0.3, dy: 12 });
   draw($('arw'), BOTH, 0.5, 0);
   win($('both'), AT_ONCE, null, { fi: 0.15, dy: 14 });

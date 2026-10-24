@@ -45,6 +45,20 @@ html.design-c .is-compact .dc-c-tick,
 html.design-c .is-compact .dc-c-x { font-size: 10.5px; }
 html.design-c .is-compact .dc-c-axis { font-size: 11px; }
 
+html.design-c .dc-c-zone {
+  fill: none;
+  stroke: color-mix(in srgb, var(--waya-charcoal) 35%, transparent); stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+html.design-c .dc-c-zone-before { stroke: color-mix(in srgb, var(--waya-rust) 70%, transparent); }
+html.design-c .dc-c-zone-after { stroke: var(--dc-sage-deep); }
+html.design-c .dc-c-zone-label {
+  font-family: var(--font-display); font-weight: 600; font-size: 12px;
+  letter-spacing: 0.02em;
+  fill: var(--waya-charcoal);
+}
+html.design-c .is-compact .dc-c-zone-label { font-size: 10.5px; }
+
 html.design-c .dc-c-fill-up { fill: color-mix(in srgb, var(--waya-sage) 22%, transparent); }
 html.design-c .dc-c-fill-down { fill: color-mix(in srgb, var(--waya-sage) 15%, transparent); }
 html.design-c .dc-c-guide {
