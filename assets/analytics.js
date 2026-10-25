@@ -77,6 +77,27 @@
     return out;
   }
 
+  /* Embedded GHL forms are iframes, so a click handler never sees them. Their
+     hidden fields fill from the iframe's own query string (field name = query
+     key), so the same utm_* values go onto the iframe src, plus utm_button
+     (data-utm-button on the iframe, default "form") and signup_page (the path
+     the form sits on). See docs/ghl-signup-forms-crm-routing.md. */
+  var FORM_KEYS = ATTR_KEYS.concat(['utm_button', 'signup_page']);
+
+  function decorateFormIframe(f) {
+    var src = f.getAttribute('src') || '';
+    if (src.indexOf('leadconnectorhq.com/widget/form/') === -1 || f.getAttribute('data-waya-attr')) return;
+    var attr = currentAttribution();
+    attr.utm_button = f.getAttribute('data-utm-button') || 'form';
+    attr.signup_page = location.pathname;
+    var parts = src.split('#'), base = parts[0], frag = parts[1] ? '#' + parts[1] : '';
+    var qs = base.split('?'), path = qs[0], existing = qs[1] ? qs[1].split('&') : [];
+    var keep = existing.filter(function (kv) { return FORM_KEYS.indexOf(kv.split('=')[0]) === -1; });
+    FORM_KEYS.forEach(function (k) { if (attr[k]) keep.push(k + '=' + encodeURIComponent(attr[k])); });
+    f.setAttribute('data-waya-attr', '1');
+    f.setAttribute('src', path + (keep.length ? '?' + keep.join('&') : '') + frag);
+  }
+
   captureAttribution();
   document.addEventListener('click', function (e) {       // capture phase: runs before analytics' own listener
     var a = e.target.closest ? e.target.closest('a') : null;
@@ -84,6 +105,7 @@
   }, true);
   document.addEventListener('DOMContentLoaded', function () {   // also decorate statically for copy-link / middle-click
     Array.prototype.forEach.call(document.querySelectorAll('a[href*="leadconnectorhq.com/widget/bookings/"]'), decorateBookingLink);
+    Array.prototype.forEach.call(document.querySelectorAll('iframe[src*="leadconnectorhq.com/widget/form/"]'), decorateFormIframe);
   });
 
   /* ---- Load PostHog and initialise (called only on consent) ---- */
