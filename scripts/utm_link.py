@@ -7,6 +7,9 @@ Campaign link (email, post, ad):
 
     -> https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_source=apollo&utm_medium=ce&utm_campaign=dataroom_yc_2026q1&utm_content=E1VA&utm_term=founder_seed
 
+LinkedIn post link, dated (YYYYMMDD + letter for the 1st, 2nd... post that day):
+    python scripts/utm_link.py --product pmf --placement "LinkedIn organic post"         --audience founders --period 2026q4 --content 20261104a --landing /experiment-platform/cohort/
+
 Campaign link that lands on a site page instead of a calendar:
     python scripts/utm_link.py --product leanai --placement "GHL workflow email" \
         --audience cohort --period 2026q4 --content E1VA --landing /lean-ai/setup/
@@ -18,7 +21,7 @@ Website button (what goes in the page HTML):
 Any value that is not in utm.json, or any token/code that is not active, is refused
 with the reason. Add the row to utm.json first; that is the discipline.
 """
-import argparse, json, os, re, sys
+import argparse, datetime, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UTM = json.load(open(os.path.join(ROOT, "_data", "utm.json"), encoding="utf-8"))
@@ -97,10 +100,15 @@ def main():
     params = [("utm_source", source), ("utm_medium", medium), ("utm_campaign", campaign)]
     if pl.get("content_pattern"):
         if not a.content:
-            die(f"--content is required for this placement (pattern {pl['content_pattern']}, e.g. E1VA)")
+            die(f"--content is required for this placement (pattern {pl['content_pattern']}, e.g. E1VA or 20261104a)")
         pats = [p for p in UTM["content_patterns"] if re.match(p["regex"], a.content)]
         if not pats:
             die(f"content '{a.content}' matches no content pattern in utm.json")
+        if pats[0].get("date_format"):                       # a dated code must be a real date
+            try:
+                datetime.datetime.strptime(a.content[:-1], pats[0]["date_format"])
+            except ValueError:
+                die(f"content '{a.content}': {a.content[:-1]} is not a real date (expected YYYYMMDD + letter, e.g. 20261104a)")
         if pats[0]["status"] != "active" and not a.allow_proposed:
             die(f"content pattern '{pats[0]['meaning']}' is {pats[0]['status']}")
         params.append(("utm_content", a.content))
