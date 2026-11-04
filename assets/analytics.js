@@ -98,6 +98,20 @@
     f.setAttribute('src', path + (keep.length ? '?' + keep.join('&') : '') + frag);
   }
 
+  /* A booking calendar embedded as an iframe (e.g. /experiment-platform/book/)
+     takes the same utm_* values on its src as a booking link takes on its href. */
+  function decorateBookingIframe(f) {
+    var src = f.getAttribute('src') || '';
+    if (src.indexOf('leadconnectorhq.com/widget/bookings/') === -1 || f.getAttribute('data-waya-attr')) return;
+    var attr = currentAttribution();
+    var parts = src.split('#'), base = parts[0], frag = parts[1] ? '#' + parts[1] : '';
+    var qs = base.split('?'), path = qs[0], existing = qs[1] ? qs[1].split('&') : [];
+    var keep = existing.filter(function (kv) { return ATTR_KEYS.indexOf(kv.split('=')[0]) === -1; });
+    ATTR_KEYS.forEach(function (k) { if (attr[k]) keep.push(k + '=' + encodeURIComponent(attr[k])); });
+    f.setAttribute('data-waya-attr', '1');
+    f.setAttribute('src', path + (keep.length ? '?' + keep.join('&') : '') + frag);
+  }
+
   captureAttribution();
   document.addEventListener('click', function (e) {       // capture phase: runs before analytics' own listener
     var a = e.target.closest ? e.target.closest('a') : null;
@@ -106,6 +120,7 @@
   document.addEventListener('DOMContentLoaded', function () {   // also decorate statically for copy-link / middle-click
     Array.prototype.forEach.call(document.querySelectorAll('a[href*="leadconnectorhq.com/widget/bookings/"]'), decorateBookingLink);
     Array.prototype.forEach.call(document.querySelectorAll('iframe[src*="leadconnectorhq.com/widget/form/"]'), decorateFormIframe);
+    Array.prototype.forEach.call(document.querySelectorAll('iframe[src*="leadconnectorhq.com/widget/bookings/"]'), decorateBookingIframe);
   });
 
   /* ---- Load PostHog and initialise (called only on consent) ---- */
