@@ -60,12 +60,13 @@
     { "regex": "^E[0-9]+V[A-Z]$", "meaning": "Email step <n>, variant <letter>", "status": "active", "used_with": "Apollo and GHL email sequences", "example": "E1VA" },
     { "regex": "^P[1-9][0-9]*V[A-Z]$", "meaning": "Post <n>, variant <letter>", "status": "proposed", "used_with": "LinkedIn organic posts", "example": "P1VA" },
     { "regex": "^(naama|vince|oren)$", "meaning": "Team member who sent the personal link", "status": "proposed", "used_with": "Waya team personal link", "example": "naama" },
+    { "regex": "^20[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])[a-z]$", "meaning": "Post date YYYYMMDD plus a letter for the 1st, 2nd... post that day", "status": "active", "used_with": "LinkedIn organic posts", "example": "20261104a", "date_format": "%Y%m%d", "note": "2026-11-04 (Oren): the date maps to the post content in a separate script. The letter is required (a, b, ...)." },
     { "regex": "^P0V[A-Z]$", "meaning": "Evergreen link not tied to a numbered post, variant <letter>", "status": "proposed", "used_with": "LinkedIn organic, general consultation link", "example": "P0VA" }
   ],
 
   "placements": [
     { "placement": "Apollo cold email", "context": "campaign", "source": "apollo", "medium": "ce", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "active" },
-    { "placement": "LinkedIn organic post", "context": "campaign", "source": "linkedin", "medium": "so", "content_pattern": "^P[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "active", "note": "A promoted post is a different placement (medium cpc), not the same one with budget." },
+    { "placement": "LinkedIn organic post", "context": "campaign", "source": "linkedin", "medium": "so", "content_pattern": "^(P[0-9]+V[A-Z]|20[0-9]{6}[a-z])$", "root": "waya-consultation", "status": "active", "note": "A promoted post is a different placement (medium cpc), not the same one with budget." },
     { "placement": "Waya team personal link", "context": "campaign", "source": "waya", "medium": "ref", "content_pattern": "^[a-z]+$", "root": "waya-consultation", "status": "proposed", "note": "utm_content is the person who sent it (naama, vince, oren)." },
     { "placement": "Paid search or paid social ad", "context": "campaign", "source": "google|linkedin|meta", "medium": "cpc", "content_pattern": null, "root": "waya-consultation", "status": "proposed" },
     { "placement": "Quiz result email", "context": "campaign", "source": "ghl", "medium": "qre", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "proposed" },
