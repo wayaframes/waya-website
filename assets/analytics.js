@@ -53,9 +53,30 @@
     }
   }
 
+  /* Direct visitors (no UTMs, no referrer) get utm_source=wayaframes_<landing page>, so the
+     opportunity source in GHL names the page they first landed on, e.g.
+     wayaframes_experiment_platform_cohort. The landing page is remembered for 30 days. */
+  var LANDING_KEY = 'waya_landing';
+  var LANDING_TTL = 30 * 24 * 3600 * 1000;
+
+  function pageSlug(path) {
+    return path.replace(/^\/+|\/+$/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '_') || 'home';
+  }
+  function captureLanding() {
+    var l = readStore(LANDING_KEY);
+    if (l && l.path && Date.now() - l.ts < LANDING_TTL) return;
+    writeStore(LANDING_KEY, { path: location.pathname, ts: Date.now() });
+  }
+  function directDefaults() {
+    var d = {}, src = window.WAYA_ATTR_DEFAULTS || {}, l = readStore(LANDING_KEY);
+    ATTR_KEYS.forEach(function (k) { if (src[k]) d[k] = src[k]; });
+    if (d.utm_source === 'wayaframes' && l && l.path) d.utm_source = 'wayaframes_' + pageSlug(l.path);
+    return d;
+  }
+
   function currentAttribution() {
     var first = readStore(FIRST_KEY), last = readStore(LAST_KEY);
-    var base = first || last || window.WAYA_ATTR_DEFAULTS || {};
+    var base = first || last || directDefaults();
     var out = {};
     ATTR_KEYS.forEach(function (k) { if (base[k]) out[k] = String(base[k]); });
     return out;
@@ -113,6 +134,7 @@
   }
 
   captureAttribution();
+  captureLanding();
   document.addEventListener('click', function (e) {       // capture phase: runs before analytics' own listener
     var a = e.target.closest ? e.target.closest('a') : null;
     if (a) decorateBookingLink(a);
