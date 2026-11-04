@@ -70,7 +70,7 @@
     { "placement": "Paid search or paid social ad", "context": "campaign", "source": "google|linkedin|meta", "medium": "cpc", "content_pattern": null, "root": "waya-consultation", "status": "proposed" },
     { "placement": "Quiz result email", "context": "campaign", "source": "ghl", "medium": "qre", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "proposed" },
     { "placement": "GHL workflow email", "context": "campaign", "source": "ghl", "medium": "ghe", "content_pattern": "^E[0-9]+V[A-Z]$", "root": "waya-consultation", "status": "proposed" },
-    { "placement": "Website product page button", "context": "website", "source": "wayaframes", "medium": "web", "content_pattern": null, "root": "product root_website from products", "status": "active", "note": "Buttons hardcode utm_button only. The engine fills the rest." }
+    { "placement": "Website product page button", "context": "website", "source": "wayaframes", "medium": "web", "content_pattern": null, "root": "product root_website from products", "status": "active", "note": "Buttons hardcode utm_button only. The engine fills the rest. For a direct visitor the engine writes utm_source=wayaframes_<landing page path>, e.g. wayaframes_experiment_platform_cohort, so the GHL opportunity source names the first page." }
   ],
 
   "website_buttons": {
