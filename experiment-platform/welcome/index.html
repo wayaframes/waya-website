@@ -30,7 +30,7 @@
   Configure the GHL order form to redirect here after successful payment
   (e.g. https://<your-domain>/experiment-platform/welcome/).
   MCP setup guide linked below is the existing page in the waya-website repo:
-  /lean-ai/setup/
+  /experiment-platform/setup/
   Tool stack is a proposed starting set — confirm/trim with Oren before launch.
 -->
 
@@ -161,6 +161,7 @@
   /* ---------- Tools ---------- */
   .tools { background: var(--waya-paper); border-top: 1px solid var(--border-1); }
   .tools-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .tools-grid .tool-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .tool-card {
     background: var(--waya-cream); border: 1px solid var(--border-1);
     border-radius: 16px; padding: 28px 30px; box-shadow: var(--shadow-1);
@@ -269,7 +270,7 @@
         <h3>Set up the Waya OS MCP</h3>
         <p>Choose your variant, Claude plan, and environment, then add the Waya MCP connector. The guide handles the rest.</p>
       </div>
-      <a class="btn-rust" href="/lean-ai/setup/">Open the setup guide</a>
+      <a class="btn-rust" href="/experiment-platform/setup/">Open the setup guide</a>
     </div>
   </div>
 </section>
@@ -278,24 +279,30 @@
 <section class="tools">
   <div class="container">
     <div class="section-eyebrow">Get your tools ready</div>
-    <h2 class="section-title">Start with two tools.</h2>
-    <p class="section-lead">From week four, the program shifts into live execution — designing experiments, reaching real customers, capturing every conversation, and booking calls and revenue. You start with just two tools; we finalize the rest of your stack together, based on what you already use.</p>
+    <h2 class="section-title">Connect these tools first.</h2>
+    <p class="section-lead">From week four, the program shifts into live execution — designing experiments, reaching real customers, capturing every conversation, and booking calls and revenue. Connect Google Sheets, Calendar and Docs to Claude now, and add GitHub if you plan to build anything. We finalize the rest of your stack together, based on what you already use.</p>
 
     <div class="tools-grid">
       <article class="tool-card">
-        <div class="tool-cat">Knowledge base &amp; docs</div>
-        <div class="tool-use">Where your business case, learnings, and meeting summaries live and compound.</div>
-        <div class="tool-picks"><span class="pick rec">Notion</span><span class="pick">Google Drive</span></div>
+        <div class="tool-cat">Docs, sheets &amp; calendar</div>
+        <div class="tool-use">Where your business case, learnings and experiment tracking live, and where your customer calls get scheduled.</div>
+        <div class="tool-picks"><span class="pick rec">Google Sheets</span><span class="pick rec">Google Calendar</span><span class="pick rec">Google Docs</span></div>
+      </article>
+
+      <article class="tool-card">
+        <div class="tool-cat">Code &amp; building</div>
+        <div class="tool-use">Recommended if you are building a product, landing page or prototype. Keeps your work versioned and lets Claude help you ship it.</div>
+        <div class="tool-picks"><span class="pick rec">GitHub</span></div>
       </article>
 
       <article class="tool-card">
         <div class="tool-cat">Meeting capture</div>
-        <div class="tool-use">Record and summarize every customer call, straight into the knowledge base.</div>
+        <div class="tool-use">Record and summarize every customer call, straight into your docs.</div>
         <div class="tool-picks"><span class="pick rec">Wispr Flow</span></div>
       </article>
     </div>
 
-    <div class="tools-note">That is all you need on day one. You will add more — outreach, CRM, scheduling, a website — as the experiment phase ramps, and we connect each one through the MCP as you go.</div>
+    <div class="tools-note">That is all you need to connect on day one. You will add more — outreach, CRM, scheduling, a website — as the experiment phase ramps, and we connect each one through the MCP as you go.</div>
   </div>
 </section>
 
