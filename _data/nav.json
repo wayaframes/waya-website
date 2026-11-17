@@ -36,6 +36,27 @@
       ]
     },
     {
+      "label": "Methodology",
+      "dropdown": [
+        {
+          "label": "A3 Thinking",
+          "href": "/methods/a3-thinking/"
+        },
+        {
+          "label": "Root Cause Analysis",
+          "href": "/methods/root-cause-analysis/"
+        },
+        {
+          "label": "Gap Analysis",
+          "href": "/methods/gap-analysis/"
+        },
+        {
+          "label": "Fishbone Diagram",
+          "href": "/methods/fishbone-diagram/"
+        }
+      ]
+    },
+    {
       "label": "Programs",
       "dropdown": [
         {

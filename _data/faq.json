@@ -619,5 +619,101 @@
         "An AI assistant can facilitate one. It asks the questions in order, pushes back on solutions offered before a cause is found, and writes up the result. It cannot supply your numbers or observe your process. Lean AI, Waya's MCP server, runs A3 thinking this way inside Claude."
       ]
     }
+  ],
+  "methods-root-cause-analysis": [
+    {
+      "q": "What is a root cause?",
+      "a": [
+        "A root cause is the underlying reason a problem happens. It is the point in the chain of causes where a change would stop the problem from recurring, and where you have the ability to make that change. Causes above it in the chain are symptoms."
+      ]
+    },
+    {
+      "q": "How many times should you ask why?",
+      "a": [
+        "Five is a guide. Stop when you reach a cause that you can act on and whose removal would prevent the problem from returning. Some chains get there in three questions, and some take seven."
+      ]
+    },
+    {
+      "q": "Can a problem have more than one root cause?",
+      "a": [
+        "Yes, and most do. In a hospital GI suite Waya worked with, slow room turnover was one cause of a five-month wait and patients not being ready was another. Hitting the target meant fixing both. Work on the one or two causes with the largest effect first."
+      ]
+    },
+    {
+      "q": "Is human error a root cause?",
+      "a": [
+        "No. \"Someone made a mistake\" is where the analysis starts. Ask what in the process made the mistake easy to make or hard to catch. A root cause is something in the process, the information, or the system that you can change."
+      ]
+    },
+    {
+      "q": "Which tools are used for root cause analysis?",
+      "a": [
+        "The two most common are 5 Whys, for a problem inside one area, and the fishbone diagram, for a problem that crosses several teams. Pareto analysis ranks causes by frequency, and fault tree analysis maps the combinations of failures behind a safety or reliability event."
+      ]
+    }
+  ],
+  "methods-gap-analysis": [
+    {
+      "q": "What is the difference between gap analysis and root cause analysis?",
+      "a": [
+        "Root cause analysis is the part of a gap analysis that traces the causes. Gap analysis starts earlier: it first turns a vague complaint into a measured problem statement and chooses the right analysis method, then runs the root cause analysis."
+      ]
+    },
+    {
+      "q": "How long does a gap analysis take?",
+      "a": [
+        "Between 45 and 90 minutes for most problems: about 20 minutes to state the problem, 10 to choose the method, and the rest to trace the causes. A problem that crosses several teams takes longer because more people need to be in the room."
+      ]
+    },
+    {
+      "q": "Do you need data to do a gap analysis?",
+      "a": [
+        "You need evidence, and in a small or fast-growing company direct observation counts. \"We compared several purchase orders with what should have been bought, and about one in ten was different\" is enough to start. Check the numbers that the conclusion depends on."
+      ]
+    },
+    {
+      "q": "What comes after a gap analysis?",
+      "a": [
+        "Experiments. Each root cause becomes a hypothesis: if we change this, we expect that result. You test the change, measure the result against the target, and keep what works."
+      ]
+    },
+    {
+      "q": "Is gap analysis the same as a SWOT analysis?",
+      "a": [
+        "No. A SWOT analysis lists strengths, weaknesses, opportunities, and threats to inform strategy. A gap analysis starts from one measured shortfall and finds its causes."
+      ]
+    }
+  ],
+  "methods-fishbone-diagram": [
+    {
+      "q": "Why is it called a fishbone diagram?",
+      "a": [
+        "Because of its shape. The problem is written at the right, like the head of a fish. A horizontal line runs back from it like a spine, and the categories of cause branch off it like bones."
+      ]
+    },
+    {
+      "q": "Is a fishbone diagram the same as an Ishikawa diagram?",
+      "a": [
+        "Yes. It is named after Kaoru Ishikawa, the Japanese quality engineer who introduced it in the 1940s. It is also called a cause-and-effect diagram."
+      ]
+    },
+    {
+      "q": "What are the 6 Ms in a fishbone diagram?",
+      "a": [
+        "The 6 Ms are the standard categories for a manufacturing problem: methods, machines, materials, manpower, measurement, and mother nature (the environment). Service and office problems usually fit other categories better, such as flow, information, people, and technology."
+      ]
+    },
+    {
+      "q": "When should you use a fishbone diagram instead of 5 Whys?",
+      "a": [
+        "Use a fishbone diagram when the problem crosses several teams, when each team has its own theory of the cause, or when the problem has been around for a long time. Use 5 Whys when the problem sits in one area and the causes form a single chain."
+      ]
+    },
+    {
+      "q": "Can you use a fishbone diagram and 5 Whys together?",
+      "a": [
+        "Yes. Build the fishbone first to see the range of possible causes, then run 5 Whys down each bone that looks likely until you reach a cause you can act on."
+      ]
+    }
   ]
 }

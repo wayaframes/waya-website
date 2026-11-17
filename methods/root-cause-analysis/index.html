@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Root Cause Analysis: How to Find the Real Cause – Waya</title>
+<meta name="description" content="Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.">
+<link rel="canonical" href="https://www.wayaframes.com/methods/root-cause-analysis/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Waya">
+<meta property="og:title" content="Root Cause Analysis: How to Find the Real Cause – Waya">
+<meta property="og:description" content="Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.">
+<meta property="og:url" content="https://www.wayaframes.com/methods/root-cause-analysis/">
+<meta property="og:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sage mountain range under a pale sky, the Waya hero image">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Root Cause Analysis: How to Find the Real Cause – Waya">
+<meta name="twitter:description" content="Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.">
+<meta name="twitter:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/styles.css?v=31">
+<link rel="stylesheet" href="/assets/methods.css?v=1">
+<script>window.WAYA_ATTR_DEFAULTS = { utm_source: 'wayaframes', utm_medium: 'web', utm_campaign: 'leanai_direct_2026q4' };</script>
+<script defer src="/assets/analytics.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#webpage",
+      "url": "https://www.wayaframes.com/methods/root-cause-analysis/",
+      "name": "Root Cause Analysis: How to Find the Real Cause",
+      "description": "Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://www.wayaframes.com/#website"
+      },
+      "breadcrumb": {
+        "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#breadcrumb"
+      },
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.wayaframes.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Root Cause Analysis",
+          "item": "https://www.wayaframes.com/methods/root-cause-analysis/"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#article",
+      "headline": "Root Cause Analysis: How to Find the Real Cause",
+      "description": "Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.",
+      "abstract": "Root cause analysis (RCA) is a structured way to find why a problem happens, so that the fix removes the cause and the problem stays fixed. You state the problem with evidence, trace it back cause by cause with 5 Whys or a fishbone diagram, confirm the root cause with data, and then test a fix.",
+      "articleSection": "Methods",
+      "inLanguage": "en-US",
+      "about": {
+        "@type": "DefinedTerm",
+        "name": "root cause analysis",
+        "description": "A structured way to find why a problem happens, so that the fix removes the cause and the problem does not return."
+      },
+      "keywords": [
+        "root cause analysis",
+        "RCA",
+        "5 Whys",
+        "fishbone diagram",
+        "Lean"
+      ],
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "image": "https://www.wayaframes.com/assets/images/og/waya-og.jpg",
+      "mainEntityOfPage": {
+        "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#webpage"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Vincent Matranga",
+        "jobTitle": "Co-Founder",
+        "url": "https://www.wayaframes.com/about-us/",
+        "sameAs": "https://www.linkedin.com/in/vincent-matranga-84899811/",
+        "worksFor": {
+          "@id": "https://www.wayaframes.com/#organization"
+        }
+      },
+      "publisher": {
+        "@id": "https://www.wayaframes.com/#organization"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#howto",
+      "name": "How to run a root cause analysis",
+      "description": "Root cause analysis is a method for tracing a problem back to the cause that, once fixed, stops the problem from coming back.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "State the problem",
+          "text": "Write one sentence that describes what you observe, with a number and a time frame. \"Support is slow\" is too vague to analyze. \"First response averages 22 hours\" can be traced."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Choose the method",
+          "text": "A problem inside one team or process suits 5 Whys. A problem that crosses teams, where each has its own theory, suits a fishbone diagram."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Trace the causes",
+          "text": "Ask why, and answer with something you can observe. Ask why again of that answer. When an answer has two causes, follow both branches."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Confirm the root cause",
+          "text": "A root cause passes three checks: there is evidence for it, it is within your control, and removing it would prevent the problem from recurring."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Prioritize and test a fix",
+          "text": "Most problems have more than one root cause. Pick the one or two with the largest effect, write each fix as an experiment, and measure the result."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.wayaframes.com/methods/root-cause-analysis/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a root cause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A root cause is the underlying reason a problem happens. It is the point in the chain of causes where a change would stop the problem from recurring, and where you have the ability to make that change. Causes above it in the chain are symptoms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many times should you ask why?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Five is a guide. Stop when you reach a cause that you can act on and whose removal would prevent the problem from returning. Some chains get there in three questions, and some take seven."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a problem have more than one root cause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and most do. In a hospital GI suite Waya worked with, slow room turnover was one cause of a five-month wait and patients not being ready was another. Hitting the target meant fixing both. Work on the one or two causes with the largest effect first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is human error a root cause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. \"Someone made a mistake\" is where the analysis starts. Ask what in the process made the mistake easy to make or hard to catch. A root cause is something in the process, the information, or the system that you can change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which tools are used for root cause analysis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The two most common are 5 Whys, for a problem inside one area, and the fishbone diagram, for a problem that crosses several teams. Pareto analysis ranks causes by frequency, and fault tree analysis maps the combinations of failures behind a safety or reliability event."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" aria-label="Waya home">
+      <img class="nav-logo" src="/assets/logos/waya-logo-charcoal-transparent.png" width="104" height="30" alt="Waya">
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/about-us/">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Case Studies
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/case-studies/improving-margins/">Improving Margins</a>
+          <a href="/case-studies/scaling/">Scaling</a>
+          <a href="/case-studies/improving-customer-outcomes/">Improving Customer Outcomes</a>
+          <a href="/case-studies/">All case studies</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Methodology
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/methods/a3-thinking/">A3 Thinking</a>
+          <a href="/methods/root-cause-analysis/">Root Cause Analysis</a>
+          <a href="/methods/gap-analysis/">Gap Analysis</a>
+          <a href="/methods/fishbone-diagram/">Fishbone Diagram</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Programs
+          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/scale-up-program/">Scale Up Program</a>
+          <a href="/experiment-platform/cohort/">12 Weeks to PMF</a>
+          <a href="/lean-ai/cohort/">8 Weeks to Higher Margins</a>
+        </div>
+      </div>
+      <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_button=nav">Schedule a Call</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =============== HERO =============== -->
+<section class="hero compact" style="background-image: url('/assets/images/hero/mountain-mustard-header.jpg');">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow">Methods &middot; Lean problem solving</p>
+      <h1>Root Cause Analysis: How to Find the Real Cause</h1>
+      <p class="sub">Root cause analysis is a method for tracing a problem back to the cause that, once fixed, stops the problem from coming back.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============== ARTICLE =============== -->
+<section class="method">
+  <div class="container">
+    <article>
+      <p class="method-crumb"><a href="/">Home</a> &rsaquo; Methods &rsaquo; Root Cause Analysis</p>
+      <p class="method-byline">By <a href="/about-us/">Vincent Matranga</a>, co-founder of Waya &middot; Updated <time datetime="2026-11-17">November 17, 2026</time></p>
+
+      <p class="method-answer">Root cause analysis (RCA) is a structured way to find why a problem happens, so that the fix removes the cause and the problem stays fixed. You state the problem with evidence, trace it back cause by cause with 5 Whys or a fishbone diagram, confirm the root cause with data, and then test a fix.</p>
+
+      <h2>What is root cause analysis?</h2>
+      <p>Root cause analysis is the work of getting from what is wrong to why it is wrong. A symptom is what you see: late deliveries, a falling margin, a long queue. A root cause is the reason behind it that you can change, and whose removal stops the symptom from coming back.</p>
+      <p>Most fixes are aimed at symptoms. The loudest complaint gets a patch, the number improves for a month, and then the problem returns because its cause is still in place. Root cause analysis delays the fix until the cause is known.</p>
+      <p>It is the diagnostic part of a <a href="/methods/gap-analysis/">gap analysis</a>, and step 4 of <a href="/methods/a3-thinking/">A3 thinking</a>.</p>
+
+      <h2>When should you use root cause analysis?</h2>
+      <p>Use root cause analysis when a problem has a measurable effect and its cause is not established. Typical cases:</p>
+      <ul>
+        <li>The same problem has been fixed before and has come back.</li>
+        <li>People in the company give different explanations for it.</li>
+        <li>The explanation on offer is a person or a team, with no account of why it happened.</li>
+        <li>A fix would be expensive, and you want to know it is aimed at the right thing.</li>
+      </ul>
+      <p>It is not needed when the cause is plain and the fix is cheap. It also cannot start from a vague complaint. If the problem is "communication isn't working", state it as a measured fact first.</p>
+
+      <h2>What are the steps of a root cause analysis?</h2>
+      <p>A root cause analysis has five steps. The first two set it up, and the last three do the tracing and checking.</p>
+      <ol class="method-steps">
+        <li><strong>State the problem</strong><span class="q">What is happening, and how do you know?</span>
+          <p>Write one sentence that describes what you observe, with a number and a time frame. "Support is slow" is too vague to analyze. "First response averages 22 hours" can be traced.</p></li>
+        <li><strong>Choose the method</strong><span class="q">Does the problem sit in one area or cross several?</span>
+          <p>A problem inside one team or process suits 5 Whys. A problem that crosses teams, where each has its own theory, suits a fishbone diagram.</p></li>
+        <li><strong>Trace the causes</strong><span class="q">Why does this happen?</span>
+          <p>Ask why, and answer with something you can observe. Ask why again of that answer. When an answer has two causes, follow both branches.</p></li>
+        <li><strong>Confirm the root cause</strong><span class="q">Would the problem stop if this were removed?</span>
+          <p>A root cause passes three checks: there is evidence for it, it is within your control, and removing it would prevent the problem from recurring.</p></li>
+        <li><strong>Prioritize and test a fix</strong><span class="q">Which causes matter most?</span>
+          <p>Most problems have more than one root cause. Pick the one or two with the largest effect, write each fix as an experiment, and measure the result.</p></li>
+      </ol>
+
+      <h2>Which root cause analysis method should you use?</h2>
+      <p>Choose the method by where the problem lives. One area with a traceable chain of events suits 5 Whys. Several teams, each with a theory, suit a <a href="/methods/fishbone-diagram/">fishbone diagram</a>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Method</th><th scope="col">Best for</th><th scope="col">Who is needed</th><th scope="col">What you get</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">5 Whys</th><td>A problem inside one team or process, with a chain of cause and effect</td><td>One to three people who know the work</td><td>One or more chains from symptom to root cause</td></tr>
+            <tr><th scope="row">Fishbone diagram</th><td>A problem that crosses teams and has several kinds of cause</td><td>People from each team involved</td><td>Possible causes sorted by category, to be checked</td></tr>
+            <tr><th scope="row">Pareto analysis</th><td>Many small causes, with counts available</td><td>Someone with the data</td><td>Causes ranked by how often they occur</td></tr>
+            <tr><th scope="row">Fault tree analysis</th><td>A safety or reliability failure with combined causes</td><td>Engineers who know the system</td><td>A logic tree of the failures that lead to the event</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What does a root cause analysis look like? A worked example</h2>
+      <p>This example comes from a GI and endoscopy suite in a regional hospital. The full account is in the case study <a href="/case-studies/hospital-patient-wait/">Cutting a 5-month patient wait to 2</a>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Stage</th><th scope="col">What happened</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">The problem</th><td>More than 560 patients waited up to five months for a colonoscopy. Turning a room over took about 29 minutes, which capped each of the two rooms at about 10 procedures a day.</td></tr>
+            <tr><th scope="row">The method</th><td>The team mapped the changeover role by role (physician, techs, two nurses) and ran 5 Whys on the longest delays.</td></tr>
+            <tr><th scope="row">The first answer</th><td>Room turnover is slow.</td></tr>
+            <tr><th scope="row">What the whys found</th><td>Turnover was only part of it. Often the next case could not start because the physician was covering clinic or on call, or because the patient was not ready: a late arrival, prep or fasting not followed, no nurse free for a difficult IV, no open bed, or missing orders in a records system not built for GI.</td></tr>
+            <tr><th scope="row">The fixes</th><td>Standard work for room turnover. A standard order set and recovery protocol in the records system. An IV placement priority process and standard prep and fasting screening. A redesigned block schedule.</td></tr>
+            <tr><th scope="row">The result</th><td>The wait from referral to procedure fell from 5 months to 2, against a target of 3. Room turnover fell from 29 minutes to 23.7. Procedures per room per day rose from 10.4 to 11.4.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The analysis began on room turnover and found a second cause, patient readiness. Hitting the wait target took fixes to both.</p>
+
+      <h2>What mistakes do teams make in root cause analysis?</h2>
+      <ul>
+        <li><strong>Stopping at the first why.</strong> The first answer is usually another symptom. "Orders ship late because picking is slow" still leaves the question of why picking is slow.</li>
+        <li><strong>Stopping at a person.</strong> "Human error" ends the analysis one step early. Ask what made the error easy to make.</li>
+        <li><strong>Assuming one cause.</strong> Chains branch. Follow each branch that has evidence behind it.</li>
+        <li><strong>Links without evidence.</strong> Each "because" should rest on something observed. A chain of guesses leads to a guessed fix.</li>
+        <li><strong>Going past what you control.</strong> "The economy" may be true, and you cannot act on it. Stop at the deepest cause you can change.</li>
+        <li><strong>Fixing every cause at once.</strong> Five root causes do not need five projects. Start with the one or two that account for most of the gap.</li>
+      </ul>
+
+      <h2>How do you run a root cause analysis in a small company?</h2>
+      <p>A small company can run a root cause analysis in under an hour with the people who do the work. A 5 Whys session takes 30 to 90 minutes.</p>
+      <ul>
+        <li><strong>Observation counts as evidence.</strong> You may not have a dashboard. Ten recent tickets, read one by one, are enough to support a link in the chain.</li>
+        <li><strong>Go and look.</strong> Trace the causes where the work happens, with the person who does it.</li>
+        <li><strong>Stop at good enough to act.</strong> The aim is a cause you are confident enough to test a fix against.</li>
+      </ul>
+
+      <h2>Can an AI assistant run a root cause analysis?</h2>
+      <p>An AI assistant can facilitate a root cause analysis. Asked why churn went up, a general assistant will list plausible causes. Given the method, it asks for the evidence behind each answer, follows the branches, and keeps asking why until the cause is one you can act on.</p>
+      <p><a href="/lean-ai/">Lean AI</a> is Waya's MCP server that runs gap analysis, 5 Whys, and fishbone sessions this way inside Claude. The evidence still comes from you.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>What is a root cause?</summary>
+          <div class="answer"><p>A root cause is the underlying reason a problem happens. It is the point in the chain of causes where a change would stop the problem from recurring, and where you have the ability to make that change. Causes above it in the chain are symptoms.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How many times should you ask why?</summary>
+          <div class="answer"><p>Five is a guide. Stop when you reach a cause that you can act on and whose removal would prevent the problem from returning. Some chains get there in three questions, and some take seven.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can a problem have more than one root cause?</summary>
+          <div class="answer"><p>Yes, and most do. In a hospital GI suite Waya worked with, slow room turnover was one cause of a five-month wait and patients not being ready was another. Hitting the target meant fixing both. Work on the one or two causes with the largest effect first.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Is human error a root cause?</summary>
+          <div class="answer"><p>No. "Someone made a mistake" is where the analysis starts. Ask what in the process made the mistake easy to make or hard to catch. A root cause is something in the process, the information, or the system that you can change.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Which tools are used for root cause analysis?</summary>
+          <div class="answer"><p>The two most common are 5 Whys, for a problem inside one area, and the fishbone diagram, for a problem that crosses several teams. Pareto analysis ranks causes by frequency, and fault tree analysis maps the combinations of failures behind a safety or reliability event.</p></div>
+        </details>
+      </div>
+
+      <h2>Related methods</h2>
+      <ul>
+        <li><a href="/methods/a3-thinking/">A3 thinking</a>: the seven-step method that frames the whole problem, from background to what was learned.</li>
+        <li><a href="/methods/gap-analysis/">Gap analysis</a>: stating the problem, choosing the method, and finding why the gap exists.</li>
+        <li><a href="/methods/fishbone-diagram/">Fishbone diagram</a>: sorting the possible causes of a cross-team problem into categories.</li>
+      </ul>
+
+      <h2>Sources and further reading</h2>
+      <ul>
+        <li>Taiichi Ohno, <cite>Toyota Production System: Beyond Large-Scale Production</cite>. Productivity Press, 1988.</li>
+        <li>Kaoru Ishikawa, <cite>Guide to Quality Control</cite>. Asian Productivity Organization, 1976.</li>
+        <li>American Society for Quality, <a href="https://asq.org/quality-resources/root-cause-analysis" rel="noopener noreferrer">What is Root Cause Analysis?</a></li>
+        <li>Waya case studies that used 5 Whys: <a href="/case-studies/hospital-patient-wait/">Cutting a 5-month patient wait to 2</a> and <a href="/case-studies/customer-support/">From a 22-hour to a 6-minute support response</a>.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- =============== FINAL CTA =============== -->
+<section id="book" class="final-cta">
+  <h2>Fixed it once, and it came back?</h2>
+  <p>Run a root cause analysis on it yourself with Lean AI, or talk to us about working through it together.</p>
+  <div class="section-cta" style="margin-top: 40px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn-rust" style="padding: 16px 30px; font-size: 15px;" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_button=final_cta">Schedule a Call</a>
+    <a class="btn-ghost-dark" style="padding: 16px 30px; font-size: 15px;" href="/lean-ai/">See Lean AI</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="/">
+        <img class="footer-logo" src="/assets/logos/waya-logo-cream.png" width="125" height="36" loading="lazy" alt="Waya">
+      </a>
+      <p class="foot-tag">"We have walked the path, faced the storms, and know how critical a guide can be."</p>
+    </div>
+    <div>
+      <p class="foot-heading">About Us</p>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about-us/">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="foot-heading">Programs</p>
+      <ul>
+        <li><a href="/scale-up-program/">Scale Up Program</a></li>
+        <li><a href="/experiment-platform/cohort/">12 Weeks to PMF</a></li>
+        <li><a href="/lean-ai/cohort/">8 Weeks to Higher Margins</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="foot-heading">Case Studies</p>
+      <ul>
+        <li><a href="/case-studies/improving-margins/">Improving Margins</a></li>
+        <li><a href="/case-studies/scaling/">Scaling</a></li>
+        <li><a href="/case-studies/improving-customer-outcomes/">Improving Customer Outcomes</a></li>
+        <li><a href="/case-studies/">All case studies</a></li>
+      </ul>
+    </div>
+    <div>
+      <a class="btn-rust" style="margin-bottom: 24px; white-space: nowrap;" href="https://api.leadconnectorhq.com/widget/bookings/ops-intro-call?utm_button=footer">Schedule a Call</a>
+      <div class="social-row">
+        <a href="https://www.linkedin.com/in/naamamoran/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Waya-Frames" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <nav class="foot-legal" aria-label="Legal">
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/terms-of-service/">Terms of Service</a>
+      <a href="/data-handling/">How We Handle Your Data</a>
+      <a href="/support/">Support</a>
+    </nav>
+    <p>© Copyright 2026 – Waterbear LLC – All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/assets/nav.js?v=6" defer></script>
+</body>
+</html>

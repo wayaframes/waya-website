@@ -1,0 +1,71 @@
+/* ---------- Method pages (/methods/*): reading column, tables, numbered steps, fishbone figure. Tokens only. ---------- */
+.method { padding: 72px 56px 88px; }
+.method .container { max-width: 820px; }
+.method-crumb { font-size: 14px; color: var(--fg-2); }
+.method-crumb a:hover { color: var(--waya-rust); }
+.method-byline { margin-top: 10px; font-size: 14px; color: var(--fg-2); }
+.method-byline a { text-decoration: underline; text-underline-offset: 3px; }
+.method-answer {
+  margin-top: 28px; padding: 24px 26px;
+  background: var(--waya-mint); border-radius: 18px;
+  font-size: 18px; line-height: 1.6; color: var(--waya-ink);
+}
+.method h2 {
+  margin-top: 56px;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 30px; line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--waya-charcoal); text-wrap: balance;
+}
+.method h3 {
+  margin-top: 28px;
+  font-family: var(--font-display); font-weight: 700; font-size: 18px;
+  color: var(--waya-charcoal);
+}
+.method p, .method li { font-size: 16.5px; line-height: 1.7; color: var(--fg-1); }
+.method p { margin-top: 14px; }
+.method ul, .method ol { margin-top: 14px; padding-left: 22px; }
+.method li + li { margin-top: 8px; }
+.method article a { color: var(--waya-rust); text-decoration: underline; text-underline-offset: 3px; }
+.method-steps { list-style: none; padding-left: 0; counter-reset: step; }
+.method-steps > li {
+  counter-increment: step; position: relative;
+  padding: 18px 0 18px 54px; border-top: 1px solid var(--border-1);
+}
+.method-steps > li:last-child { border-bottom: 1px solid var(--border-1); }
+.method-steps > li + li { margin-top: 0; }
+.method-steps > li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 18px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--waya-charcoal); color: var(--waya-cream);
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.method-steps strong { font-family: var(--font-display); font-size: 18px; color: var(--waya-charcoal); }
+.method-steps .q { display: block; font-size: 14.5px; color: var(--fg-2); }
+.method-steps p { margin-top: 6px; }
+.table-wrap { margin-top: 20px; overflow-x: auto; border: 1px solid var(--border-1); border-radius: 14px; background: var(--white); }
+.method table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; min-width: 560px; }
+.method th, .method td { text-align: left; vertical-align: top; padding: 12px 16px; border-top: 1px solid var(--border-1); }
+.method thead th {
+  border-top: 0; background: var(--waya-paper);
+  font-family: var(--font-display); font-weight: 700; font-size: 13px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-2);
+}
+.method tbody th { font-weight: 700; color: var(--waya-charcoal); white-space: nowrap; }
+.method-note { font-size: 14.5px; color: var(--fg-2); }
+.method .faq-list { margin-top: 20px; max-width: none; }
+@media (max-width: 760px) {
+  .method { padding: 48px 20px 64px; }
+  .method h2 { font-size: 25px; margin-top: 44px; }
+  .method-answer { font-size: 17px; padding: 20px; }
+  .method tbody th { white-space: normal; }
+}
+.fishbone { margin-top: 24px; padding: 18px 18px 14px; background: var(--white); border: 1px solid var(--border-1); border-radius: 14px; }
+.fishbone svg { display: block; width: 100%; height: auto; }
+.fishbone .fb-spine { stroke: var(--waya-charcoal); stroke-width: 4; stroke-linecap: round; }
+.fishbone .fb-bone { stroke: var(--waya-sage); stroke-width: 3; stroke-linecap: round; }
+.fishbone .fb-head { fill: var(--waya-charcoal); }
+.fishbone .fb-cat { font-family: var(--font-display); font-weight: 700; font-size: 17px; fill: var(--waya-charcoal); }
+.fishbone .fb-problem { font-family: var(--font-display); font-weight: 600; font-size: 15px; fill: var(--waya-cream); }
+.fishbone figcaption { margin-top: 8px; text-align: center; font-size: 14px; color: var(--fg-2); }

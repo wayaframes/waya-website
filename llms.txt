@@ -24,6 +24,9 @@
   - [Support Response, 22 Hours to 6 Minutes](https://www.wayaframes.com/case-studies/customer-support/): How a food distributor cut its first support response from 22 hours to 6 minutes with structured intake, automatic routing, and self-service.
   - [Cutting a 5-Month Patient Wait to 2](https://www.wayaframes.com/case-studies/hospital-patient-wait/): How a regional hospital GI suite cut the wait for a procedure from 5 months to 2 with faster room turnover and better pre-op readiness.
 - [A3 Thinking: What It Is and How to Run One](https://www.wayaframes.com/methods/a3-thinking/): A3 thinking is a seven-step problem-solving method from Toyota. What it is, the steps, a worked example with real numbers, and how a small company runs one.
+- [Root Cause Analysis: How to Find the Real Cause](https://www.wayaframes.com/methods/root-cause-analysis/): Root cause analysis traces a problem to the cause that stops it coming back. The steps, when to use 5 Whys or a fishbone, and a worked hospital example.
+- [Gap Analysis: What It Is and How to Do One](https://www.wayaframes.com/methods/gap-analysis/): Gap analysis compares a current result with its target and finds the causes of the difference. The steps, a problem-statement checklist, and a worked example.
+- [Fishbone Diagram: What It Is and How to Build One](https://www.wayaframes.com/methods/fishbone-diagram/): A fishbone (Ishikawa) diagram sorts the possible causes of a problem into categories. How to build one, which categories to use, and a worked example.
 - [Lean AI](https://www.wayaframes.com/lean-ai/): Lean AI is an MCP server that puts Lean problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.
 - [Set Up Lean AI](https://www.wayaframes.com/lean-ai/setup/): Install the Waya MCP in Claude in about five minutes. Choose your variant, Claude plan, and environment, then connect the WayaFrames to your AI assistant.
 - [Product Market Fit Program](https://www.wayaframes.com/experiment-platform/cohort/): The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.
@@ -386,3 +389,72 @@ A: No. It works on any problem with a measurable gap. Waya has used it on gross 
 **Q: Can an AI assistant run an A3?**
 
 A: An AI assistant can facilitate one. It asks the questions in order, pushes back on solutions offered before a cause is found, and writes up the result. It cannot supply your numbers or observe your process. Lean AI, Waya's MCP server, runs A3 thinking this way inside Claude.
+
+### Root Cause Analysis: How to Find the Real Cause
+Source: https://www.wayaframes.com/methods/root-cause-analysis/
+
+**Q: What is a root cause?**
+
+A: A root cause is the underlying reason a problem happens. It is the point in the chain of causes where a change would stop the problem from recurring, and where you have the ability to make that change. Causes above it in the chain are symptoms.
+
+**Q: How many times should you ask why?**
+
+A: Five is a guide. Stop when you reach a cause that you can act on and whose removal would prevent the problem from returning. Some chains get there in three questions, and some take seven.
+
+**Q: Can a problem have more than one root cause?**
+
+A: Yes, and most do. In a hospital GI suite Waya worked with, slow room turnover was one cause of a five-month wait and patients not being ready was another. Hitting the target meant fixing both. Work on the one or two causes with the largest effect first.
+
+**Q: Is human error a root cause?**
+
+A: No. "Someone made a mistake" is where the analysis starts. Ask what in the process made the mistake easy to make or hard to catch. A root cause is something in the process, the information, or the system that you can change.
+
+**Q: Which tools are used for root cause analysis?**
+
+A: The two most common are 5 Whys, for a problem inside one area, and the fishbone diagram, for a problem that crosses several teams. Pareto analysis ranks causes by frequency, and fault tree analysis maps the combinations of failures behind a safety or reliability event.
+
+### Gap Analysis: What It Is and How to Do One
+Source: https://www.wayaframes.com/methods/gap-analysis/
+
+**Q: What is the difference between gap analysis and root cause analysis?**
+
+A: Root cause analysis is the part of a gap analysis that traces the causes. Gap analysis starts earlier: it first turns a vague complaint into a measured problem statement and chooses the right analysis method, then runs the root cause analysis.
+
+**Q: How long does a gap analysis take?**
+
+A: Between 45 and 90 minutes for most problems: about 20 minutes to state the problem, 10 to choose the method, and the rest to trace the causes. A problem that crosses several teams takes longer because more people need to be in the room.
+
+**Q: Do you need data to do a gap analysis?**
+
+A: You need evidence, and in a small or fast-growing company direct observation counts. "We compared several purchase orders with what should have been bought, and about one in ten was different" is enough to start. Check the numbers that the conclusion depends on.
+
+**Q: What comes after a gap analysis?**
+
+A: Experiments. Each root cause becomes a hypothesis: if we change this, we expect that result. You test the change, measure the result against the target, and keep what works.
+
+**Q: Is gap analysis the same as a SWOT analysis?**
+
+A: No. A SWOT analysis lists strengths, weaknesses, opportunities, and threats to inform strategy. A gap analysis starts from one measured shortfall and finds its causes.
+
+### Fishbone Diagram: What It Is and How to Build One
+Source: https://www.wayaframes.com/methods/fishbone-diagram/
+
+**Q: Why is it called a fishbone diagram?**
+
+A: Because of its shape. The problem is written at the right, like the head of a fish. A horizontal line runs back from it like a spine, and the categories of cause branch off it like bones.
+
+**Q: Is a fishbone diagram the same as an Ishikawa diagram?**
+
+A: Yes. It is named after Kaoru Ishikawa, the Japanese quality engineer who introduced it in the 1940s. It is also called a cause-and-effect diagram.
+
+**Q: What are the 6 Ms in a fishbone diagram?**
+
+A: The 6 Ms are the standard categories for a manufacturing problem: methods, machines, materials, manpower, measurement, and mother nature (the environment). Service and office problems usually fit other categories better, such as flow, information, people, and technology.
+
+**Q: When should you use a fishbone diagram instead of 5 Whys?**
+
+A: Use a fishbone diagram when the problem crosses several teams, when each team has its own theory of the cause, or when the problem has been around for a long time. Use 5 Whys when the problem sits in one area and the causes form a single chain.
+
+**Q: Can you use a fishbone diagram and 5 Whys together?**
+
+A: Yes. Build the fishbone first to see the range of possible causes, then run 5 Whys down each bone that looks likely until you reach a cause you can act on.
