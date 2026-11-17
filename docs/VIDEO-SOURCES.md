@@ -27,5 +27,9 @@ internal.
 **Adding a video:**
 - Only the approved final MP4s (landscape, plus the 1080x1920 portrait) and their posters go in `assets/video/`.
 - Posters are JPGs at 1280x720 and 720x1280, with no running-time chip printed on them.
-- Everything else stays in Drive.
-- Wire the files in the way `case-studies/cash-float/` does.
+- Everything else stays in the private video repo (or in Drive, for the older videos above).
+- Wire the files in the way `case-studies/cash-float/` does. A page that is not a case study
+  copies the `.video-wrap` styles into its own `<style>` (as `lean-ai/index.html` does).
+- The full steps, including the button under the video and the iPhone check, are in
+  `docs/WEBSITE-CHECKLIST.md`, section 3a. Videos are served through
+  `functions/assets/video/[[path]].js` so visitors can skip ahead; keep it.

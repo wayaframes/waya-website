@@ -2,7 +2,7 @@
 
 Internal. This folder is blocked on the public site by the `/docs/*` rule in `_redirects`; it is readable only in GitHub.
 
-Read this before you change anything on www.wayaframes.com. Every item exists because the thing it guards has already gone wrong once. Last revised 2026-10-12.
+Read this before you change anything on www.wayaframes.com. Every item exists because the thing it guards has already gone wrong once. Last revised 2026-11-17.
 
 ---
 
@@ -18,7 +18,7 @@ Read this before you change anything on www.wayaframes.com. Every item exists be
 | What the company does, in one sentence | `_data/schema.json` → `description` | Home-page JSON-LD, meta descriptions and `llms.txt` repeat it. |
 | Pages that exist | The `index.html` files | `sitemap.xml` and `llms.txt` must list every indexable one. |
 | Redirects and hidden paths | `_redirects` | Cloudflare applies it on deploy. |
-| Security headers | `_headers` | Cloudflare applies it on deploy. |
+| Security headers | `_headers` | Cloudflare applies it on deploy. `functions/assets/video/[[path]].js` repeats the `/*` block for videos, because `_headers` does not reach function responses. |
 
 If you are about to write a fact in a second place, stop and link to the first place instead.
 
@@ -48,6 +48,7 @@ If you are about to write a fact in a second place, stop and link to the first p
   python scripts/check_site.py structure
   ```
   (until that script exists: diff each page's `<header>` and `<footer>` against `index.html`).
+  One intended difference: the "Schedule a Call" booking link in the nav and footer goes to the calendar the page's product uses (`root_website` in `_data/utm.json` → `products`). The Lean AI, case-study and operations-audit pages book through `ops-intro-call`; most others through `waya-consultation`. Everything else matches `index.html` byte for byte.
 - [ ] If you changed `styles.css` or `nav.js`, bump the `?v=` number on every page.
 
 ---
@@ -60,6 +61,19 @@ If you are about to write a fact in a second place, stop and link to the first p
 - [ ] Add the product's `WAYA_ATTR_DEFAULTS` line (section 5) and the analytics tag.
 - [ ] Link to it from somewhere a visitor can reach. A page with no inbound links is invisible; the four original service pages are reachable only from the home-page grid, which is a known risk.
 - [ ] If it carries FAQs, add them to `_data/faq.json` and mirror them in the page's `FAQPage` JSON-LD.
+
+## 3a. Adding a video
+
+Videos are made in the private video repo (`wayaframes/waya-videos`); `docs/VIDEO-SOURCES.md` says where each one's sources live.
+
+- [ ] Only the four finals come here, into `assets/video/`: the landscape MP4 (1920x1080), the portrait MP4 (1080x1920), and their JPG posters (1280x720 and 720x1280), named after the page. Check each md5 against the video folder's README. Each file stays under 25 MB (Cloudflare Pages' file limit). No notes, drafts or zips: this repo is public.
+- [ ] Posters have no running-time chip printed on them; the site shows its own.
+- [ ] Copy the `<video>` block and the small portrait-swap script under it from `case-studies/cash-float/` (phones held upright get the tall cut and the tall poster). Case-study pages get the `.video-wrap` styles from `assets/case-studies.css`; any other page copies those rules into its own `<style>` (as `lean-ai/index.html` does).
+- [ ] Put a real button right under the video, with the page's own offer and `utm_button=video`. The buttons in the video's last frame are part of the picture and cannot be clicked.
+- [ ] Add a `VideoObject` to the page's JSON-LD: `name`, `description`, `thumbnailUrl` (landscape poster), `contentUrl` (landscape MP4), `duration` from `ffprobe` of the final (`PT1M47S` for 1:47, never an estimate), `uploadDate`. Link it from the page's main entity (`video` on a `Course` or article, `subjectOf` on a `Service`).
+- [ ] Add the page's row to `docs/VIDEO-SOURCES.md` and bump the page's `lastmod` in `sitemap.xml`.
+- [ ] Videos are served by `functions/assets/video/[[path]].js`, which answers range requests with `206 Partial Content`. Without it Pages sends the whole file to every request, and nobody can skip ahead in the video. Do not remove it. On the preview, `curl -sI -H 'Range: bytes=0-1' <preview>/assets/video/<file>.mp4` must return `206` and `Content-Range: bytes 0-1/<file size>`.
+- [ ] On staging, play the video and skip ahead to the middle, on an iPhone held upright (tall cut) and on desktop (wide cut).
 
 ## 4. Renaming or retiring a URL
 
@@ -150,7 +164,7 @@ Analytics loads on every page through one tag, waits for cookie consent, and sen
 
 ## 9. Security and privacy
 
-- [ ] Nothing in the repo is private once pushed, except what `_redirects` hides (`/docs/*`, `/scripts/*`, `/_data/*`, `/.claude/*`, `/.github/*`). Cloudflare serves every other file. Never commit a token, a key, or a customer's data anywhere, including this folder.
+- [ ] Nothing in the repo is private once pushed, except what `_redirects` hides (`/docs/*`, `/scripts/*`, `/_data/*`, `/.claude/*`, `/.github/*`, `/functions/*`). Cloudflare serves every other file. Never commit a token, a key, or a customer's data anywhere, including this folder.
 - [ ] `_headers` keeps HSTS, nosniff, frame-ancestors, referrer policy, permissions policy. A full Content-Security-Policy is still to be added; when it is, every new third-party origin goes in it.
 - [ ] External links open with `rel="noopener noreferrer"`. No `http://` anywhere.
 - [ ] The cookie banner requires a published privacy policy. The pages exist on the `legal-pages` branch; merge them before adding any new tracking.
@@ -166,6 +180,8 @@ Analytics loads on every page through one tag, waits for cookie consent, and sen
 4. Merge to `staging`. The preview is `https://staging.waya-website.pages.dev/` (behind Cloudflare Access; `staging.wayaframes.com` does not currently serve). Click through every changed page on desktop and on a phone.
 5. On the preview confirm the hidden paths are hidden: `curl -sI https://staging.waya-website.pages.dev/docs/WEBSITE-CHECKLIST.md` must return a 301, not 200.
 6. Open a PR from `staging` to `main`. Merge. Within two minutes check the live page, one booking button, and `curl -sI https://www.wayaframes.com/this-does-not-exist/` returns 404.
+   - If `staging` holds someone else's work that is not ready to go live, do not merge `staging` into `main`. Make a branch off `main`, `git cherry-pick` only your commits onto it, and open that PR to `main`. Check with `git diff --stat origin/main origin/staging` afterwards: only their files should differ.
+   - Claude can run the live checks itself from a cloud session once `www.wayaframes.com` is in the environment's allowed network domains. The staging preview sits behind Cloudflare Access, so a person checks that one.
 
 ---
 

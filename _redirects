@@ -54,6 +54,7 @@
 /_data/*       /    301
 /.claude/*     /    301
 /.github/*     /    301
+/functions/*   /    301
 /.gitignore    /    301
 
 # Retired Solutions pages (renamed to Case Studies); the live legal pages linked here until Oct 2026
