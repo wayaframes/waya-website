@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lean AI: A3 Problem Solving Inside Your AI Assistant – Waya</title>
-<meta name="description" content="Lean AI is an MCP server that puts WayaFrames problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
+<title>Lean AI: Lean Problem Solving in Your AI Assistant – Waya</title>
+<meta name="description" content="Lean AI is an MCP server that puts Lean problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
 <link rel="canonical" href="https://www.wayaframes.com/lean-ai/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Waya">
-<meta property="og:title" content="Lean AI: A3 Problem Solving Inside Your AI Assistant – Waya">
-<meta property="og:description" content="Lean AI is an MCP server that puts WayaFrames problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
+<meta property="og:title" content="Lean AI: Lean Problem Solving in Your AI Assistant – Waya">
+<meta property="og:description" content="Lean AI is an MCP server that puts Lean problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
 <meta property="og:url" content="https://www.wayaframes.com/lean-ai/">
 <meta property="og:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sage mountain range under a pale sky, the Waya hero image">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lean AI: A3 Problem Solving Inside Your AI Assistant – Waya">
-<meta name="twitter:description" content="Lean AI is an MCP server that puts WayaFrames problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
+<meta name="twitter:title" content="Lean AI: Lean Problem Solving in Your AI Assistant – Waya">
+<meta name="twitter:description" content="Lean AI is an MCP server that puts Lean problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.">
 <meta name="twitter:image" content="https://www.wayaframes.com/assets/images/og/waya-og.jpg">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/styles.css?v=31">
@@ -31,8 +31,29 @@
   "name": "Lean AI",
   "url": "https://www.wayaframes.com/lean-ai/",
   "description": "An MCP server with WayaFrames for operators and leaders. Built on A3 thinking, with gap analysis, experiment design, and impact vs effort prioritization inside it.",
+  "subjectOf": { "@id": "https://www.wayaframes.com/lean-ai/#video" },
   "provider": {
     "@type": "Organization",
+    "name": "Waya",
+    "url": "https://www.wayaframes.com/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://www.wayaframes.com/lean-ai/#video",
+  "name": "Lean AI in two minutes",
+  "description": "What Lean AI is, then Lean AI and a standard LLM working on the same company problem: a customer support problem from Cheetah.",
+  "thumbnailUrl": "https://www.wayaframes.com/assets/video/lean-ai-video-poster.jpg",
+  "contentUrl": "https://www.wayaframes.com/assets/video/lean-ai-video.mp4",
+  "uploadDate": "2026-11-17T00:00:00+00:00",
+  "duration": "PT1M47S",
+  "inLanguage": "en-US",
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://www.wayaframes.com/#organization",
     "name": "Waya",
     "url": "https://www.wayaframes.com/"
   }
@@ -113,15 +134,18 @@
   border-radius: 8px; padding: 3px 10px;
 }
 
-/* Responsive 16:9 video embed */
+/* Self-hosted video: 16:9 by default; phones held upright get the 9:16 cut (the script under it adds .vertical-cut) */
 .video-wrap {
   margin: 44px auto 0; max-width: 900px;
   position: relative; aspect-ratio: 16 / 9;
   border-radius: 20px; overflow: hidden;
   border: 1px solid var(--border-1); box-shadow: var(--shadow-3);
-  background: var(--waya-charcoal);
+  background: var(--waya-paper);
 }
-.video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.video-wrap.vertical-cut { aspect-ratio: 9 / 16; max-width: 420px; }
+/* On short phones, keep the whole tall cut and its controls on screen (browsers without svh keep 420px) */
+.video-wrap.vertical-cut { max-width: min(420px, calc((100svh - 96px) * 9 / 16)); }
 
 /* ---------- How it works: Define / Diagnose / Fix infographic ---------- */
 .flow-case {
@@ -341,7 +365,7 @@
     <div class="hero-content">
       <p class="eyebrow">Built by operators, for operators</p>
       <h1>Lean AI</h1>
-      <p class="sub">A3 problem solving inside the AI assistant you already use. Describe the problem, and Lean AI works through the root causes and the fix with you.</p>
+      <p class="sub">Lean problem solving inside the AI you already use. Describe the problem, and Lean AI works through the root causes and the fix with you.</p>
       <div class="hero-cta">
         <a class="btn-rust" href="#early-access">Sign Up for Early Access</a>
       </div>
@@ -367,16 +391,27 @@
 <section id="watch">
   <div class="container">
     <p class="section-eyebrow">See it in action</p>
-    <h2 class="section-title">Watch a diagnosis run</h2>
-    <p class="section-lead">Lean AI diagnosing a problem and working through root causes and solutions with a user.</p>
+    <h2 class="section-title">Lean AI in two minutes</h2>
+    <p class="section-lead">See the power of Lean AI vs. a standard LLM when approaching the same company problem.</p>
     <div class="video-wrap">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/P5bsJ9lWhqQ?rel=0"
-        title="Lean AI diagnosing a problem with a user"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
+      <video controls playsinline preload="metadata" poster="/assets/video/lean-ai-video-poster.jpg" aria-label="Video: what Lean AI is, and the same support problem given to Claude alone and to Claude with Lean AI"
+        data-portrait-src="/assets/video/lean-ai-video-portrait.mp4" data-portrait-poster="/assets/video/lean-ai-video-portrait-poster.jpg">
+        <source src="/assets/video/lean-ai-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
+    <div class="section-cta">
+      <a class="btn-rust" href="#early-access">Sign Up for Early Access</a>
     </div>
   </div>
 </section>
@@ -502,9 +537,6 @@
     </div>
 
     <p class="entry-note">The figures are illustrative.</p>
-    <div class="section-cta">
-      <a class="btn-rust" href="#early-access">Sign Up for Early Access</a>
-    </div>
   </div>
 </section>
 
