@@ -99,6 +99,12 @@ check.
   Report each drift as a specific pair: "JSON-LD says X, page says Y."
 - [static] **schema.org correctness.** Right `@type`, required properties present,
   `@id`/`@graph` references resolve, absolute URLs, no invented properties.
+- [static] **VideoObject on video pages.** Every page with a `<video>` carries a
+  `VideoObject` with `name`, `description`, `thumbnailUrl` (landscape poster), `contentUrl`
+  (landscape MP4), `uploadDate` and `duration`. Check `duration` against
+  `ffprobe -v error -show_entries format=duration` of the file in `assets/video/` (107.0 s
+  is `PT1M47S`). The page's main entity links to it (`video` on a `Course`/article,
+  `subjectOf` on a `Service`).
 - [static] **LLM/crawler reachable.** JSON-LD is server-rendered in the HTML `<head>`
   (not injected by JS after load — crawlers and most LLM fetchers won't run it), the page
   returns 200, `robots.txt` allows it, and it's in the sitemap. Note: `llms.txt` is an
@@ -107,10 +113,11 @@ check.
 
 ## 6. PostHog analytics
 
-**Current state: not installed.** Only the design spec at
-`docs/superpowers/specs/2026-09-08-posthog-integration-design.md` exists. If still absent,
-the finding is "analytics not yet implemented — build Phase 1 per the spec" (P1, since the
-site is running blind on behaviour/conversion). If it HAS been added since, verify:
+**Current state: installed** through `assets/analytics.js` (one tag in every page's
+`<head>`; the dashboard is described in `docs/posthog-dashboard-setup.md`, the rules in
+`docs/WEBSITE-CHECKLIST.md` section 7). It also records `video_play`, `video_pause`,
+`video_progress` and `video_completed` on `<video>` elements; the portrait cut logs its own file name, so
+group both cuts' names when reading video numbers. Verify:
 
 - [static] **Snippet present on every page** (nav/footer are copied, so analytics will be
   too — confirm no page was missed).
@@ -134,6 +141,22 @@ site is running blind on behaviour/conversion). If it HAS been added since, veri
 - [static] **Accessibility beyond contrast.** Landmark elements (`<nav>`, `<main>`,
   `<footer>`), visible focus states, `aria-expanded`/`aria-current` on the nav dropdown,
   a skip-to-content link, buttons vs links used semantically.
+- [static/browser] **Self-hosted video.** For every page with a `<video>`:
+  - Range requests work. Cloudflare Pages answers a `Range` request for a static file with
+    `200` and the whole file, which stops visitors skipping ahead and can stop Safari playing
+    MP4. `functions/assets/video/[[path]].js` fixes this; confirm it exists and works:
+    `curl -sI -H 'Range: bytes=0-1' https://www.wayaframes.com/assets/video/<file>.mp4` must
+    return `206` with `Content-Range: bytes 0-1/<size>` (from a cloud session this needs
+    `www.wayaframes.com` in the environment's allowed domains). A `200` here is P1.
+  - [browser] Play the video muted, set `currentTime` to the middle, and confirm it lands
+    there (`video.seekable` should span the whole duration).
+  - [browser] At 390x844 portrait, the portrait cut and portrait poster load and the
+    wrapper has `.vertical-cut`; at desktop width the landscape ones do; the tall box fits
+    the screen on a short phone (375x667).
+  - [static] Files in `assets/video/` are under 25 MB (the Pages limit), MP4s have their
+    index at the front (faststart), posters are 1280x720 and 720x1280 JPGs.
+  - [static] Captions: note when a video has no `<track kind="captions">` (WCAG 2.1 1.2.2);
+    whether to add them is the owner's call.
 - [static/browser] **404 page** exists and is styled (Cloudflare Pages serves `404.html`).
 - [static] **Favicon** present (`/assets/favicon.png` — confirm it loads).
 - [static] **Consent/cookie banner** present if/when analytics ships (ties to area 7).

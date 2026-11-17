@@ -290,3 +290,20 @@ Every CTA's `utm_button` must name its placement (`nav`, `hero`, `challenge`,
 drive bookings (tag correctness is checked in 3.2 — here confirm the placement value
 is meaningful and distinct per location, not `hero` on every button). Without this you
 can't tell an underperforming placement from a well-placed one.
+
+**8.13 — Video sections convert and match the page**
+For every page with a `<video>`:
+- A real button sits right under the video (`utm_button=video`). Videos end on a close
+  card with buttons, but those are part of the picture: clicking them restarts the video.
+  A viewer who watches to the end and finds no button nearby is the most convinced
+  visitor with nowhere to go. Flag a video with no button under it.
+- The button is the page's own offer. The same video can run on several pages (the Lean AI
+  video is on `/lean-ai/` and `/lean-ai/cohort/`); its close card names one offer, so the
+  button under it must name the page's offer ("Apply for the Program" on a program page,
+  not "Sign Up for Early Access"). Flag a mismatch, and note when a page would be better
+  served by its own cut.
+- The section's heading and lead describe what the video actually shows. When a video is
+  replaced, the copy around it often still describes the old one. Watch the video (or read
+  its script) before passing this.
+- The added button still respects 7.5 (four instances of one CTA at most); if it pushes
+  the page over, recommend removing the weakest existing one.
