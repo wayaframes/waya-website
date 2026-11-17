@@ -12,6 +12,10 @@ https://drive.google.com/drive/folders/1kTjHIVVmk2X1aG3_1A_YBGddvHVNTYZ9 (team a
 | `warehouse-quality` | `warehouse-quality-video*` | Drive: [`quality-check-video`](https://drive.google.com/drive/folders/1G-jI-vT9-bYULo0RVoypugzt4bAQYO5s) |
 | `post-acquisition-turnaround` | `post-acquisition-turnaround-video-skill*` | This repo: `docs/post-acquisition-turnaround-video/` |
 | `ap-automation-margin` | `restaurant-ap-margin*` | Not recorded here |
+| `lean-ai` (the `/lean-ai/` product page, not a case study) | `lean-ai-video*` | Private repo: [`lean-ai/` in `wayaframes/waya-videos`](https://github.com/wayaframes/waya-videos/tree/main/lean-ai) |
+
+Newer videos live in the private video repo `wayaframes/waya-videos`, one folder per page, instead of Drive. The
+folder's `README.md` says which cut is final and lists every final's size and md5.
 
 Each Drive folder has a `README.md`; start there, because it says which cut is final. Each folder also holds the
 brief, facts, script, art direction, Vince's instructions, the raw recording, every draft cut, and the files to
