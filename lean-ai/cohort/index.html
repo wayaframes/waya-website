@@ -347,15 +347,17 @@
   .module-stack .module-row:last-child { padding-bottom: 40px; }
   #curriculum { padding-bottom: 32px; }
   #watch { padding-top: 48px; background: var(--waya-paper); }
-  /* ---------- Video (responsive 16:9 embed, same as the Lean AI page) ---------- */
+  /* ---------- Video (self-hosted, same as the Lean AI page): 16:9 by default; phones held upright
+     get the 9:16 cut (the script under it adds .vertical-cut) ---------- */
   .video-wrap {
     margin: 44px auto 0; max-width: 900px;
     position: relative; aspect-ratio: 16 / 9;
     border-radius: 20px; overflow: hidden;
     border: 1px solid var(--border-1); box-shadow: var(--shadow-3);
-    background: var(--waya-charcoal);
+    background: var(--waya-paper);
   }
-  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .video-wrap.vertical-cut { aspect-ratio: 9 / 16; max-width: 420px; }
 </style>
 <script type="application/ld+json">
 {
@@ -438,6 +440,25 @@
     "@type": "CourseInstance",
     "courseMode": "online",
     "courseWorkload": "8 weeks"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://www.wayaframes.com/lean-ai/cohort/#video",
+  "name": "Lean AI in two minutes",
+  "description": "What Lean AI is, then Lean AI and a standard LLM working on the same company problem: a customer support problem from Cheetah.",
+  "thumbnailUrl": "https://www.wayaframes.com/assets/video/lean-ai-video-poster.jpg",
+  "contentUrl": "https://www.wayaframes.com/assets/video/lean-ai-video.mp4",
+  "uploadDate": "2026-11-17T00:00:00+00:00",
+  "duration": "PT1M47S",
+  "inLanguage": "en-US",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Waya",
+    "url": "https://www.wayaframes.com/"
   }
 }
 </script>
@@ -608,14 +629,22 @@
     <h2 class="section-title">See our methods in action</h2>
     <p class="section-lead">WayaFrames are far more specialized than general purpose AI and less prone to hallucinations.</p>
     <div class="video-wrap">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/P5bsJ9lWhqQ?rel=0"
-        title="Lean AI working through a problem with a user"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
+      <video controls playsinline preload="metadata" poster="/assets/video/lean-ai-video-poster.jpg" aria-label="Video: what Lean AI is, and the same support problem given to Claude alone and to Claude with Lean AI"
+        data-portrait-src="/assets/video/lean-ai-video-portrait.mp4" data-portrait-poster="/assets/video/lean-ai-video-portrait-poster.jpg">
+        <source src="/assets/video/lean-ai-video.mp4" type="video/mp4">
+      </video>
     </div>
+    <script>
+    /* Phones held upright get the 1080x1920 cut; everything else keeps the landscape one. */
+    (function () {
+      var v = document.currentScript.parentNode.querySelector('video');
+      if (!window.matchMedia('(orientation: portrait) and (max-width: 700px)').matches) return;
+      v.poster = v.dataset.portraitPoster;
+      v.querySelector('source').src = v.dataset.portraitSrc;
+      v.parentNode.classList.add('vertical-cut');
+      v.load();
+    })();
+    </script>
   </div>
 </section>
 
