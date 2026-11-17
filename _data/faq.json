@@ -587,5 +587,37 @@
         "We currently run the Experiments Platform only inside 12 Weeks to PMF, where it powers weeks 4–12. Seats are limited to 5–7 founders per cohort."
       ]
     }
+  ],
+  "methods-a3-thinking": [
+    {
+      "q": "Why is it called A3?",
+      "a": [
+        "A3 is a paper size, 297 by 420 mm, close to 11 by 17 inches. Toyota used a single sheet of it to report on a problem. The limit is the point: if the problem, the analysis, and the plan do not fit on one sheet, the thinking is not finished."
+      ]
+    },
+    {
+      "q": "What is the difference between an A3 report and A3 thinking?",
+      "a": [
+        "The A3 report is the one-page document. A3 thinking is the reasoning that produces it: measure the current state, set a target, find the root cause, and test a fix. A completed form with no evidence behind it is an A3 report without A3 thinking."
+      ]
+    },
+    {
+      "q": "How long does an A3 take?",
+      "a": [
+        "It depends on the problem. A clear problem with an identifiable cause takes 15 to 30 minutes. A problem that needs investigation and root cause analysis takes one to four hours. A problem that crosses several teams can run for weeks, with the A3 updated as results come in."
+      ]
+    },
+    {
+      "q": "Is A3 thinking only for manufacturing?",
+      "a": [
+        "No. It works on any problem with a measurable gap. Waya has used it on gross margin, working capital, support response time, and patient wait times in software, food distribution, and a hospital."
+      ]
+    },
+    {
+      "q": "Can an AI assistant run an A3?",
+      "a": [
+        "An AI assistant can facilitate one. It asks the questions in order, pushes back on solutions offered before a cause is found, and writes up the result. It cannot supply your numbers or observe your process. Lean AI, Waya's MCP server, runs A3 thinking this way inside Claude."
+      ]
+    }
   ]
 }

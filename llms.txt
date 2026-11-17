@@ -23,6 +23,7 @@
   - [Replacing a Sole Supplier in 14 Months](https://www.wayaframes.com/case-studies/sole-supplier/): How a food distributor replaced its only supplier in 14 months, building owned warehouses and direct sourcing while revenue grew from $75M to $155M.
   - [Support Response, 22 Hours to 6 Minutes](https://www.wayaframes.com/case-studies/customer-support/): How a food distributor cut its first support response from 22 hours to 6 minutes with structured intake, automatic routing, and self-service.
   - [Cutting a 5-Month Patient Wait to 2](https://www.wayaframes.com/case-studies/hospital-patient-wait/): How a regional hospital GI suite cut the wait for a procedure from 5 months to 2 with faster room turnover and better pre-op readiness.
+- [A3 Thinking: What It Is and How to Run One](https://www.wayaframes.com/methods/a3-thinking/): A3 thinking is a seven-step problem-solving method from Toyota. What it is, the steps, a worked example with real numbers, and how a small company runs one.
 - [Lean AI](https://www.wayaframes.com/lean-ai/): Lean AI is an MCP server that puts Lean problem solving inside your AI assistant: define the gap, find the root causes, and test a fix with A3 thinking.
 - [Set Up Lean AI](https://www.wayaframes.com/lean-ai/setup/): Install the Waya MCP in Claude in about five minutes. Choose your variant, Claude plan, and environment, then connect the WayaFrames to your AI assistant.
 - [Product Market Fit Program](https://www.wayaframes.com/experiment-platform/cohort/): The Product Market Fit Program: 12 weeks to find product-market fit, turning your expertise into a company with real traction, with experiments running weekly.
@@ -362,3 +363,26 @@ A: That is the second most common stall, and it is exactly where plans start rea
 **Q: Do we need special software to run this?**
 
 A: No. The session runs with pen, paper, or a whiteboard. You plug the output into whatever system your team already uses on Monday morning.
+
+### A3 Thinking: What It Is and How to Run One
+Source: https://www.wayaframes.com/methods/a3-thinking/
+
+**Q: Why is it called A3?**
+
+A: A3 is a paper size, 297 by 420 mm, close to 11 by 17 inches. Toyota used a single sheet of it to report on a problem. The limit is the point: if the problem, the analysis, and the plan do not fit on one sheet, the thinking is not finished.
+
+**Q: What is the difference between an A3 report and A3 thinking?**
+
+A: The A3 report is the one-page document. A3 thinking is the reasoning that produces it: measure the current state, set a target, find the root cause, and test a fix. A completed form with no evidence behind it is an A3 report without A3 thinking.
+
+**Q: How long does an A3 take?**
+
+A: It depends on the problem. A clear problem with an identifiable cause takes 15 to 30 minutes. A problem that needs investigation and root cause analysis takes one to four hours. A problem that crosses several teams can run for weeks, with the A3 updated as results come in.
+
+**Q: Is A3 thinking only for manufacturing?**
+
+A: No. It works on any problem with a measurable gap. Waya has used it on gross margin, working capital, support response time, and patient wait times in software, food distribution, and a hospital.
+
+**Q: Can an AI assistant run an A3?**
+
+A: An AI assistant can facilitate one. It asks the questions in order, pushes back on solutions offered before a cause is found, and writes up the result. It cannot supply your numbers or observe your process. Lean AI, Waya's MCP server, runs A3 thinking this way inside Claude.
