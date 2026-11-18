@@ -261,11 +261,12 @@
   .hx .sub .ln { display: block; }
   .hx .founder-avatars { margin-top: 18px; }
   .hx .hero-badges { margin-top: 8px; font-size: 14px; }
-  .hx-b .hx-photo { margin-top: 18px; }
-  .hx-b .hx-photo { max-width: 920px; margin-left: auto; margin-right: auto; border-radius: 16px; overflow: hidden; }
+  /* Full photo, uncropped, below the buttons so the buttons stay above the fold */
+  .hx-b .hx-photo { border-radius: 16px; overflow: hidden; }
   .hx-b .hx-photo::before, .hx-b .hx-photo::after { display: none; }
-  .hx-photo img { height: clamp(120px, 21vh, 240px); object-fit: cover; object-position: center 24%; }
-  .hx-b-bottom { padding: 20px 24px 28px; }
+  .hx-photo img { width: 100%; height: auto; }
+  .hx-b .hx-photo { max-width: 920px; margin: 28px auto 36px; }
+  .hx-b-bottom { padding: 22px 24px 0; }
   /* Expertise */
   .who-label { font-size: 26px; letter-spacing: -0.015em; text-transform: none; color: var(--waya-charcoal); text-wrap: balance; }
   .who-card h3 { font-size: 21px; }
@@ -284,8 +285,9 @@
     .hx-b-top { padding: 20px 20px 0; }
     .hx h1 { font-size: min(34px, calc((100vw - 40px) / 9.2)); }
     .hx .sub { font-size: 16px; }
-    .hx-b .hx-photo { margin-left: 20px; margin-right: 20px; }
-    .hx-photo img { height: 120px; object-position: center 22%; }
+    .hx-b-bottom { padding: 18px 20px 0; }
+    .hx-b .hx-photo { margin: 22px 20px 28px; }
+    .hx-photo img { width: 100%; height: auto; }
     .who-label { font-size: 22px; }
     .have li { font-size: 16px; padding: 14px 16px; }
     .why { padding: 48px 24px 40px; }
@@ -371,13 +373,13 @@
     <p class="hero-badges">Trusted by founders from Y Combinator, StartX, and Alchemist</p>
     
   </div>
-  <figure class="hx-photo"><img src="/assets/images/hero/parent-founder-before-after.webp" width="2000" height="1116" alt="Left: a woman at an office desk late in the evening, looking tired, with a framed family photo beside her laptop. Right: the same woman at home, smiling at her laptop while her child draws beside her and a partner works behind them." fetchpriority="high"></figure>
   <div class="hx-b-bottom">
     <div class="hx-cta">
       <a class="btn-rust" href="/experiment-platform/apply/?utm_button=hero">Apply for this program</a>
       <a class="btn-ghost" href="#loop">See how it works</a>
     </div>
   </div>
+  <figure class="hx-photo"><img src="/assets/images/hero/parent-founder-before-after.webp" width="2000" height="1116" alt="Left: a woman at an office desk late in the evening, looking tired, with a framed family photo beside her laptop. Right: the same woman at home, smiling at her laptop while her child draws beside her and a partner works behind them." fetchpriority="high"></figure>
 </section>
 
 <!-- =============== YOU: THE PROFESSIONAL =============== -->
