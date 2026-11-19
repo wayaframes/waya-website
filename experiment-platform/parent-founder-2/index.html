@@ -272,13 +272,15 @@
   .who-card h3 { font-size: 21px; }
   .who-card .then { font-size: 16px; }
   /* Why + have: own sections */
-  .why { padding: 64px 32px 56px; }
-  .why .prog-why { margin-top: 0; }
+  .why-wrap { padding: 56px 32px; }
+  .why-wrap .quote-block { padding: 72px 48px; }
+  .why-big { font-family: var(--font-display); font-weight: 600; font-size: 38px; line-height: 1.25; letter-spacing: -0.02em; color: var(--waya-cream); max-width: 900px; margin: 0 auto; text-wrap: balance; }
+  .why-sub { margin: 18px auto 0; max-width: 640px; font-size: 19px; line-height: 1.45; color: rgba(250,247,241,0.85); text-wrap: balance; }
+  .gate-card { background: var(--waya-mustard); }
   #have { padding-top: 64px; padding-bottom: 72px; }
   .have { list-style: none; margin: 32px auto 0; padding: 0; max-width: 780px; display: flex; flex-direction: column; gap: 12px; counter-reset: h; }
   .have li { display: flex; align-items: center; gap: 18px; padding: 18px 22px; border-radius: 16px; background: var(--waya-cream); border: 1px solid var(--border-1); font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.35; color: var(--waya-charcoal); }
   .have li::before { content: '\2713'; flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--waya-sage); color: var(--waya-cream); font-size: 18px; line-height: 36px; text-align: center; }
-  .have li.have-stack { background: var(--waya-mint); border-color: transparent; }
   #coaches { padding-top: 72px; padding-bottom: 72px; }
   #coaches .section-title { max-width: 900px; margin-left: auto; margin-right: auto; text-wrap: balance; }
   @media (max-width: 640px) {
@@ -290,7 +292,10 @@
     .hx-photo img { width: 100%; height: auto; }
     .who-label { font-size: 22px; }
     .have li { font-size: 16px; padding: 14px 16px; }
-    .why { padding: 48px 24px 40px; }
+    .why-wrap { padding: 40px 20px; }
+    .why-wrap .quote-block { padding: 48px 24px; border-radius: 24px; }
+    .why-big { font-size: 26px; }
+    .why-sub { font-size: 16px; }
   }
 </style>
 </head>
@@ -304,29 +309,6 @@
     <nav class="nav-links" aria-label="Main">
       <a href="/">Home</a>
       <a href="/about-us/">About Us</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-          Methodology
-          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="/methods/a3-thinking/">A3 Thinking</a>
-          <a href="/methods/root-cause-analysis/">Root Cause Analysis</a>
-          <a href="/methods/gap-analysis/">Gap Analysis</a>
-          <a href="/methods/fishbone-diagram/">Fishbone Diagram</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-          Services
-          <svg class="nav-caret" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l5 5 5-5"/></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="/scale-up-program/">Scale Up Program</a>
-          <a href="/experiment-platform/cohort/">12 Weeks to PMF</a>
-          <a href="/lean-ai/cohort/">4 Weeks to Higher Margins</a>
-        </div>
-      </div>
       <a class="btn-rust" href="https://api.leadconnectorhq.com/widget/bookings/waya-consultation?utm_button=nav">Schedule a Call</a>
     </nav>
   </div>
@@ -354,6 +336,7 @@
   <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.8.8 1 1.6 1 2.5h6c0-.9.2-1.7 1-2.5A6 6 0 0012 3z"/></symbol>
   <symbol id="i-family" viewBox="0 0 24 24"><circle cx="8" cy="6.5" r="2.5"/><circle cx="16.5" cy="6.5" r="2.5"/><path d="M3 20v-4.5a5 5 0 0110 0V20M13.5 20v-3.5a4 4 0 017 0V20"/><circle cx="12.2" cy="13.2" r="1.8"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7M6 10v10h12V10M10 20v-5h4v5"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M8 5H6a1 1 0 00-1 1v14a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1h-2"/><path d="M9 3h6v4H9zM8.5 13l2.5 2.5 4.5-5"/></symbol>
   <symbol id="i-stop" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></symbol>
 </svg>
 
@@ -388,9 +371,9 @@
     <div class="hook">
       <p class="section-eyebrow">Your expertise</p>
       <h2 class="section-title">You have real expertise and a life you want to be present for.</h2>
-      <p class="you-sub">The expertise is the hardest part of a company to build, and you already have it. We help you build a company that fits around both.</p>
+      <p class="you-sub">Build a company that fits around both. The expertise is the hardest part, and you already have it.</p>
     </div>
-    <p class="who-label">Where are you starting from with your expertise?</p>
+    <p class="who-label">Where are you starting from?</p>
     <div class="who">
       <div class="who-card">
         <svg class="ico"><use href="#i-family"/></svg>
@@ -433,29 +416,30 @@
         <li><i><svg class="ico"><use href="#i-target"/></svg></i><span><em>01</em>Find the customer problem you are uniquely positioned to solve</span></li>
         <li><i><svg class="ico"><use href="#i-scale"/></svg></i><span><em>02</em>Test your riskiest assumptions before you build</span></li>
         <li><i><svg class="ico"><use href="#i-trend"/></svg></i><span><em>03</em>Gather real evidence of demand</span></li>
-        <li><i><svg class="ico"><use href="#i-family"/></svg></i><span><em>04</em>Design it to fit your work life needs. We structure the work so you can be with your family while Waya builds campaigns and tracks results.</span></li>
+        <li><i><svg class="ico"><use href="#i-family"/></svg></i><span><em>04</em>Designed around your work-life needs. We structure the work so you can be with your family while Waya builds campaigns and tracks results.</span></li>
       </ol>
     </div>
     </div>
 </section>
 
 <!-- =============== WHY (own section) =============== -->
-<section id="why" class="why">
-  <div class="container">
-    <p class="prog-why"><b>Building got cheap. Knowing what to build did not.</b> We help you put your time and money into something customers are willing to pay for.</p>
-  </div>
-</section>
+<div class="quote-block-wrap why-wrap">
+  <section id="why" class="quote-block" aria-label="Why this program">
+    <p class="why-big">Building got cheap. Knowing what to build did not.</p>
+    <p class="why-sub">We help you put your time and money into something customers are willing to pay for.</p>
+  </section>
+</div>
 
 <!-- =============== IN 12 WEEKS YOU WILL HAVE (own section) =============== -->
 <section id="have" class="bg-paper">
   <div class="container">
     <p class="section-eyebrow">In 12 weeks you will have</p>
     <ul class="have">
-      <li>Real signal from strangers, not just friends, on whether they would pay</li>
+      <li>Real signal from strangers, not just friends and family</li>
       <li>A tested price and a model built for stable income</li>
       <li>A clear read on the customer and channel that work best for you</li>
       <li>A confident next move: go, pivot or stop</li>
-      <li class="have-stack">A full tech stack: website, marketing tools, CRM, financial model and an investor-ready data room</li>
+      <li>A full tech stack: website, marketing tools, CRM, financial model and an investor-ready data room</li>
     </ul>
     <div class="section-cta"><a class="btn-rust" href="/experiment-platform/apply/?utm_button=challenge">Apply for the Program</a></div>
   </div>
@@ -494,16 +478,16 @@
       <ul class="pre-out">
         <li><svg class="ico"><use href="#i-compass"/></svg><b>Founder-product fit</b><span>The right person for this idea</span></li>
         <li><svg class="ico"><use href="#i-coin"/></svg><b>Business case</b><span>Why it should exist and how it makes money</span></li>
-        <li><svg class="ico"><use href="#i-scale"/></svg><b>Product assumptions</b><span>The bets that need proof</span></li>
+        <li><svg class="ico"><use href="#i-clipboard"/></svg><b>Product and marketing assumptions</b><span>The bets that need proof</span></li>
       </ul>
     </div>
     <div class="feed" aria-hidden="true"><span>Assumptions go in</span></div>
     <div class="platform">
       <div class="platform-tag">Experiments Platform</div>
       <ol class="layers">
-      <li style="--i:0"><span class="n">1</span><h3>Define</h3><p>Waya ranks your product assumptions by risk and reward and sets a pass or fail line for each.</p></li>
+      <li style="--i:0"><span class="n">1</span><h3>Define</h3><p>Waya ranks your assumptions by risk/reward and sets a pass or fail line for each.</p></li>
       <li style="--i:1"><span class="n">2</span><h3>Build</h3><p>Waya creates marketing campaigns to test your assumptions with real customers.</p></li>
-      <li style="--i:2"><span class="n">3</span><h3>Track</h3><p>Waya captures customer conversations and interactions and generates measurable insights.</p></li>
+      <li style="--i:2"><span class="n">3</span><h3>Track</h3><p>Waya captures customer engagements and generates measurable insights.</p></li>
       <li style="--i:3"><span class="n">4</span><h3>Analyze</h3><p>Waya helps you accept or reject your assumptions, then run the next round of iterations.</p></li>
     </ol>
     <div class="loop-back" aria-hidden="true">
@@ -531,7 +515,7 @@
 <section id="format" class="bg-paper">
   <div class="container">
     <p class="section-eyebrow">How it runs</p>
-    <h2 class="section-title">A clear weekly rhythm with hands-on coaching and accountability, in a group of founders.</h2>
+    <h2 class="section-title">A clear weekly rhythm with hands-on coaching and accountability with a group of founders.</h2>
     <p class="section-lead">A small cohort of 5–7 founders, a weekly private hour, and a system that keeps the experiments honest.</p>
     <div class="facts">
       <div class="fact"><svg class="ico"><use href="#i-people"/></svg>1 group session a week</div>
